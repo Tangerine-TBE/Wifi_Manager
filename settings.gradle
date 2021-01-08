@@ -1,2 +1,3 @@
+include ':module_base'
 include ':app'
 rootProject.name = "Wifi_Manager"

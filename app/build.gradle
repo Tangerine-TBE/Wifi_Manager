@@ -1,20 +1,26 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion rootProject.ext.versions.compileSdkVersion
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "com.example.wifi_manager"
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
+        applicationId rootProject.ext.versions.applicationId
+        minSdkVersion rootProject.ext.versions.minSdkVersion
+        targetSdkVersion rootProject.ext.versions.targetSdkVersion
+        versionCode rootProject.ext.versions.versionCode
+        versionName rootProject.ext.versions.versionName
+        flavorDimensions "versionCode"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    dataBinding{
+        enabled = true
     }
 
     buildTypes {
@@ -27,19 +33,153 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+
+    signingConfigs {
+        release {
+            storeFile file("cn.yuntk.reader.jks")
+            storePassword "ltreader888"
+            keyAlias "reader"
+            keyPassword "ltreader888"
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+
+        debug {
+            storeFile file("cn.yuntk.reader.jks")
+            storePassword "ltreader888"
+            keyAlias "reader"
+            keyPassword "ltreader888"
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    //    只在打包提测时改apk文件名，开发时记得注释掉
+   /* applicationVariants.all { variant ->
+        variant.getPackageApplication().outputDirectory = new File("F:/WIFI管家")
+        variant.outputs.all {
+            outputFileName = "${variant.productFlavors[0].manifestPlaceholders.get("app_name_channel")}" +
+                    "_${variant.productFlavors[0].name}" +
+                    "_${variant.versionName}.apk"
+        }
+    }*/
+
+    productFlavors {
+        _anzhi {
+            manifestPlaceholders = [
+                    app_name_channel: rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_anzhi"]
+        }
+        _lenovo {
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_lenovo"]
+        }
+        _oppo {
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_oppo"]
+        }
+        _vivo {
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_vivo"]
+        }
+        _360 {
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_360"]
+        }
+        _xiaomi {
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_xiaomi"]
+        }
+        _yingyongbao {
+
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_yingyongbao"]
+        }
+        _baidu {
+
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_baidu"]
+        }
+        _huawei {
+
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_huawei"]
+        }
+        _meizu {
+
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_meizu"]
+        }
+        _alibaba {
+
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_alibaba"]
+        }
+        _google {
+
+
+            manifestPlaceholders = [
+                    app_name_channel:  rootProject.ext.versions.applicationName,
+                    CHANNEL_VALUE:"_google"]
+        }
+    }
+
+
 }
 
 dependencies {
-
+    def nav_version = "2.3.2"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation project(path: ':module_base')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    // Jetpack Compose Integration
+    implementation "androidx.navigation:navigation-compose:1.0.0-alpha04"
+
+
 }

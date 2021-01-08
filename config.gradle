@@ -1,0 +1,128 @@
+/**
+ *  全局统一配置文件
+ */
+ext {
+    //true 每个业务Module可以单独开发
+    //false 每个业务Module以lib的方式运行
+    //修改之后需要Sync方可生效
+    isModule = false
+    //版本号
+    versions = [
+
+            applicationId    : "com.example.wifi_manager",   //应用ID
+            applicationName  : "WIFI管家",                  //应用名称
+            versionCode      : 10000,                    //版本号
+            versionName      : "1.0",              //版本名称
+            compileSdkVersion: 30,
+            minSdkVersion    : 21,
+            targetSdkVersion : 30,
+
+    ]
+    //依赖
+    dependencies = [
+
+            //方法数超过65535解决方法64K MultiDex分包方法
+            "multidex"                  : "com.android.support:multidex:1.0.2",
+            //路由
+            "arouter_api"               : "com.alibaba:arouter-api:1.5.1",
+            "arouter_compiler"          : "com.alibaba:arouter-compiler:1.5.1",
+            "arouter_annotation"        : "com.alibaba:arouter-annotation:1.0.6",
+            //事件订阅
+            "eventbus"                  : "org.greenrobot:eventbus:3.2.0",
+            //retrofit
+            "retrofit"                  : "com.squareup.retrofit2:retrofit:2.9.0",
+            "retrofitConverter"         : "com.squareup.retrofit2:converter-gson:2.9.0",
+            "retrofitAdapter"           : "com.squareup.retrofit2:adapter-rxjava2:2.9.0",
+            "retrofitLog"               : "com.squareup.okhttp3:logging-interceptor:3.4.1",
+            "retrofitScalars"           : 'com.squareup.retrofit2:converter-scalars:2.3.0',
+
+            //rxlifecycle
+            "rxlifecycle"               : "com.trello.rxlifecycle2:rxlifecycle:4.0.0",
+            "rxlifecycleComponents"     : "com.trello.rxlifecycle2:rxlifecycle-components:4.0.0",
+
+            //Gson
+            "Gson"                      : "com.google.code.gson:gson:2.8.6",
+
+            //图片加载
+            "glide"                     : "com.github.bumptech.glide:glide:4.11.0",
+
+            //BaseRecyclerView
+            "BaseRecyclerView"          : "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",
+
+
+            //下拉刷新上拉加载
+            "smartRefresh"              : "com.scwang.smart:refresh-layout-kernel:2.0.3",
+            "smartRefreshHeaderClassics": "com.scwang.smart:refresh-header-classics:2.0.3",
+            "smartRefreshHeaderMaterial": "com.scwang.smart:refresh-header-material:2.0.3",
+
+            //fastjson
+            "fastjson"                  : 'com.alibaba:fastjson:1.1.72.android',
+
+            //RxTool
+            "RxTool"                    : 'com.github.tamsiree.RxTool:RxKit:2.6.2',
+
+            //底部导航
+            "JPTabBar"                  : 'com.jpeng:JPTabBar:1.4.0',
+
+            //运行时权限申请
+            "permissionx"               : 'com.permissionx.guolindev:permissionx:1.4.0',
+
+            //SCardView
+            "SCardView"                 : 'io.github.meetsl:SCardView:1.2',
+
+            //materialedittext
+            "materialedittext"          : 'com.rengwuxian.materialedittext:library:2.1.4',
+
+            //PickerView
+            "PickerView"                : 'com.contrarywind:Android-PickerView:4.1.9',
+
+            //coroutines
+            "Coroutines"                : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1',
+
+            //数据库
+            "litepal"                   : 'org.litepal.guolindev:core:3.2.2',
+
+            //侧滑删除
+            "yanzhenjie"                : 'com.yanzhenjie.recyclerview:x:1.3.2',
+
+            //RxToolUi
+            "RxToolUi"                  : "com.github.tamsiree.RxTool:RxUI:2.6.2",
+
+            //微信
+            "wechat"                    : 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+',
+
+            //agentweb
+            "agentweb"                  : 'com.just.agentweb:agentweb:4.1.4',
+
+            //字体加载
+            "calligraphy"               : 'uk.co.chrisjenx:calligraphy:2.1.0',
+
+            //高德
+            "location":                'com.amap.api:location:latest.integration',
+
+            //沉浸式状态栏
+            "immersionbar"         : "com.gyf.immersionbar:immersionbar:2.3.2-beta05",
+
+            //recyclerview
+            "recyclerview"         :'androidx.recyclerview:recyclerview:1.0.0',
+
+            //constraint
+            "constraint":   'com.android.support.constraint:constraint-layout:1.1.3',
+            //rxjava2
+            "rxjava2":  'io.reactivex.rxjava2:rxandroid:2.1.1',
+            // 友盟统计SDK
+            "umeng_common":  'com.umeng.umsdk:common:9.1.0',// (必选)
+            "umeng_asms": 'com.umeng.umsdk:asms:1.1.3',// asms包依赖(必选)
+            "umeng_crash": 'com.umeng.umsdk:crash:0.0.4',// native crash包依赖(必选)
+
+            //jetPack
+            //viewmodel
+            "viewmodel":  'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-beta01',
+            //livedata
+            "livedata":  'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-beta01',
+            //runtime
+            "runtime":  'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-beta01'
+
+    ]
+
+}

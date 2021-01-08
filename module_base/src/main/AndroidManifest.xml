@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_base">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+
+        <application
+
+            >
+            <activity  android:name=".activity.DealActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
+            <meta-data
+                android:name="CHANNEL"
+                android:value="${CHANNEL_VALUE}" />
+            <meta-data
+                android:name="APP_NAME"
+                android:value="${app_name_channel}" />
+
+
+        </application>
+
+
+</manifest>

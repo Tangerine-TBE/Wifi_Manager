@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.NetworkInfo
 import android.net.wifi.WifiManager.*
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,9 +16,13 @@ import com.example.wifi_manager.adapter.HomeTopAdapter
 import com.example.wifi_manager.adapter.HomeWifiAdapter
 import com.example.wifi_manager.databinding.FragmentHomeBinding
 import com.example.wifi_manager.utils.DataProvider
+import com.example.wifi_manager.utils.WifiContentState
 import com.example.wifi_manager.utils.WifiState
 import com.example.wifi_manager.viewmodel.HomeViewModel
+import com.scwang.smart.refresh.header.MaterialHeader
+import com.tamsiree.rxkit.view.RxToast
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.layout_state_home_open_wifi.*
 
 
 /**
@@ -43,20 +46,8 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun initView() {
-        mBinding.data=viewModel
-        mBinding.lifecycleOwner=this
-        MarginStatusBarUtil.setStatusBar(activity,mHomeTopContainer,2)
-        mHomeTopContainer.layoutManager =
-            LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-        mHomeTopAdapter.setList(DataProvider.homeTopList)
-        mHomeTopContainer.adapter = mHomeTopAdapter
-
-
-        mHomeWifiContainer.layoutManager = LinearLayoutManager(activity)
-        mHomeWifiContainer.adapter=mWifiListAdapter
-
-
-
+        binding.homeData=viewModel
+        showOpenView()
         val intentFilter = IntentFilter().apply {
             addAction(NETWORK_STATE_CHANGED_ACTION)
             addAction(WIFI_STATE_CHANGED_ACTION)
@@ -64,29 +55,67 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
         }
         activity?.registerReceiver(mNetReceiver,intentFilter)
 
-
     }
 
 
     override fun observerData() {
-        viewModel.wifiState.observe(this, Observer {state->
+        viewModel.apply {
+            val that = this@HomeFragment
+            wifiState.observe(that, Observer { state ->
+                when (state) {
+                    WifiState.ENABLED, WifiState.ENABLING -> {
+                        goneView(mCloseWifiLayout)
+                        showView(mOpenWifiLayout)
+                    }
+                    WifiState.DISABLED, WifiState.UNKNOWN -> {
+                        goneView(mOpenWifiLayout)
+                        showView(mCloseWifiLayout)
+                    }
+                }
+            })
+            wifiContent.observe(that, Observer { result ->
+                LogUtils.i("---wifiContent---------${result.size}-----------")
+                mWifiListAdapter.setList(result)
+                result.forEach {
+                    LogUtils.i("---wifiContent---------${it}-----------")
+                }
+            })
 
-        })
-        viewModel.wifiContent.observe(this, Observer { result ->
-            LogUtils.i("---wifiContent---------${result.size}-----------")
-            mWifiListAdapter.setList(result)
-            result.forEach {
-                LogUtils.i("---wifiContent---------${it}-----------")
-            }
-        })
+            wifiContentEvent.observe(that, Observer { event->
+                when(event.state){
+                    WifiContentState.REFRESH->{
+                        mSmartRefreshLayout.finishRefresh()
+                        RxToast.normal("发现了${event.refreshSize}个wifi")
+                    }
+                }
+            })
+        }
+    }
 
+    private fun showOpenView() {
+        MarginStatusBarUtil.setStatusBar(activity, mHomeTopContainer, 1)
+        //顶部功能
+        mHomeTopContainer.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+        mHomeTopAdapter.setList(DataProvider.homeTopList)
+        mHomeTopContainer.adapter = mHomeTopAdapter
+        //wifi列表
+        mHomeWifiContainer.layoutManager = LinearLayoutManager(activity)
+        mHomeWifiContainer.adapter = mWifiListAdapter
+        //下拉刷新头
+        mSmartRefreshLayout.setRefreshHeader(MaterialHeader(activity))
     }
 
     override fun initEvent() {
+        //下拉刷新
+        mSmartRefreshLayout.setOnRefreshListener {
+            viewModel.getWifiList(WifiContentState.REFRESH)
+        }
+        //扫描wifi
+        mScanWifi.setOnClickListener {
+            mSmartRefreshLayout.autoRefresh()
+        }
 
     }
-
-
 
 
     inner class NetReceiver:BroadcastReceiver() {
@@ -105,8 +134,6 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                 NETWORK_STATE_CHANGED_ACTION -> {
                     LogUtils.i("NETWORK_STATE_CHANGED_ACTION")
 
-
-
                 }
                 WIFI_STATE_CHANGED_ACTION -> {
                     val state = intent.getIntExtra(EXTRA_WIFI_STATE, 0)
@@ -122,12 +149,11 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                         }
                         WIFI_STATE_ENABLED ->{
                             viewModel.setWifiState(WifiState.ENABLED)
-                            viewModel.getWifiList()
+                            viewModel.getWifiList(WifiContentState.NORMAL)
                             LogUtils.i(" WLAN已经打开")
                         }
                         WIFI_STATE_ENABLING ->{
                             viewModel.setWifiState(WifiState.ENABLING)
-
                             LogUtils.i(" WLAN正在打开")
 
                         }

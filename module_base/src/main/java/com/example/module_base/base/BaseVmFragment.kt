@@ -26,6 +26,19 @@ abstract class BaseVmFragment<T:ViewDataBinding,Vm:ViewModel>:BaseViewFragment<T
         observerData()
         //事件监听
         initEvent()
+        view.visibility
+    }
+
+   protected fun showView(vararg view: View){
+        view.forEach {
+            it.visibility=View.VISIBLE
+        }
+    }
+
+    protected fun goneView(vararg view: View){
+        view.forEach {
+            it.visibility=View.GONE
+        }
     }
 
     open fun initView() {

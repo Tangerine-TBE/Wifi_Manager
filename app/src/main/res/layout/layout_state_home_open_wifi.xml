@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <data>
+             <variable
+                 name="openData"
+                 type="com.example.wifi_manager.viewmodel.HomeViewModel" />
+
+        </data>
+
+        <LinearLayout
+            android:id="@+id/mHaveWifi"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mHomeTopContainer"
+                    android:layout_width="match_parent"
+                    android:overScrollMode="never"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="12dp" />
+
+
+                <com.scwang.smart.refresh.layout.SmartRefreshLayout
+                    android:id="@+id/mSmartRefreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                            <androidx.core.widget.NestedScrollView
+                                android:layout_width="match_parent"
+                                android:fillViewport="true"
+                                android:layout_height="match_parent">
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                        <ImageView
+                                            android:id="@+id/imageView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:scaleType="fitXY"
+                                            android:src="@mipmap/icon_home_center_bg"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                                        <TextView
+                                            android:id="@+id/mScanWifi"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="45dp"
+                                            android:layout_marginRight="45dp"
+                                            android:layout_marginBottom="22dp"
+                                            android:background="@drawable/shape_home_scan_bg"
+                                            android:gravity="center"
+                                            android:paddingTop="15dp"
+                                            android:paddingBottom="15dp"
+                                            android:text="扫描WiFi"
+                                            android:textColor="@color/home_text_color"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold"
+                                            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent" />
+
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/mHomeWifiContainer"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:overScrollMode="never"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </androidx.core.widget.NestedScrollView>
+                </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+        </LinearLayout>
+</layout>

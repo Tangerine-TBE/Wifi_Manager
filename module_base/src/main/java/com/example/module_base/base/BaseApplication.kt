@@ -7,6 +7,7 @@ import android.os.Looper
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI
 import com.example.module_base.provider.ModuleProvider
 import com.example.module_base.utils.PackageUtil
+import com.tamsiree.rxkit.RxTool
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -34,6 +35,7 @@ open class BaseApplication : Application() {
         mHandler=Handler(Looper.getMainLooper())
         mPackName=packageName
         GlobalScope.launch {
+            RxTool.init(this@BaseApplication)
             //用户反馈
             FeedbackAPI.init(this@BaseApplication, "25822454", "7a8bb94331a5141dcea61ecb1056bbbd")
             val jsonObject = JSONObject()

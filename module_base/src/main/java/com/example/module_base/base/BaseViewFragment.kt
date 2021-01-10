@@ -17,14 +17,15 @@ import androidx.fragment.app.Fragment
  * @class describe
  */
 abstract class BaseViewFragment<T:ViewDataBinding>:Fragment() {
-    protected lateinit var mBinding: T
+    protected lateinit var binding: T
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = DataBindingUtil.inflate(inflater, getChildLayout(), container, false)
-        return mBinding.root
+        binding = DataBindingUtil.inflate(inflater, getChildLayout(), container, false)
+        binding.lifecycleOwner=this
+        return binding.root
     }
     abstract fun getChildLayout(): Int
 

@@ -19,3 +19,7 @@ enum class WifiState {
    DISABLED,DISABLING, ENABLED,ENABLING,UNKNOWN
 
 }
+
+enum class WifiContentState(){
+    NORMAL,REFRESH
+}

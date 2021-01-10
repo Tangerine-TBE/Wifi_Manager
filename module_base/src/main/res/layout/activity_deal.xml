@@ -8,7 +8,6 @@
     <com.example.module_base.widget.MyToolbar
         android:id="@+id/privacy_toolbar"
         app:title="协议"
-        app:backStyle="@drawable/ic_round_arrow_back_ios_24"
         app:barBgColor="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

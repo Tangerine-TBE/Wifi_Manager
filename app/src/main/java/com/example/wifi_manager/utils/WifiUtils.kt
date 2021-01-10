@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.wifi_manager.utils
 
 import android.annotation.SuppressLint
@@ -58,10 +60,10 @@ object WifiUtils {
      */
     val wifiList: MutableList<ScanResult>
         get() {
+
             val resultList: MutableList<ScanResult> = ArrayList()
-
-
             if (wifiManager != null && isWifiEnable) {
+                wifiManager.startScan()
                 resultList.addAll(wifiManager.scanResults)
             }
             return resultList

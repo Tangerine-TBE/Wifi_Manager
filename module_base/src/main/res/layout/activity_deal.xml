@@ -7,7 +7,7 @@
 
     <com.example.module_base.widget.MyToolbar
         android:id="@+id/privacy_toolbar"
-        app:title="协议"
+        app:toolbarTitle="协议"
         app:barBgColor="@color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

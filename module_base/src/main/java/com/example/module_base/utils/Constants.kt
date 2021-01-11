@@ -22,4 +22,6 @@ object Constants {
     //Intent的key
     const val SET_DEAL1="set_deal1"
 
+    const val APP_NAME="APP_NAME"
+
 }

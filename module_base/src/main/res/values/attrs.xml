@@ -8,11 +8,11 @@
 
     <!--自定义toolbar-->
     <declare-styleable name="MyToolbar">
-        <attr name="title" format="string"/>
+        <attr name="toolbarTitle" format="string"/>
         <attr name="has_back" format="boolean"/>
-        <attr name="has_add" format="boolean"/>
-        <attr name="addStyle" format="reference"/>
-        <attr name="backStyle" format="reference"/>
+        <attr name="has_right_icon" format="boolean"/>
+        <attr name="rightIconStyle" format="reference"/>
+        <attr name="backIconStyle" format="reference"/>
         <attr name="titleColor" format="color"/>
         <attr name="barBgColor" format="color"/>
         <attr name="rightTitle" format="string"/>

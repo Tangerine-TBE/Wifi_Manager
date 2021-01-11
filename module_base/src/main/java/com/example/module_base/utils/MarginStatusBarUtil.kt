@@ -23,6 +23,7 @@ object  MarginStatusBarUtil {
             2 -> view.layoutParams as ConstraintLayout.LayoutParams
             else ->view.layoutParams as RelativeLayout.LayoutParams
         }
+
         layoutParams.topMargin= MyStatusBarUtil.getStatusBarHeight(activity)
         view.layoutParams=layoutParams
     }

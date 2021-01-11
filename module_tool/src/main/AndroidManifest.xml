@@ -1,0 +1,38 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.module_tool">
+
+
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application>
+
+        <activity android:name=".activity.RulerActivity2"/>
+        <activity android:name=".activity.BankProofreadActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".activity.CoinProofreadActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".activity.RulerProofreadActivity"
+            android:screenOrientation="landscape"/>
+       <activity android:name=".activity.HorizontalActivity"/>
+        <activity android:name=".activity.DistanceActivity"/>
+        <activity android:name=".activity.CycleRulerActivity"/>
+        <activity android:name=".activity.SoundActivity"/>
+        <activity android:name=".activity.MirrorActivity"/>
+        <activity android:name=".activity.HandleActivity"/>
+        <activity android:name=".activity.CompassActivity"/>
+        <activity android:name=".activity.ProofreadActivity"/>
+        <activity android:name=".fangdai.HomeActivity_loan"/>
+        <activity android:name=".fangdai.ResultActivity"/>
+
+
+
+    </application>
+</manifest>

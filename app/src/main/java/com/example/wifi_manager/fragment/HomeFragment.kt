@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager.*
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,10 +20,12 @@ import com.example.wifi_manager.databinding.FragmentHomeBinding
 import com.example.wifi_manager.utils.DataProvider
 import com.example.wifi_manager.utils.WifiContentState
 import com.example.wifi_manager.utils.WifiState
+import com.example.wifi_manager.utils.WifiUtils
 import com.example.wifi_manager.viewmodel.HomeViewModel
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.tamsiree.rxkit.view.RxToast
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.layout_state_home_close_wifi.*
 import kotlinx.android.synthetic.main.layout_state_home_open_wifi.*
 
 
@@ -54,7 +58,6 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             addAction(SCAN_RESULTS_AVAILABLE_ACTION)
         }
         activity?.registerReceiver(mNetReceiver,intentFilter)
-
     }
 
 
@@ -103,6 +106,12 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
         mHomeWifiContainer.adapter = mWifiListAdapter
         //下拉刷新头
         mSmartRefreshLayout.setRefreshHeader(MaterialHeader(activity))
+        //加下划线
+        val str="我已开启，点击刷新"
+        val content =  SpannableString(str);
+        content.setSpan(UnderlineSpan(), 5, str.length, 0);
+        mRefreshWifi.text=content
+
     }
 
     override fun initEvent() {
@@ -113,6 +122,20 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
         //扫描wifi
         mScanWifi.setOnClickListener {
             mSmartRefreshLayout.autoRefresh()
+        }
+
+        //开启wifi
+        mOpenWifi.setOnClickListener {
+            WifiUtils.openWifi()
+        }
+
+        //刷新wifi
+        mRefreshWifi.setOnClickListener {
+            if (WifiUtils.isWifiEnable) {
+                viewModel.getWifiList(WifiContentState.NORMAL)
+            } else {
+                RxToast.normal("WIFI未开启")
+            }
         }
 
     }

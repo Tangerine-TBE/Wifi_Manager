@@ -9,6 +9,7 @@ import com.example.wifi_manager.R
 import com.example.wifi_manager.fragment.ClearFragment
 import com.example.wifi_manager.fragment.HomeFragment
 import com.example.wifi_manager.fragment.MyFragment
+import com.tamsiree.rxfeature.tool.RxQRCode
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/gray">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_below="@+id/result_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@drawable/pay_list_start_shape"
+        android:layout_marginRight="@dimen/dp_20">
+        <!--月供提示-->
+        <RelativeLayout
+            android:id="@+id/rl_bit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_20">
+
+            <TextView
+                android:id="@+id/tipMsg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:gravity="center"
+                android:text="@string/monthly"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/monthPayTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tipMsg"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="2656.63"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="@dimen/font50"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tipMsg"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_toEndOf="@id/monthPayTv"
+                android:gravity="center"
+                android:text="@string/unitMoney"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="@dimen/font20" />
+
+            <TextView
+                android:id="@+id/downTv"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_below="@id/monthPayTv"
+                android:gravity="center"
+                android:text="@string/down"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+        </RelativeLayout>
+        <!--分隔布局-->
+        <RelativeLayout
+            android:id="@+id/rl_diver_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_20"
+            android:layout_below="@id/rl_bit"
+            android:background="@color/white">
+
+            <View
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="-10dp"
+                android:background="@drawable/circle_shape" />
+
+            <View
+                android:id="@+id/dashLine"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@drawable/dash_line"
+                android:layerType="software" />
+
+
+            <View
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="-10dp"
+                android:background="@drawable/circle_shape" />
+
+
+        </RelativeLayout>
+        <!--还款总额-->
+        <LinearLayout
+            android:id="@+id/ll_pay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/rl_diver_line"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/refundSumMsgTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/repaymentT"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/refundSumTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/numberMoney"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <!--商业还款金额-->
+        <LinearLayout
+            android:id="@+id/ll_business"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_below="@id/ll_pay"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/comPay"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font13" />
+
+            <TextView
+                android:id="@+id/businessSum"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="95.53万"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font13" />
+        </LinearLayout>
+        <!--公积金还款金额-->
+        <LinearLayout
+            android:id="@+id/ll_fund"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_below="@id/ll_business"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/hoursePay"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font13" />
+
+            <TextView
+                android:id="@+id/fundSum"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="95.53万"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font13" />
+        </LinearLayout>
+
+
+        <!--支付利息-->
+        <LinearLayout
+            android:id="@+id/ll_interest"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/ll_fund"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/refundInterestMsgTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Interest"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/refundInterestTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/numberMoney"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <!--商业利息金额-->
+        <LinearLayout
+            android:id="@+id/ll_business_interest"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_below="@id/ll_interest"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/comInterest"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font13" />
+
+            <TextView
+                android:id="@+id/businessInterest"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/numberMoney"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font13" />
+        </LinearLayout>
+        <!--公积金利息金额-->
+        <LinearLayout
+            android:id="@+id/ll_fund_interest"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_below="@id/ll_business_interest"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/hoursePay"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font13" />
+
+            <TextView
+                android:id="@+id/fundInterest"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_20"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/numberMoney"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font13" />
+        </LinearLayout>
+        <!--还款明细-->
+        <LinearLayout
+            android:id="@+id/ll_detail_msg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ll_fund_interest"
+            android:background="@drawable/pay_list_end_shape"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/refundDetailMsgTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="@string/refundDetailMsg" />
+
+                <ImageView
+                    android:id="@+id/arrowIv"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:src="@drawable/years_detail_selector" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/payRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:background="@color/white"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+        <com.example.module_tool.widget.DiyToolbar
+            android:id="@+id/result_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

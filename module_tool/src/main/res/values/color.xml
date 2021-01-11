@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="them_cjy">#36BFFF</color>
+
+    <color name="black">#000</color>
+    <color name="darkRed">#702216</color>
+    <color name="lightGray">#323232</color>
+    <color name="deepGray">#8B8B8B</color>
+    <color name="white">#fff</color>
+    <color name="red">#f00</color>
+    <color name="transparent">#00000000</color>
+    <color name="horizonbg">#40d881</color>
+    <color name="line_divider">#cccccc</color>
+    <color name="light_green">#7FFF00</color>
+    <color name="bankProofreadSelect">#FF0068FF</color>
+    <color name="bankProofreadNoSelect">#FF92BFFF</color>
+    <color name="gray">#BBBBBB</color>
+    <color name="light_white">#eeeeee</color>
+    <color name="yellow">#ff8000</color>
+    <color name="leading_title">#444444</color>
+    <color name="qian_gray">#60BBBBBB</color>
+</resources>

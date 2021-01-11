@@ -66,10 +66,18 @@ dependencies {
     api rootProject.ext.dependencies["BaseRecyclerView"]
     //RxTool
     api rootProject.ext.dependencies["RxTool"]
+    //RxFeature
+    api rootProject.ext.dependencies["RxFeature"]
+    //RxUI
+    api rootProject.ext.dependencies["RxUI"]
     //smartRefresh
     api rootProject.ext.dependencies["smartRefresh"]
     //smartRefreshHeaderMaterial
     api rootProject.ext.dependencies["smartRefreshHeaderMaterial"]
+    //glide
+    api rootProject.ext.dependencies["glide"]
+    //定位
+    api 'com.amap.api:location:5.2.0'
 
     api 'com.aliyun.ams:alicloud-android-feedback:3.3.1'
     api 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'

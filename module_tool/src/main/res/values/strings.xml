@@ -1,0 +1,164 @@
+<resources>
+    <string name="ruler">尺子</string>
+    <string name="decibel">%1$s分贝</string>
+    <string name="x">X:%1$s</string>
+    <string name="y">Y:%1$s</string>
+    <string name="distance">测量结果:%1$sm</string>
+
+    <string name="calibration">校准</string>
+    <string name="altitude">海拔</string>
+    <string name="longitude">经度</string>
+    <string name="latitude">纬度</string>
+    <string name="north">北</string>
+    <string name="northeast">东北</string>
+    <string name="east">东</string>
+    <string name="southeast">东南</string>
+    <string name="south">南</string>
+    <string name="southwest">西南</string>
+    <string name="west">西</string>
+    <string name="northwest">西北</string>
+
+    <string name="silent">0~20dB:寂静，几乎感觉不到</string>
+    <string name="quiet">20~40dB:安静，轻声交谈</string>
+    <string name="normal">40~60dB:正常，普通室内谈话</string>
+    <string name="noisy">60~70dB:吵闹，大声说话</string>
+    <string name="veryNoisy">70~100dB:很吵，可使听力受损</string>
+
+    <string name="preview">预览</string>
+    <string name="photograph">拍照</string>
+    <string name="inputHeight">输入被测物体实际高度(米)</string>
+    <string name="usageMethodT">使用方法:</string>
+    <string name="usageMethodMC">在输入框内输入被测物体实际高度，滑动参考线，对齐被测物体上下两端</string>
+    <string name="usageMethodPC">将被测角顶点对齐圆规底部中心点，被测角一边对齐圆规底边，拍照后滑动圆规参考线对齐被测角另一边</string>
+    <string name="usageMethodHC">将虚线对齐顶部画框，根据偏移角度移动画框</string>
+    <string name="tipsC">左右倾斜在1°左右都可以校准哦，数值越小越准确</string>
+    <string name="tip">请向%1$s倾斜%2$s</string>
+    <string name="left">左</string>
+    <string name="right">右</string>
+
+
+    <string name="Unsupported">手机不支持</string>
+    <string name="hp">%1$sm/气压:%2$s</string>
+
+    <string name="openCameraFail">打开相机失败</string>
+    <string name="brightness">调整亮度失败</string>
+
+    <string name="tips2cmLength">测量2厘米拖动圈圈和你的尺子重合</string>
+    <string name="cancelJiaoDui">取消校对</string>
+    <string name="okJiaoDui">校对完成</string>
+    <string name="rulerJiaoDui">尺子校对</string>
+    <string name="bankCardJiaoDui">银联卡校对</string>
+    <string name="coinJiaoDui">硬币校对</string>
+    <string name="defJiaodui">默认校对</string>
+    <string name="chooseTips">点击你使用的轮廓</string>
+    <string name="chooseTitle">选择你要使用银行卡轮廓的长或宽</string>
+    <string name="bankUserTips">拖动上方两个圆点直到和你卡片的轮廓重合</string>
+    <string name="rmb">人民币</string>
+    <string name="usa">美元</string>
+    <string name="rmb_1">1角</string>
+    <string name="rmb_5">5角</string>
+    <string name="rmb_10">1元</string>
+    <string name="usa_1">1美分</string>
+    <string name="usa_5">5美分</string>
+    <string name="usa_10">10美分</string>
+    <string name="usa_25">25美分</string>
+    <string name="usa_50">50美分</string>
+    <string name="usa_100_old">老1美元</string>
+    <string name="usa_100_new">新1美元</string>
+    <string name="unitMM">毫米</string>
+    <string name="unitCM">厘米</string>
+    <string name="unitIN">英寸-十进制</string>
+    <string name="unitIN_P">英寸-分数</string>
+    <string name="interferenceTips">附近可能有磁场干扰\n请按如下动作校准指南针</string>
+    <string name="proofreadTitle">校准说明</string>
+    <string name="currentAccuracy">当前的准确度</string>
+    <string name="Accuracy">准确度</string>
+    <string name="ccqd">磁场强度</string>
+    <string name="ckfw">参考范围</string>
+    <string name="rhjd">如何校队?</string>
+    <string name="jdts"> 1.在远离磁场干扰的地方，单手挥动手机，按照下图所示的运动轨迹画”8“字，即可校准。\n2.在指南针的任何界面均可校准。\n3.当磁场范围恢复到20—70uT之间时,即可停止校准。</string>
+    <string name="zysx">注意事项</string>
+    <string name="syzn">1.使用指南针时,请确保远离外界磁场干扰;\n例如:电脑、无线电波、微波炉、手机等其他电子设备,它们发出的电磁波会严重影响指南针的准确度。\n2.校准操作将重启手机的传感器,若传感器的精度仍然处于微弱状态，请检查设备的传感器是否存在问题。</string>
+    <string name="lianghao">良好</string>
+    <string name="hao">好</string>
+    <string name="cha">微弱</string>
+    <string name="suoding">锁定</string>
+    <string name="shifang">释放</string>
+
+
+    <!--房贷-->
+    <string name="refundDetailMsg">%s年还款明细</string>
+    <string name="interest">每个月还“本金+利息”之和的固定还款金额。此方式较适宜有正常开支计划、长期平稳收入的家庭</string>
+    <string name="capital">每个月还款本金不变，利息另算，由于本金减少，利息逐月减少。因此每月还款额逐月递减。此方式前期还款额度较大，所以比较时候在前期还款能力强的贷款人</string>
+    <string name="question">等额本息和等额本金是什么？</string>
+    <string name="down">每月递减%s</string>
+
+    <string name="totalUnit">贷款总额(万)</string>
+    <string name="total">请输入您的贷款总额</string>
+    <string name="commercialLoans">商业贷款</string>
+    <string name="housing">公积金贷款</string>
+    <string name="portfolioLoan">组合贷款</string>
+    <string name="paymentMethod">还款方式</string>
+    <string name="equivalent">等额本息(每月等额还款)</string>
+    <string name="principal">等额本金(每月递减还款)</string>
+    <string name="repayment">还款年数</string>
+    <string name="term">%1$s年(%2$s月)</string>
+    <string name="firstDateT">首次还款日期</string>
+    <string name="firstDate">%1$s年%2$s月%3$s日</string>
+    <string name="rate">贷款利率</string>
+    <string name="benchmark">基准利率(4.9%)</string>
+    <string name="calculation">开始计算</string>
+    <string name="inputCom">请输入商业贷款金额</string>
+    <string name="inputHousing">请输入公积金贷款金额</string>
+    <string name="rateCom">商业贷款利率</string>
+    <string name="rateHousing">公积金贷款利率</string>
+    <string name="comT">商业贷款金额(万)</string>
+    <string name="HouseT">公积金贷款金额(万)</string>
+    <string name="benchmark_g">基准利率(3.25%)</string>
+    <string name="ask">问：</string>
+    <string name="answer">答：</string>
+    <string name="equivalent_i">等额本息:</string>
+    <string name="equivalent_m">等额本金:</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="money">请输入贷款金额</string>
+
+    <string name="_7_0_percent">7折(3.43%)</string>
+    <string name="_8_0_percent">8折(3.92%)</string>
+    <string name="_8_3_percent">8.3折(4.067%)</string>
+    <string name="_8_5_percent">8.5折(4.165%)</string>
+    <string name="_8_8_percent">8.8折(4.312%)</string>
+    <string name="_9_0_percent">9折(4.41%)</string>
+    <string name="_9_5_percent">9.5折(4.655%)</string>
+    <string name="_10_0_percent">基准利率(4.9%)</string>
+    <string name="_1_05_times">1.05倍(5.145%)</string>
+    <string name="_1_10_times">1.1倍(5.39%)</string>
+    <string name="_1_15_times">1.15倍(5.635%)</string>
+    <string name="_1_20_times">1.2倍(5.88%)</string>
+    <string name="_1_25_times">1.25倍(6.125%)</string>
+    <string name="_1_30_times">1.3倍(6.37%)</string>
+    <string name="_1_35_times">1.35倍(6.615%)</string>
+    <string name="_1_40_times">1.4倍(6.86%)</string>
+
+    <string name="_10_0_percent_g">基准利率(3.25%)</string>
+    <string name="_1_10_times_g">1.1倍(3.575%)</string>
+    <string name="_1_20_times_g">1.2倍(3.9%)</string>
+
+    <string name="monthly">每月需还款</string>
+    <string name="repaymentT">还款总额</string>
+    <string name="Interest">支付利息</string>
+    <string name="unitMoney">元</string>
+    <string name="numberMoney">%1$s万</string>
+    <string name="year">%1$s年</string>
+    <string name="open">展开</string>
+    <string name="close">收起</string>
+    <string name="payOfYear">本年还款(元)</string>
+    <string name="interestOfYear">本年利息(元)</string>
+    <string name="comInterest">商业利息</string>
+    <string name="hoursePay">公积金还款</string>
+    <string name="month">月份</string>
+    <string name="currentPrincipal">本期本金(元)</string>
+    <string name="currentInterest">本期利息(元)</string>
+    <string name="monthlySupply">月供(元)</string>
+    <string name="comPay">商业还款</string>
+</resources>

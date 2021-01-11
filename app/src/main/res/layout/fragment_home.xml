@@ -12,14 +12,13 @@
         android:orientation="vertical"
         android:id="@+id/mHomeInclude"
         android:layout_width="match_parent"
-        android:background="@color/home_bg"
+
         android:layout_height="match_parent">
 
         <include
             android:id="@+id/mOpenWifiLayout"
             layout="@layout/layout_state_home_open_wifi"
             app:openData="@{homeData}"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/llYearDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/refundDetailYearTv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_55"
+            android:gravity="center_vertical"
+            android:text="@string/year"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <CheckBox
+            android:id="@+id/refundDetailArrowIv"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp_55"
+            android:button="@null"
+            android:checked="false"
+            android:drawableStart="@drawable/pay_detail_selector"
+            android:padding="@dimen/dp_5"
+            android:text="@string/open"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/font13" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/refundDetailYearTv"
+            android:layout_marginStart="@dimen/dp_55"
+            android:text="@string/payOfYear"
+            android:textSize="@dimen/font13" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/refundDetailArrowIv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp_55"
+            android:text="@string/interestOfYear"
+            android:textSize="@dimen/font13" />
+
+        <TextView
+            android:id="@+id/refundDetailYearMoneyTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView1"
+            android:layout_marginLeft="@dimen/dp_55"
+            android:layout_marginTop="@dimen/dp_5"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font18"
+            tools:text="46,703.95" />
+
+        <TextView
+            android:id="@+id/refundDetailYearInterestTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_55"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font18"
+            tools:text="46,703.95" />
+
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/monthDetailRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_below="@id/llYearDetail" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_40"
+        android:layout_marginRight="@dimen/dp_40"
+        android:background="@color/gray" />
+</RelativeLayout>

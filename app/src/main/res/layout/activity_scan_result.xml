@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#FAFAFA"
+    android:layout_height="match_parent"
+  >
+
+    <com.example.module_base.widget.MyToolbar
+        android:id="@+id/mScanToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:has_right_icon="true"
+        app:backIconStyle="@drawable/icon_base_back"
+        app:toolbarTitle="协议"
+        app:rightIconStyle="@mipmap/icon_share"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/shape_scan_result_bg"
+        app:layout_constraintTop_toBottomOf="@+id/mScanToolbar"
+        tools:layout_editor_absoluteX="16dp">
+
+
+        <TextView
+            android:id="@+id/mResultContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="25dp"
+            android:text="https://screenlane.com/platform/ios/"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mCopy"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/mCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="25dp"
+            android:src="@mipmap/icon_copy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mResultContent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/mFindResult"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_49"
+        android:layout_marginRight="46dp"
+        android:layout_marginLeft="46dp"
+        android:text="搜索"
+        android:elevation="50dp"
+        android:gravity="center"
+        android:background="@drawable/shape_scan_result_find_bg"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/home_text_color"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

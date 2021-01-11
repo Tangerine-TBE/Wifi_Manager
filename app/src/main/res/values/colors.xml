@@ -19,6 +19,9 @@
     <color name="my_text_color">#0F0F0F</color>
 
 
+    <!--wifi Loading-->
+    <color name="outside_color">@color/home_text_color</color>
+    <color name="inner_color">#16FFC0</color>
 
 
 

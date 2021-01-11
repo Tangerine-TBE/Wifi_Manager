@@ -15,20 +15,20 @@
          />
 
     <TextView
-        android:id="@+id/tv_bar_title"
-        android:text="工具箱"
+        android:id="@+id/tv_toolbarTitle"
         android:textSize="18sp"
+       android:text="工具箱"
         android:layout_marginLeft="12dp"
         android:layout_toRightOf="@+id/iv_bar_back"
         android:textColor="@color/black"
         android:layout_width="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:layout_height="wrap_content"/>
 
     <ImageView
         android:id="@+id/iv_bar_add"
         android:visibility="gone"
-        android:layout_marginRight="17.5dp"
+        android:layout_marginRight="25dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"

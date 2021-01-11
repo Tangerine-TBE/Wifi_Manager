@@ -337,7 +337,9 @@ public class ScanActivity extends FragmentActivity {
                     Result rawResult = RxQrBarTool.decodeFromPhoto(photo);
                     if (rawResult != null) {
                         if (mScanerListener == null) {
-                            initDialogResult(rawResult);
+                           // initDialogResult(rawResult);
+                            String resultStr = rawResult.getText();
+                            scanResult(resultStr);
                         } else {
                             mScanerListener.onSuccess("From to Picture", rawResult);
                         }
@@ -353,7 +355,12 @@ public class ScanActivity extends FragmentActivity {
                 }
             }
         }
-        //========================================打开本地图片识别二维码 end=================================
+
+    private void scanResult(String resultStr) {
+        setResult(MyFragment.REQUEST_CODE, new Intent().putExtra(ConstantsUtil.ZXING_RESULT, resultStr));
+        finish();
+    }
+    //========================================打开本地图片识别二维码 end=================================
 
 
         private void initDialogResult(Result result) {
@@ -395,9 +402,7 @@ public class ScanActivity extends FragmentActivity {
             RxBeepTool.playBeep(this, vibrate);
             String scanResult= result.getText();
            LogUtils.i("二维码/条形码 扫描结果",scanResult);
-           setResult(MyFragment.REQUEST_CODE,new Intent().putExtra(ConstantsUtil.ZXING_RESULT,scanResult));
-
-            finish();
+            scanResult(scanResult);
          /*   if (mScanerListener == null) {
                // RxToast.success(result1);
                 initDialogResult(result);

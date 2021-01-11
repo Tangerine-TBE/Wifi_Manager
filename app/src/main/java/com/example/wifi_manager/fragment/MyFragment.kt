@@ -15,6 +15,7 @@ import com.example.module_tool.activity.DistanceActivity
 import com.example.wifi_manager.R
 import com.example.wifi_manager.activity.ScanActivity
 import com.example.wifi_manager.activity.ScanResultActivity
+import com.example.wifi_manager.activity.SpeedTestActivity
 import com.example.wifi_manager.adapter.MyBottomAdapter
 import com.example.wifi_manager.adapter.MyTopAdapter
 import com.example.wifi_manager.databinding.FragmentMyBinding
@@ -68,6 +69,7 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
         mMyTopAdapter.setOnItemClickListener { adapter, view, position ->
             when (position) {
                 0 -> startActivityForResult(Intent(activity,ScanActivity::class.java),REQUEST_CODE)
+                2->toOtherActivity<SpeedTestActivity>(activity){}
                 3-> toOtherActivity<DistanceActivity>(activity){}
             }
         }

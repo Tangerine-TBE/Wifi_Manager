@@ -23,7 +23,7 @@ import kotlinx.coroutines.*
  * @time 2021/1/11 10:52:54
  * @class describe
  */
-class ScanWifiLoading @JvmOverloads constructor(
+class ScanWifiLoadingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BaseView(context, attrs, defStyleAttr) {
     private val mOutSideCircle = Paint()

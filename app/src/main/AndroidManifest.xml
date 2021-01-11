@@ -19,7 +19,8 @@
         android:theme="@style/Theme.Wifi_Manager"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.ScanResultActivity"></activity>
+        <activity android:name=".activity.SpeedTestActivity"></activity>
+        <activity android:name=".activity.ScanResultActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

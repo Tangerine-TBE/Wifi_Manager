@@ -93,7 +93,7 @@
                                         app:layout_constraintStart_toStartOf="parent"
                                         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-                                        <com.example.wifi_manager.widget.ScanWifiLoading
+                                        <com.example.wifi_manager.widget.ScanWifiLoadingView
                                             android:id="@+id/mWifiLoading"
                                             android:layout_centerVertical="true"
                                             android:layout_width="15dp"

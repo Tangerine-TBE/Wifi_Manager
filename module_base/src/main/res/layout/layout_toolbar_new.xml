@@ -7,9 +7,8 @@
 
     <ImageView
         android:id="@+id/iv_bar_back"
-        android:layout_marginLeft="17.5dp"
-        android:paddingRight="21dp"
-        android:src="@drawable/ic_baseline_arrow_white_ios_24"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/icon_back"
         android:layout_width="wrap_content"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
@@ -19,8 +18,9 @@
         android:id="@+id/tv_bar_title"
         android:text="工具箱"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/iv_bar_back"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content"/>
@@ -39,8 +39,9 @@
         android:visibility="gone"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="16dp"
-        android:text="合盘记录"
+        android:layout_marginRight="24dp"
+        android:textColor="@color/black"
+        android:text="记录"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

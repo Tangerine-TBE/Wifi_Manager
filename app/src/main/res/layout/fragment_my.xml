@@ -6,23 +6,27 @@
 
     </data>
 
+    <LinearLayout
+        android:background="@color/my_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:background="@color/my_bg"
             android:overScrollMode="never"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            >
-
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_marginTop="76dp"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="7dp"
             android:background="@drawable/shape_my_bg"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -73,11 +77,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mMyBottomContainer"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:paddingLeft="24dp"
                 android:overScrollMode="never"
                 android:paddingRight="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_line" />
 
@@ -85,5 +88,5 @@
 
 
         </androidx.core.widget.NestedScrollView>
-
+    </LinearLayout>
 </layout>

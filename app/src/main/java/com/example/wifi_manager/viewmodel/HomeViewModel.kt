@@ -1,8 +1,10 @@
 package com.example.wifi_manager.viewmodel
 
-import android.net.wifi.ScanResult
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.wifi_manager.domain.RefreshWifiEvent
+import com.example.wifi_manager.domain.WifiMessage
+import com.example.wifi_manager.utils.WifiContentState
 import com.example.wifi_manager.utils.WifiState
 import com.example.wifi_manager.utils.WifiUtils
 
@@ -17,30 +19,44 @@ import com.example.wifi_manager.utils.WifiUtils
 class HomeViewModel:ViewModel() {
 
     val wifiContent by lazy {
-        MutableLiveData<MutableList<ScanResult>>()
+        MutableLiveData<MutableList<WifiMessage>>()
     }
-
     val wifiState by lazy {
         MutableLiveData<WifiState>()
     }
+    val wifiContentEvent by lazy {
+        MutableLiveData<RefreshWifiEvent>()
+    }
 
 
-
-
+    private val oldWifiMessages:MutableList<WifiMessage> =ArrayList()
+    private val currentWifiMessages:MutableList<WifiMessage> =ArrayList()
 
     fun setWifiState(state:WifiState){
         wifiState.value=state
     }
 
+    fun getWifiList(state:WifiContentState){
 
-    fun getWifiList(){
-        wifiContent.value= WifiUtils.wifiList
+
+        currentWifiMessages?.apply {
+            val wifiList = WifiUtils.wifiList.filter { it.SSID!="" }
+            if (wifiList.isNotEmpty()) {
+                currentWifiMessages.clear()
+                wifiList.forEach { add(WifiMessage(it.SSID, it.BSSID, it.capabilities, it.level)) }
+
+                oldWifiMessages?.clear()
+                oldWifiMessages?.addAll(this)
+
+                setWifiContent(state,this)
+            } else {
+               if (oldWifiMessages?.size>0) setWifiContent(state,oldWifiMessages)
+            }
+        }
     }
 
-
-
-
-
-
-
+    private fun setWifiContent(state: WifiContentState,list: MutableList<WifiMessage>) {
+        wifiContentEvent.value = RefreshWifiEvent(state, list.size)
+        wifiContent.value = list
+    }
 }

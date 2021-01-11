@@ -76,6 +76,8 @@ dependencies {
     api rootProject.ext.dependencies["smartRefreshHeaderMaterial"]
     //glide
     api rootProject.ext.dependencies["glide"]
+    //SCardView
+    api rootProject.ext.dependencies["SCardView"]
     //定位
     api 'com.amap.api:location:5.2.0'
 

@@ -57,22 +57,30 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/mFindResult"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_49"
-        android:layout_marginRight="46dp"
-        android:layout_marginLeft="46dp"
-        android:text="搜索"
-        android:elevation="50dp"
-        android:gravity="center"
-        android:background="@drawable/shape_scan_result_find_bg"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/home_text_color"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+
+
+
+
+            <Button
+                android:id="@+id/mFindResult"
+                android:background="@drawable/shape_scan_result_find_normal_bg"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="46dp"
+                android:layout_marginLeft="46dp"
+                android:layout_height="49dp"
+                android:text="搜索"
+                android:gravity="center"
+                android:textColor="@color/home_text_color"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

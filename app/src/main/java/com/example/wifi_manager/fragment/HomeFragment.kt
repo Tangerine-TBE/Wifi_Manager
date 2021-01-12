@@ -14,13 +14,12 @@ import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.MarginStatusBarUtil
 import com.example.wifi_manager.R
+import com.example.wifi_manager.activity.WifiInfoActivity
 import com.example.wifi_manager.adapter.HomeTopAdapter
 import com.example.wifi_manager.adapter.HomeWifiAdapter
 import com.example.wifi_manager.databinding.FragmentHomeBinding
-import com.example.wifi_manager.utils.DataProvider
-import com.example.wifi_manager.utils.WifiContentState
-import com.example.wifi_manager.utils.WifiState
-import com.example.wifi_manager.utils.WifiUtils
+import com.example.wifi_manager.domain.WifiMessage
+import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.HomeViewModel
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.tamsiree.rxkit.view.RxToast
@@ -40,7 +39,6 @@ import kotlinx.android.synthetic.main.layout_state_home_open_wifi.*
 class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun getViewModelClass(): Class<HomeViewModel> { return HomeViewModel::class.java }
     override fun getChildLayout(): Int = R.layout.fragment_home
-
     private val mHomeTopAdapter by lazy { HomeTopAdapter()
     }
     private val mNetReceiver by lazy { NetReceiver() }
@@ -48,6 +46,8 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     private val mWifiListAdapter by  lazy {
         HomeWifiAdapter()
     }
+    private var mCurrentWifiContent:MutableList<WifiMessage> = ArrayList()
+
 
     override fun initView() {
         binding.homeData=viewModel
@@ -78,6 +78,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             })
             wifiContent.observe(that, Observer { result ->
                 LogUtils.i("---wifiContent---------${result.size}-----------")
+                mCurrentWifiContent=result
                 mWifiListAdapter.setList(result)
                 result.forEach {
                     LogUtils.i("---wifiContent---------${it}-----------")
@@ -104,6 +105,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
         //wifi列表
         mHomeWifiContainer.layoutManager = LinearLayoutManager(activity)
         mHomeWifiContainer.adapter = mWifiListAdapter
+        mWifiListAdapter.addChildClickViewIds(R.id.mWifiInfo)
         //下拉刷新头
         mSmartRefreshLayout.setRefreshHeader(MaterialHeader(activity))
         //加下划线
@@ -137,6 +139,24 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                 RxToast.normal("WIFI未开启")
             }
         }
+        mWifiListAdapter.setOnItemChildClickListener  { adapter, view, position ->
+            when(view.id){
+                R.id.mWifiInfo-> {
+                    mCurrentWifiContent?.let {
+                        if (it.size>0){
+                            toOtherActivity<WifiInfoActivity>(activity){
+                                putExtra(ConstantsUtil.WIFI_NAME_KEY,it[position].wifiName)
+                                putExtra(ConstantsUtil.WIFI_LEVEL_KEY,it[position].wifiSignalState)
+                                putExtra(ConstantsUtil.WIFI_PROTECT_KEY,it[position].wifiProtectState)
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+
 
     }
 

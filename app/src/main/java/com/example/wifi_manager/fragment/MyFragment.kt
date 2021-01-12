@@ -1,16 +1,12 @@
 package com.example.wifi_manager.fragment
 
-import android.app.Activity.RESULT_OK
 import android.content.Intent
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI
 import com.example.module_base.activity.DealActivity
 import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.Constants
-import com.example.module_base.utils.LogUtils
 import com.example.module_tool.activity.DistanceActivity
 import com.example.wifi_manager.R
 import com.example.wifi_manager.activity.ScanActivity
@@ -22,7 +18,6 @@ import com.example.wifi_manager.databinding.FragmentMyBinding
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.DataProvider
 import com.example.wifi_manager.utils.toOtherActivity
-import com.example.wifi_manager.utils.toOtherResultActivity
 import com.example.wifi_manager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.fragment_my.*
 
@@ -89,7 +84,7 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode==REQUEST_CODE&&resultCode==1) {
-            toOtherActivity<ScanResultActivity>(activity){putExtra(ConstantsUtil.ZXING_RESULT,data?.getStringExtra(ConstantsUtil.ZXING_RESULT))}
+            toOtherActivity<ScanResultActivity>(activity){putExtra(ConstantsUtil.ZXING_RESULT_KEY,data?.getStringExtra(ConstantsUtil.ZXING_RESULT_KEY))}
         }
     }
 

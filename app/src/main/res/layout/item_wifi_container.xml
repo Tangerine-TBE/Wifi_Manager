@@ -28,7 +28,6 @@
         android:layout_centerVertical="true"
         android:src="@mipmap/ic_launcher"
         android:layout_toLeftOf="@+id/mWifiLevel"
-
         android:layout_width="20dp"
         android:layout_height="20dp"/>
 
@@ -37,7 +36,16 @@
         android:layout_centerVertical="true"
         android:src="@mipmap/ic_launcher"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/mWifiInfo"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+
+    <ImageView
+        android:id="@+id/mWifiInfo"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher"
         android:layout_width="20dp"
         android:layout_height="20dp"/>
 

@@ -55,7 +55,7 @@ class MyToolbar @JvmOverloads constructor(
     private var isHaveAdd: Boolean? = null
     private var isHaveBack: Boolean? = null
     private var isHaveRight: Boolean? = null
-    private var mRightTitleColor: Int = Color.BLACK
+    private var mRightTitleColor: Int ?=null
 
 
     private fun initView() {
@@ -97,8 +97,9 @@ class MyToolbar @JvmOverloads constructor(
         mRightTitle?.let {
             tv_bar_right?.text = it
         }
-
-        tv_bar_right.setTextColor(mRightTitleColor)
+        mRightTitleColor?.let {
+            tv_bar_right.setTextColor(it)
+        }
 
         if (isHaveRight!!) {
             tv_bar_right.visibility = View.VISIBLE

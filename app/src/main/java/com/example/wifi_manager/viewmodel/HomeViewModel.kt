@@ -43,7 +43,9 @@ class HomeViewModel:ViewModel() {
             val wifiList = WifiUtils.wifiList.filter { it.SSID!="" }
             if (wifiList.isNotEmpty()) {
                 currentWifiMessages.clear()
-                wifiList.forEach { add(WifiMessage(it.SSID, it.BSSID, it.capabilities, it.level)) }
+                wifiList.forEach {
+                    add(WifiMessage(it.SSID, it.BSSID, it.capabilities, it.level,wifiSignalState(it.level),wifiProtectState(it.capabilities)))
+                }
 
                 oldWifiMessages?.clear()
                 oldWifiMessages?.addAll(this)
@@ -59,4 +61,27 @@ class HomeViewModel:ViewModel() {
         wifiContentEvent.value = RefreshWifiEvent(state, list.size)
         wifiContent.value = list
     }
+
+
+    private fun wifiSignalState(level: Int) =
+        if (level>=-50){
+            "强"
+        }else if (level<=51 && level>=-70){
+            "一般"
+        }else {
+            "弱"
+        }
+
+    private fun wifiProtectState(capabilities: String) = when {
+        capabilities.startsWith("[WPA2") -> {
+            "WPA2"
+        }
+        capabilities.startsWith("[WPA")  -> {
+            "WPA/WPA2"
+        }
+        else -> {
+            "开放"
+        }
+    }
+
 }

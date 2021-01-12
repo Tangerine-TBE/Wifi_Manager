@@ -5,8 +5,11 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import com.example.module_base.utils.Constants
+import com.example.module_base.utils.MyStatusBarUtil
 import com.example.module_base.utils.PackageUtil
+import com.example.module_base.widget.MyToolbar
 import com.tamsiree.rxkit.view.RxToast
 
 /**
@@ -50,4 +53,10 @@ fun shareContent(context: Context,result:String){
         flags = Intent.FLAG_ACTIVITY_NEW_TASK
     }
     context.startActivity(Intent.createChooser(intent,PackageUtil.getAppMetaData(context, Constants.APP_NAME)))
+}
+
+
+ fun setToolBar(activity: Activity,title:String,view: MyToolbar) {
+    MyStatusBarUtil.setColor(activity, Color.WHITE)
+    view.setTitle(title)
 }

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_bg"
+    tools:context=".activity.WifiInfoActivity">
+
+    <com.example.module_base.widget.MyToolbar
+        android:id="@+id/mWifiInfoToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/shape_general_bg"
+        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mWifiInfoToolbar">
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="信号强度"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/general_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="17dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="安全性"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+        <TextView
+            android:id="@+id/mWifiInfoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="98%"
+            android:textColor="@color/wifi_info_color"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/mWifiInfoProtect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WPA/WPA2 PSK"
+            android:textColor="@color/wifi_info_color"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/mInformWifi"
+        android:layout_marginTop="37dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_wifi_info_inform_bg"
+        android:drawableLeft="@mipmap/icon_copy"
+        android:drawablePadding="14dp"
+        android:paddingLeft="19dp"
+        android:paddingTop="13dp"
+        android:paddingRight="19dp"
+        android:paddingBottom="13dp"
+        android:text="举报为钓鱼wifi"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/mCancelShareWifi"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+    <TextView
+        android:id="@+id/mCancelShareWifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_wifi_info_share_bg"
+        android:drawableLeft="@mipmap/icon_share"
+        android:drawablePadding="14dp"
+        android:paddingLeft="19dp"
+        android:paddingTop="13dp"
+        android:paddingRight="19dp"
+        android:paddingBottom="13dp"
+        android:text="取消分享"
+        android:textColor="@color/theme_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/mInformWifi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mInformWifi" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

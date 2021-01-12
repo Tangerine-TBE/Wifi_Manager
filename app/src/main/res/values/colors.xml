@@ -8,25 +8,35 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!--theme-->
+    <color name="theme_color">#285FF5</color>
 
     <!--背景-->
     <color name="home_bg">#0541C8</color>
     <color name="my_bg">#ECF1FF</color>
+    <color name="general_bg">#FAFAFA</color>
+
+
 
 
     <!--字体-->
-    <color name="home_text_color">#285FF5</color>
+    <color name="home_text_color">@color/theme_color</color>
     <color name="my_text_color">#0F0F0F</color>
+    <color name="wifi_info_color">#9C9C9C</color>
+    <color name="cancel_wifi_color">@color/wifi_info_color</color>
+    <color name="cancel_share_apply_hint_color">@color/wifi_info_color</color>
+
+
 
     <!--wifi com.example.wifi_manager.widget.ScanWifiLoadingView-->
-    <color name="outside_color">@color/home_text_color</color>
+    <color name="outside_color">@color/theme_color</color>
     <color name="inner_color">#16FFC0</color>
 
-    <!--wifi com.example.wifi_manager.widget.WifiSpeedTestView-->scale_select_color
-    <color name="half_arc_color">#FAFAFA</color>
-    <color name="scale_select_color">@color/home_text_color</color>
-    <color name="scale_normal_color">#ECF1FF</color>
-    <color name="pinter_color">@color/home_text_color</color>
+    <!--wifi com.example.wifi_manager.widget.WifiSpeedTestView-->
+    <color name="half_arc_color">#ECF1FF</color>
+    <color name="pinter_color">@color/theme_color</color>
+    <color name="gradient_one_color">#16FFC0</color>
+    <color name="gradient_two_color">#0541C8</color>
 
 
 </resources>

@@ -3,7 +3,6 @@ package com.example.wifi_manager.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -357,7 +356,7 @@ public class ScanActivity extends FragmentActivity {
         }
 
     private void scanResult(String resultStr) {
-        setResult(MyFragment.REQUEST_CODE, new Intent().putExtra(ConstantsUtil.ZXING_RESULT, resultStr));
+        setResult(MyFragment.REQUEST_CODE, new Intent().putExtra(ConstantsUtil.ZXING_RESULT_KEY, resultStr));
         finish();
     }
     //========================================打开本地图片识别二维码 end=================================

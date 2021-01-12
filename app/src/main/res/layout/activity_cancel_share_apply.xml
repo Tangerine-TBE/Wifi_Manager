@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/general_bg"
+      >
+
+        <com.example.module_base.widget.MyToolbar
+            android:id="@+id/mCancelShareApplyToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hasRightTitle="true"
+            app:rightTitle="更多"
+            app:rightTitleColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="11dp"
+            android:text="请确保以下信息都填写正确，否则会因为无法验证您的主人有效身份证而无法审核通过哦！"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mCancelShareApplyToolbar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="16dp"
+            android:paddingTop="28dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:background="@drawable/shape_cancel_share_apply_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+<!--
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WiFi名称"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45dp"
+                android:textSize="14sp"
+                android:background="@null"
+                android:text="输入WiFi名称"
+                android:textColor="@color/cancel_share_apply_hint_color"
+                app:layout_constraintStart_toEndOf="@+id/textView11"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginTop="17dp"
+                android:layout_height="1dp"
+                android:background="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/editText2"
+                tools:layout_editor_absoluteX="24dp" />-->
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mInputContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="16dp"
+            android:text="个人WiFi变成共享WiFi，是由于
+\n1) 曾经连过WiFi的朋友把密码主动分享了
+\n2) wifi被误判为公共场所WiFi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+
+        <Button
+            android:id="@+id/mCommitApply"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="46dp"
+            android:layout_marginRight="46dp"
+            android:background="@drawable/shape_scan_result_find_normal_bg"
+            android:gravity="center"
+            android:text="立即提交"
+            android:textSize="16sp"
+            android:textColor="@color/theme_color"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

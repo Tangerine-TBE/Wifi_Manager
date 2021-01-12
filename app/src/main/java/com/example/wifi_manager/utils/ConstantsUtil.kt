@@ -10,5 +10,14 @@ package com.example.wifi_manager.utils
  */
 object ConstantsUtil {
 
-    const val ZXING_RESULT="zxing_result"
+    //Intent的key
+    const val ZXING_RESULT_KEY = "zxing_result"//扫描页
+
+
+    const val WIFI_LEVEL_KEY="wifi_level_key"//WIFI信息页
+    const val WIFI_PROTECT_KEY="wifi_protect_key"
+    const val WIFI_NAME_KEY="wifi_name_key"
+
+
+
 }

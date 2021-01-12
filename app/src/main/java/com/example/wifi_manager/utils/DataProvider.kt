@@ -42,6 +42,11 @@ object DataProvider {
            ItemBean(title = "账号注销")
    )
 
+    val shareApplyList= arrayListOf(
+        ItemBean(title = "WiFi名称",hint = "输入WiFi名称"),
+        ItemBean(title = "Mac地址",hint = "输入Mac地址"),
+        ItemBean(title = "WiFi密码",hint = "输入密码以已证身份")
+    )
 
 
 

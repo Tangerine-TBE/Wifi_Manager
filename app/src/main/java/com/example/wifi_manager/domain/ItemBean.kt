@@ -8,5 +8,5 @@ package com.example.wifi_manager.domain
  * @time 2021/1/7 14:30:11
  * @class describe
  */
-class ItemBean(val icon:Int=0,val title:String="") {
+class ItemBean(val icon:Int=0,val title:String="",val hint:String="") {
 }

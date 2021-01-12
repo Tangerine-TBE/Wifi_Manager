@@ -30,8 +30,14 @@ abstract class BaseVmActivity<T:ViewDataBinding,Vm:ViewModel>:FragmentActivity()
         initViewModel()
         //观察ViewModel数据变化
         observerData()
+        //initView
+        initView()
         //事件监听
         initEvent()
+    }
+
+    open fun initView() {
+
     }
 
     abstract fun getChildLayout(): Int

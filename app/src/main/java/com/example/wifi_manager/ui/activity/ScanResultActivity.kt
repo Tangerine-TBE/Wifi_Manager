@@ -9,6 +9,7 @@ import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.copyContent
 import com.example.wifi_manager.utils.setToolBar
 import com.example.wifi_manager.utils.shareContent
+import com.tamsiree.rxkit.RxClipboardTool
 import kotlinx.android.synthetic.main.activity_scan_result.*
 
 class ScanResultActivity : BaseActivity() {

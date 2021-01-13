@@ -9,15 +9,16 @@ import com.example.wifi_manager.extensions.exAwait
 import com.example.wifi_manager.repository.NetSpeedTestRepository
 import com.example.wifi_manager.utils.FileUtil
 import com.example.wifi_manager.utils.WifiSpeedTestUtil
+import com.example.wifi_manager.utils.calLastedTime
+import com.tamsiree.rxkit.RxConstTool
 import com.tamsiree.rxkit.RxTimeTool
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import okhttp3.ResponseBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.net.HttpURLConnection
+import java.util.*
 
 
 /**
@@ -60,29 +61,34 @@ class SpeedTestViewModel:ViewModel() {
 
     //保存文件
     private fun startSaveFile(response: ResponseBody){
-        mDownJob = viewModelScope.launch(Dispatchers.IO) {
-            val inputStream: InputStream = response.byteStream()
-            try {
-                val buf = ByteArray(1024)
-                while (inputStream.read(buf, 0, buf.size).also { it } != -1) {
-                //    outputStream.write(buf, 0, len)
-                    totalRxBytes.postValue(NetWorkSpeedBean(WifiSpeedTestUtil.getTotalRxBytes()-beginRxBytes,System.currentTimeMillis()-beginTime))
-                }
-                LogUtils.i("---beginTime------$beginTime---------")
+        mDownJob = viewModelScope.launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                val byteStream = response.byteStream()
+                try {
+                                val buf = ByteArray(1024)
+                                while (byteStream.read(buf, 0, buf.size).also { it } != -1) {
+                                    if (isActive) {
+                                        totalRxBytes.postValue(NetWorkSpeedBean(WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes, System.currentTimeMillis() - beginTime))
+                                    } else {
+                                        LogUtils.i("-------saveFile------${beginTime}---------------${System.currentTimeMillis()}--完成--------耗时-${calLastedTime(Date(System.currentTimeMillis()), Date(beginTime))}---")
+                                        break
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            } finally {
+                            byteStream.close()
+                            }
 
-                LogUtils.i("-------saveFile------完成--------耗时-${(System.currentTimeMillis()-beginTime)/1000}---")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                inputStream.close()
+
             }
+
         }
     }
 
 
     //停止保存
     fun stopSaveFile(){
-        totalRxBytes.postValue(NetWorkSpeedBean(WifiSpeedTestUtil.getTotalRxBytes(),System.currentTimeMillis()-beginTime))
         mDownJob?.cancel()
     }
 

@@ -15,6 +15,7 @@ import com.example.wifi_manager.ui.activity.SpeedTestActivity
 import com.example.wifi_manager.ui.adapter.MyBottomAdapter
 import com.example.wifi_manager.ui.adapter.MyTopAdapter
 import com.example.wifi_manager.databinding.FragmentMyBinding
+import com.example.wifi_manager.ui.activity.CancelShareActivity
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.DataProvider
 import com.example.wifi_manager.utils.toOtherActivity
@@ -73,6 +74,7 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
 
         mMyBottomAdapter.setOnItemClickListener { adapter, view, position ->
             when (position) {
+                1-> toOtherActivity<CancelShareActivity>(activity){}
                 2 -> FeedbackAPI.openFeedbackActivity()
                 3 -> toOtherActivity<DealActivity>(context) { putExtra(Constants.SET_DEAL1, 1) }
                 4 -> toOtherActivity<DealActivity>(context) { putExtra(Constants.SET_DEAL1, 2) }

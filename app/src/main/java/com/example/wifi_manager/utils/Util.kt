@@ -11,6 +11,7 @@ import com.example.module_base.utils.MyStatusBarUtil
 import com.example.module_base.utils.PackageUtil
 import com.example.module_base.widget.MyToolbar
 import com.tamsiree.rxkit.view.RxToast
+import java.util.*
 
 /**
  * @name Wifi_Manager
@@ -39,9 +40,9 @@ inline fun <reified T>toOtherResultActivity(context: Activity?,requestCode:Int,b
 
 fun copyContent(context: Context,result:String){
     val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val mClipData = ClipData.newPlainText("Label", result)
+    val mClipData = ClipData.newPlainText("text", result)
     cm.setPrimaryClip(mClipData)
-    RxToast.normal("已经复制到剪切板")
+    RxToast.normal("已复制到剪切板")
 }
 
 
@@ -59,4 +60,24 @@ fun shareContent(context: Context,result:String){
  fun setToolBar(activity: Activity,title:String,view: MyToolbar) {
     MyStatusBarUtil.setColor(activity, Color.WHITE)
     view.setTitle(title)
+}
+
+
+
+fun calLastedTime(endDate: Date, nowDate: Date): Long {
+    val nd = 1000 * 24 * 60 * 60.toLong()
+    val nh = 1000 * 60 * 60.toLong()
+    val nm = 1000 * 60.toLong()
+    val ns = 1000;
+    // 获得两个时间的毫秒时间差异
+    val diff = endDate.time - nowDate.time
+    // 计算差多少天
+    val day = diff / nd
+    // 计算差多少小时
+    val hour = diff % nd / nh
+    // 计算差多少分钟
+    val min = diff % nd % nh / nm
+    // 计算差多少秒//输出结果
+    val sec = diff % nd % nh % nm / ns;
+    return sec
 }

@@ -1,15 +1,11 @@
-package com.example.wifi_manager.activity
+package com.example.wifi_manager.ui.activity
 
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.example.module_base.base.BaseActivity
 import com.example.wifi_manager.R
-import com.example.wifi_manager.fragment.ClearFragment
-import com.example.wifi_manager.fragment.HomeFragment
-import com.example.wifi_manager.fragment.MyFragment
-import com.tamsiree.rxfeature.tool.RxQRCode
+import com.example.wifi_manager.ui.fragment.ClearFragment
+import com.example.wifi_manager.ui.fragment.HomeFragment
+import com.example.wifi_manager.ui.fragment.MyFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {

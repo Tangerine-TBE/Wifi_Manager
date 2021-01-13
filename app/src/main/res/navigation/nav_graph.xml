@@ -6,12 +6,12 @@
 
     <activity
         android:id="@+id/scanActivity"
-        android:name="com.example.wifi_manager.activity.ScanActivity"
+        android:name="com.example.wifi_manager.ui.activity.ScanActivity"
         android:label="ScanActivity" />
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.wifi_manager.fragment.HomeFragment"
+        android:name="com.example.wifi_manager.ui.fragment.HomeFragment"
         android:label="HomeFragment" >
 
     </fragment>
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/myFragment"
-        android:name="com.example.wifi_manager.fragment.MyFragment"
+        android:name="com.example.wifi_manager.ui.fragment.MyFragment"
         android:label="MyFragment" >
 
         <action android:id="@+id/to_scanActivity"

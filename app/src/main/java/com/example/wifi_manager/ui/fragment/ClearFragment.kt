@@ -1,4 +1,4 @@
-package com.example.wifi_manager.fragment
+package com.example.wifi_manager.ui.fragment
 
 import com.example.module_base.base.BaseViewFragment
 import com.example.wifi_manager.R
@@ -6,7 +6,7 @@ import com.example.wifi_manager.databinding.FragmentClearBinding
 
 /**
  * @name Wifi_Manager
- * @class name：com.example.wifi_manager.fragment
+ * @class name：com.example.wifi_manager.ui.fragment
  * @class describe
  * @author wujinming QQ:1245074510
  * @time 2021/1/7 13:41:32

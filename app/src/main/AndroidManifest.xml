@@ -19,12 +19,12 @@
         android:theme="@style/Theme.Wifi_Manager"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activity.CancelShareApplyActivity"></activity>
-        <activity android:name=".activity.CancelShareActivity" />
-        <activity android:name=".activity.WifiInfoActivity" />
-        <activity android:name=".activity.SpeedTestActivity" />
-        <activity android:name=".activity.ScanResultActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="com.example.wifi_manager.ui.activity.CancelShareApplyActivity"></activity>
+        <activity android:name="com.example.wifi_manager.ui.activity.CancelShareActivity" />
+        <activity android:name="com.example.wifi_manager.ui.activity.WifiInfoActivity" />
+        <activity android:name="com.example.wifi_manager.ui.activity.SpeedTestActivity" />
+        <activity android:name="com.example.wifi_manager.ui.activity.ScanResultActivity" />
+        <activity android:name="com.example.wifi_manager.ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ScanActivity"
+            android:name="com.example.wifi_manager.ui.activity.ScanActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
     </application>

@@ -1,4 +1,4 @@
-package com.example.wifi_manager.fragment
+package com.example.wifi_manager.ui.fragment
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -14,9 +14,9 @@ import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.MarginStatusBarUtil
 import com.example.wifi_manager.R
-import com.example.wifi_manager.activity.WifiInfoActivity
-import com.example.wifi_manager.adapter.HomeTopAdapter
-import com.example.wifi_manager.adapter.HomeWifiAdapter
+import com.example.wifi_manager.ui.activity.WifiInfoActivity
+import com.example.wifi_manager.ui.adapter.HomeTopAdapter
+import com.example.wifi_manager.ui.adapter.HomeWifiAdapter
 import com.example.wifi_manager.databinding.FragmentHomeBinding
 import com.example.wifi_manager.domain.WifiMessage
 import com.example.wifi_manager.utils.*
@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.layout_state_home_open_wifi.*
 
 /**
  * @name Wifi_Manager
- * @class name：com.example.wifi_manager.fragment
+ * @class name：com.example.wifi_manager.ui.fragment
  * @class describe
  * @author wujinming QQ:1245074510
  * @time 2021/1/7 13:41:05

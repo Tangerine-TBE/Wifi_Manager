@@ -1,4 +1,4 @@
-package com.example.wifi_manager.popup
+package com.example.wifi_manager.ui.popup
 
 import android.animation.ValueAnimator
 import android.app.Activity

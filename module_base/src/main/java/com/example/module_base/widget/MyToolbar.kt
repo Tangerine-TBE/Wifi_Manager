@@ -61,12 +61,11 @@ class MyToolbar @JvmOverloads constructor(
     private fun initView() {
         mTitle?.let {
             tv_toolbarTitle?.text = it
-            LogUtils.i("-----initView-----------$it-$tv_toolbarTitle-")
         }
 
-        tv_toolbarTitle.setTextColor(mTitleColor)
+        tv_toolbarTitle?.setTextColor(mTitleColor)
 
-        rl_bar.setBackgroundColor(mBarBgColor)
+        rl_bar?.setBackgroundColor(mBarBgColor)
 
         mLeftIcon?.let {
             if (it != -1) {

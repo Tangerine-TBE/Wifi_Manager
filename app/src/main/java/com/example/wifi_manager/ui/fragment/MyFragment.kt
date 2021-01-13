@@ -1,4 +1,4 @@
-package com.example.wifi_manager.fragment
+package com.example.wifi_manager.ui.fragment
 
 import android.content.Intent
 import androidx.recyclerview.widget.GridLayoutManager
@@ -9,11 +9,11 @@ import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.Constants
 import com.example.module_tool.activity.DistanceActivity
 import com.example.wifi_manager.R
-import com.example.wifi_manager.activity.ScanActivity
-import com.example.wifi_manager.activity.ScanResultActivity
-import com.example.wifi_manager.activity.SpeedTestActivity
-import com.example.wifi_manager.adapter.MyBottomAdapter
-import com.example.wifi_manager.adapter.MyTopAdapter
+import com.example.wifi_manager.ui.activity.ScanActivity
+import com.example.wifi_manager.ui.activity.ScanResultActivity
+import com.example.wifi_manager.ui.activity.SpeedTestActivity
+import com.example.wifi_manager.ui.adapter.MyBottomAdapter
+import com.example.wifi_manager.ui.adapter.MyTopAdapter
 import com.example.wifi_manager.databinding.FragmentMyBinding
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.DataProvider
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_my.*
 
 /**
  * @name Wifi_Manager
- * @class name：com.example.wifi_manager.fragment
+ * @class name：com.example.wifi_manager.ui.fragment
  * @class describe
  * @author wujinming QQ:1245074510
  * @time 2021/1/7 13:41:47

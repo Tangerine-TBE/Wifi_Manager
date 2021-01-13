@@ -28,11 +28,11 @@
 
 
 
-    <!--wifi com.example.wifi_manager.widget.ScanWifiLoadingView-->
+    <!--wifi com.example.wifi_manager.ui.widget.ScanWifiLoadingView-->
     <color name="outside_color">@color/theme_color</color>
     <color name="inner_color">#16FFC0</color>
 
-    <!--wifi com.example.wifi_manager.widget.WifiSpeedTestView-->
+    <!--wifi com.example.wifi_manager.ui.widget.WifiSpeedTestView-->
     <color name="half_arc_color">#ECF1FF</color>
     <color name="pinter_color">@color/theme_color</color>
     <color name="gradient_one_color">#16FFC0</color>

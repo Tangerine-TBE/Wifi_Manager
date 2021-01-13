@@ -1,17 +1,14 @@
-package com.example.wifi_manager.activity
+package com.example.wifi_manager.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.text.TextUtils
 import android.view.Gravity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module_base.base.BaseVmActivity
-import com.example.module_base.utils.LogUtils
 import com.example.module_base.widget.MyToolbar
 import com.example.wifi_manager.R
-import com.example.wifi_manager.adapter.CancelShareApplyAdapter
+import com.example.wifi_manager.ui.adapter.CancelShareApplyAdapter
 import com.example.wifi_manager.databinding.ActivityCancelShareApplyBinding
-import com.example.wifi_manager.popup.CheckMacHelpPopup
+import com.example.wifi_manager.ui.popup.CheckMacHelpPopup
 import com.example.wifi_manager.utils.DataProvider
 import com.example.wifi_manager.utils.setToolBar
 import com.example.wifi_manager.viewmodel.CancelShareApplyViewModel
@@ -27,7 +24,7 @@ class CancelShareApplyActivity : BaseVmActivity<ActivityCancelShareApplyBinding,
         CheckMacHelpPopup(this)
     }
 
-    override fun getChildLayout(): Int=R.layout.activity_cancel_share_apply
+    override fun getLayoutView(): Int=R.layout.activity_cancel_share_apply
     override fun getViewModelClass(): Class<CancelShareApplyViewModel> {
         return CancelShareApplyViewModel::class.java
     }

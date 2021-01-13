@@ -1,14 +1,11 @@
-package com.example.wifi_manager.activity
+package com.example.wifi_manager.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.example.module_base.base.BaseActivity
 import com.example.module_base.widget.MyToolbar
 import com.example.wifi_manager.R
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.setToolBar
 import com.example.wifi_manager.utils.toOtherActivity
-import kotlinx.android.synthetic.main.activity_speed_test.*
 import kotlinx.android.synthetic.main.activity_wifi_info.*
 
 

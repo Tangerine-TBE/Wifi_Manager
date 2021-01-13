@@ -1,4 +1,4 @@
-package com.example.wifi_manager.activity
+package com.example.wifi_manager.ui.activity
 
 import android.content.Intent
 import android.net.Uri

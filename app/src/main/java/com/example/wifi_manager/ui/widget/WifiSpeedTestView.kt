@@ -1,15 +1,13 @@
-package com.example.wifi_manager.widget
+package com.example.wifi_manager.ui.widget
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.SweepGradient
+import android.graphics.*
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.withTranslation
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
+
 
 /**
  * @author: 铭少
@@ -22,22 +20,20 @@ class WifiSpeedTestView @JvmOverloads constructor(
     private val mBgArcPaint= Paint()
     private val mCurrentArcPaint= Paint()
     private val mPinterPaint= Paint()
-    private var mSweepGradient: SweepGradient?=null
+    private val mLinePaint= Paint()
+    private val mTrianglePath= Path()
     private val mPaintWidth=30f
     private var mWidth=0f
     private var mHeight=0f
     private var mRadius=0f
-    private val mGradientColors = intArrayOf(
-
-        R.color.gradient_two_color,
-                R.color.gradient_one_color
-    )
+    private val startColor=ContextCompat.getColor(context, R.color.gradient_one_color)
+    private val endColor=ContextCompat.getColor(context, R.color.gradient_two_color)
 
     init {
         mBgArcPaint.apply {
             color=ContextCompat.getColor(context,R.color.half_arc_color)
             strokeWidth=mPaintWidth
-            style=Paint.Style.STROKE
+            style= Paint.Style.STROKE
             strokeCap= Paint.Cap.ROUND
             isAntiAlias=true
         }
@@ -53,7 +49,16 @@ class WifiSpeedTestView @JvmOverloads constructor(
         mPinterPaint.apply {
             color=ContextCompat.getColor(context,R.color.pinter_color)
             strokeWidth=mPaintWidth
+            style=Paint.Style.FILL
+            isAntiAlias=true
+        }
+
+        mLinePaint.apply {
+            color=ContextCompat.getColor(context,R.color.pinter_color)
+            strokeWidth=10f
             style=Paint.Style.STROKE
+            pathEffect = CornerPathEffect(5f)
+            strokeCap= Paint.Cap.ROUND
             isAntiAlias=true
         }
 
@@ -73,11 +78,8 @@ class WifiSpeedTestView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawBgArc(canvas)
-
         drawCurrentArc(canvas)
     }
-
-
 
 
     private fun drawBgArc(canvas: Canvas) {
@@ -99,15 +101,13 @@ class WifiSpeedTestView @JvmOverloads constructor(
     /**
      * 更新圆弧画笔
      */
+
     private fun updateArcPaint() {
         // 设置渐变
-        val arcPostion = floatArrayOf(0.5f, 0.5f)
-        val matrix = Matrix()
-        matrix.setRotate(-180f, mWidth/2, mHeight/2)
-        mSweepGradient = SweepGradient(mWidth/2, -mHeight/2, mGradientColors, arcPostion)
-        mSweepGradient?.setLocalMatrix(matrix)
-        mCurrentArcPaint.shader = mSweepGradient
-
+        mCurrentArcPaint.shader = LinearGradient(-mRadius, 0f, mRadius/2, -mRadius/2,startColor,
+                endColor, Shader.TileMode.CLAMP)
     }
+
+
 
 }

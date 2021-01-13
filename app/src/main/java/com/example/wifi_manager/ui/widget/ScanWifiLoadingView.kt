@@ -1,4 +1,4 @@
-package com.example.wifi_manager.widget
+package com.example.wifi_manager.ui.widget
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,17 +7,13 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.withTranslation
-import androidx.databinding.BindingAdapter
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
-import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
 import kotlinx.coroutines.*
 
 /**
  * @name Wifi_Manager
- * @class name：com.example.wifi_manager.widget
+ * @class name：com.example.wifi_manager.ui.widget
  * @class describe
  * @author wujinming QQ:1245074510
  * @time 2021/1/11 10:52:54

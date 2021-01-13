@@ -1,29 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.SpeedTestActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.module_base.widget.MyToolbar
-        android:id="@+id/mSpeedToolbar"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:backIconStyle="@drawable/icon_base_back"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:toolbarTitle="协议" />
+        android:layout_height="match_parent"
+        tools:context=".ui.activity.SpeedTestActivity">
+
+        <com.example.module_base.widget.MyToolbar
+            android:id="@+id/mSpeedToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:backIconStyle="@drawable/icon_base_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:toolbarTitle="协议" />
 
 
-    <com.example.wifi_manager.widget.WifiSpeedTestView
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mSpeedToolbar" />
+        <com.example.wifi_manager.ui.widget.WifiSpeedTestView
+            android:id="@+id/wifiSpeedTestView"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mSpeedToolbar" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/testSpeedState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:text="上传速度检测中"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wifiSpeedTestView" />
+
+
+        <TextView
+            android:id="@+id/testWifiName"
+            android:layout_marginTop="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dayan-正在测速"
+            android:textColor="@color/theme_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testSpeedState" />
+
+        <Button
+            android:id="@+id/mSpeedTest"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="46dp"
+            android:layout_marginRight="46dp"
+            android:background="@drawable/shape_scan_result_find_normal_bg"
+            android:gravity="center"
+            android:text="停止检测"
+            android:textSize="16sp"
+            android:textColor="@color/theme_color"
+            android:textStyle="bold"
+            android:layout_marginBottom="71dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

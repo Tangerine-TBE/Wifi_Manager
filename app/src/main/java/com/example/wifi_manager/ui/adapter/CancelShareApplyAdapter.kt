@@ -1,9 +1,8 @@
-package com.example.wifi_manager.adapter
+package com.example.wifi_manager.ui.adapter
 
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import androidx.core.widget.addTextChangedListener
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.wifi_manager.R
@@ -13,7 +12,7 @@ import java.util.HashMap
 
 /**
  * @name Wifi_Manager
- * @class name：com.example.wifi_manager.adapter
+ * @class name：com.example.wifi_manager.ui.adapter
  * @class describe
  * @author wujinming QQ:1245074510
  * @time 2021/1/12 17:31:06

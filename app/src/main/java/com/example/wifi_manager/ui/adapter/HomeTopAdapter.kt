@@ -1,4 +1,4 @@
-package com.example.wifi_manager.adapter
+package com.example.wifi_manager.ui.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.item_home_top_container.view.*
 
 /**
  * @name Wifi_Manager
- * @class name：com.example.wifi_manager.adapter
+ * @class name：com.example.wifi_manager.ui.adapter
  * @class describe
  * @author wujinming QQ:1245074510
  * @time 2021/1/7 14:32:29

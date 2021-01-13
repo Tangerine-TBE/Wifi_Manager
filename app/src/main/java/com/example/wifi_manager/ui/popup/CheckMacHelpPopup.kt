@@ -1,4 +1,4 @@
-package com.example.wifi_manager.popup
+package com.example.wifi_manager.ui.popup
 
 import android.app.Activity
 import android.graphics.Color
@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.popup_mac_help_window.view.*
 
 /**
  * @name Wifi_Manager
- * @class name：com.example.wifi_manager.popup
+ * @class name：com.example.wifi_manager.ui.popup
  * @class describe
  * @author wujinming QQ:1245074510
  * @time 2021/1/12 18:20:49

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/general_bg"
-    tools:context=".activity.CancelShareActivity">
+    tools:context=".ui.activity.CancelShareActivity">
 
     <com.example.module_base.widget.MyToolbar
         android:id="@+id/mCancelShareWifiToolbar"

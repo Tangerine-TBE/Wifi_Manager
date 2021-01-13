@@ -1,4 +1,4 @@
-package com.example.wifi_manager.activity;
+package com.example.wifi_manager.ui.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -23,7 +23,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.example.module_base.utils.LogUtils;
 import com.example.wifi_manager.R;
-import com.example.wifi_manager.fragment.MyFragment;
+import com.example.wifi_manager.ui.fragment.MyFragment;
 import com.example.wifi_manager.utils.ConstantsUtil;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;

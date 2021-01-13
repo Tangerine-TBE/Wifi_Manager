@@ -1,9 +1,6 @@
 package com.example.module_base.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
@@ -20,12 +17,12 @@ import androidx.lifecycle.ViewModelProvider
  */
 abstract class BaseVmActivity<T:ViewDataBinding,Vm:ViewModel>:FragmentActivity() {
 
-    protected lateinit var mViewModel:Vm
-    protected lateinit var mBinding: T
+    protected lateinit var viewModel:Vm
+    protected lateinit var binding: T
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding= DataBindingUtil.setContentView(this, getChildLayout())
-        setContentView(mBinding.root)
+        binding= DataBindingUtil.setContentView(this, getLayoutView())
+        setContentView(binding.root)
         //创建ViewModel
         initViewModel()
         //观察ViewModel数据变化
@@ -40,7 +37,7 @@ abstract class BaseVmActivity<T:ViewDataBinding,Vm:ViewModel>:FragmentActivity()
 
     }
 
-    abstract fun getChildLayout(): Int
+    abstract fun getLayoutView(): Int
 
 
     open fun initEvent() {
@@ -50,7 +47,7 @@ abstract class BaseVmActivity<T:ViewDataBinding,Vm:ViewModel>:FragmentActivity()
     }
 
     private fun initViewModel() {
-        mViewModel = ViewModelProvider(this).get(getViewModelClass())
+        viewModel = ViewModelProvider(this).get(getViewModelClass())
     }
     abstract fun getViewModelClass(): Class<Vm>
 

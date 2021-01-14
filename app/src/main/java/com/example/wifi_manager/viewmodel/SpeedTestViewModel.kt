@@ -1,5 +1,6 @@
 package com.example.wifi_manager.viewmodel
 
+import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,6 +31,19 @@ import java.util.*
  * @class describe
  */
 class SpeedTestViewModel:ViewModel() {
+    companion object{
+        const val millisinfuture=5000L
+        const val countDownInterval=1000L
+    }
+    //测速倒计时
+    private val mCountDownTimer by lazy {
+        object : CountDownTimer(millisinfuture, countDownInterval) {
+            override fun onFinish() { mDownJob?.cancel() }
+            override fun onTick(millisUntilFinished: Long) {
+                totalRxBytes.postValue(NetWorkSpeedBean(WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes, System.currentTimeMillis() - beginTime))
+            }
+        }
+    }
 
     private var mDownJob: Job?=null
     private var beginTime=0L
@@ -59,29 +73,25 @@ class SpeedTestViewModel:ViewModel() {
     }
 
 
+
     //保存文件
     private fun startSaveFile(response: ResponseBody){
-        mDownJob = viewModelScope.launch(Dispatchers.Main) {
-            withContext(Dispatchers.IO) {
-                val byteStream = response.byteStream()
+        mCountDownTimer.start()
+        mDownJob = viewModelScope.launch(Dispatchers.IO) {
+            response.byteStream().apply {
                 try {
-                                val buf = ByteArray(1024)
-                                while (byteStream.read(buf, 0, buf.size).also { it } != -1) {
-                                    if (isActive) {
-                                        totalRxBytes.postValue(NetWorkSpeedBean(WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes, System.currentTimeMillis() - beginTime))
-                                    } else {
-                                        LogUtils.i("-------saveFile------${beginTime}---------------${System.currentTimeMillis()}--完成--------耗时-${calLastedTime(Date(System.currentTimeMillis()), Date(beginTime))}---")
-                                        break
-                                    }
-                                }
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            } finally {
-                            byteStream.close()
-                            }
-
-
-            }
+                    val buf = ByteArray(1024)
+                    while (read(buf, 0, buf.size).also { it } != -1) {
+                        if (!isActive) {
+                            LogUtils.i("-------saveFile------${beginTime}---------------${System.currentTimeMillis()}--完成--------耗时-${calLastedTime(Date(System.currentTimeMillis()), Date(beginTime))}---")
+                            break
+                        }
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    close()
+                } }
 
         }
     }

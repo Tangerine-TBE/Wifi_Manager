@@ -131,7 +131,7 @@ public class ScanActivity extends FragmentActivity {
         public void onCreate(android.os.Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             RxBarTool.setNoTitle(this);
-            setContentView(R.layout.activity_scaner_code);
+            setContentView(R.layout.activity_scaner);
             RxBarTool.setTransparentStatusBar(this);
             //界面控件初始化
             RxTool.init(this);

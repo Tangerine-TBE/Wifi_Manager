@@ -15,8 +15,8 @@ import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.MarginStatusBarUtil
 import com.example.wifi_manager.R
 import com.example.wifi_manager.ui.activity.WifiInfoActivity
-import com.example.wifi_manager.ui.adapter.HomeTopAdapter
-import com.example.wifi_manager.ui.adapter.HomeWifiAdapter
+import com.example.wifi_manager.ui.adapter.recycleview.HomeTopAdapter
+import com.example.wifi_manager.ui.adapter.recycleview.HomeWifiAdapter
 import com.example.wifi_manager.databinding.FragmentHomeBinding
 import com.example.wifi_manager.domain.WifiMessage
 import com.example.wifi_manager.utils.*
@@ -39,7 +39,8 @@ import kotlinx.android.synthetic.main.layout_state_home_open_wifi.*
 class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun getViewModelClass(): Class<HomeViewModel> { return HomeViewModel::class.java }
     override fun getChildLayout(): Int = R.layout.fragment_home
-    private val mHomeTopAdapter by lazy { HomeTopAdapter()
+    private val mHomeTopAdapter by lazy {
+        HomeTopAdapter()
     }
     private val mNetReceiver by lazy { NetReceiver() }
 

@@ -1,5 +1,7 @@
 package com.example.wifi_manager.extensions
 
+import android.app.Activity
+import android.app.Dialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,7 +15,7 @@ import retrofit2.Response
  * @class describe
  */
 
-
+//网络请求
 fun <T> Call<T> .exAwait(fail:(t: Throwable)->Unit, success:(response: Response<T>)->Unit) {
     enqueue(object :Callback<T>{
         override fun onFailure(call: Call<T>, t: Throwable) {
@@ -23,5 +25,12 @@ fun <T> Call<T> .exAwait(fail:(t: Throwable)->Unit, success:(response: Response<
             success(response)
         }
     })
-
 }
+
+//Dialog
+fun Dialog.noFinishShow(activity: Activity){
+    if (!activity.isFinishing) {
+        show()
+    }
+}
+

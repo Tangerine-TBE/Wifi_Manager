@@ -6,6 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.os.CountDownTimer
 import com.example.module_base.utils.Constants
 import com.example.module_base.utils.MyStatusBarUtil
 import com.example.module_base.utils.PackageUtil
@@ -23,29 +24,37 @@ import java.util.*
  */
 
 
-
-inline fun <reified T>toOtherActivity(context: Context?,block:Intent.()->Unit){
-    val intent = Intent(context,T::class.java)
+//跳转Activity
+inline fun <reified T>toOtherActivity(activity: Activity?,block:Intent.()->Unit){
+    val intent = Intent(activity,T::class.java)
     intent.block()
-    context?.startActivity(intent)
+    activity?.startActivity(intent)
 }
 
+//跳转Activity
+inline fun <reified T>toOtherActivity(activity: Activity?,isFinish: Boolean,block:Intent.()->Unit){
+    val intent = Intent(activity,T::class.java)
+    intent.block()
+    activity?.startActivity(intent)
+    if (isFinish) {
+        activity?.finish()
+    }
+}
 
+//跳转Activity带请求码
 inline fun <reified T>toOtherResultActivity(context: Activity?,requestCode:Int,block:Intent.()->Unit){
     val intent = Intent(context,T::class.java)
     intent.block()
     context?.startActivityForResult(intent,requestCode)
 }
-
-
+//复制
 fun copyContent(context: Context,result:String){
     val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val mClipData = ClipData.newPlainText("text", result)
     cm.setPrimaryClip(mClipData)
     RxToast.normal("已复制到剪切板")
 }
-
-
+//分享
 fun shareContent(context: Context,result:String){
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain" // 纯文本
@@ -55,15 +64,13 @@ fun shareContent(context: Context,result:String){
     }
     context.startActivity(Intent.createChooser(intent,PackageUtil.getAppMetaData(context, Constants.APP_NAME)))
 }
-
-
+//设置页面和状态栏的距离
  fun setToolBar(activity: Activity,title:String,view: MyToolbar) {
     MyStatusBarUtil.setColor(activity, Color.WHITE)
     view.setTitle(title)
 }
 
-
-
+//计算相差几秒
 fun calLastedTime(endDate: Date, nowDate: Date): Long {
     val nd = 1000 * 24 * 60 * 60.toLong()
     val nh = 1000 * 60 * 60.toLong()
@@ -80,4 +87,28 @@ fun calLastedTime(endDate: Date, nowDate: Date): Long {
     // 计算差多少秒//输出结果
     val sec = diff % nd % nh % nm / ns;
     return sec
+}
+//toolbar事件
+fun MyToolbar.toolbarEvent(activity: Activity,event:()->Unit){
+    setOnBackClickListener(object :MyToolbar.OnBackClickListener{
+        override fun onBack() {
+            activity?.finish()
+        }
+        override fun onRightTo() {
+            event()
+        }
+    })
+}
+
+//计时
+fun startCountDown(totalTime: Long, followTime: Long, finish: () -> Unit, ticking: () -> Unit) {
+    object:CountDownTimer(totalTime,followTime){
+        override fun onFinish() {
+            finish()
+        }
+        override fun onTick(millisUntilFinished: Long) {
+            ticking()
+        }
+    }.start()
+
 }

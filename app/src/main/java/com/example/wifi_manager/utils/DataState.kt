@@ -8,6 +8,8 @@ package com.example.wifi_manager.utils
  * @time 2021/1/7 15:50:25
  * @class describe
  */
+
+//wifi状态
 enum class WifiState {
     /**
      * WIFI_STATE_DISABLED    WLAN已经关闭
@@ -20,6 +22,7 @@ enum class WifiState {
 
 }
 
+//wifi列表状态
 enum class WifiContentState(){
     NORMAL,REFRESH
 }

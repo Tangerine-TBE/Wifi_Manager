@@ -1,8 +1,11 @@
 package com.example.wifi_manager.ui.widget
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AccelerateInterpolator
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.withRotation
 import androidx.core.graphics.withTranslation
@@ -131,9 +134,34 @@ class WifiSpeedTestView @JvmOverloads constructor(
 
 
     private var mRotate=0f
-    fun setRotate(rotate:Float){
-        mRotate= Random().nextInt(180).toFloat()
-        invalidate()
+    private var mOldRotate=0f
+    fun startRotate(speed:Float){
+        val rotate = when (speed) {
+            in 0f..0.154f -> 15f
+            in 0.155f..0.256f -> 30f
+            in 0.257f..0.384f -> 45f
+            in 0.385f..0.512f -> 60f
+            in 0.513f..0.620f -> 75f
+            in 0.621f..1.024f -> 90f
+            in 1.025f..1.280f -> 105f
+            in 1.025f..1.280f -> 120f
+            in 1.281f..1.536f -> 135f
+            in 1.537f..3.840f -> 150f
+            in 3.841f..7.680f -> 165f
+            in 7.681f..1000f ->  180f
+            else->90f
+        }
+        ValueAnimator.ofFloat(mOldRotate, rotate).apply {
+            interpolator= AccelerateDecelerateInterpolator()
+            duration=1000
+            addUpdateListener {
+                mRotate = it.animatedValue as Float
+                invalidate()
+                mOldRotate=rotate
+            }
+        }.start()
+
+
     }
 
 

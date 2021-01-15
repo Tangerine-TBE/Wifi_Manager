@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:toolbarTitle="协议" />
+         />
 
 
         <com.example.wifi_manager.ui.widget.WifiSpeedTestView
@@ -36,13 +36,13 @@
             android:id="@+id/testSpeedState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            android:text="上传速度检测中"
+            android:text="网络延时检测中"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="@+id/wifiSpeedTestView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wifiSpeedTestView" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <TextView

@@ -1,4 +1,4 @@
-package com.example.wifi_manager.ui.adapter
+package com.example.wifi_manager.ui.adapter.recycleview
 
 import android.text.Editable
 import android.text.TextWatcher

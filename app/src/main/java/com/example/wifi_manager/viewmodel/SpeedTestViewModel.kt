@@ -8,9 +8,7 @@ import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.domain.NetWorkSpeedBean
 import com.example.wifi_manager.extensions.exAwait
 import com.example.wifi_manager.repository.NetSpeedTestRepository
-import com.example.wifi_manager.utils.FileUtil
-import com.example.wifi_manager.utils.WifiSpeedTestUtil
-import com.example.wifi_manager.utils.calLastedTime
+import com.example.wifi_manager.utils.*
 import com.tamsiree.rxkit.RxConstTool
 import com.tamsiree.rxkit.RxTimeTool
 import kotlinx.coroutines.*
@@ -32,39 +30,43 @@ import java.util.*
  */
 class SpeedTestViewModel:ViewModel() {
     companion object{
-        const val millisinfuture=5000L
+        const val millisinfuture=8000L
+        const val pingTime=2000L
         const val countDownInterval=1000L
-    }
-    //测速倒计时
-    private val mCountDownTimer by lazy {
-        object : CountDownTimer(millisinfuture, countDownInterval) {
-            override fun onFinish() { mDownJob?.cancel() }
-            override fun onTick(millisUntilFinished: Long) {
-                totalRxBytes.postValue(NetWorkSpeedBean(WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes, System.currentTimeMillis() - beginTime))
-            }
-        }
     }
 
     private var mDownJob: Job?=null
     private var beginTime=0L
     private var beginRxBytes=0L
 
+
     val totalRxBytes by lazy {
         MutableLiveData<NetWorkSpeedBean>()
     }
 
+    val downState by lazy {
+        MutableLiveData<Boolean>(false)
+    }
+
+    val pingValue by lazy {
+        MutableLiveData<Int>()
+    }
+
+
+    //10582382
+    //10594013
 
     //开始下载文件测速
-    fun startSpeedTest(){
+   private fun startSpeedTest(){
         beginTime=System.currentTimeMillis()
-        LogUtils.i("---beginTime------$beginTime---------")
         beginRxBytes=WifiSpeedTestUtil.getTotalRxBytes()
-        totalRxBytes.value= NetWorkSpeedBean(beginRxBytes,beginTime)
+        LogUtils.i("----byteStream------${beginRxBytes}--------------------")
         viewModelScope.launch {
         NetSpeedTestRepository.getNetSpeed().exAwait({},
                     { it ->
                         if (it.code()==HttpURLConnection.HTTP_OK) {
                             it.body()?.let {
+
                                 startSaveFile(it)
                             }
                         }
@@ -72,18 +74,15 @@ class SpeedTestViewModel:ViewModel() {
         }
     }
 
-
-
-    //保存文件
-    private fun startSaveFile(response: ResponseBody){
-        mCountDownTimer.start()
+    //开始速度统计
+     private fun startSaveFile(response: ResponseBody) {
         mDownJob = viewModelScope.launch(Dispatchers.IO) {
             response.byteStream().apply {
                 try {
                     val buf = ByteArray(1024)
                     while (read(buf, 0, buf.size).also { it } != -1) {
                         if (!isActive) {
-                            LogUtils.i("-------saveFile------${beginTime}---------------${System.currentTimeMillis()}--完成--------耗时-${calLastedTime(Date(System.currentTimeMillis()), Date(beginTime))}---")
+                            LogUtils.i("----byteStream4------${WifiSpeedTestUtil.getTotalRxBytes()}--------------------")
                             break
                         }
                     }
@@ -91,16 +90,46 @@ class SpeedTestViewModel:ViewModel() {
                     e.printStackTrace()
                 } finally {
                     close()
-                } }
-
+                }
+            }
         }
+
+        //测速倒计时
+        startCountDown(millisinfuture, countDownInterval, {
+            LogUtils.i("----byteStream3------${WifiSpeedTestUtil.getTotalRxBytes()-beginRxBytes}--------------------")
+            mDownJob?.cancel()
+            downState.value = true
+
+        },
+            {
+                totalRxBytes.value=
+                    NetWorkSpeedBean(
+                        WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes,
+                        System.currentTimeMillis() - beginTime)
+                LogUtils.i("----byteStream2------${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------------------")
+            })
+
     }
 
-
-    //停止保存
+    //停止速度统计
     fun stopSaveFile(){
         mDownJob?.cancel()
     }
+
+    fun startPing(){
+        startCountDown(pingTime,countDownInterval,{
+            viewModelScope.launch{
+                withContext(Dispatchers.IO){
+                pingValue.postValue(PingUtils.getAvgRTT(ConstantsUtil.PING_URL, 4, 1))
+                }
+
+                startSpeedTest()
+            }
+
+        },{
+        })
+    }
+
 
 
 

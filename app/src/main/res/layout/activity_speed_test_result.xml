@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_bg"
+    tools:context=".ui.activity.SpeedTestResultActivity">
+
+    <com.example.module_base.widget.MyToolbar
+        android:id="@+id/mSpeedResultToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backIconStyle="@drawable/icon_base_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+     />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        style="@style/margin_right_left_have_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="17dp"
+        android:paddingBottom="26dp"
+        app:layout_constraintTop_toBottomOf="@id/mSpeedResultToolbar"
+        tools:layout_editor_absoluteX="16dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/mSpeedWifiName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="dayan_ap"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/mWifiSpeedRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="用户在10M~20M之间"
+            android:textColor="@color/theme_color" />
+
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/margin_right_left_have_bg"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:paddingTop="26dp"
+        android:paddingBottom="26dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="16dp">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测速结果"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/mWifiDelay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:text="0ms"
+            android:textSize="16sp"
+            android:textColor="@color/theme_color"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView16"
+            app:layout_constraintEnd_toEndOf="@+id/textView16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="网络延迟"
+            android:textColor="@color/wifi_speed_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <TextView
+            android:id="@+id/mWifiDownSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.20MB/s"
+            android:textSize="16sp"
+            android:textColor="@color/theme_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mWifiDelay" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下载速度"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/wifi_speed_color"
+            app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+
+        <TextView
+            android:id="@+id/mWifiUpSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="287.9KB/s"
+            android:textSize="16sp"
+            android:textColor="@color/theme_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mWifiDownSpeed" />
+
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传速度"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/wifi_speed_color"
+            app:layout_constraintStart_toStartOf="@+id/mWifiUpSpeed" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

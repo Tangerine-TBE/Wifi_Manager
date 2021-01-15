@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.WifiProtectActivity">
+
+    <com.example.module_base.widget.MyToolbar
+        android:id="@+id/mWifiProtectToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backIconStyle="@drawable/icon_base_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="14dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mWifiProtectToolbar" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mWifiProtectContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+
+    <Button
+        android:id="@+id/mOpenProtect"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="46dp"
+        android:layout_marginRight="46dp"
+        android:background="@drawable/shape_scan_result_find_normal_bg"
+        android:gravity="center"
+        android:text="开启保护"
+        android:textColor="@color/home_text_color"
+        android:textStyle="bold"
+        android:layout_marginTop="27dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mWifiProtectContainer" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

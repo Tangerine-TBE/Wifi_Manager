@@ -25,6 +25,7 @@
     <color name="wifi_info_color">#9C9C9C</color>
     <color name="cancel_wifi_color">@color/wifi_info_color</color>
     <color name="cancel_share_apply_hint_color">@color/wifi_info_color</color>
+    <color name="wifi_speed_color">#B2B2B2</color>
 
 
 

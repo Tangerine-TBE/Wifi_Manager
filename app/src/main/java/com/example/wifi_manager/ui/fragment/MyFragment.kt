@@ -9,13 +9,10 @@ import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.Constants
 import com.example.module_tool.activity.DistanceActivity
 import com.example.wifi_manager.R
-import com.example.wifi_manager.ui.activity.ScanActivity
-import com.example.wifi_manager.ui.activity.ScanResultActivity
-import com.example.wifi_manager.ui.activity.SpeedTestActivity
-import com.example.wifi_manager.ui.adapter.MyBottomAdapter
-import com.example.wifi_manager.ui.adapter.MyTopAdapter
+import com.example.wifi_manager.ui.adapter.recycleview.MyBottomAdapter
+import com.example.wifi_manager.ui.adapter.recycleview.MyTopAdapter
 import com.example.wifi_manager.databinding.FragmentMyBinding
-import com.example.wifi_manager.ui.activity.CancelShareActivity
+import com.example.wifi_manager.ui.activity.*
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.DataProvider
 import com.example.wifi_manager.utils.toOtherActivity
@@ -65,8 +62,10 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
         mMyTopAdapter.setOnItemClickListener { adapter, view, position ->
             when (position) {
                 0 -> startActivityForResult(Intent(activity,ScanActivity::class.java),REQUEST_CODE)
+                1-> toOtherActivity<WifiProtectActivity>(activity){}
                 2->toOtherActivity<SpeedTestActivity>(activity){}
                 3-> toOtherActivity<DistanceActivity>(activity){}
+                4-> {}
             }
         }
 
@@ -76,8 +75,8 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
             when (position) {
                 1-> toOtherActivity<CancelShareActivity>(activity){}
                 2 -> FeedbackAPI.openFeedbackActivity()
-                3 -> toOtherActivity<DealActivity>(context) { putExtra(Constants.SET_DEAL1, 1) }
-                4 -> toOtherActivity<DealActivity>(context) { putExtra(Constants.SET_DEAL1, 2) }
+                3 -> toOtherActivity<DealActivity>(activity) { putExtra(Constants.SET_DEAL1, 1) }
+                4 -> toOtherActivity<DealActivity>(activity) { putExtra(Constants.SET_DEAL1, 2) }
             }
         }
     }

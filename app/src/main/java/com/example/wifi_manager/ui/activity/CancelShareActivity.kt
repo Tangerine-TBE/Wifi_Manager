@@ -5,6 +5,7 @@ import com.example.module_base.widget.MyToolbar
 import com.example.wifi_manager.R
 import com.example.wifi_manager.utils.setToolBar
 import com.example.wifi_manager.utils.toOtherActivity
+import com.example.wifi_manager.utils.toolbarEvent
 import kotlinx.android.synthetic.main.activity_cancel_share.*
 
 class CancelShareActivity : BaseActivity() {
@@ -15,20 +16,10 @@ class CancelShareActivity : BaseActivity() {
     }
 
     override fun initEvent() {
-
         mApplyShare.setOnClickListener {
             toOtherActivity<CancelShareApplyActivity>(this){}
         }
-
-        mCancelShareWifiToolbar.setOnBackClickListener(object :MyToolbar.OnBackClickListener{
-            override fun onBack() {
-                finish()
-            }
-
-            override fun onRightTo() {
-
-            }
-        })
+        mCancelShareWifiToolbar.toolbarEvent(this){}
     }
 
 }

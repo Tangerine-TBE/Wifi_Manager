@@ -15,9 +15,8 @@ import java.util.concurrent.TimeUnit
  * @class describe
  */
 object RetrofitClient {
-   private const val  URL = "https://dl.softmgr.qq.com/"
-
-
+    //https://down.qq.com/qqweb/QQ_1/android_apk/Android_8.5.5.5105_537066978.apk
+   private const val  URL = "https://down.qq.com/"
 
     val textWifiSpeedRetrofit: Retrofit = Retrofit.Builder()
             .baseUrl(URL)

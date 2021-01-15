@@ -1,4 +1,4 @@
-package com.example.wifi_manager.ui.adapter
+package com.example.wifi_manager.ui.adapter.recycleview
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder

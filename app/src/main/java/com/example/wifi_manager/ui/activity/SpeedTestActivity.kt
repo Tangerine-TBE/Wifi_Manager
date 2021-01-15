@@ -1,16 +1,21 @@
 package com.example.wifi_manager.ui.activity
 
+import android.view.View
 import androidx.lifecycle.Observer
 import com.example.module_base.base.BaseVmActivity
 import com.example.module_base.utils.LogUtils
-import com.example.module_base.widget.MyToolbar
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivitySpeedTestBinding
+import com.example.wifi_manager.extensions.noFinishShow
+import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.setToolBar
+import com.example.wifi_manager.utils.toOtherActivity
+import com.example.wifi_manager.utils.toolbarEvent
 import com.example.wifi_manager.viewmodel.SpeedTestViewModel
 import com.tamsiree.rxkit.RxNetTool
 import com.tamsiree.rxui.view.dialog.RxDialogSureCancel
 import kotlinx.android.synthetic.main.activity_speed_test.*
+import java.text.DecimalFormat
 
 class SpeedTestActivity : BaseVmActivity<ActivitySpeedTestBinding,SpeedTestViewModel>() {
     private val mTestRemindDialog by lazy {
@@ -19,38 +24,62 @@ class SpeedTestActivity : BaseVmActivity<ActivitySpeedTestBinding,SpeedTestViewM
             setCancelable(true)
         }
     }
-
     override fun getLayoutView(): Int=R.layout.activity_speed_test
     override fun getViewModelClass(): Class<SpeedTestViewModel> { return SpeedTestViewModel::class.java }
     override fun initView() {
         setToolBar(this, "网络测速", mSpeedToolbar)
-        if (!RxNetTool.isWifiConnected(this)) {
-            if (!isFinishing) {
-                mTestRemindDialog.show()
-            }
-        } else {
-            viewModel.startSpeedTest()
-        }
+        if (!RxNetTool.isWifiConnected(this)) mTestRemindDialog.noFinishShow(this) else viewModel.startPing()
     }
 
 
     //1610532064261  04   1610532084378    24
+    private var currentTotalRxData=0L
+    private var currentPing=0
+
     override fun observerData() {
-        viewModel.totalRxBytes.observe(this, Observer {
-            wifiSpeedTestView.setRotate(1f)
-           LogUtils.i("--------totalRxBytes----------- >${it.dataSize}--------------${it.continueTime}")
-        })
+        viewModel.apply {
+            totalRxBytes.observe(this@SpeedTestActivity, Observer {
+                wifiSpeedTestView.startRotate(it.dataSize / it.continueTime.toFloat())
+                currentTotalRxData=it.dataSize
+                testSpeedState.text="下载速度检查中"
+                LogUtils.i("--------totalRxBytes----------- >${it.dataSize / it.continueTime.toFloat()}---------${it.continueTime}-----")
+            })
+
+            downState.observe(this@SpeedTestActivity, Observer {
+                if (it) {
+                    if (currentTotalRxData!=0L) {
+                        val downLoadSpeed =  DecimalFormat("0.00").format(currentTotalRxData / SpeedTestViewModel.millisinfuture.toFloat())
+                        LogUtils.i("--------downLoadSpeed---$downLoadSpeed-----")
+                        toOtherActivity<SpeedTestResultActivity>(this@SpeedTestActivity,true){
+                            putExtra(ConstantsUtil.WIFI_DELAY_KEY,currentPing.toString())
+                            putExtra(ConstantsUtil.WIFI_DOWN_LOAD_KEY,downLoadSpeed)
+                            putExtra(ConstantsUtil.WIFI_UP_LOAD_KEY,299.56.toString())
+                        }
+                    }
+                }
+            })
+
+            pingValue.observe(this@SpeedTestActivity, Observer {
+                currentPing=it
+                testSpeedState.text="网络延时检测中"
+            })
+
+
+        }
+
     }
 
     override fun initEvent() {
-        mSpeedToolbar.setOnBackClickListener(object:MyToolbar.OnBackClickListener{
-            override fun onBack() {
-                finish()
-            }
-            override fun onRightTo() {
-            }
+        mSpeedToolbar.toolbarEvent(this){}
+
+        mTestRemindDialog.setSureListener(View.OnClickListener {
+            mTestRemindDialog.dismiss()
+            viewModel.startPing()
         })
 
+        mTestRemindDialog.setCancelListener(View.OnClickListener {
+            finish()
+        })
 
         mSpeedTest.setOnClickListener {
             viewModel.stopSaveFile()

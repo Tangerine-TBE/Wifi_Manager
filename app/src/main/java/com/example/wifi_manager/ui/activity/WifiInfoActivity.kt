@@ -6,6 +6,7 @@ import com.example.wifi_manager.R
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.setToolBar
 import com.example.wifi_manager.utils.toOtherActivity
+import com.example.wifi_manager.utils.toolbarEvent
 import kotlinx.android.synthetic.main.activity_wifi_info.*
 
 
@@ -21,18 +22,7 @@ class WifiInfoActivity : BaseActivity() {
         mWifiInfoProtect.text=protectWay?:""
     }
     override fun initEvent() {
-
-        mWifiInfoToolbar.setOnBackClickListener(object :MyToolbar.OnBackClickListener{
-            override fun onBack() {
-                finish()
-            }
-
-            override fun onRightTo() {
-
-            }
-
-        })
-
+        mWifiInfoToolbar.toolbarEvent(this){}
         mCancelShareWifi.setOnClickListener {
             toOtherActivity<CancelShareActivity>(this){}
         }

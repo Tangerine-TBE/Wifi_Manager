@@ -4,13 +4,13 @@ import android.text.TextUtils
 import android.view.Gravity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module_base.base.BaseVmActivity
-import com.example.module_base.widget.MyToolbar
 import com.example.wifi_manager.R
-import com.example.wifi_manager.ui.adapter.CancelShareApplyAdapter
+import com.example.wifi_manager.ui.adapter.recycleview.CancelShareApplyAdapter
 import com.example.wifi_manager.databinding.ActivityCancelShareApplyBinding
 import com.example.wifi_manager.ui.popup.CheckMacHelpPopup
 import com.example.wifi_manager.utils.DataProvider
 import com.example.wifi_manager.utils.setToolBar
+import com.example.wifi_manager.utils.toolbarEvent
 import com.example.wifi_manager.viewmodel.CancelShareApplyViewModel
 import com.tamsiree.rxkit.RxKeyboardTool
 import com.tamsiree.rxkit.view.RxToast
@@ -43,15 +43,7 @@ class CancelShareApplyActivity : BaseVmActivity<ActivityCancelShareApplyBinding,
 
     override fun initEvent() {
 
-        mCancelShareApplyToolbar.setOnBackClickListener(object : MyToolbar.OnBackClickListener {
-            override fun onBack() {
-                finish()
-            }
-
-            override fun onRightTo() {
-
-            }
-        })
+        mCancelShareApplyToolbar.toolbarEvent(this){}
 
         mCommitApply.setOnClickListener {
             mCancelApplyAdapter.getInputContent()?.let {

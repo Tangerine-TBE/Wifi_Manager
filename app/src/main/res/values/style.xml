@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
     <style name="popupAnimation" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/anim_popup_in</item>
         <item name="android:windowExitAnimation">@anim/anim_popup_out</item>
     </style>
+
+
+
+
+    <!--margin_right_left-->
+    <style name="margin_right_left" >
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+    </style>
+
+    <!--margin_right_left_have_bg-->
+     <style name="margin_right_left_have_bg" parent="margin_right_left">
+         <item name="android:background">@drawable/shape_general_bg</item>
+     </style>
+
+
+
+
+
+
+
 </resources>

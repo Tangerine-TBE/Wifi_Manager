@@ -1,84 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="#FAFAFA"
-    android:layout_height="match_parent"
-  >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.module_base.widget.MyToolbar
-        android:id="@+id/mScanToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:has_right_icon="true"
-        app:backIconStyle="@drawable/icon_base_back"
-        app:toolbarTitle="协议"
-        app:rightIconStyle="@mipmap/icon_share"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:paddingBottom="@dimen/dp_25"
-        android:layout_marginTop="11dp"
-        android:paddingLeft="25dp"
-        android:background="@drawable/shape_scan_result_bg"
-        app:layout_constraintTop_toBottomOf="@+id/mScanToolbar"
-     >
+        android:background="#FAFAFA"
+        android:layout_height="match_parent">
 
-
-        <TextView
-            android:id="@+id/mResultContent"
-            android:layout_width="wrap_content"
+        <com.example.module_base.widget.MyToolbar
+            android:id="@+id/mScanToolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="https://screenlane.com/platform/ios/"
-            android:textColor="@color/black"
+            app:has_right_icon="true"
+            app:backIconStyle="@drawable/icon_base_back"
+            app:toolbarTitle="协议"
+            app:rightIconStyle="@mipmap/icon_share"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/mCopy"
-            android:layout_width="wrap_content"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="25dp"
-            android:src="@mipmap/icon_copy"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:paddingBottom="@dimen/dp_25"
+            android:layout_marginTop="11dp"
+            android:paddingLeft="25dp"
+            android:background="@drawable/shape_scan_result_bg"
+            app:layout_constraintTop_toBottomOf="@+id/mScanToolbar">
+
+
+            <TextView
+                android:id="@+id/mResultContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="https://screenlane.com/platform/ios/"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/mCopy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp"
+                android:src="@mipmap/icon_copy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/mResultContent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/mFindResult"
+            android:background="@drawable/shape_scan_result_find_normal_bg"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="46dp"
+            android:layout_marginLeft="46dp"
+            android:layout_height="49dp"
+            android:text="搜索"
+            android:gravity="center"
+            android:textColor="@color/home_text_color"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/mResultContent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-            <Button
-                android:id="@+id/mFindResult"
-                android:background="@drawable/shape_scan_result_find_normal_bg"
-                android:layout_centerInParent="true"
-                android:layout_width="match_parent"
-                android:layout_marginTop="22dp"
-                android:layout_marginRight="46dp"
-                android:layout_marginLeft="46dp"
-                android:layout_height="49dp"
-                android:text="搜索"
-                android:gravity="center"
-                android:textColor="@color/home_text_color"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

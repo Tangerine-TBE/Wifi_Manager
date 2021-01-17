@@ -1,89 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/general_bg"
-    tools:context=".ui.activity.CancelShareActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.module_base.widget.MyToolbar
-        android:id="@+id/mCancelShareWifiToolbar"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hasRightTitle="true"
-        app:rightTitle="WiFi否被分享查询"
-        app:rightTitleColor="@color/theme_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@color/general_bg"
+        tools:context=".ui.activity.CancelShareViewActivity">
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@drawable/shape_general_bg"
-        android:paddingLeft="20dp"
-        android:paddingTop="34dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="15dp"
-        android:text="WiFi管家是一个公共热点共享平台，我们希望通过该平台让商家与用户建立更便捷的WiFi共享服务。\n\n如果你发现个人热点被误分享到共享平台，或者您想改变原有的分享状态。我们都提供了便捷的操作来方便你取消热点分享。"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mCancelShareWifiToolbar" />
+        <com.example.module_base.widget.MyToolbar
+            android:id="@+id/mCancelShareWifiToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hasRightTitle="true"
+            app:rightTitle="WiFi否被分享查询"
+            app:rightTitleColor="@color/theme_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="30dp"
-        android:text="取消方式介绍"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/shape_general_bg"
+            android:paddingLeft="20dp"
+            android:paddingTop="34dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="15dp"
+            android:text="WiFi管家是一个公共热点共享平台，我们希望通过该平台让商家与用户建立更便捷的WiFi共享服务。\n\n如果你发现个人热点被误分享到共享平台，或者您想改变原有的分享状态。我们都提供了便捷的操作来方便你取消热点分享。"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mCancelShareWifiToolbar" />
 
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginRight="40dp"
-        android:text="1、接通过路由器修改热点密码，可以在最快时间阻止其他用户连接你的热点，同时让所有分享无效。\n\n2、通过自助投诉平台提交相关信息后，我们将在工作日内尽快审核取消分享。"
-        android:textColor="@color/cancel_wifi_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:text="取消方式介绍"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
-    <Button
-        android:id="@+id/mApplyShare"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/shape_scan_result_find_normal_bg"
-        android:gravity="center"
-        android:text="点击申请"
-        android:layout_marginTop="32dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp"
-        android:textColor="@color/theme_color"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="更多"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mApplyShare" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="40dp"
+            android:text="1、接通过路由器修改热点密码，可以在最快时间阻止其他用户连接你的热点，同时让所有分享无效。\n\n2、通过自助投诉平台提交相关信息后，我们将在工作日内尽快审核取消分享。"
+            android:textColor="@color/cancel_wifi_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/mApplyShare"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_scan_result_find_normal_bg"
+            android:gravity="center"
+            android:text="点击申请"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:textColor="@color/theme_color"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="更多"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mApplyShare" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

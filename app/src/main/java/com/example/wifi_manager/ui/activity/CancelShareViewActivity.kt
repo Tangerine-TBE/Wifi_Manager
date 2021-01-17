@@ -1,14 +1,14 @@
 package com.example.wifi_manager.ui.activity
 
-import com.example.module_base.base.BaseActivity
-import com.example.module_base.widget.MyToolbar
+import com.example.module_base.base.BaseViewActivity
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.ActivityCancelShareBinding
 import com.example.wifi_manager.utils.setToolBar
 import com.example.wifi_manager.utils.toOtherActivity
 import com.example.wifi_manager.utils.toolbarEvent
 import kotlinx.android.synthetic.main.activity_cancel_share.*
 
-class CancelShareActivity : BaseActivity() {
+class CancelShareViewActivity : BaseViewActivity<ActivityCancelShareBinding>() {
     override fun getLayoutView(): Int=R.layout.activity_cancel_share
 
     override fun initView() {
@@ -17,7 +17,7 @@ class CancelShareActivity : BaseActivity() {
 
     override fun initEvent() {
         mApplyShare.setOnClickListener {
-            toOtherActivity<CancelShareApplyActivity>(this){}
+            toOtherActivity<CancelShareApplyViewActivity>(this){}
         }
         mCancelShareWifiToolbar.toolbarEvent(this){}
     }

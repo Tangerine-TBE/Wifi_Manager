@@ -11,20 +11,22 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.module_base.base.BaseVmFragment
+import com.example.module_base.utils.LayoutType
 import com.example.module_base.utils.LogUtils
-import com.example.module_base.utils.MarginStatusBarUtil
+import com.example.module_base.utils.setStatusBar
 import com.example.wifi_manager.R
-import com.example.wifi_manager.ui.activity.WifiInfoActivity
+import com.example.wifi_manager.ui.activity.WifiInfoViewActivity
 import com.example.wifi_manager.ui.adapter.recycleview.HomeTopAdapter
 import com.example.wifi_manager.ui.adapter.recycleview.HomeWifiAdapter
 import com.example.wifi_manager.databinding.FragmentHomeBinding
-import com.example.wifi_manager.domain.WifiMessage
+import com.example.wifi_manager.domain.WifiMessageBean
+import com.example.wifi_manager.ui.activity.CheckDeviceViewActivity
+import com.example.wifi_manager.ui.activity.SafetyCheckActivity
+import com.example.wifi_manager.ui.activity.WifiProtectViewActivity
 import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.HomeViewModel
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.tamsiree.rxkit.view.RxToast
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.layout_state_home_close_wifi.*
 import kotlinx.android.synthetic.main.layout_state_home_open_wifi.*
 
 
@@ -47,8 +49,14 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     private val mWifiListAdapter by  lazy {
         HomeWifiAdapter()
     }
-    private var mCurrentWifiContent:MutableList<WifiMessage> = ArrayList()
+    private var mCurrentWifiContentBean:MutableList<WifiMessageBean> = ArrayList()
 
+    private val mOpenView by lazy {
+        binding.mOpenWifiLayout
+    }
+    private val mCloseView by lazy {
+        binding.mCloseWifiLayout
+    }
 
     override fun initView() {
         binding.homeData=viewModel
@@ -68,18 +76,18 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             wifiState.observe(that, Observer { state ->
                 when (state) {
                     WifiState.ENABLED, WifiState.ENABLING -> {
-                        goneView(mCloseWifiLayout)
-                        showView(mOpenWifiLayout)
+                        goneView(mCloseView.root)
+                        showView(mOpenView.root)
                     }
                     WifiState.DISABLED, WifiState.UNKNOWN -> {
-                        goneView(mOpenWifiLayout)
-                        showView(mCloseWifiLayout)
+                        goneView(mOpenView.root)
+                        showView(mCloseView.root)
                     }
                 }
             })
             wifiContent.observe(that, Observer { result ->
                 LogUtils.i("---wifiContent---------${result.size}-----------")
-                mCurrentWifiContent=result
+                mCurrentWifiContentBean=result
                 mWifiListAdapter.setList(result)
                 result.forEach {
                     LogUtils.i("---wifiContent---------${it}-----------")
@@ -98,66 +106,83 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private fun showOpenView() {
-        MarginStatusBarUtil.setStatusBar(activity, mHomeTopContainer, 1)
-        //顶部功能
-        mHomeTopContainer.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-        mHomeTopAdapter.setList(DataProvider.homeTopList)
-        mHomeTopContainer.adapter = mHomeTopAdapter
-        //wifi列表
-        mHomeWifiContainer.layoutManager = LinearLayoutManager(activity)
-        mHomeWifiContainer.adapter = mWifiListAdapter
-        mWifiListAdapter.addChildClickViewIds(R.id.mWifiInfo)
-        //下拉刷新头
-        mSmartRefreshLayout.setRefreshHeader(MaterialHeader(activity))
-        //加下划线
-        val str="我已开启，点击刷新"
-        val content =  SpannableString(str);
-        content.setSpan(UnderlineSpan(), 5, str.length, 0);
-        mRefreshWifi.text=content
+      mOpenView.apply {
+            setStatusBar(activity, mHomeTopContainer, LayoutType.LINEARLAYOUT)
+            //顶部功能
+            mHomeTopAdapter.setList(DataProvider.homeTopList)
+            mHomeTopContainer.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+            mHomeTopContainer. adapter = mHomeTopAdapter
+            //wifi列表
+            mHomeWifiContainer.layoutManager = LinearLayoutManager(activity)
+            mHomeWifiContainer. adapter = mWifiListAdapter
+            mWifiListAdapter.addChildClickViewIds(R.id.mWifiInfo)
+            //下拉刷新头
+            mSmartRefreshLayout.setRefreshHeader(MaterialHeader(activity))
+        }
 
+       mCloseView.apply {
+            //加下划线
+            val str="我已开启，点击刷新"
+            val content =  SpannableString(str);
+            content.setSpan(UnderlineSpan(), 5, str.length, 0);
+            mRefreshWifi.text=content
+        }
     }
 
     override fun initEvent() {
-        //下拉刷新
-        mSmartRefreshLayout.setOnRefreshListener {
-            viewModel.getWifiList(WifiContentState.REFRESH)
-        }
-        //扫描wifi
-        mScanWifi.setOnClickListener {
-            mSmartRefreshLayout.autoRefresh()
-        }
-
-        //开启wifi
-        mOpenWifi.setOnClickListener {
-            WifiUtils.openWifi()
-        }
-
-        //刷新wifi
-        mRefreshWifi.setOnClickListener {
-            if (WifiUtils.isWifiEnable) {
-                viewModel.getWifiList(WifiContentState.NORMAL)
-            } else {
-                RxToast.normal("WIFI未开启")
+        mCloseView.apply {
+            //开启wifi
+            mOpenWifi.setOnClickListener {
+                WifiUtils.openWifi()
+            }
+            //刷新wifi
+            mRefreshWifi.setOnClickListener {
+                if (WifiUtils.isWifiEnable) {
+                    viewModel.getWifiList(WifiContentState.NORMAL)
+                } else {
+                    RxToast.normal("WIFI未开启")
+                }
             }
         }
-        mWifiListAdapter.setOnItemChildClickListener  { adapter, view, position ->
-            when(view.id){
-                R.id.mWifiInfo-> {
-                    mCurrentWifiContent?.let {
-                        if (it.size>0){
-                            toOtherActivity<WifiInfoActivity>(activity){
-                                putExtra(ConstantsUtil.WIFI_NAME_KEY,it[position].wifiName)
-                                putExtra(ConstantsUtil.WIFI_LEVEL_KEY,it[position].wifiSignalState)
-                                putExtra(ConstantsUtil.WIFI_PROTECT_KEY,it[position].wifiProtectState)
+
+        mOpenView.apply {
+            //下拉刷新
+            mSmartRefreshLayout.setOnRefreshListener {
+                viewModel.getWifiList(WifiContentState.REFRESH)
+            }
+            //扫描wifi
+            mScanWifi.setOnClickListener {
+                mSmartRefreshLayout.autoRefresh()
+            }
+            mWifiListAdapter.setOnItemChildClickListener  { adapter, view, position ->
+                when(view.id){
+                    R.id.mWifiInfo-> {
+                        mCurrentWifiContentBean?.let {
+                            if (it.size>0){
+                                toOtherActivity<WifiInfoViewActivity>(activity){
+                                    putExtra(ConstantsUtil.WIFI_NAME_KEY,it[position].wifiName)
+                                    putExtra(ConstantsUtil.WIFI_LEVEL_KEY,it[position].wifiSignalState)
+                                    putExtra(ConstantsUtil.WIFI_PROTECT_KEY,it[position].wifiProtectState)
+                                }
                             }
                         }
-                    }
 
+                    }
+                }
+            }
+            mHomeTopAdapter.setOnItemClickListener { adapter, view, position ->
+                when(position) {
+                    0 -> toOtherActivity<CheckDeviceViewActivity>(activity){}
+                    1 -> toOtherActivity<SafetyCheckActivity>(activity) {}
+                    2 -> {
+                    }
+                    3 -> toOtherActivity<WifiProtectViewActivity>(activity) {}
+                    4 -> {
+                    }
                 }
             }
 
         }
-
 
     }
 

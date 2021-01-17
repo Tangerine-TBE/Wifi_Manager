@@ -8,7 +8,7 @@
         <application
 
             >
-            <activity  android:name=".activity.DealActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
+            <activity  android:name=".activity.DealViewActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
             <meta-data
                 android:name="CHANNEL"
                 android:value="${CHANNEL_VALUE}" />

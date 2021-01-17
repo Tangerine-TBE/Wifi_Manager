@@ -1,14 +1,15 @@
 package com.example.wifi_manager.ui.activity
 
 import androidx.fragment.app.Fragment
-import com.example.module_base.base.BaseActivity
+import com.example.module_base.base.BaseViewActivity
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.ActivityMainBinding
 import com.example.wifi_manager.ui.fragment.ClearFragment
 import com.example.wifi_manager.ui.fragment.HomeFragment
 import com.example.wifi_manager.ui.fragment.MyFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
+class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
     override fun getLayoutView(): Int = R.layout.activity_main
     private val mHomeFragment by lazy {  HomeFragment()}
     private val mClearFragment by lazy {  ClearFragment()}

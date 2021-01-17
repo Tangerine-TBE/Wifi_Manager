@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_home_close_bg"
+        tools:context=".ui.activity.HardwareTweaksActivity">
+
+        <com.example.module_base.widget.MyToolbar
+            android:id="@+id/hardwareToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barBgColor="@color/transparent"
+            app:toolbarTitle="硬件优化"
+            app:titleColor="@color/white"
+            app:backIconStyle="@drawable/ic_base_back_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.example.wifi_manager.ui.widget.HardwareProgressView
+            android:layout_width="match_parent"
+            android:layout_height="98dp"
+            android:layout_marginTop="39dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hardwareToolbar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -29,7 +29,17 @@ object WifiSpeedTestUtil {
     }
 
 
-
-
-
+    fun netWorkLevel(speed:Float?)= when (speed?:0f) {
+            in 0f..0.25f -> "1M～2M"
+            in 0.25f..0.375f ->  "2M～3M"
+            in 0.375f..0.5f ->  "3M～4M"
+            in 0.5f..0.75f ->  "4M～6M"
+            in 0.75f..1f ->  "6M～8M"
+            in 1f .. 1.25f ->  "8M～10M"
+            in 1.25f..1.5f ->  "10M～12M"
+            in 1.5f..2.5f -> "12M～20M"
+            in 2.5f..6.25f ->  "20M～50M"
+            in 6.25f..100f ->  "50M～100M"
+            else->""
+    }
 }

@@ -1,8 +1,8 @@
 package com.example.wifi_manager.ui.activity
 
-import com.example.module_base.base.BaseActivity
-import com.example.module_base.widget.MyToolbar
+import com.example.module_base.base.BaseViewActivity
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.ActivityWifiInfoBinding
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.setToolBar
 import com.example.wifi_manager.utils.toOtherActivity
@@ -10,7 +10,7 @@ import com.example.wifi_manager.utils.toolbarEvent
 import kotlinx.android.synthetic.main.activity_wifi_info.*
 
 
-class WifiInfoActivity : BaseActivity() {
+class WifiInfoViewActivity : BaseViewActivity<ActivityWifiInfoBinding>() {
     override fun getLayoutView(): Int =R.layout.activity_wifi_info
 
     override fun initView() {
@@ -24,7 +24,7 @@ class WifiInfoActivity : BaseActivity() {
     override fun initEvent() {
         mWifiInfoToolbar.toolbarEvent(this){}
         mCancelShareWifi.setOnClickListener {
-            toOtherActivity<CancelShareActivity>(this){}
+            toOtherActivity<CancelShareViewActivity>(this){}
         }
 
     }

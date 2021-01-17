@@ -7,10 +7,18 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.CountDownTimer
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentActivity
+import androidx.navigation.NavType
 import com.example.module_base.utils.Constants
+import com.example.module_base.utils.LayoutType
 import com.example.module_base.utils.MyStatusBarUtil
 import com.example.module_base.utils.PackageUtil
 import com.example.module_base.widget.MyToolbar
+import com.tamsiree.rxkit.RxNetTool
 import com.tamsiree.rxkit.view.RxToast
 import java.util.*
 
@@ -65,8 +73,8 @@ fun shareContent(context: Context,result:String){
     context.startActivity(Intent.createChooser(intent,PackageUtil.getAppMetaData(context, Constants.APP_NAME)))
 }
 //设置页面和状态栏的距离
- fun setToolBar(activity: Activity,title:String,view: MyToolbar) {
-    MyStatusBarUtil.setColor(activity, Color.WHITE)
+ fun setToolBar(activity: Activity,title:String,view: MyToolbar,color: Int=Color.WHITE) {
+    MyStatusBarUtil.setColor(activity,color)
     view.setTitle(title)
 }
 
@@ -101,14 +109,16 @@ fun MyToolbar.toolbarEvent(activity: Activity,event:()->Unit){
 }
 
 //计时
-fun startCountDown(totalTime: Long, followTime: Long, finish: () -> Unit, ticking: () -> Unit) {
-    object:CountDownTimer(totalTime,followTime){
+fun startCountDown(totalTime: Long, followTime: Long, finish: () -> Unit, ticking: () -> Unit) = object:CountDownTimer(totalTime,followTime){
         override fun onFinish() {
             finish()
         }
         override fun onTick(millisUntilFinished: Long) {
             ticking()
         }
-    }.start()
+    }
 
-}
+
+fun isWifiConnecting(context: Context)=RxNetTool.isWifiConnected(context)
+
+

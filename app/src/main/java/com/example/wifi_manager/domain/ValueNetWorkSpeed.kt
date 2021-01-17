@@ -10,5 +10,5 @@ import android.service.quicksettings.Tile
  * @time 2021/1/13 17:27:40
  * @class describe
  */
-data class NetWorkSpeedBean(val dataSize:Long ,val continueTime: Long) {
+data class ValueNetWorkSpeed(val dataSize:Long, val continueTime: Long) {
 }

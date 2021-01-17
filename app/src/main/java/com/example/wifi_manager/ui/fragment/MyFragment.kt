@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI
-import com.example.module_base.activity.DealActivity
+import com.example.module_base.activity.DealViewActivity
 import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.Constants
 import com.example.module_tool.activity.DistanceActivity
@@ -62,10 +62,10 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
         mMyTopAdapter.setOnItemClickListener { adapter, view, position ->
             when (position) {
                 0 -> startActivityForResult(Intent(activity,ScanActivity::class.java),REQUEST_CODE)
-                1-> toOtherActivity<WifiProtectActivity>(activity){}
-                2->toOtherActivity<SpeedTestActivity>(activity){}
+                1-> toOtherActivity<WifiProtectViewActivity>(activity){}
+                2->toOtherActivity<SpeedTestViewActivity>(activity){}
                 3-> toOtherActivity<DistanceActivity>(activity){}
-                4-> {}
+                4-> toOtherActivity<HardwareTweaksActivity>(activity){}
             }
         }
 
@@ -73,10 +73,10 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
 
         mMyBottomAdapter.setOnItemClickListener { adapter, view, position ->
             when (position) {
-                1-> toOtherActivity<CancelShareActivity>(activity){}
+                1-> toOtherActivity<CancelShareViewActivity>(activity){}
                 2 -> FeedbackAPI.openFeedbackActivity()
-                3 -> toOtherActivity<DealActivity>(activity) { putExtra(Constants.SET_DEAL1, 1) }
-                4 -> toOtherActivity<DealActivity>(activity) { putExtra(Constants.SET_DEAL1, 2) }
+                3 -> toOtherActivity<DealViewActivity>(activity) { putExtra(Constants.SET_DEAL1, 1) }
+                4 -> toOtherActivity<DealViewActivity>(activity) { putExtra(Constants.SET_DEAL1, 2) }
             }
         }
     }
@@ -85,7 +85,7 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode==REQUEST_CODE&&resultCode==1) {
-            toOtherActivity<ScanResultActivity>(activity){putExtra(ConstantsUtil.ZXING_RESULT_KEY,data?.getStringExtra(ConstantsUtil.ZXING_RESULT_KEY))}
+            toOtherActivity<ScanResultViewActivity>(activity){putExtra(ConstantsUtil.ZXING_RESULT_KEY,data?.getStringExtra(ConstantsUtil.ZXING_RESULT_KEY))}
         }
     }
 

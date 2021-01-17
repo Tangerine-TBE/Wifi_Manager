@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activity.SpeedTestActivity">
+        tools:context=".ui.activity.SpeedTestViewActivity">
 
         <com.example.module_base.widget.MyToolbar
             android:id="@+id/mSpeedToolbar"

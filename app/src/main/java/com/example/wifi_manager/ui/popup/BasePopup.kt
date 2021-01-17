@@ -2,7 +2,13 @@ package com.example.wifi_manager.ui.popup
 
 import android.animation.ValueAnimator
 import android.app.Activity
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.PopupWindow
+import com.example.wifi_manager.R
 
 /**
  * @name AlarmClock
@@ -12,17 +18,26 @@ import android.widget.PopupWindow
  * @time 2020/11/26 17:21
  * @class describe
  */
-open class BasePopup(activity: Activity,width:Int,height:Int): PopupWindow(width, height) {
-    private val mActivity=activity
+open class BasePopup(val activity: Activity,layout:Int,width:Int,height:Int): PopupWindow(width, height) {
+    protected val mView: View = LayoutInflater.from(activity).inflate(layout,null)
     init {
+        contentView = mView
+        setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        isFocusable = true
+        isOutsideTouchable = false
         intBgAnimation()
         setOnDismissListener {
             mOutValueAnimator?.start()
         }
+        initEvent()
     }
+
+    open fun initEvent() {
+    }
+
     //设置窗口渐变
     private fun updateBgWindowAlpha(alpha: Float) {
-        val window = mActivity.window
+        val window = activity.window
         val attributes = window.attributes
         attributes.alpha = alpha
         window.attributes = attributes
@@ -39,5 +54,13 @@ open class BasePopup(activity: Activity,width:Int,height:Int): PopupWindow(width
         mOutValueAnimator = ValueAnimator.ofFloat(0.5f, 1.0f)
         mOutValueAnimator?.duration = 300
         mOutValueAnimator?.addUpdateListener { animation -> updateBgWindowAlpha(animation.animatedValue as Float) }
+    }
+
+
+    fun showPopupView(view: View,gravity:Int,x:Int=0,y:Int=0){
+        if (!activity.isFinishing) {
+            mInValueAnimator.start()
+            showAtLocation(view,gravity,x,y)
+        }
     }
 }

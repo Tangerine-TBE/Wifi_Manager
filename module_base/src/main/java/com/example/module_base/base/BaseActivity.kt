@@ -2,38 +2,36 @@ package com.example.module_base.base
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.PersistableBundle
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.module_base.utils.MyStatusBarUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 
 /**
- * @name Wifi_Manager
- * @class name：com.example.module_base.base
- * @class describe
- * @author wujinming QQ:1245074510
- * @time 2021/1/7 10:58:27
- * @class describe
+ * @author: 铭少
+ * @date: 2021/1/16 0016
+ * @description：
  */
-abstract class BaseActivity:FragmentActivity() {
+open class BaseActivity:FragmentActivity() {
+
+    protected val mJob=Job()
+    protected val mScope by lazy {
+        CoroutineScope(mJob)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreenWindow()
-        setContentView(getLayoutView())
-        initView()
-        initEvent()
+
     }
 
-    open fun initEvent() {
-    }
-
-    open fun initView() {
-    }
-   open fun setFullScreenWindow(){
-        MyStatusBarUtil.setColor(this,Color.TRANSPARENT)
+    open fun setFullScreenWindow(){
+        MyStatusBarUtil.setColor(this, Color.TRANSPARENT)
         MyStatusBarUtil.setFullWindow(this)
     }
 
-    abstract fun getLayoutView(): Int
 
     open fun release() {
 
@@ -43,6 +41,4 @@ abstract class BaseActivity:FragmentActivity() {
         super.onDestroy()
         release()
     }
-
-
 }

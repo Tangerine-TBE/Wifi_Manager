@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,14 +20,23 @@
         android:theme="@style/Theme.Wifi_Manager"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".ui.activity.WifiProtectActivity"></activity>
-        <activity android:name=".ui.activity.SpeedTestResultActivity" />
-        <activity android:name=".ui.activity.CancelShareApplyActivity" />
-        <activity android:name=".ui.activity.CancelShareActivity" />
-        <activity android:name=".ui.activity.WifiInfoActivity" />
-        <activity android:name=".ui.activity.SpeedTestActivity" />
-        <activity android:name=".ui.activity.ScanResultActivity" />
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.HardwareTweaksActivity"></activity>
+        <activity android:name=".ui.activity.SafetyCheckActivity" />
+        <activity android:name=".ui.activity.CheckDeviceViewActivity" />
+        <activity android:name=".ui.activity.WifiProtectInfoViewActivity" />
+        <activity android:name=".ui.activity.WifiProtectViewActivity" />
+        <activity
+            android:name=".ui.activity.SpeedTestResultViewActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/SpeedResultTheme" />
+        <activity android:name=".ui.activity.CancelShareApplyViewActivity" />
+        <activity android:name=".ui.activity.CancelShareViewActivity" />
+        <activity android:name=".ui.activity.WifiInfoViewActivity" />
+        <activity
+            android:name=".ui.activity.SpeedTestViewActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".ui.activity.ScanResultViewActivity" />
+        <activity android:name=".ui.activity.MainViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

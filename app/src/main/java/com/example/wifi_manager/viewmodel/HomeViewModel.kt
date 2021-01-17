@@ -2,8 +2,8 @@ package com.example.wifi_manager.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.wifi_manager.domain.RefreshWifiEvent
-import com.example.wifi_manager.domain.WifiMessage
+import com.example.wifi_manager.domain.ValueRefreshWifi
+import com.example.wifi_manager.domain.WifiMessageBean
 import com.example.wifi_manager.utils.WifiContentState
 import com.example.wifi_manager.utils.WifiState
 import com.example.wifi_manager.utils.WifiUtils
@@ -19,46 +19,46 @@ import com.example.wifi_manager.utils.WifiUtils
 class HomeViewModel:ViewModel() {
 
     val wifiContent by lazy {
-        MutableLiveData<MutableList<WifiMessage>>()
+        MutableLiveData<MutableList<WifiMessageBean>>()
     }
     val wifiState by lazy {
         MutableLiveData<WifiState>()
     }
     val wifiContentEvent by lazy {
-        MutableLiveData<RefreshWifiEvent>()
+        MutableLiveData<ValueRefreshWifi>()
     }
 
 
-    private val oldWifiMessages:MutableList<WifiMessage> =ArrayList()
-    private val currentWifiMessages:MutableList<WifiMessage> =ArrayList()
+    private val mOldWifiMessageBeans:MutableList<WifiMessageBean> =ArrayList()
+    private val mCurrentWifiMessageBeans:MutableList<WifiMessageBean> =ArrayList()
 
     fun setWifiState(state:WifiState){
         wifiState.value=state
     }
 
     fun getWifiList(state:WifiContentState){
-
-
-        currentWifiMessages?.apply {
+        mCurrentWifiMessageBeans?.apply {
             val wifiList = WifiUtils.wifiList.filter { it.SSID!="" }
             if (wifiList.isNotEmpty()) {
-                currentWifiMessages.clear()
+                mCurrentWifiMessageBeans.clear()
                 wifiList.forEach {
-                    add(WifiMessage(it.SSID, it.BSSID, it.capabilities, it.level,wifiSignalState(it.level),wifiProtectState(it.capabilities)))
+                    add(WifiMessageBean(it.SSID, it.BSSID, it.capabilities, it.level,wifiSignalState(it.level),wifiProtectState(it.capabilities)))
                 }
 
-                oldWifiMessages?.clear()
-                oldWifiMessages?.addAll(this)
-
+                mOldWifiMessageBeans?.clear()
+                mOldWifiMessageBeans?.addAll(this)
                 setWifiContent(state,this)
             } else {
-               if (oldWifiMessages?.size>0) setWifiContent(state,oldWifiMessages)
+                if (mOldWifiMessageBeans?.size > 0) setWifiContent(
+                    state,
+                    mOldWifiMessageBeans
+                )
             }
         }
     }
 
-    private fun setWifiContent(state: WifiContentState,list: MutableList<WifiMessage>) {
-        wifiContentEvent.value = RefreshWifiEvent(state, list.size)
+    private fun setWifiContent(state: WifiContentState,list: MutableList<WifiMessageBean>) {
+        wifiContentEvent.value = ValueRefreshWifi(state, list.size)
         wifiContent.value = list
     }
 

@@ -5,19 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.module_base.utils.LogUtils
-import com.example.wifi_manager.domain.NetWorkSpeedBean
+import com.example.wifi_manager.domain.ValueNetWorkSpeed
 import com.example.wifi_manager.extensions.exAwait
 import com.example.wifi_manager.repository.NetSpeedTestRepository
 import com.example.wifi_manager.utils.*
-import com.tamsiree.rxkit.RxConstTool
-import com.tamsiree.rxkit.RxTimeTool
 import kotlinx.coroutines.*
 import okhttp3.ResponseBody
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
 import java.net.HttpURLConnection
-import java.util.*
 
 
 /**
@@ -41,11 +35,11 @@ class SpeedTestViewModel:ViewModel() {
 
 
     val totalRxBytes by lazy {
-        MutableLiveData<NetWorkSpeedBean>()
+        MutableLiveData<ValueNetWorkSpeed>()
     }
 
     val downState by lazy {
-        MutableLiveData<Boolean>(false)
+        MutableLiveData<Boolean>()
     }
 
     val pingValue by lazy {
@@ -66,7 +60,6 @@ class SpeedTestViewModel:ViewModel() {
                     { it ->
                         if (it.code()==HttpURLConnection.HTTP_OK) {
                             it.body()?.let {
-
                                 startSaveFile(it)
                             }
                         }
@@ -74,18 +67,26 @@ class SpeedTestViewModel:ViewModel() {
         }
     }
 
+
     //开始速度统计
-     private fun startSaveFile(response: ResponseBody) {
+    private var downFinish=false
+    private var start:CountDownTimer?=null
+    private fun startSaveFile(response: ResponseBody) {
         mDownJob = viewModelScope.launch(Dispatchers.IO) {
             response.byteStream().apply {
                 try {
                     val buf = ByteArray(1024)
                     while (read(buf, 0, buf.size).also { it } != -1) {
                         if (!isActive) {
-                            LogUtils.i("----byteStream4------${WifiSpeedTestUtil.getTotalRxBytes()}--------------------")
                             break
                         }
                     }
+                    if (isActive) {
+                        downFinish= true
+                        start?.cancel()
+                        downState.postValue(true)
+                    }
+                    LogUtils.i("-----end--byteStream4--------${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------${System.currentTimeMillis() - beginTime}------------")
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
@@ -93,21 +94,21 @@ class SpeedTestViewModel:ViewModel() {
                 }
             }
         }
-
         //测速倒计时
-        startCountDown(millisinfuture, countDownInterval, {
-            LogUtils.i("----byteStream3------${WifiSpeedTestUtil.getTotalRxBytes()-beginRxBytes}--------------------")
-            mDownJob?.cancel()
-            downState.value = true
-
+        start = startCountDown(millisinfuture, countDownInterval, {
+            LogUtils.i("----byteStream3------${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------------------")
+            if (!downFinish) {
+                mDownJob?.cancel()
+                downState.value = true
+            }
         },
-            {
-                totalRxBytes.value=
-                    NetWorkSpeedBean(
-                        WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes,
-                        System.currentTimeMillis() - beginTime)
-                LogUtils.i("----byteStream2------${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------------------")
-            })
+                {
+                    totalRxBytes.value =
+                            ValueNetWorkSpeed(
+                                    WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes,
+                                    System.currentTimeMillis() - beginTime)
+                    LogUtils.i("----byteStream2------${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------------------")
+                }).start()
 
     }
 
@@ -122,12 +123,11 @@ class SpeedTestViewModel:ViewModel() {
                 withContext(Dispatchers.IO){
                 pingValue.postValue(PingUtils.getAvgRTT(ConstantsUtil.PING_URL, 4, 1))
                 }
-
                 startSpeedTest()
             }
 
         },{
-        })
+        }).start()
     }
 
 

@@ -2,14 +2,16 @@ package com.example.wifi_manager.ui.activity
 
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.module_base.base.BaseActivity
+import com.example.module_base.base.BaseViewActivity
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.ActivityWifiProtectBinding
 import com.example.wifi_manager.ui.adapter.recycleview.WifiProtectAdapter
 import com.example.wifi_manager.utils.DataProvider
 import com.example.wifi_manager.utils.setToolBar
+import com.example.wifi_manager.utils.toOtherActivity
 import com.example.wifi_manager.utils.toolbarEvent
 import kotlinx.android.synthetic.main.activity_wifi_protect.*
-class WifiProtectActivity : BaseActivity() {
+class WifiProtectViewActivity : BaseViewActivity<ActivityWifiProtectBinding>() {
 
     override fun getLayoutView(): Int = R.layout.activity_wifi_protect
 
@@ -28,7 +30,7 @@ class WifiProtectActivity : BaseActivity() {
         mWifiProtectToolbar.toolbarEvent(this){}
 
         mOpenProtect.setOnClickListener {
-
+            toOtherActivity<WifiProtectInfoViewActivity>(this){}
         }
 
     }

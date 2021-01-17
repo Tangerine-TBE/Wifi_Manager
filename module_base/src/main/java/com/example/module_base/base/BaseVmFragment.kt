@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
  * @class describe
  */
 abstract class BaseVmFragment<T:ViewDataBinding,Vm:ViewModel>:BaseViewFragment<T>() {
-
     protected lateinit var viewModel:Vm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,7 +25,6 @@ abstract class BaseVmFragment<T:ViewDataBinding,Vm:ViewModel>:BaseViewFragment<T
         observerData()
         //事件监听
         initEvent()
-        view.visibility
     }
 
    protected fun showView(vararg view: View){

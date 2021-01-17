@@ -23,6 +23,10 @@
 
 
 
-
+    
+    <style name="activitySpeedResultAnimation" parent="@android:style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_speed_test_activity_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_speed_test_activity_out</item>
+    </style>
 
 </resources>

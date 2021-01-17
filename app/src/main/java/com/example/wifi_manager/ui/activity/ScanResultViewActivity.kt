@@ -2,14 +2,13 @@ package com.example.wifi_manager.ui.activity
 
 import android.content.Intent
 import android.net.Uri
-import com.example.module_base.base.BaseActivity
-import com.example.module_base.widget.MyToolbar
+import com.example.module_base.base.BaseViewActivity
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.ActivityScanResultBinding
 import com.example.wifi_manager.utils.*
-import com.tamsiree.rxkit.RxClipboardTool
 import kotlinx.android.synthetic.main.activity_scan_result.*
 
-class ScanResultActivity : BaseActivity() {
+class ScanResultViewActivity : BaseViewActivity<ActivityScanResultBinding>() {
     private var mResult="抱歉没有扫到任何内容"
     override fun getLayoutView(): Int=R.layout.activity_scan_result
     override fun initView() {
@@ -34,7 +33,7 @@ class ScanResultActivity : BaseActivity() {
             copyContent(this,mResult)
         }
 
-        mScanToolbar.toolbarEvent(this){shareContent(this@ScanResultActivity,mResult)}
+        mScanToolbar.toolbarEvent(this){shareContent(this@ScanResultViewActivity,mResult)}
 
     }
 

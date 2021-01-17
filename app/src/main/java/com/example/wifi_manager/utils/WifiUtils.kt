@@ -7,8 +7,16 @@ import android.content.Context
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
-import com.example.module_base.base.BaseApplication
 import com.example.module_base.base.BaseApplication.Companion.mContext
+import com.example.module_base.utils.LogUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.withContext
+import java.io.BufferedReader
+import java.io.FileReader
+import java.net.Inet4Address
+import java.net.NetworkInterface
 import java.util.*
 
 /**
@@ -143,5 +151,57 @@ object WifiUtils {
         }
         return null
     }
+
+
+    /**
+     * 获取本机 ip地址
+     *
+     * @return
+     */
+    fun getIpAddressString(): String{
+        try {
+            val enNetI = NetworkInterface.getNetworkInterfaces()
+            while (enNetI.hasMoreElements()) {
+                val netI = enNetI.nextElement()
+                val enumIpAddr = netI.inetAddresses
+                while (enumIpAddr.hasMoreElements()) {
+                    val inetAddress = enumIpAddr.nextElement()
+                    if (inetAddress is Inet4Address && !inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress()
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return "0.0.0.0"
+    }
+
+    suspend fun getConnectedIP(): List<String> = withContext(Dispatchers.IO) {
+            val connectedIP = ArrayList<String>()
+        val br = BufferedReader(FileReader("/proc/net/arp"))
+            try {
+                LogUtils.i("--------------${br.readLine()}------------")
+                val readLine = br.readLine()
+                while (readLine != null) {
+                    if (isActive) {
+                        val splitted = readLine.split(" +".toRegex()).toTypedArray()
+                        if (splitted != null && splitted.size >= 4) {
+                            val ip = splitted[0]
+                            connectedIP.add(ip)
+                            LogUtils.i("--------------${ip}------------")
+                        }
+                    } else {
+                        break
+                    }
+                }
+                connectedIP
+            } catch (e: Exception) {
+                connectedIP
+            }finally {
+                br.close()
+            }
+
+        }
 
 }

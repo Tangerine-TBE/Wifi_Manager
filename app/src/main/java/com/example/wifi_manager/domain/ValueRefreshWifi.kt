@@ -7,5 +7,5 @@ import com.example.wifi_manager.utils.WifiContentState
  * @date: 2021/1/10 0010
  * @description：
  */
-data class RefreshWifiEvent(var state:WifiContentState,var refreshSize:Int=0) {
+data class ValueRefreshWifi(var state:WifiContentState, var refreshSize:Int=0) {
 }

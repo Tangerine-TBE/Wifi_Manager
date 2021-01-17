@@ -3,7 +3,7 @@ package com.example.wifi_manager.ui.activity
 import android.text.TextUtils
 import android.view.Gravity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.module_base.base.BaseVmActivity
+import com.example.module_base.base.BaseVmViewActivity
 import com.example.wifi_manager.R
 import com.example.wifi_manager.ui.adapter.recycleview.CancelShareApplyAdapter
 import com.example.wifi_manager.databinding.ActivityCancelShareApplyBinding
@@ -16,7 +16,7 @@ import com.tamsiree.rxkit.RxKeyboardTool
 import com.tamsiree.rxkit.view.RxToast
 import kotlinx.android.synthetic.main.activity_cancel_share_apply.*
 
-class CancelShareApplyActivity : BaseVmActivity<ActivityCancelShareApplyBinding,CancelShareApplyViewModel>() {
+class CancelShareApplyViewActivity : BaseVmViewActivity<ActivityCancelShareApplyBinding,CancelShareApplyViewModel>() {
     private val mCancelApplyAdapter by lazy {
         CancelShareApplyAdapter()
     }
@@ -61,11 +61,8 @@ class CancelShareApplyActivity : BaseVmActivity<ActivityCancelShareApplyBinding,
         mCancelApplyAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.mShareHelp -> {
-                    if (!isFinishing) {
                         RxKeyboardTool.hideSoftInput(this)
-                        mCheckHelpPopupWindow.mInValueAnimator.start()
-                        mCheckHelpPopupWindow.showAtLocation(mInputContainer, Gravity.CENTER, 0, 0)
-                    }
+                        mCheckHelpPopupWindow.showPopupView(mInputContainer, Gravity.CENTER)
                 }
             }
 

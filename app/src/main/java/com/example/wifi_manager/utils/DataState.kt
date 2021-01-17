@@ -26,3 +26,11 @@ enum class WifiState {
 enum class WifiContentState(){
     NORMAL,REFRESH
 }
+
+//查看设备
+enum class ScanDeviceState(){
+    BEGIN,END
+}
+
+
+

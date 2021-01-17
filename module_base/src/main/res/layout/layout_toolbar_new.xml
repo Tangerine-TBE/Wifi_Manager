@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/iv_bar_back"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="16dp"
         android:src="@drawable/icon_base_back"
         android:layout_width="wrap_content"
         android:layout_centerVertical="true"

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingRight="40dp"
+    android:paddingLeft="40dp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/shape_popup_wifi_connect_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:paddingBottom="12dp">
+
+    <TextView
+        android:id="@+id/connectWifiName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:drawableLeft="@mipmap/iocn_my_go"
+        android:drawablePadding="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:text="链接HUng-ku"
+        android:textColor="@color/theme_color"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/wifiPwd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="24dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/shape_popup_wifi_connect_edit_bg"
+        android:hint="请输入WiFi密码"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:inputType="textPassword"
+        android:textSize="14sp"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connectWifiName" />
+
+
+    <ImageView
+        android:id="@+id/showPwd"
+        android:layout_width="20dp"
+        android:layout_height="10dp"
+        android:layout_marginRight="18dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="@+id/wifiPwd"
+        app:layout_constraintEnd_toEndOf="@+id/wifiPwd"
+        app:layout_constraintTop_toTopOf="@+id/wifiPwd" />
+
+    <com.example.module_base.widget.SmoothCheckBox
+        android:id="@+id/sharePublicWifi"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="8dp"
+        app:color_checked="@color/theme_color"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/wifiPwd"
+        app:layout_constraintTop_toBottomOf="@+id/wifiPwd" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="分享为公共WiFi"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sharePublicWifi"
+        app:layout_constraintStart_toEndOf="@+id/sharePublicWifi"
+        app:layout_constraintTop_toTopOf="@+id/sharePublicWifi" />
+
+    <View
+        android:id="@+id/view2"
+        style="@style/margin_right_left"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="43dp"
+        android:background="#F6F5F5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sharePublicWifi" />
+
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="1dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="11dp"
+        android:background="#F6F5F5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+    <TextView
+        android:id="@+id/cancel"
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toStartOf="@+id/view3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view3" />
+
+
+    <TextView
+        android:id="@+id/sure"
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@color/theme_color"
+        app:layout_constraintBottom_toBottomOf="@+id/view3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/view3"
+        app:layout_constraintTop_toTopOf="@+id/view3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

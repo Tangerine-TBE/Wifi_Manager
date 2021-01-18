@@ -1,16 +1,19 @@
-@file:Suppress("DEPRECATION")
+
 
 package com.example.wifi_manager.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.*
+import android.net.ConnectivityManager.NetworkCallback
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
+import android.net.wifi.WifiNetworkSpecifier
+import android.os.PatternMatcher
 import com.example.module_base.base.BaseApplication.Companion.mContext
 import com.example.module_base.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader
@@ -18,6 +21,7 @@ import java.io.FileReader
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.util.*
+
 
 /**
  * @author wujinming QQ:1245074510
@@ -29,6 +33,7 @@ import java.util.*
  */
 object WifiUtils {
     private val wifiManager: WifiManager = mContext.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+    private val connectivityManager= mContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     /**
      * wifi是否打开
      * @return
@@ -105,9 +110,9 @@ object WifiUtils {
      * @param isHasPws
      */
     private fun getWifiConfig(
-        ssid: String,
-        pws: String,
-        isHasPws: Boolean
+            ssid: String,
+            pws: String,
+            isHasPws: Boolean
     ): WifiConfiguration {
         val config = WifiConfiguration()
         config.allowedAuthAlgorithms.clear()
@@ -203,5 +208,25 @@ object WifiUtils {
             }
 
         }
+
+    //连接wifi
+    fun  connectWifi(wifiName:String,wifiPwd:String,networkCallback: NetworkCallback){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            val specifier = WifiNetworkSpecifier.Builder()
+                    .setSsidPattern(PatternMatcher(wifiName, PatternMatcher.PATTERN_PREFIX))
+                    .setWpa2Passphrase(wifiPwd)
+                    .build()
+
+            val request = NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .setNetworkSpecifier(specifier)
+                    .build()
+                connectivityManager.requestNetwork(request,networkCallback)
+        } else {
+            connectWifiPws(wifiName,wifiPwd)
+        }
+
+    }
 
 }

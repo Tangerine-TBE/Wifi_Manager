@@ -28,9 +28,12 @@ fun <T> Call<T> .exAwait(fail:(t: Throwable)->Unit, success:(response: Response<
 }
 
 //Dialog
-fun Dialog.noFinishShow(activity: Activity){
-    if (!activity.isFinishing) {
-        show()
+fun Dialog.noFinishShow(activity: Activity?){
+    activity?.let {
+        if (!it.isFinishing) {
+            show()
+        }
     }
+
 }
 

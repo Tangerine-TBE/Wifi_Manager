@@ -7,7 +7,9 @@ import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupWindow
+import androidx.fragment.app.FragmentActivity
 import com.example.wifi_manager.R
 
 /**
@@ -18,7 +20,7 @@ import com.example.wifi_manager.R
  * @time 2020/11/26 17:21
  * @class describe
  */
-open class BasePopup(val activity: Activity,layout:Int,width:Int,height:Int): PopupWindow(width, height) {
+open class BasePopup(val activity: FragmentActivity?, layout:Int, width:Int= ViewGroup.LayoutParams.WRAP_CONTENT, height:Int=ViewGroup.LayoutParams.WRAP_CONTENT): PopupWindow(width, height) {
     protected val mView: View = LayoutInflater.from(activity).inflate(layout,null)
     init {
         contentView = mView
@@ -37,10 +39,10 @@ open class BasePopup(val activity: Activity,layout:Int,width:Int,height:Int): Po
 
     //设置窗口渐变
     private fun updateBgWindowAlpha(alpha: Float) {
-        val window = activity.window
-        val attributes = window.attributes
-        attributes.alpha = alpha
-        window.attributes = attributes
+        val window = activity?.window
+        val attributes = window?.attributes
+        attributes?.alpha = alpha
+        window?.attributes = attributes
     }
 
 
@@ -57,10 +59,21 @@ open class BasePopup(val activity: Activity,layout:Int,width:Int,height:Int): Po
     }
 
 
-    fun showPopupView(view: View,gravity:Int,x:Int=0,y:Int=0){
-        if (!activity.isFinishing) {
-            mInValueAnimator.start()
-            showAtLocation(view,gravity,x,y)
-        }
+   open fun showPopupView(view: View,gravity:Int,x:Int=0,y:Int=0){
+       activity?.let {
+           if (!it.isFinishing) {
+               mInValueAnimator.start()
+               showAtLocation(view,gravity,x,y)
+           }
+       }
+    }
+
+    interface OnActionClickListener{
+        fun sure()
+    }
+
+    protected var mListener:OnActionClickListener?=null
+    fun setOnActionClickListener(listener:OnActionClickListener){
+        mListener=listener
     }
 }

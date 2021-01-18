@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import com.example.wifi_manager.R
 import kotlinx.android.synthetic.main.popup_mac_help_window.view.*
 
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.popup_mac_help_window.view.*
  * @time 2021/1/12 18:20:49
  * @class describe
  */
-class CheckMacHelpPopup(activity: Activity):BasePopup(activity, R.layout.popup_mac_help_window,ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT){
+class CheckMacHelpPopup(activity: FragmentActivity):BasePopup(activity, R.layout.popup_mac_help_window){
     init {
         animationStyle= R.style.popupAnimation
     }

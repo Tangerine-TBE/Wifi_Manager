@@ -1,5 +1,6 @@
 package com.example.module_base.base
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
@@ -18,6 +19,7 @@ abstract class BaseVmFragment<T:ViewDataBinding,Vm:ViewModel>:BaseViewFragment<T
     protected lateinit var viewModel:Vm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         //创建ViewModel
         initViewModel()
         initView();

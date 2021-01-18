@@ -119,6 +119,16 @@ fun startCountDown(totalTime: Long, followTime: Long, finish: () -> Unit, tickin
     }
 
 
-fun isWifiConnecting(context: Context)=RxNetTool.isWifiConnected(context)
+//Wifi是否连接
+fun isWifiConnected(context: Context)=RxNetTool.isWifiConnected(context)
+
+//网络是否连接
+fun isConnectedWifi(context: Context)=RxNetTool.isConnected(context)
+
+
+//弹出toast
+fun showToast(str:String){
+    RxToast.normal(str)
+}
 
 

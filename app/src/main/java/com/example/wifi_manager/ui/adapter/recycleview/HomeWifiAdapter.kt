@@ -1,5 +1,6 @@
 package com.example.wifi_manager.ui.adapter.recycleview
 
+import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.wifi_manager.R
@@ -19,7 +20,14 @@ class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean,BaseViewHolder>(R.layout.
         holder.itemView.apply {
             mWifiName.text=item.wifiName
             item.encryptionWay.let {
-                mWifiStateHint.text=if (it.contains("WPA2") and it.contains("WPS") || it.contains("WPA")) "加密wifi" else "免费wifi"
+                if (it.contains("WPA2") and it.contains("WPS") || it.contains("WPA")) {
+                    mWifiStateHint.text="加密wifi"
+                    mWifiStateIcon.visibility=View.VISIBLE
+                }
+                else{
+                    mWifiStateHint.text="免费wifi"
+                    mWifiStateIcon.visibility=View.GONE
+                }
             }
         }
     }

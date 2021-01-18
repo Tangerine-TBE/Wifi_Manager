@@ -26,7 +26,7 @@
     <ImageView
         android:id="@+id/mWifiStateIcon"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/icon_wifi_protect"
         android:layout_toLeftOf="@+id/mWifiLevel"
         android:layout_width="20dp"
         android:layout_height="20dp"/>
@@ -45,7 +45,7 @@
         android:id="@+id/mWifiInfo"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/icon_wifi_info"
         android:layout_width="20dp"
         android:layout_height="20dp"/>
 

@@ -15,11 +15,11 @@ object DataProvider {
 
 
     val homeTopList= arrayListOf(
-        ItemBean(icon = R.mipmap.ic_launcher,title = "一键加速"),
-        ItemBean(icon = R.mipmap.ic_launcher,title = "安全检测"),
-        ItemBean(icon = R.mipmap.ic_launcher,title = "网络加速"),
-        ItemBean(icon = R.mipmap.ic_launcher,title = "WiFi保镖"),
-        ItemBean(icon = R.mipmap.ic_launcher,title = "信号增强")
+        ItemBean(icon = R.mipmap.icon_home_one,title = "一键加速"),
+        ItemBean(icon = R.mipmap.icon_home_safety,title = "安全检测"),
+        ItemBean(icon = R.mipmap.icon_home_speed_up,title = "网络加速"),
+        ItemBean(icon = R.mipmap.icon_home_protect,title = "WiFi保镖"),
+        ItemBean(icon = R.mipmap.icon_home_signal_up,title = "信号增强")
     )
 
 

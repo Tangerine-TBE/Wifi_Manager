@@ -13,11 +13,9 @@ import com.example.wifi_manager.ui.adapter.recycleview.MyBottomAdapter
 import com.example.wifi_manager.ui.adapter.recycleview.MyTopAdapter
 import com.example.wifi_manager.databinding.FragmentMyBinding
 import com.example.wifi_manager.ui.activity.*
-import com.example.wifi_manager.utils.ConstantsUtil
-import com.example.wifi_manager.utils.DataProvider
-import com.example.wifi_manager.utils.toOtherActivity
+import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.MyViewModel
-import kotlinx.android.synthetic.main.fragment_my.*
+import com.tamsiree.rxkit.RxNetTool
 
 /**
  * @name Wifi_Manager
@@ -30,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_my.*
 class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
     companion object{
         const val REQUEST_CODE=1
+        const val NO_CONNECT_WIFI="WiFi未连接"
     }
 
     override fun getViewModelClass(): Class<MyViewModel> {
@@ -46,16 +45,16 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
     }
 
     override fun initView() {
-        mMyTopContainer.layoutManager=GridLayoutManager(activity,3)
-        mMyTopAdapter.setList(DataProvider.myTopList)
-        mMyTopContainer.adapter=mMyTopAdapter
+        binding.apply {
+            mMyTopContainer.layoutManager=GridLayoutManager(activity,3)
+            mMyTopAdapter.setList(DataProvider.myTopList)
+            mMyTopContainer.adapter=mMyTopAdapter
 
+            mMyBottomContainer.layoutManager=LinearLayoutManager(activity)
+            mMyBottomAdapter.setList(DataProvider.myBottomList)
+            mMyBottomContainer.adapter=mMyBottomAdapter
 
-        mMyBottomContainer.layoutManager=LinearLayoutManager(activity)
-        mMyBottomAdapter.setList(DataProvider.myBottomList)
-        mMyBottomContainer.adapter=mMyBottomAdapter
-
-
+        }
     }
 
     override fun initEvent() {
@@ -63,7 +62,7 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
             when (position) {
                 0 -> startActivityForResult(Intent(activity,ScanActivity::class.java),REQUEST_CODE)
                 1-> toOtherActivity<WifiProtectViewActivity>(activity){}
-                2->toOtherActivity<SpeedTestViewActivity>(activity){}
+                2 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(activity) {} else showToast(NO_CONNECT_WIFI)
                 3-> toOtherActivity<DistanceActivity>(activity){}
                 4-> toOtherActivity<HardwareTweaksActivity>(activity){}
             }

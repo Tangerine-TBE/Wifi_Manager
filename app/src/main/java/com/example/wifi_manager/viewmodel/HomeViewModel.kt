@@ -18,9 +18,17 @@ import com.example.wifi_manager.utils.WifiUtils
  */
 class HomeViewModel:ViewModel() {
 
-    val wifiContent by lazy {
-        MutableLiveData<MutableList<WifiMessageBean>>()
+    companion object{
+        const val WPA2="WPA2"
+        const val WPA_AND_WPA2="WPA/WPA2"
+        const val OPEN="开放"
+
+        const val LEVEL_HIGH="强"
+        const val LEVEL_MIDDLE="一般"
+        const val LEVEL_LOW="弱"
     }
+
+
     val wifiState by lazy {
         MutableLiveData<WifiState>()
     }
@@ -37,50 +45,48 @@ class HomeViewModel:ViewModel() {
     }
 
     fun getWifiList(state:WifiContentState){
-        mCurrentWifiMessageBeans?.apply {
+        mCurrentWifiMessageBeans?.let { list->
             val wifiList = WifiUtils.wifiList.filter { it.SSID!="" }
             if (wifiList.isNotEmpty()) {
-                mCurrentWifiMessageBeans.clear()
+                list.clear()
                 wifiList.forEach {
-                    add(WifiMessageBean(it.SSID, it.BSSID, it.capabilities, it.level,wifiSignalState(it.level),wifiProtectState(it.capabilities)))
+                    list.add(WifiMessageBean(it.SSID, it.BSSID, it.capabilities, it.level,wifiSignalState(it.level),wifiProtectState(it.capabilities)))
                 }
 
+                list.sortWith(compareBy({ it.wifiProtectState.length},{it.wifiName}))
+
                 mOldWifiMessageBeans?.clear()
-                mOldWifiMessageBeans?.addAll(this)
-                setWifiContent(state,this)
+                mOldWifiMessageBeans?.addAll(list)
+                setWifiContent(state,list)
             } else {
-                if (mOldWifiMessageBeans?.size > 0) setWifiContent(
-                    state,
-                    mOldWifiMessageBeans
-                )
+                if (mOldWifiMessageBeans?.size > 0) setWifiContent(state, mOldWifiMessageBeans)
             }
         }
     }
 
     private fun setWifiContent(state: WifiContentState,list: MutableList<WifiMessageBean>) {
-        wifiContentEvent.value = ValueRefreshWifi(state, list.size)
-        wifiContent.value = list
+        wifiContentEvent.value = ValueRefreshWifi(state, list)
     }
 
 
     private fun wifiSignalState(level: Int) =
         if (level>=-50){
-            "强"
+            LEVEL_HIGH
         }else if (level<=51 && level>=-70){
-            "一般"
+            LEVEL_MIDDLE
         }else {
-            "弱"
+            LEVEL_LOW
         }
 
     private fun wifiProtectState(capabilities: String) = when {
         capabilities.startsWith("[WPA2") -> {
-            "WPA2"
+            WPA2
         }
         capabilities.startsWith("[WPA")  -> {
-            "WPA/WPA2"
+            WPA_AND_WPA2
         }
         else -> {
-            "开放"
+            OPEN
         }
     }
 

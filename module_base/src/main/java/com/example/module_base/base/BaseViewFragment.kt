@@ -1,7 +1,5 @@
 package com.example.module_base.base
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 
 
 /**
@@ -31,7 +28,27 @@ abstract class BaseViewFragment<T : ViewDataBinding>:Fragment() {
         binding.lifecycleOwner=this
         return binding.root
     }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+        initEvent()
+    }
+
+    open fun initEvent() {
+
+    }
+
+    open fun initView() {
+
+    }
+
+
     abstract fun getChildLayout(): Int
+
+
+
 
 
     override fun onDestroyView() {

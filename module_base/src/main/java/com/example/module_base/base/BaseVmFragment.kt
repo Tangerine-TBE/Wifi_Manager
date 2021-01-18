@@ -1,6 +1,5 @@
 package com.example.module_base.base
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
@@ -18,15 +17,11 @@ import androidx.lifecycle.ViewModelProvider
 abstract class BaseVmFragment<T:ViewDataBinding,Vm:ViewModel>:BaseViewFragment<T>() {
     protected lateinit var viewModel:Vm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         //创建ViewModel
         initViewModel()
-        initView();
         //观察ViewModel数据变化
         observerData()
-        //事件监听
-        initEvent()
+        super.onViewCreated(view, savedInstanceState)
     }
 
    protected fun showView(vararg view: View){
@@ -41,12 +36,7 @@ abstract class BaseVmFragment<T:ViewDataBinding,Vm:ViewModel>:BaseViewFragment<T
         }
     }
 
-    open fun initView() {
 
-    }
-
-    open fun initEvent() {
-    }
 
     open fun observerData() {
     }

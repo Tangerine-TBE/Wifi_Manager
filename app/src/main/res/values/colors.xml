@@ -33,16 +33,20 @@
 
     <!--wifi com.example.wifi_manager.ui.widget.ScanWifiLoadingView-->
     <color name="outside_color">@color/theme_color</color>
-    <color name="inner_color">#16FFC0</color>
+    <color name="inner_color">@color/general_progress</color>
 
     <!--wifi com.example.wifi_manager.ui.widget.WifiSpeedTestView-->
     <color name="half_arc_color">#ECF1FF</color>
     <color name="pinter_color">@color/theme_color</color>
-    <color name="gradient_one_color">#16FFC0</color>
+    <color name="gradient_one_color">@color/general_progress</color>
     <color name="gradient_two_color">#0541C8</color>
 
     <!--com.example.wifi_manager.ui.widget.ProtectCheckProgressBarView-->
     <color name="progress_bg_color">#A8BDEC</color>
-    <color name="current_progress_bg_color">#16FFC0</color>
+    <color name="current_progress_bg_color">@color/general_progress</color>
 
+    <!--com.example.wifi_manager.ui.widget.ConnectWifiView-->
+    <color name="bg_circle_color">#9C9C9C</color>
+    
+    
 </resources>

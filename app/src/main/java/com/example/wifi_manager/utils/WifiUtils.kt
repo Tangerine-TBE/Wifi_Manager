@@ -4,13 +4,18 @@ package com.example.wifi_manager.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.net.*
+import android.content.Context.WIFI_SERVICE
+import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
+import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiNetworkSpecifier
 import android.os.PatternMatcher
+import android.util.Log
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.module_base.base.BaseApplication.Companion.mContext
 import com.example.module_base.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
@@ -229,4 +234,9 @@ object WifiUtils {
 
     }
 
+
+    fun getConnectWifiName(): String {
+        val wifiInfo = wifiManager.connectionInfo
+        return wifiInfo.ssid.replace("\"", "")
+    }
 }

@@ -6,6 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.wifi.WifiInfo
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.LinearLayout
@@ -119,16 +120,15 @@ fun startCountDown(totalTime: Long, followTime: Long, finish: () -> Unit, tickin
     }
 
 
-//Wifi是否连接
-fun isWifiConnected(context: Context)=RxNetTool.isWifiConnected(context)
-
 //网络是否连接
 fun isConnectedWifi(context: Context)=RxNetTool.isConnected(context)
 
+fun getConnectWifiName()=WifiUtils.getConnectWifiName()
 
 //弹出toast
 fun showToast(str:String){
     RxToast.normal(str)
 }
+
 
 

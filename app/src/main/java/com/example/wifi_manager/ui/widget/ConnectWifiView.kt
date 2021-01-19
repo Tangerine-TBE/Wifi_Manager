@@ -5,16 +5,10 @@ import android.graphics.*
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.withTranslation
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.OnLifecycleEvent
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.SizeUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /**
  * @author: 铭少
@@ -116,21 +110,25 @@ class ConnectWifiView @JvmOverloads constructor(
                     drawActiveLoading(1)
                     drawActiveText(1)
                     drawActiveSuccess(0)
+                    mBgCirclePaint.color=bgColor
+                    drawStep(1,stepingColor)
                 }
                 StepState.THREE -> {
-
                     drawActiveLoading(2)
                     drawActiveText(2)
                     drawActiveSuccess(1)
+                    drawStep(2,stepingColor)
                 }
                 StepState.FOUR -> {
                     drawActiveLoading(3)
                     drawActiveText(3)
                     drawActiveSuccess(2)
+                    drawStep(3,stepingColor)
                 }
                 StepState.FIVE-> {
                     drawActiveText(3)
                     drawActiveSuccess(3)
+                    drawStep(3,stepingColor)
                 }
                 StepState.NONE->{
 
@@ -167,31 +165,28 @@ class ConnectWifiView @JvmOverloads constructor(
 
 
     //画步骤点
-    private fun Canvas.drawQuietStep() {
-            for (i in 0 until 4){
-                mBgCirclePaint.color=bgColor
-                drawCircle(minMargin+bigStep+(minStep*i),0f,minRadius,mBgCirclePaint)
-
-                drawCircle(minMargin+bigStep*2+(minStep*i),0f,minRadius,mBgCirclePaint)
-
-                drawCircle(minMargin+(minStep*i),0f,minRadius,mBgCirclePaint)
+    private fun Canvas.drawStep(step:Int,color: Int) {
+        mBgCirclePaint.color=color
+            for (i in 0 until step){
+                for (j in 0 until 4){
+                    drawCircle(minMargin+bigStep*i+(minStep*j),0f,minRadius,mBgCirclePaint)
+                }
             }
     }
 
 
-
     private fun drawQuietState(canvas: Canvas) {
         canvas.withTranslation(0f,mHeight/2) {
+            mBgCirclePaint.color=bgColor
             drawText()
             drawBgCircle()
-            drawQuietStep()
+            drawStep(3,bgColor)
         }
 
 
     }
     //画字
     private fun Canvas.drawText() {
-
             for (i in 0 until 4){
                 mTextPaint.color=bgColor
                 drawText(textPosition(i,mOpen),bigMargin+(bigStep*i),textMarginTop,mTextPaint)
@@ -200,7 +195,6 @@ class ConnectWifiView @JvmOverloads constructor(
     //画背景的圆
     private fun Canvas.drawBgCircle() {
             for (i in 0 until 4){
-                mBgCirclePaint.color=bgColor
                 drawCircle(bigMargin+(bigStep*i),0f,middleRadius,mBgCirclePaint)
             }
     }

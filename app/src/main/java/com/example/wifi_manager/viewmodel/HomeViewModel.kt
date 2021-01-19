@@ -44,10 +44,18 @@ class HomeViewModel:ViewModel() {
         MutableLiveData<ValueRefreshWifi>()
     }
 
-
     val errorConnectCount by lazy {
         MutableLiveData<Int>()
     }
+
+    val connectingCount by lazy {
+        MutableLiveData<Int>()
+    }
+
+    val currentNetWorkName by lazy {
+        MutableLiveData<String>()
+    }
+
 
 
     private val mOldWifiMessageBeans:MutableList<WifiMessageBean> =ArrayList()
@@ -81,6 +89,10 @@ class HomeViewModel:ViewModel() {
         wifiContentEvent.value = ValueRefreshWifi(state, list)
     }
 
+    fun setNetWorkName(name:String){
+        currentNetWorkName.value=name
+    }
+
 
     private fun wifiSignalState(level: Int) =
             when(level){
@@ -105,14 +117,13 @@ class HomeViewModel:ViewModel() {
     }
 
      fun connectWifi(wifiMessage: WifiMessageBean, open:Boolean, wifiPwd:String=""){
-        viewModelScope.launch(Dispatchers.IO) {
             if (open) {
                 WifiUtils.connectWifiNoPws(wifiMessage.wifiName)
             } else {
                 WifiUtils.connectWifiPws(wifiMessage.wifiName, wifiPwd)
             }
-        }
     }
+
 
     fun connectAction(wifiMessage: WifiMessageBean, showPopupAction:()->Unit){
         if (wifiMessage.wifiProtectState == OPEN) {
@@ -122,17 +133,23 @@ class HomeViewModel:ViewModel() {
     }
 
 
-    private var currentCount=0
-    fun setConnectCount(count:Int){
-        currentCount+=count
-        errorConnectCount.value=currentCount
-        LogUtils.i("---没连接上---------${currentCount}-----------")
+    private var mConnectErrorCount=0
+    private var mConnectingCount=0
+    fun setConnectErrorCount(count:Int){
+        mConnectErrorCount+=count
+        errorConnectCount.value=mConnectErrorCount
+        LogUtils.i("---没连接上---------${mConnectErrorCount}-----------")
+    }
+    fun setConnectingCount(count:Int){
+        mConnectingCount+=count
+        connectingCount.value=mConnectingCount
+        LogUtils.i("---正在连接---------${mConnectingCount}-----------")
     }
 
 
     fun clearConnectCount(){
-        currentCount=0
-
+        mConnectErrorCount=0
+        mConnectingCount=0
     }
 
 

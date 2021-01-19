@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 
 
 /**
@@ -18,6 +20,13 @@ import androidx.fragment.app.Fragment
  * @class describe
  */
 abstract class BaseViewFragment<T : ViewDataBinding>:Fragment() {
+    private val job by lazy {
+        Job()
+    }
+    protected val mScope by lazy {
+        CoroutineScope(job)
+    }
+
     protected lateinit var binding: T
     override fun onCreateView(
             inflater: LayoutInflater,

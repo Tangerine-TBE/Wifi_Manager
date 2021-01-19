@@ -47,6 +47,8 @@
 
     <!--com.example.wifi_manager.ui.widget.ConnectWifiView-->
     <color name="bg_circle_color">#9C9C9C</color>
-    
+    <color name="big_out_one_color">#ACC1F4</color>
+    <color name="big_out_two_color">#CDD9F4</color>
+
     
 </resources>

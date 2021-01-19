@@ -32,7 +32,7 @@ import java.util.*
  * @class describe
  */
 object WifiUtils {
-    private val wifiManager: WifiManager = mContext.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+     val wifiManager: WifiManager = mContext.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
     private val connectivityManager= mContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     /**
      * wifi是否打开

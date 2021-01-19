@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.wifi_manager.R
 import com.example.wifi_manager.domain.WifiMessageBean
+import com.example.wifi_manager.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.item_wifi_container.view.*
 
 /**
@@ -19,6 +20,7 @@ class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean,BaseViewHolder>(R.layout.
     override fun convert(holder: BaseViewHolder, item: WifiMessageBean) {
         holder.itemView.apply {
             mWifiName.text=item.wifiName
+            mWifiLevel.setImageResource(wifiSignalState(item.wifiLevel))
             item.encryptionWay.let {
                 if (it.contains("WPA2") and it.contains("WPS") || it.contains("WPA")) {
                     mWifiStateHint.text="加密wifi"
@@ -31,4 +33,14 @@ class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean,BaseViewHolder>(R.layout.
             }
         }
     }
+
+    private fun wifiSignalState(level: Int) =
+            when(level){
+                in 0 downTo -20->R.mipmap.icon_signal_five
+                in -20 downTo -50->R.mipmap.icon_signal_four
+                in -50 downTo -60-> R.mipmap.icon_signal_three
+                in -60 downTo -70->R.mipmap.icon_signal_two
+                in -70 downTo -1000->R.mipmap.icon_signal_one
+                else->R.mipmap.icon_signal_five
+            }
 }

@@ -34,7 +34,6 @@
     <ImageView
         android:id="@+id/mWifiLevel"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_launcher"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_toLeftOf="@+id/mWifiInfo"

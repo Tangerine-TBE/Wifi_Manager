@@ -5,6 +5,7 @@ import com.example.module_base.base.BaseViewFragment
 import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.FragmentClearBinding
+import com.example.wifi_manager.ui.widget.ConnectWifiView
 
 /**
  * @name Wifi_Manager
@@ -18,17 +19,7 @@ class ClearFragment:BaseViewFragment<FragmentClearBinding>() {
     override fun getChildLayout(): Int= R.layout.fragment_clear
 
     override fun initView() {
-       var i=0
-        object :CountDownTimer(4000,1000){
-            override fun onFinish() {
-
-            }
-            override fun onTick(millisUntilFinished: Long) {
-                LogUtils.i("---------onTick----------$millisUntilFinished--")
-                binding.connectWifiView.setStepState(i++)
-            }
-
-        }.start()
+     //   lifecycle.addObserver(binding.connectWifiView)
 
     }
 

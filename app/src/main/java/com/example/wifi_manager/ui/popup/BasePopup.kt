@@ -30,6 +30,7 @@ open class BasePopup(val activity: FragmentActivity?, layout:Int, width:Int= Vie
         intBgAnimation()
         setOnDismissListener {
             mOutValueAnimator?.start()
+            mListener?.cancel()
         }
         initEvent()
     }
@@ -59,7 +60,7 @@ open class BasePopup(val activity: FragmentActivity?, layout:Int, width:Int= Vie
     }
 
 
-   open fun showPopupView(view: View,gravity:Int,x:Int=0,y:Int=0){
+   open fun showPopupView(view: View,gravity:Int=Gravity.CENTER,x:Int=0,y:Int=0){
        activity?.let {
            if (!it.isFinishing) {
                mInValueAnimator.start()
@@ -70,10 +71,19 @@ open class BasePopup(val activity: FragmentActivity?, layout:Int, width:Int= Vie
 
     interface OnActionClickListener{
         fun sure()
+
+        fun cancel()
     }
 
     protected var mListener:OnActionClickListener?=null
     fun setOnActionClickListener(listener:OnActionClickListener){
         mListener=listener
     }
+
+   open fun dismissPopup(){
+        if (isShowing) {
+            dismiss()
+        }
+    }
+
 }

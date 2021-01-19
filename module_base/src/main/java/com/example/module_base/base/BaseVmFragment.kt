@@ -5,6 +5,8 @@ import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 
 /**
  * @name Wifi_Manager
@@ -15,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
  * @class describe
  */
 abstract class BaseVmFragment<T:ViewDataBinding,Vm:ViewModel>:BaseViewFragment<T>() {
+
     protected lateinit var viewModel:Vm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //创建ViewModel

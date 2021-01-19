@@ -2,11 +2,15 @@ package com.example.wifi_manager.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.domain.ValueRefreshWifi
 import com.example.wifi_manager.domain.WifiMessageBean
 import com.example.wifi_manager.utils.WifiContentState
 import com.example.wifi_manager.utils.WifiState
 import com.example.wifi_manager.utils.WifiUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * @name Wifi_Manager
@@ -26,6 +30,10 @@ class HomeViewModel:ViewModel() {
         const val LEVEL_HIGH="强"
         const val LEVEL_MIDDLE="一般"
         const val LEVEL_LOW="弱"
+
+        const val PROTECT_WAY_ONE="[WPA2"
+        const val PROTECT_WAY_TWO="[WPA"
+
     }
 
 
@@ -34,6 +42,11 @@ class HomeViewModel:ViewModel() {
     }
     val wifiContentEvent by lazy {
         MutableLiveData<ValueRefreshWifi>()
+    }
+
+
+    val errorConnectCount by lazy {
+        MutableLiveData<Int>()
     }
 
 
@@ -70,24 +83,57 @@ class HomeViewModel:ViewModel() {
 
 
     private fun wifiSignalState(level: Int) =
-        if (level>=-50){
-            LEVEL_HIGH
-        }else if (level<=51 && level>=-70){
-            LEVEL_MIDDLE
-        }else {
-            LEVEL_LOW
-        }
+            when(level){
+                in 0 downTo -20-> LEVEL_HIGH
+                in -20 downTo -50-> LEVEL_HIGH
+                in -50 downTo -60->  LEVEL_MIDDLE
+                in -60 downTo -70->  LEVEL_MIDDLE
+                in -70 downTo -1000->  LEVEL_LOW
+                else->LEVEL_HIGH
+            }
 
     private fun wifiProtectState(capabilities: String) = when {
-        capabilities.startsWith("[WPA2") -> {
+        capabilities.startsWith(PROTECT_WAY_ONE) -> {
             WPA2
         }
-        capabilities.startsWith("[WPA")  -> {
+        capabilities.startsWith(PROTECT_WAY_TWO)  -> {
             WPA_AND_WPA2
         }
         else -> {
             OPEN
         }
     }
+
+     fun connectWifi(wifiMessage: WifiMessageBean, open:Boolean, wifiPwd:String=""){
+        viewModelScope.launch(Dispatchers.IO) {
+            if (open) {
+                WifiUtils.connectWifiNoPws(wifiMessage.wifiName)
+            } else {
+                WifiUtils.connectWifiPws(wifiMessage.wifiName, wifiPwd)
+            }
+        }
+    }
+
+    fun connectAction(wifiMessage: WifiMessageBean, showPopupAction:()->Unit){
+        if (wifiMessage.wifiProtectState == OPEN) {
+            connectWifi(wifiMessage,true)
+        }
+        showPopupAction()
+    }
+
+
+    private var currentCount=0
+    fun setConnectCount(count:Int){
+        currentCount+=count
+        errorConnectCount.value=currentCount
+        LogUtils.i("---没连接上---------${currentCount}-----------")
+    }
+
+
+    fun clearConnectCount(){
+        currentCount=0
+
+    }
+
 
 }

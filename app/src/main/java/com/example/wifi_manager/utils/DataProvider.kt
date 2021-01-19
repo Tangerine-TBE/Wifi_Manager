@@ -50,10 +50,10 @@ object DataProvider {
 
 
     val wifiProtectList= arrayListOf(
-        ItemBean(icon = R.mipmap.ic_launcher,title = "防恶意蹭网    "),
-        ItemBean(icon = R.mipmap.ic_launcher,title = "保障不被分享"),
-        ItemBean(icon = R.mipmap.ic_launcher,title = "实时入侵警示"),
-        ItemBean(icon = R.mipmap.ic_launcher,title = "防破解监听    ")
+        ItemBean(icon = R.mipmap.icon_protect_one,title = "防恶意蹭网    "),
+        ItemBean(icon = R.mipmap.icon_protect_two,title = "保障不被分享"),
+        ItemBean(icon = R.mipmap.icon_protect_three,title = "实时入侵警示"),
+        ItemBean(icon = R.mipmap.icon_protect_four,title = "防破解监听    ")
     )
 
 

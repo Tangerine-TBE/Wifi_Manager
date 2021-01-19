@@ -4,6 +4,7 @@ import android.app.Service
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.FragmentActivity
 import com.example.wifi_manager.R
@@ -18,20 +19,22 @@ import kotlinx.android.synthetic.main.popup_wifi_connect_window.view.*
  * @time 2021/1/18 10:29:30
  * @class describe
  */
-class WifiConnectPopup(activity: FragmentActivity?):BasePopup(activity, R.layout.popup_wifi_connect_window) {
+class WifiConnectPopup(activity: FragmentActivity?):BasePopup(activity, R.layout.popup_wifi_connect_window, ViewGroup.LayoutParams.MATCH_PARENT) {
     private var isShowPwd=true
-    init {
-        isFocusable = true
-    }
 
     override fun initEvent() {
         mView.apply {
             mView.sharePublicWifi.isChecked = true
 
             cancel.setOnClickListener {
-                wifiPwd.setText("")
                 this@WifiConnectPopup.dismiss()
             }
+
+            setOnDismissListener {
+                wifiPwd.setText("")
+                mOutValueAnimator?.start()
+            }
+
             sure.setOnClickListener {
                 mListener?.sure()
             }
@@ -55,7 +58,7 @@ class WifiConnectPopup(activity: FragmentActivity?):BasePopup(activity, R.layout
     fun setWifiName(name: String){
         mView.connectWifiName.text=name+""
     }
-    fun  getWifiPwd() =mView.wifiPwd.text.toString()
+    fun  getWifiPwd() =mView.wifiPwd.text.toString().trim()
     fun getShareState()=mView.sharePublicWifi.isChecked
 
 

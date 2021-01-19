@@ -1,16 +1,20 @@
 package com.example.wifi_manager.ui.widget
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.withTranslation
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.SizeUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @author: 铭少
@@ -20,18 +24,31 @@ import com.example.wifi_manager.base.BaseView
 class ConnectWifiView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BaseView(context, attrs, defStyleAttr) {
+    companion object{
+        const val WIFI_CONNECT="建立连接"
+        const val WIFI_WRITE_PWD="写入密码"
+        const val WIFI_CHECK_PWD="验证密码"
+        const val WIFI_DISPENSE_IP="分配IP地址"
+        const val WIFI_CHECK_LOGIN="可能需要登录验证"
+        const val WIFI_OPEN="开放WiFi"
+    }
     private val mBgCirclePaint= Paint()
     private val mTextPaint= Paint()
     private var mWidth=0f
     private var mHeight=0f
     private val minRadius=SizeUtils.dip2px(context,2f).toFloat()
     private val middleRadius=SizeUtils.dip2px(context,5f).toFloat()
-    private val bigRadius=SizeUtils.dip2px(context,9f).toFloat()
+    private val bigOneRadius=SizeUtils.dip2px(context,6f).toFloat()
+    private val bigTwoRadius=SizeUtils.dip2px(context,7f).toFloat()
     private val textMarginTop=SizeUtils.dip2px(context,30f).toFloat()
     private val titleSize=SizeUtils.sp2px(context,12f).toFloat()
     private val stepingColor=ContextCompat.getColor(context,R.color.theme_color)
     private val bgColor=ContextCompat.getColor(context,R.color.bg_circle_color)
-
+    private val outOneColor=ContextCompat.getColor(context,R.color.big_out_one_color)
+    private val outTwoColor=ContextCompat.getColor(context,R.color.big_out_two_color)
+    private val mFinishIcon:Bitmap
+    private var currentState= StepState.NONE
+    private var mOpen=true
     init {
         mBgCirclePaint.apply {
             color=bgColor
@@ -48,6 +65,7 @@ class ConnectWifiView @JvmOverloads constructor(
             isAntiAlias=true
         }
 
+        mFinishIcon= BitmapFactory.decodeResource(resources, R.mipmap.icon_connect_finish)
 
 
     }
@@ -64,94 +82,153 @@ class ConnectWifiView @JvmOverloads constructor(
     private var minMargin=0f
     private var bigStep=0f
     private var minStep=0f
+    private var finishIconRadius=1f
+
+
+
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
         bigMargin = mWidth*0.125f
         bigStep= mWidth*0.25f
         minStep=mWidth*0.04f
         minMargin=mWidth*0.19f
+        mFinishIcon?.apply {
+            finishIconRadius= width.toFloat()/2
+        }
 
-
-        drawBgCircle(canvas)
-        drawText(canvas)
-        drawOneStep(canvas)
-        drawTwoStep(canvas)
-        drawThreeStep(canvas)
-
+        drawQuietState(canvas)
+        drawActiveState(canvas)
 
     }
-    private fun drawThreeStep(canvas: Canvas) {
+
+    private fun drawActiveState(canvas: Canvas) {
         canvas.withTranslation(0f,mHeight/2) {
-            for (i in 0 until 4){
-                mBgCirclePaint.color=Color.BLACK
-                drawCircle(minMargin+bigStep*2+(minStep*i),0f,minRadius,mBgCirclePaint)
+            LogUtils.i("-----drawActiveState---$currentState----------------------")
+            when (currentState) {
+
+                StepState.ONE -> {
+                    drawActiveLoading(0)
+                    drawActiveText(0)
+                }
+                StepState.TWO -> {
+                    drawActiveLoading(1)
+                    drawActiveText(1)
+                    drawActiveSuccess(0)
+                }
+                StepState.THREE -> {
+
+                    drawActiveLoading(2)
+                    drawActiveText(2)
+                    drawActiveSuccess(1)
+                }
+                StepState.FOUR -> {
+                    drawActiveLoading(3)
+                    drawActiveText(3)
+                    drawActiveSuccess(2)
+                }
+                StepState.FIVE-> {
+                    drawActiveText(3)
+                    drawActiveSuccess(3)
+                }
+                StepState.NONE->{
+
+                }
+
             }
+
         }
     }
-    private fun drawTwoStep(canvas: Canvas) {
-        canvas.withTranslation(0f,mHeight/2) {
+
+    private fun Canvas.drawActiveLoading(step: Int) {
+        mBgCirclePaint.color = outTwoColor
+        drawCircle(bigMargin + (bigStep * step), 0f, bigTwoRadius, mBgCirclePaint)
+
+        mBgCirclePaint.color = outOneColor
+        drawCircle(bigMargin + (bigStep * step), 0f, bigOneRadius, mBgCirclePaint)
+
+        mBgCirclePaint.color = stepingColor
+        drawCircle(bigMargin + (bigStep * step), 0f, middleRadius, mBgCirclePaint)
+    }
+
+    private fun Canvas.drawActiveText(step:Int) {
+        mTextPaint.color = stepingColor
+        drawText(textPosition(step, mOpen), bigMargin + (bigStep * step), textMarginTop, mTextPaint)
+    }
+
+    //画成功的圆
+    private fun Canvas.drawActiveSuccess(step: Int) {
+        drawFilter = PaintFlagsDrawFilter(0,  Paint.FILTER_BITMAP_FLAG)
+        for (i in 0 until step+1){
+            drawBitmap(mFinishIcon,bigMargin+(bigStep*i)-finishIconRadius,-finishIconRadius,mBgCirclePaint)
+        }
+    }
+
+
+    //画步骤点
+    private fun Canvas.drawQuietStep() {
             for (i in 0 until 4){
-                mBgCirclePaint.color=Color.BLACK
+                mBgCirclePaint.color=bgColor
                 drawCircle(minMargin+bigStep+(minStep*i),0f,minRadius,mBgCirclePaint)
-            }
-        }
-    }
-    private fun drawOneStep(canvas: Canvas) {
-        canvas.withTranslation(0f,mHeight/2) {
-            for (i in 0 until 4){
-                mBgCirclePaint.color=Color.BLACK
+
+                drawCircle(minMargin+bigStep*2+(minStep*i),0f,minRadius,mBgCirclePaint)
+
                 drawCircle(minMargin+(minStep*i),0f,minRadius,mBgCirclePaint)
             }
-        }
     }
 
-    private fun drawText(canvas: Canvas) {
+
+
+    private fun drawQuietState(canvas: Canvas) {
         canvas.withTranslation(0f,mHeight/2) {
-            LogUtils.i("--drawText----$textMarginTop-----------------------")
+            drawText()
+            drawBgCircle()
+            drawQuietStep()
+        }
+
+
+    }
+    //画字
+    private fun Canvas.drawText() {
+
             for (i in 0 until 4){
                 mTextPaint.color=bgColor
-                drawText(textPosition(i),bigMargin+(bigStep*i),textMarginTop,mTextPaint)
+                drawText(textPosition(i,mOpen),bigMargin+(bigStep*i),textMarginTop,mTextPaint)
             }
-
-            mTextPaint.color=stepingColor
-            drawText(textPosition(currentStep),bigMargin+(bigStep*currentStep),textMarginTop,mTextPaint)
-        }
-
-
+    }
+    //画背景的圆
+    private fun Canvas.drawBgCircle() {
+            for (i in 0 until 4){
+                mBgCirclePaint.color=bgColor
+                drawCircle(bigMargin+(bigStep*i),0f,middleRadius,mBgCirclePaint)
+            }
     }
 
-    private  fun textPosition(position:Int)=when(position){
-        0->"建立连接"
-        1->"写入密码"
-        2->"验证密码"
-        3->"分配IP地址"
+    private  fun textPosition(position:Int,open:Boolean)=when(position){
+        0->WIFI_CONNECT
+        1-> if(open) WIFI_OPEN else WIFI_WRITE_PWD
+        2->if (open)  WIFI_CHECK_LOGIN else WIFI_CHECK_PWD
+        3->WIFI_DISPENSE_IP
         else->""
     }
 
 
 
-    private fun drawBgCircle(canvas: Canvas) {
-        canvas.withTranslation(0f,mHeight/2) {
-            for (i in 0 until 4){
-                drawCircle(bigMargin+(bigStep*i),0f,middleRadius,mBgCirclePaint)
-            }
-
-        }
-
-    }
 
 
-
-    private var currentStep=0
-    fun setStepState(state:Int){
-        currentStep=state
+    fun setStepState(state:StepState,open:Boolean=false){
+        currentState=state
+        mOpen=open
         invalidate()
     }
 
+
+
     enum class StepState{
-        ONE,TWO,THREE,FOUR
+        ONE,TWO,THREE,FOUR,FIVE,NONE
     }
+
 
 
 

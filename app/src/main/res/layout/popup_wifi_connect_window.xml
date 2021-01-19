@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingRight="40dp"
-    android:paddingLeft="40dp"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@drawable/shape_popup_wifi_connect_bg"
         android:layout_width="match_parent"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         android:layout_height="wrap_content"
          android:paddingBottom="12dp">
 
@@ -107,7 +107,7 @@
 
     <TextView
         android:id="@+id/cancel"
-        android:layout_width="203dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="取消"
@@ -120,7 +120,7 @@
 
     <TextView
         android:id="@+id/sure"
-        android:layout_width="203dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="确定"
         android:textStyle="bold"

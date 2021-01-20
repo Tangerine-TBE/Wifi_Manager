@@ -27,5 +27,5 @@ inline fun <reified T: View>setStatusBar(activity: FragmentActivity?, view: T, l
 
 
 //获取当前线程名字
-fun getCurrentThread()=Thread.currentThread().name
+fun getCurrentThreadName()=Thread.currentThread().name
 

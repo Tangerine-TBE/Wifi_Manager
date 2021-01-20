@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:drawableLeft="@mipmap/iocn_my_go"
+        android:drawableLeft="@mipmap/icon_popup_pwd_wifi"
         android:drawablePadding="12dp"
         android:ellipsize="end"
         android:maxLines="1"

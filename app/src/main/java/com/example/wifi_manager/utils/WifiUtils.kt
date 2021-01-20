@@ -92,22 +92,24 @@ object WifiUtils {
      * @param ssid
      * @param pws
      */
-    fun connectWifiPws(ssid: String, pws: String)  {
+    fun connectWifiPws(ssid: String, pws: String):Boolean   {
         wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, pws, true))
         val enableNetwork = wifiManager.enableNetwork(netId, true)
         LogUtils.i("-----connectWifiPws-----------$enableNetwork------------")
+        return enableNetwork
     }
 
     /**
      * 无密码连接
      * @param ssid
      */
-    fun connectWifiNoPws(ssid: String) {
+    fun connectWifiNoPws(ssid: String):Boolean {
         wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, "", false))
         val enableNetwork = wifiManager.enableNetwork(netId, true)
         LogUtils.i("-----connectWifiNoPws-------$enableNetwork----------------")
+        return enableNetwork
 
     }
 
@@ -123,6 +125,7 @@ object WifiUtils {
             isHasPws: Boolean
     ): WifiConfiguration {
         val config = WifiConfiguration()
+
         config.allowedAuthAlgorithms.clear()
         config.allowedGroupCiphers.clear()
         config.allowedKeyManagement.clear()

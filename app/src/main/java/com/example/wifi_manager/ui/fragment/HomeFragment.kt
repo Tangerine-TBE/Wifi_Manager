@@ -127,7 +127,6 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                         binding.mOpenWifiLayout.mSmartRefreshLayout.finishRefresh()
                         RxToast.normal("发现了${result.list.size}个wifi")
                     }
-
                 }
                 mCurrentWifiContent = result.list
                 if (RxNetTool.isWifiConnected(requireContext())) {
@@ -144,17 +143,19 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
 
             errorConnectCount.observe(that, Observer { count ->
                 if (count > 3) {
-                    mConnectStatePopup?.dismissPopup()
-                    showToast("换一个试试吧亲！")
+                    dismissErrorPopup()
+                }
+            })
+            connectError.observe(that, Observer { success->
+                if (!success) {
+                    dismissErrorPopup()
                 }
 
             })
 
-
             connectingCount.observe(that, Observer { count ->
                 mScope.launch (Dispatchers.Main) {
                     withContext(Dispatchers.Main){
-
                     mConnectStatePopup?.apply {
                     when (count) {
                         in 0..1 -> setConnectState(StepState.ONE)
@@ -170,6 +171,11 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                 }
             })
         }
+    }
+
+    private fun dismissErrorPopup() {
+        mConnectStatePopup?.dismissPopup()
+        showToast("换一个试试吧亲！")
     }
 
 
@@ -298,7 +304,6 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                                 showToast("WiFi密码必须是8位及以上")
                             } else {
                                 dismiss()
-
                                 beginConnectWifi(wifiMessageBean, false, wifiPwd)
                             }
                         }
@@ -347,7 +352,6 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             beginConnectWifi(wifiMessage, true)
         } else {
             mConnectWifiPopup?.apply {
-
                 setWifiName(wifiMessage.wifiName)
                 showPopupView(mSmartRefreshLayout)
             }

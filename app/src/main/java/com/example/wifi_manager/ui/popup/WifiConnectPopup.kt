@@ -28,6 +28,7 @@ class WifiConnectPopup(activity: FragmentActivity?):BasePopup(activity, R.layout
 
             cancel.setOnClickListener {
                 this@WifiConnectPopup.dismiss()
+
             }
 
             setOnDismissListener {
@@ -40,6 +41,8 @@ class WifiConnectPopup(activity: FragmentActivity?):BasePopup(activity, R.layout
 
             sure.setOnClickListener {
                 mListener?.sure()
+                RxKeyboardTool.hideSoftInput(mView.wifiPwd)
+
             }
 
             showPwd.setOnClickListener {

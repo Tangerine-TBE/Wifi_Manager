@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.module_base.utils.LogUtils
-import com.example.module_base.utils.getCurrentThread
+import com.example.module_base.utils.getCurrentThreadName
 import com.example.wifi_manager.domain.DeviceBean
 import com.example.wifi_manager.domain.ValueScanDevice
 import com.example.wifi_manager.utils.ScanDeviceState
@@ -15,7 +15,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.FileReader
-import java.io.IOException
 import java.lang.Exception
 import java.net.InetAddress
 
@@ -41,7 +40,7 @@ class CheckDeviceViewModel:ViewModel() {
         mDeviceInfo.clear()
         scanDeviceState.value= ValueScanDevice(ScanDeviceState.BEGIN,mDeviceInfo)
         viewModelScope.launch(Dispatchers.IO) {
-            LogUtils.i("--scanDevice--${getCurrentThread()}-")
+            LogUtils.i("--scanDevice--${getCurrentThreadName()}-")
             val ipAddressString = WifiUtils.getIpAddressString()
             val last = ipAddressString.lastIndexOf(".")
             val segmentIp = ipAddressString.substring(0, last)

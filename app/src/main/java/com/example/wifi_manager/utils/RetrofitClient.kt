@@ -1,5 +1,6 @@
 package com.example.wifi_manager.utils
 
+import com.example.wifi_manager.repository.api.ApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,12 +18,23 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
     //https://down.qq.com/qqweb/QQ_1/android_apk/Android_8.5.5.5105_537066978.apk
    private const val  URL = "https://down.qq.com/"
+   private const val  WIFI_URL = "http://wifi.aisou.club/"
 
-    val textWifiSpeedRetrofit: Retrofit = Retrofit.Builder()
+    private val textWifiSpeedRetrofit: Retrofit =Retrofit .Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    inline fun <reified T> createNetSpeed(): T = textWifiSpeedRetrofit.create(T::class.java)
+
+
+   private val wifiManagerRetrofit: Retrofit =Retrofit .Builder()
+        .baseUrl(WIFI_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+
+
+     fun createNetSpeed(): ApiService = textWifiSpeedRetrofit.create(ApiService::class.java)
+     fun  createWifiManager(): ApiService = wifiManagerRetrofit.create(ApiService::class.java)
 
 }

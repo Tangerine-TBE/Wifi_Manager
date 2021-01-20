@@ -2,10 +2,7 @@ package com.example.wifi_manager.repository.api
 
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Streaming
-import retrofit2.http.Url
+import retrofit2.http.*
 
 /**
  * @name Wifi_Manager
@@ -19,5 +16,9 @@ interface ApiService {
     @Streaming
     @GET("qqweb/QQ_1/android_apk/Android_8.5.5.5105_537066978.apk")
      fun downFile(): Call<ResponseBody>
+
+
+     @POST("customer/using/infoUpload")
+     fun shareWifiInfo(@Query("name") name:String,@Query("address") address:String,@Query("password") password:String,@Query("method") method:String): Call<ResponseBody>
 
 }

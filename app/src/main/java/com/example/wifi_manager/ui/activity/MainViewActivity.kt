@@ -15,12 +15,13 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
     private val mClearFragment by lazy {  ClearFragment()}
     private val mMyFragment by lazy {  MyFragment()}
     override fun initView() {
+        binding.bottomNavigationView.itemIconTintList = null;
         showFragment(mHomeFragment)
     }
 
 
     override fun initEvent() {
-        bottomNavigationView.setOnNavigationItemSelectedListener {
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.homeFragment->showFragment(mHomeFragment)
                 R.id.clearFragment->showFragment(mClearFragment)

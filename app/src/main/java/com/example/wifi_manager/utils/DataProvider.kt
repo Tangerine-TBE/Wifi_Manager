@@ -56,5 +56,12 @@ object DataProvider {
         ItemBean(icon = R.mipmap.icon_protect_four,title = "防破解监听    ")
     )
 
+    val hardwareList= arrayListOf(
+            ItemBean(icon = R.mipmap.icon_hardware_loading,title = "优化无线模块内核，提高速度"),
+            ItemBean(icon = R.mipmap.icon_hardware_loading,title = "低信号下保持连接，不断线"),
+            ItemBean(icon = R.mipmap.icon_hardware_loading,title = "减少延迟，提升网络稳定"),
+            ItemBean(icon = R.mipmap.icon_hardware_loading,title = "优化WiFi连接引擎，智能网络加速"),
+    )
+
 
 }

@@ -4,19 +4,19 @@
 
     <item android:id="@+id/homeFragment"
         android:title="WIFI"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/selector_home_wifi"
 
         />
 
     <item android:id="@+id/clearFragment"
         android:title="清理"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/selector_home_clean"
 
         />
 
     <item android:id="@+id/myFragment"
         android:title="个人"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/selector_home_my"
 
         />
 </menu>

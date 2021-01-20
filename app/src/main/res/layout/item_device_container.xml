@@ -8,8 +8,8 @@
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_device_wifi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="xiaomi-wiun"
+
         android:maxLines="1"
         android:textColor="@color/white"
         android:ellipsize="end"
@@ -34,6 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
         android:text="标记"
+        android:drawablePadding="5dp"
+        android:drawableRight="@mipmap/icon_device_edit"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

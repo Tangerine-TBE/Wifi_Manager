@@ -57,7 +57,7 @@
         android:layout_height="10dp"
         android:layout_marginRight="18dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/icon_hide_pwd"
         app:layout_constraintBottom_toBottomOf="@+id/wifiPwd"
         app:layout_constraintEnd_toEndOf="@+id/wifiPwd"
         app:layout_constraintTop_toTopOf="@+id/wifiPwd" />

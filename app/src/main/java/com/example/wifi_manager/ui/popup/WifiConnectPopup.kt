@@ -32,6 +32,9 @@ class WifiConnectPopup(activity: FragmentActivity?):BasePopup(activity, R.layout
 
             setOnDismissListener {
                 wifiPwd.setText("")
+                isShowPwd=true
+                wifiPwd.transformationMethod = PasswordTransformationMethod.getInstance()
+                showPwd.setImageResource(R.mipmap.icon_hide_pwd)
                 mOutValueAnimator?.start()
             }
 
@@ -40,8 +43,14 @@ class WifiConnectPopup(activity: FragmentActivity?):BasePopup(activity, R.layout
             }
 
             showPwd.setOnClickListener {
-                wifiPwd.transformationMethod =if (isShowPwd) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
-                isShowPwd=!isShowPwd
+                showPwd.setImageResource(if(isShowPwd) R.mipmap.icon_show_pwd else R.mipmap.icon_hide_pwd)
+                wifiPwd.apply {
+                    transformationMethod =if (isShowPwd) HideReturnsTransformationMethod.getInstance() else PasswordTransformationMethod.getInstance()
+                    setSelection(text.length)
+                    isShowPwd=!isShowPwd
+
+                }
+
             }
 
         }

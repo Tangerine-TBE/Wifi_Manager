@@ -6,10 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.domain.ValueRefreshWifi
 import com.example.wifi_manager.domain.WifiMessageBean
+import com.example.wifi_manager.extensions.exAwait
+import com.example.wifi_manager.repository.WifiInfoRepository
 import com.example.wifi_manager.utils.WifiContentState
 import com.example.wifi_manager.utils.WifiState
 import com.example.wifi_manager.utils.WifiUtils
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
@@ -89,7 +90,22 @@ class HomeViewModel:ViewModel() {
         wifiContentEvent.value = ValueRefreshWifi(state, list)
     }
 
-    fun setNetWorkName(name:String){
+    fun shareWifiInfo(wifiMessages:WifiMessageBean){
+        viewModelScope.launch {
+            WifiInfoRepository.shareWifi(wifiMessages.wifiName,wifiMessages.wifiMacAddress,wifiMessages.pwd,wifiMessages.encryptionWay).exAwait(
+                {
+                    LogUtils.i("--------shareWifiInfo------${it.message}--------")
+                },
+                { result ->
+                    val body = result.body()
+                    LogUtils.i("--------shareWifiInfo---------------${body?.string()}---------------------------")
+                })
+        }
+
+
+    }
+
+    fun setCurrentWifiName(name:String){
         currentNetWorkName.value=name
     }
 
@@ -117,11 +133,14 @@ class HomeViewModel:ViewModel() {
     }
 
      fun connectWifi(wifiMessage: WifiMessageBean, open:Boolean, wifiPwd:String=""){
+         LogUtils.i("--------connectWifi------${wifiMessage.wifiName}--------")
             if (open) {
                 WifiUtils.connectWifiNoPws(wifiMessage.wifiName)
             } else {
                 WifiUtils.connectWifiPws(wifiMessage.wifiName, wifiPwd)
             }
+
+
     }
 
 

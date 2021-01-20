@@ -1,4 +1,4 @@
-
+@file:Suppress("DEPRECATION")
 
 package com.example.wifi_manager.utils
 
@@ -92,10 +92,11 @@ object WifiUtils {
      * @param ssid
      * @param pws
      */
-    fun connectWifiPws(ssid: String, pws: String) {
+    fun connectWifiPws(ssid: String, pws: String)  {
         wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, pws, true))
-        wifiManager.enableNetwork(netId, true)
+        val enableNetwork = wifiManager.enableNetwork(netId, true)
+        LogUtils.i("-----connectWifiPws-----------$enableNetwork------------")
     }
 
     /**
@@ -105,7 +106,9 @@ object WifiUtils {
     fun connectWifiNoPws(ssid: String) {
         wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, "", false))
-        wifiManager.enableNetwork(netId, true)
+        val enableNetwork = wifiManager.enableNetwork(netId, true)
+        LogUtils.i("-----connectWifiNoPws-------$enableNetwork----------------")
+
     }
 
     /**

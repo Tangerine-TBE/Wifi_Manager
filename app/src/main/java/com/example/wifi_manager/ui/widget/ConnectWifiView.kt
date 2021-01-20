@@ -9,6 +9,7 @@ import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.SizeUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
+import com.example.wifi_manager.utils.StepState
 
 /**
  * @author: 铭少
@@ -99,7 +100,6 @@ class ConnectWifiView @JvmOverloads constructor(
 
     private fun drawActiveState(canvas: Canvas) {
         canvas.withTranslation(0f,mHeight/2) {
-            LogUtils.i("-----drawActiveState---$currentState----------------------")
             when (currentState) {
 
                 StepState.ONE -> {
@@ -219,9 +219,7 @@ class ConnectWifiView @JvmOverloads constructor(
 
 
 
-    enum class StepState{
-        ONE,TWO,THREE,FOUR,FIVE,NONE
-    }
+
 
 
 

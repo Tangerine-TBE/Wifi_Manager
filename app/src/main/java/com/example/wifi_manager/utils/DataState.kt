@@ -33,4 +33,10 @@ enum class ScanDeviceState(){
 }
 
 
+//进度
+enum class StepState{
+    ONE,TWO,THREE,FOUR,FIVE,NONE
+}
+
+
 

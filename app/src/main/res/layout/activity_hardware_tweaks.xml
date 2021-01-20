@@ -27,12 +27,25 @@
 
 
         <com.example.wifi_manager.ui.widget.HardwareProgressView
+            android:id="@+id/hardwareProgressView"
             android:layout_width="match_parent"
             android:layout_height="98dp"
             android:layout_marginTop="39dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hardwareToolbar" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="44dp"
+            android:id="@+id/optimizeContainer"
+            android:background="@drawable/shape_hardware_bg"
+            style="@style/margin_right_left"
+            android:layout_marginTop="65dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hardwareProgressView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

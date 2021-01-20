@@ -12,6 +12,7 @@ import com.example.wifi_manager.utils.RetrofitClient
  */
 object NetSpeedTestRepository {
 
-      fun getNetSpeed() =  RetrofitClient.createNetSpeed<ApiService>().downFile()
+      fun getNetSpeed() =  RetrofitClient.createNetSpeed().downFile()
+
 
 }

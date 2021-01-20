@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+    </data>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_home_close_bg"
+        tools:context=".ui.activity.SignalUpActivity">
+
+        <com.example.module_base.widget.MyToolbar
+            android:id="@+id/mSignalUpToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:backIconStyle="@drawable/ic_base_back_white"
+            app:barBgColor="@color/transparent"
+            app:titleColor="@color/white"
+            app:toolbarTitle="信号增强" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:fillViewport="true"
+            android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.example.wifi_manager.ui.widget.SignalUpView
+            android:id="@+id/signalUpView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.285" />
+
+        <TextView
+            android:id="@+id/nSignalUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="再增强+20"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:drawablePadding="5dp"
+            android:padding="8dp"
+            android:background="@drawable/shape_signal_up_text_bg"
+            android:drawableLeft="@mipmap/icon_signal_up"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+            <include
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/signalNormalLayout"
+                android:layout_marginTop="24dp"
+                style="@style/margin_right_left"
+                layout="@layout/layout_state_signal_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signalUpView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+</layout>

@@ -3,10 +3,7 @@ package com.example.wifi_manager.ui.activity
 import com.example.module_base.base.BaseViewActivity
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivitySpeedTestResultBinding
-import com.example.wifi_manager.utils.ConstantsUtil
-import com.example.wifi_manager.utils.WifiSpeedTestUtil
-import com.example.wifi_manager.utils.setToolBar
-import com.example.wifi_manager.utils.toolbarEvent
+import com.example.wifi_manager.utils.*
 import com.tamsiree.rxui.view.RxProgressBar
 import com.tamsiree.rxui.view.roundprogressbar.RxRoundProgress
 import kotlinx.android.synthetic.main.activity_speed_test_result.*
@@ -22,6 +19,7 @@ class SpeedTestResultViewActivity : BaseViewActivity<ActivitySpeedTestResultBind
                 mWifiDelay.text="${delay?:"0"}ms"
                 mWifiDownSpeed.text="${downSpeed?:"0"}MB/s"
                 mWifiSpeedRange.text="用户宽带在${WifiSpeedTestUtil.netWorkLevel(downSpeed?.toFloat())}之间"
+                mSpeedWifiName.text=getConnectWifiName()
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.wifi_manager.ui.activity
 
 import androidx.fragment.app.Fragment
 import com.example.module_base.base.BaseViewActivity
+import com.example.module_base.utils.Constants
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityMainBinding
 import com.example.wifi_manager.ui.fragment.ClearFragment
@@ -17,6 +18,14 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
     override fun initView() {
         binding.bottomNavigationView.itemIconTintList = null;
         showFragment(mHomeFragment)
+
+        val isFirst = mSaveSP.getBoolean(Constants.IS_FIRST, true)
+        if (isFirst) {
+            mSaveSP.putLong(Constants.FIRST_TIME,System.currentTimeMillis())
+            mSaveSP.putBoolean(Constants.IS_FIRST, false)
+        }
+
+
     }
 
 

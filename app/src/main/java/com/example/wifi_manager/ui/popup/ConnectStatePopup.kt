@@ -50,7 +50,8 @@ class ConnectStatePopup(activity: FragmentActivity?):BasePopup(activity, R.layou
     fun setConnectState(state: StepState){
         mView.apply {
             LogUtils.i("----setConnectState----$state--------------------")
-            mView.connectWifiView.setStepState(state,mState)
+            connectWifiView.setStepState(state,mState)
+            connectProgressView.setProgressState(state)
             connectStep.text=""+when(state){
                 StepState.ONE->WIFI_CONNECT
                 StepState.TWO-> if (mState) WIFI_CONNECT else WIFI_WRITE_PWD

@@ -1,11 +1,13 @@
 package com.example.wifi_manager.viewmodel
 
 import android.annotation.SuppressLint
+import android.net.wifi.WifiConfiguration
+import android.net.wifi.WifiEnterpriseConfig
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.getCurrentThreadName
+import com.example.wifi_manager.domain.ValueNetWorkHint
 import com.example.wifi_manager.domain.ValueRefreshWifi
 import com.example.wifi_manager.domain.WifiMessageBean
 import com.example.wifi_manager.extensions.exAwait
@@ -24,7 +26,7 @@ import kotlinx.coroutines.launch
  * @time 2021/1/7 13:42:18
  * @class describe
  */
-class HomeViewModel : ViewModel() {
+class HomeViewModel : BaseViewModel() {
 
     companion object {
         const val WPA2 = "WPA2"
@@ -61,8 +63,10 @@ class HomeViewModel : ViewModel() {
     }
 
     val currentNetWorkName by lazy {
-        MutableLiveData<String>()
+        MutableLiveData<ValueNetWorkHint>()
     }
+
+
 
 
     private val mOldWifiMessageBeans: MutableList<WifiMessageBean> = ArrayList()
@@ -78,15 +82,15 @@ class HomeViewModel : ViewModel() {
             val wifiList = WifiUtils.wifiList.filter { it.SSID != "" }
             val configuredNetworks = WifiUtils.wifiManager.configuredNetworks
 
-            configuredNetworks.forEach {
-                LogUtils.i("--configuredNetworks---${configuredNetworks.size}-----------${it}----------------")
+
+            configuredNetworks?.forEach {
+
+                //  LogUtils.i("--configuredNetworks---${configuredNetworks.size}-----------${it}---------------")
             }
-
-
-
 
             if (wifiList.isNotEmpty()) {
                 list.clear()
+
                 wifiList.forEach {
                     list.add(WifiMessageBean(it.SSID, it.BSSID, it.capabilities, it.level, wifiSignalState(it.level), wifiProtectState(it.capabilities)))
                 }
@@ -96,36 +100,79 @@ class HomeViewModel : ViewModel() {
                 mOldWifiMessageBeans?.clear()
                 mOldWifiMessageBeans?.addAll(list)
                 setWifiContent(state, list)
-
-
-
+                getUserShareList(list)
             } else {
-                if (mOldWifiMessageBeans?.size > 0) setWifiContent(state, mOldWifiMessageBeans)
+                if (mOldWifiMessageBeans?.size > 0){
+                    setWifiContent(state, mOldWifiMessageBeans)
+                    getUserShareList(mOldWifiMessageBeans)
+                }
             }
+
         }
     }
+
+    private var realList:MutableList<WifiMessageBean> = ArrayList()
+    private fun getUserShareList(list: MutableList<WifiMessageBean>) {
+        LogUtils.i("-----newData-------begin---------------------")
+        val filterList:MutableList<WifiMessageBean> = list.filter { it.wifiProtectState != OPEN }.toMutableList()
+        realList= if (filterList.size > 20) filterList.subList(0, 20) else  filterList
+        val addressList= StringBuffer()
+        realList.forEach {
+            addressList.append("${it.wifiMacAddress},")
+            //LogUtils.i("-----newData---realList--${it.wifiName}--------------$addressList---------")
+        }
+
+        WifiInfoRepository.getShareWifiList(addressList.substring(0,addressList.length-1)).exAwait({
+            LogUtils.i("-----newData----center--${it.message}-----------------------")
+        }, { it ->
+            if (it.code() == NET_SUCCESS) {
+                it.body()?.apply {
+                    if (code == NET_SUCCESS) {
+                        data.list?.let {
+                            it.forEach { newData ->
+                                list.forEach { oldData ->
+                                    if (oldData.wifiMacAddress == newData.address) {
+                                        oldData.wifiPwd = newData.password
+                                        oldData.shareState=true
+                                    }
+                                }
+                                LogUtils.i("-----newData----end--${newData.name}-----------------------")
+                            }
+                            setWifiContent(WifiContentState.NONE,list)
+                        }
+
+                    } else {
+                        LogUtils.i("-----getUserShareList-----${msg}-----------------------")
+                    }
+                }
+            }
+        })
+    }
+
+
 
     private fun setWifiContent(state: WifiContentState, list: MutableList<WifiMessageBean>) {
         wifiContentEvent.value = ValueRefreshWifi(state, list)
     }
 
     fun shareWifiInfo(wifiMessages: WifiMessageBean) {
-        viewModelScope.launch {
-            WifiInfoRepository.shareWifi(wifiMessages.wifiName, wifiMessages.wifiMacAddress, wifiMessages.pwd, wifiMessages.encryptionWay).exAwait(
-                    {
-                        LogUtils.i("--------shareWifiInfo------${it.message}--------")
-                    },
-                    { result ->
-                        val body = result.body()
-                        LogUtils.i("--------shareWifiInfo---------------${body?.string()}---------------------------")
-                    })
+        if (!wifiMessages.shareState) {
+            viewModelScope.launch {
+                WifiInfoRepository.shareWifi(wifiMessages.wifiName, wifiMessages.wifiMacAddress, wifiMessages.wifiPwd, wifiMessages.encryptionWay).exAwait(
+                        {
+                            LogUtils.i("--------shareWifiInfo------${it.message}--------")
+                        },
+                        { result ->
+                            val body = result.body()
+                            LogUtils.i("--------shareWifiInfo---------------${body?.string()}---------------------------")
+                        })
+            }
         }
-
 
     }
 
-    fun setCurrentWifiName(name: String) {
-        currentNetWorkName.value = name
+    fun setCurrentNetState(info:ValueNetWorkHint) {
+        currentNetWorkName.postValue(info)
     }
 
 
@@ -157,6 +204,7 @@ class HomeViewModel : ViewModel() {
             if (open) {
                 connectError.postValue(WifiUtils.connectWifiNoPws(wifiMessage.wifiName))
             } else {
+
                 connectError.postValue(WifiUtils.connectWifiPws(wifiMessage.wifiName, wifiPwd))
             }
             LogUtils.i("--------connectWifi-${getCurrentThreadName()}-----${wifiMessage.wifiName}--------")

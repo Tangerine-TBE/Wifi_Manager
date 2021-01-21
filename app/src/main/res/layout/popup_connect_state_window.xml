@@ -39,7 +39,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
+            <com.example.wifi_manager.ui.widget.ConnectProgressView
+                android:id="@+id/connectProgressView"
+                app:layout_constraintTop_toBottomOf="@+id/connectStep"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"/>
         <TextView
             android:id="@+id/connectName"
             android:layout_width="wrap_content"

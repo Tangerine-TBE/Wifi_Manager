@@ -23,14 +23,15 @@ class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean,BaseViewHolder>(R.layout.
             mWifiLevel.setImageResource(wifiSignalState(item.wifiLevel))
             item.encryptionWay.let {
                 if (it.contains("WPA2") and it.contains("WPS") || it.contains("WPA")) {
-                    mWifiStateHint.text="加密wifi"
                     mWifiStateIcon.visibility=View.VISIBLE
                 }
                 else{
-                    mWifiStateHint.text="免费wifi"
                     mWifiStateIcon.visibility=View.GONE
                 }
             }
+
+            mWifiStateHint.text=if (item.shareState)  "分享过的wifi" else ""
+
         }
     }
 

@@ -22,7 +22,7 @@ import java.net.HttpURLConnection
  * @time 2021/1/13 13:58:16
  * @class describe
  */
-class SpeedTestViewModel:ViewModel() {
+class SpeedTestViewModel:BaseViewModel() {
     companion object{
         const val millisinfuture=8000L
         const val pingTime=2000L
@@ -58,7 +58,7 @@ class SpeedTestViewModel:ViewModel() {
         viewModelScope.launch {
         NetSpeedTestRepository.getNetSpeed().exAwait({},
                     { it ->
-                        if (it.code()==HttpURLConnection.HTTP_OK) {
+                        if (it.code()==NET_SUCCESS) {
                             it.body()?.let {
                                 startSaveFile(it)
                             }

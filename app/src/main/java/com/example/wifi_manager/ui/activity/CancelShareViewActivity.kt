@@ -1,25 +1,40 @@
 package com.example.wifi_manager.ui.activity
 
 import com.example.module_base.base.BaseViewActivity
+import com.example.module_base.utils.toAppShop
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityCancelShareBinding
+import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.setToolBar
 import com.example.wifi_manager.utils.toOtherActivity
 import com.example.wifi_manager.utils.toolbarEvent
-import kotlinx.android.synthetic.main.activity_cancel_share.*
+
 
 class CancelShareViewActivity : BaseViewActivity<ActivityCancelShareBinding>() {
     override fun getLayoutView(): Int=R.layout.activity_cancel_share
 
     override fun initView() {
-        setToolBar(this,"取消分享",mCancelShareWifiToolbar)
+        setToolBar(this,"取消分享",binding.mCancelShareWifiToolbar)
     }
 
     override fun initEvent() {
-        mApplyShare.setOnClickListener {
-            toOtherActivity<CancelShareApplyViewActivity>(this){}
+        binding.apply {
+            toAppShop.setOnClickListener {
+                toAppShop(this@CancelShareViewActivity)
+            }
+
+            mApplyShare.setOnClickListener {
+                toOtherActivity<CancelShareApplyViewActivity>(this@CancelShareViewActivity){
+                    putExtra(ConstantsUtil.WIFI_SHARE_ACTION,0)
+                }
+            }
+            mCancelShareWifiToolbar.toolbarEvent(this@CancelShareViewActivity){
+                toOtherActivity<CancelShareApplyViewActivity>(this@CancelShareViewActivity){
+                    putExtra(ConstantsUtil.WIFI_SHARE_ACTION,1)
+                }
+            }
         }
-        mCancelShareWifiToolbar.toolbarEvent(this){}
+
     }
 
 }

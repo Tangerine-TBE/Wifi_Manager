@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
       android:layout_toRightOf="@+id/mApplyTitle"
         android:layout_marginLeft="45dp"
+        android:inputType="text"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:background="@null"

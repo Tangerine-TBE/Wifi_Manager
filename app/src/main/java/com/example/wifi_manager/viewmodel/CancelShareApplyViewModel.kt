@@ -1,6 +1,11 @@
 package com.example.wifi_manager.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.module_base.utils.LogUtils
+import com.example.wifi_manager.extensions.exAwait
+import com.example.wifi_manager.repository.WifiInfoRepository
+import com.example.wifi_manager.utils.RequestNetState
 
 /**
  * @name Wifi_Manager
@@ -10,6 +15,39 @@ import androidx.lifecycle.ViewModel
  * @time 2021/1/12 17:03:41
  * @class describe
  */
-class CancelShareApplyViewModel:ViewModel(){
+class CancelShareApplyViewModel:BaseViewModel(){
+
+    val cancelState by lazy{
+        MutableLiveData<RequestNetState>()
+    }
+
+    fun cancelShareWifi(name:String?,mac:String?,pwd:String?){
+        cancelState.value = RequestNetState.LOADING
+        WifiInfoRepository.cancelShareWifi(name,mac,pwd).exAwait({
+            cancelState.value = RequestNetState.ERROR
+        }, { it ->
+            if (it.code() == NET_SUCCESS) {
+                it.body()?.let {
+                    cancelState.value =   if (it.code == NET_SUCCESS)  RequestNetState.SUCCESS else RequestNetState.ERROR
+                }
+            }
+
+        })
+    }
+
+    fun queryShareWifi(name:String?,mac:String?,pwd:String?){
+        cancelState.value = RequestNetState.LOADING
+        WifiInfoRepository.queryShareWifi(name,mac,pwd).exAwait({
+            cancelState.value = RequestNetState.ERROR
+        }, { it ->
+            if (it.code() == NET_SUCCESS) {
+                it.body()?.let {
+                    cancelState.value =   if (it.code == NET_SUCCESS)  RequestNetState.SUCCESS else RequestNetState.ERROR
+                }
+            }
+
+        })
+    }
+
 
 }

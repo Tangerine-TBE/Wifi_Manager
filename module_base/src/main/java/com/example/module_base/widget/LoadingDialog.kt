@@ -13,7 +13,7 @@ import com.example.module_base.R
  * Date : 2018/11/28
  * QQ : 464955343
  */
-class MyLoadingDialog(private val context: Context) {
+class LoadingDialog(private val context: Context) {
 
     private var mLoadingView: LVCircularRing? = null
     private var mLoadingDialog: Dialog? = null
@@ -27,7 +27,7 @@ class MyLoadingDialog(private val context: Context) {
     /**
      * 设置提示信息
      */
-    fun setTitleText(msg: String): MyLoadingDialog {
+    fun setTitleText(msg: String): LoadingDialog {
         this.msg = msg
         return this
     }
@@ -35,13 +35,13 @@ class MyLoadingDialog(private val context: Context) {
     /**
      * 返回键是否可用
      */
-    fun setCancelable(cancelable: Boolean): MyLoadingDialog {
+    fun setCancelable(cancelable: Boolean): LoadingDialog {
         this.cancelable = cancelable
         return this
     }
 
 
-    fun setCancelOut(cancelable: Boolean): MyLoadingDialog {
+    fun setCancelOut(cancelable: Boolean): LoadingDialog {
         this.cancelout = cancelable
         return this
     }

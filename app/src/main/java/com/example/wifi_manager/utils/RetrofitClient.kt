@@ -17,24 +17,28 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitClient {
     //https://down.qq.com/qqweb/QQ_1/android_apk/Android_8.5.5.5105_537066978.apk
-   private const val  URL = "https://down.qq.com/"
-   private const val  WIFI_URL = "http://wifi.aisou.club/"
+    private const val URL = "https://down.qq.com/"
+    private const val WIFI_URL = "http://wifi.aisou.club/"
 
-    private val textWifiSpeedRetrofit: Retrofit =Retrofit .Builder()
+    private val client = OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .build()
+
+    private val textWifiSpeedRetrofit: Retrofit = Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
 
+    private val wifiManagerRetrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(WIFI_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
 
-   private val wifiManagerRetrofit: Retrofit =Retrofit .Builder()
-        .baseUrl(WIFI_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
 
-
-
-     fun createNetSpeed(): ApiService = textWifiSpeedRetrofit.create(ApiService::class.java)
-     fun  createWifiManager(): ApiService = wifiManagerRetrofit.create(ApiService::class.java)
+    fun createNetSpeed(): ApiService = textWifiSpeedRetrofit.create(ApiService::class.java)
+    fun createWifiManager(): ApiService = wifiManagerRetrofit.create(ApiService::class.java)
 
 }

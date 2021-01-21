@@ -6,6 +6,8 @@ import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.module_base.utils.MyStatusBarUtil
+import com.example.module_base.utils.SPUtil
+import com.example.module_base.widget.LoadingDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 
@@ -19,6 +21,13 @@ open class BaseActivity:FragmentActivity() {
     protected val mJob=Job()
     protected val mScope by lazy {
         CoroutineScope(mJob)
+    }
+    protected val mSaveSP: SPUtil by lazy{
+        SPUtil.getInstance()
+    }
+
+    protected val mLoadingDialog by lazy{
+        LoadingDialog(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -7,5 +7,5 @@ import androidx.lifecycle.ViewModel
  * @date: 2021/1/17 0017
  * @description：
  */
-class SafetyCheckViewModel:ViewModel() {
+class SafetyCheckViewModel:BaseViewModel() {
 }

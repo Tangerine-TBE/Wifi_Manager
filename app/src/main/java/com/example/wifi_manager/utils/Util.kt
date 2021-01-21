@@ -6,6 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiInfo
 import android.os.CountDownTimer
 import android.view.View
@@ -18,6 +19,7 @@ import com.example.module_base.utils.Constants
 import com.example.module_base.utils.LayoutType
 import com.example.module_base.utils.MyStatusBarUtil
 import com.example.module_base.utils.PackageUtil
+import com.example.module_base.widget.LoadingDialog
 import com.example.module_base.widget.MyToolbar
 import com.tamsiree.rxkit.RxNetTool
 import com.tamsiree.rxkit.view.RxToast
@@ -79,7 +81,7 @@ fun shareContent(context: Context,result:String){
     view.setTitle(title)
 }
 
-//计算相差几秒
+//计算相差时间
 fun calLastedTime(endDate: Date, nowDate: Date): Long {
     val nd = 1000 * 24 * 60 * 60.toLong()
     val nh = 1000 * 60 * 60.toLong()
@@ -95,7 +97,7 @@ fun calLastedTime(endDate: Date, nowDate: Date): Long {
     val min = diff % nd % nh / nm
     // 计算差多少秒//输出结果
     val sec = diff % nd % nh % nm / ns;
-    return sec
+    return day+1
 }
 //toolbar事件
 fun MyToolbar.toolbarEvent(activity: Activity,event:()->Unit){
@@ -131,4 +133,12 @@ fun showToast(str:String){
 }
 
 
+//弹出Dialog
+fun LoadingDialog.showDialog(activity: Activity?){
+    activity?.let {
+        if (!it.isFinishing) {
+            show()
+        }
+    }
+}
 

@@ -23,7 +23,7 @@ import java.net.InetAddress
  * @date: 2021/1/16 0016
  * @description：
  */
-class CheckDeviceViewModel:ViewModel() {
+class CheckDeviceViewModel:BaseViewModel() {
     companion object{
         const val CMD = "/system/bin/ping -c 1 %s"
         const val RANGE_IP=255

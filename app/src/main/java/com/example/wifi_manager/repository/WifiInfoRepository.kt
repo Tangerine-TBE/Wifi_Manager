@@ -11,6 +11,19 @@ import com.example.wifi_manager.utils.RetrofitClient
  * @class describe
  */
 object WifiInfoRepository {
-    fun shareWifi(wifiName: String, wifiMacAddress: String, pwd: String, encryptionWay: String)
-    = RetrofitClient.createWifiManager().shareWifiInfo(wifiName,wifiMacAddress,pwd,encryptionWay)
+    fun shareWifi(wifiName: String, wifiMacAddress: String, wifiPwd: String, wifiEncryptionWay: String)
+    = RetrofitClient.createWifiManager().shareWifiInfo(wifiName,wifiMacAddress,wifiPwd,wifiEncryptionWay)
+
+    fun cancelShareWifi(wifiName: String?, wifiMacAddress: String?, wifiPwd: String?)
+    =RetrofitClient.createWifiManager().cancelShareWifiInfo(wifiName,wifiMacAddress,wifiPwd)
+
+    fun queryShareWifi(wifiName: String?, wifiMacAddress: String?, wifiPwd: String?)=   RetrofitClient.createWifiManager().queryShareWifiInfo(wifiName,wifiMacAddress,wifiPwd)
+
+
+
+    fun getShareWifiList(wifiMacAddress: String?)
+        =RetrofitClient.createWifiManager().getShareWifiContent(wifiMacAddress)
+
+
+
 }

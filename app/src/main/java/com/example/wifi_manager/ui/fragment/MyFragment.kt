@@ -72,7 +72,9 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
 
         mMyBottomAdapter.setOnItemClickListener { adapter, view, position ->
             when (position) {
-                1-> toOtherActivity<CancelShareViewActivity>(activity){}
+                1-> toOtherActivity<CancelShareViewActivity>(activity){
+
+                }
                 2 -> FeedbackAPI.openFeedbackActivity()
                 3 -> toOtherActivity<DealViewActivity>(activity) { putExtra(Constants.SET_DEAL1, 1) }
                 4 -> toOtherActivity<DealViewActivity>(activity) { putExtra(Constants.SET_DEAL1, 2) }

@@ -7,14 +7,10 @@ import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivitySpeedTestBinding
 import com.example.wifi_manager.extensions.noFinishShow
-import com.example.wifi_manager.utils.ConstantsUtil
-import com.example.wifi_manager.utils.setToolBar
-import com.example.wifi_manager.utils.toOtherActivity
-import com.example.wifi_manager.utils.toolbarEvent
+import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.SpeedTestViewModel
 import com.tamsiree.rxkit.RxNetTool
 import com.tamsiree.rxui.view.dialog.RxDialogSureCancel
-import kotlinx.android.synthetic.main.activity_speed_test.*
 import java.text.DecimalFormat
 
 class SpeedTestViewActivity : BaseVmViewActivity<ActivitySpeedTestBinding,SpeedTestViewModel>() {
@@ -27,8 +23,12 @@ class SpeedTestViewActivity : BaseVmViewActivity<ActivitySpeedTestBinding,SpeedT
     override fun getLayoutView(): Int=R.layout.activity_speed_test
     override fun getViewModelClass(): Class<SpeedTestViewModel> { return SpeedTestViewModel::class.java }
     override fun initView() {
-        setToolBar(this, "网络测速", mSpeedToolbar)
-        if (!RxNetTool.isWifiConnected(this)) mTestRemindDialog.noFinishShow(this) else viewModel.startPing()
+        binding.apply {
+            setToolBar(this@SpeedTestViewActivity, "网络测速", mSpeedToolbar)
+            if (!RxNetTool.isWifiConnected(this@SpeedTestViewActivity)) mTestRemindDialog.noFinishShow(this@SpeedTestViewActivity) else viewModel.startPing()
+            testWifiName.text= getConnectWifiName()+"-正在测速"
+        }
+
     }
 
 
@@ -38,6 +38,7 @@ class SpeedTestViewActivity : BaseVmViewActivity<ActivitySpeedTestBinding,SpeedT
     private var currentTime=0f
     override fun observerData() {
         viewModel.apply {
+            binding.apply {
             totalRxBytes.observe(this@SpeedTestViewActivity, Observer {
                 wifiSpeedTestView.startRotate(it.dataSize / it.continueTime.toFloat())
                 currentTime=it.continueTime.toFloat()
@@ -58,38 +59,36 @@ class SpeedTestViewActivity : BaseVmViewActivity<ActivitySpeedTestBinding,SpeedT
                     }
                 }
             })
-
             pingValue.observe(this@SpeedTestViewActivity, Observer {
                 currentPing=it
                 testSpeedState.text="网络延时检测中"
             })
 
-
+            }
         }
 
     }
 
     override fun initEvent() {
-        mSpeedToolbar.toolbarEvent(this){}
+        binding.apply {
+            mSpeedToolbar.toolbarEvent(this@SpeedTestViewActivity){}
+            mTestRemindDialog.setSureListener {
+                mTestRemindDialog.dismiss()
+                viewModel.startPing()
+            }
 
-        mTestRemindDialog.setSureListener(View.OnClickListener {
-            mTestRemindDialog.dismiss()
-            viewModel.startPing()
-        })
+            mTestRemindDialog.setCancelListener {
+                finish()
+            }
 
-        mTestRemindDialog.setCancelListener(View.OnClickListener {
-            finish()
-        })
+            mSpeedTest.setOnClickListener {
+                viewModel.stopSaveFile()
+                finish()
+            }
 
-        mSpeedTest.setOnClickListener {
-            viewModel.stopSaveFile()
-            finish()
         }
 
     }
-
-
-
 
 
 }

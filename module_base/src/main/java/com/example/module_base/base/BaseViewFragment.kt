@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.example.module_base.utils.SPUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 
@@ -25,6 +26,10 @@ abstract class BaseViewFragment<T : ViewDataBinding>:Fragment() {
     }
     protected val mScope by lazy {
         CoroutineScope(job)
+    }
+
+    protected val mSaveSP: SPUtil by lazy{
+        SPUtil.getInstance()
     }
 
     protected lateinit var binding: T

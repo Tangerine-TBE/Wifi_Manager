@@ -11,6 +11,7 @@ package com.example.module_base.utils
 object Constants {
     //第一次
     const val IS_FIRST = "one"
+    const val FIRST_TIME = "FIRST_TIME"
 
     //位置sp 的key
     const val LOCATION_CITY="location_city"

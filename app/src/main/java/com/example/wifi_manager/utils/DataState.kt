@@ -24,7 +24,7 @@ enum class WifiState {
 
 //wifi列表状态
 enum class WifiContentState(){
-    NORMAL,REFRESH
+    NORMAL,REFRESH,NONE
 }
 
 //查看设备
@@ -36,6 +36,20 @@ enum class ScanDeviceState(){
 //进度
 enum class StepState{
     ONE,TWO,THREE,FOUR,FIVE,NONE
+}
+
+
+//网络请求进度
+enum class RequestNetState{
+    SUCCESS,ERROR,LOADING,EMPTY
+}
+
+
+enum class NetworkState {
+    NONE, // 无网络
+    CONNECT, // 网络连接
+    WIFI,   // WIFI
+    CELLULAR   // 移动网络
 }
 
 

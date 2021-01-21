@@ -1,6 +1,5 @@
 package com.example.wifi_manager.ui.activity
 
-import android.view.View
 import androidx.lifecycle.Observer
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.LogUtils

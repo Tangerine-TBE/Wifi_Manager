@@ -127,6 +127,13 @@ fun isConnectedWifi(context: Context)=RxNetTool.isConnected(context)
 
 fun getConnectWifiName()=WifiUtils.getConnectWifiName()
 
+fun showConnectWifiName(){
+    val connectWifiName = WifiUtils.getConnectWifiName()
+    if (connectWifiName!="") {
+        showToast("连上${connectWifiName}!")
+    }
+}
+
 //弹出toast
 fun showToast(str:String){
     RxToast.normal(str)

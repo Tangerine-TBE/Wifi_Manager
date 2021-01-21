@@ -4,9 +4,6 @@ import com.example.module_base.base.BaseViewActivity
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivitySpeedTestResultBinding
 import com.example.wifi_manager.utils.*
-import com.tamsiree.rxui.view.RxProgressBar
-import com.tamsiree.rxui.view.roundprogressbar.RxRoundProgress
-import kotlinx.android.synthetic.main.activity_speed_test_result.*
 
 class SpeedTestResultViewActivity : BaseViewActivity<ActivitySpeedTestResultBinding>() {
     override fun getLayoutView(): Int=R.layout.activity_speed_test_result

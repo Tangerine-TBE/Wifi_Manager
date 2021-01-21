@@ -93,10 +93,10 @@ object WifiUtils {
      * @param pws
      */
     fun connectWifiPws(ssid: String, pws: String):Boolean   {
-        wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
+        val disableNetwork = wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, pws, true))
         val enableNetwork = wifiManager.enableNetwork(netId, true)
-        LogUtils.i("-----connectWifiPws-----------$enableNetwork------------")
+        LogUtils.i("-----connectWifiPws-${wifiManager.connectionInfo.networkId}----$disableNetwork---------$enableNetwork------------")
         return enableNetwork
     }
 
@@ -242,7 +242,13 @@ object WifiUtils {
 
 
     fun getConnectWifiName(): String {
+        var realName=""
         val wifiInfo = wifiManager.connectionInfo
-        return wifiInfo.ssid.replace("\"", "")
+        var name = wifiInfo.ssid
+        if (name!="<unknown ssid>"&&name!=""){
+            realName= wifiInfo.ssid.replace("\"", "")
+        }
+        LogUtils.i("----getConnectWifiName------${realName}------------")
+        return realName
     }
 }

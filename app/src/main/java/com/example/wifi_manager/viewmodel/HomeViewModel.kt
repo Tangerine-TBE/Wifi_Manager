@@ -12,6 +12,7 @@ import com.example.wifi_manager.domain.ValueRefreshWifi
 import com.example.wifi_manager.domain.WifiMessageBean
 import com.example.wifi_manager.extensions.exAwait
 import com.example.wifi_manager.repository.WifiInfoRepository
+import com.example.wifi_manager.ui.fragment.HomeFragment
 import com.example.wifi_manager.utils.WifiContentState
 import com.example.wifi_manager.utils.WifiState
 import com.example.wifi_manager.utils.WifiUtils
@@ -63,7 +64,7 @@ class HomeViewModel : BaseViewModel() {
     }
 
     val currentNetWorkName by lazy {
-        MutableLiveData<ValueNetWorkHint>()
+        MutableLiveData<ValueNetWorkHint>(ValueNetWorkHint(HomeFragment.NET_NOT_CONNECT_HINT,HomeFragment.NET_NOT_CONNECT))
     }
 
 

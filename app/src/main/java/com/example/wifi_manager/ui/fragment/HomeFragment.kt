@@ -155,7 +155,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             })
 
             errorConnectCount.observe(that, Observer { count ->
-                if (count > 3) {
+                if (count > 4) {
                     mConnectTimeOut.cancel()
                     dismissErrorPopup()
                 }else{
@@ -223,11 +223,10 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                         }
                         NetworkInfo.State.CONNECTED == info?.state -> {//wifi连接上了
                             LogUtils.i("wifi以连接")
-                            showToast("连上${getConnectWifiName()}！")
+                            mConnectTimeOut.cancel()
                             isWifi=true
                             mScope.launch(Dispatchers.Main) {
                                 if (isUser) {
-                                    mConnectTimeOut.cancel()
                                     mConnectStatePopup?.setConnectState(StepState.FIVE)
                                     delay(500)
                                     mConnectStatePopup?.dismissPopup()
@@ -239,7 +238,10 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                                 }
 
                                 viewModel.getWifiList(WifiContentState.NORMAL)
+
                             }
+                            viewModel.setCurrentNetState(ValueNetWorkHint(getConnectWifiName(), NET_WIFI))
+                            showConnectWifiName()
                         }
                         NetworkInfo.State.CONNECTING == info?.state -> {//正在连接
                             LogUtils.i("wifi正在连接");

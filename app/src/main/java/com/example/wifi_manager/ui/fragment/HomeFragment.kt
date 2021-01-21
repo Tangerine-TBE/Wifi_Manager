@@ -477,11 +477,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
                 LogUtils.i("网络连接了")
-                if (RxNetTool.isWifiConnected(requireContext())) {
-                    mScope.launch (Dispatchers.Main){
 
-                    }
-                }
             }
 
             override fun onLost(network: Network) {

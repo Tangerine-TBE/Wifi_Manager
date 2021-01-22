@@ -28,7 +28,7 @@ enum class WifiContentState(){
 }
 
 //查看设备
-enum class ScanDeviceState(){
+enum class ProgressState(){
     BEGIN,END
 }
 

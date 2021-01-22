@@ -63,5 +63,18 @@ object DataProvider {
             ItemBean(icon = R.mipmap.icon_hardware_loading,title = "优化WiFi连接引擎，智能网络加速"),
     )
 
+    val signalWifiList= arrayListOf(
+            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化无线模块内核，提高速度"),
+            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化无线网络多线程"),
+            ItemBean(icon = R.mipmap.icon_signal_normal,title = "过滤钓鱼WiFi"),
+            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化WiFi内存，减少网络丢包")
+    )
+
+    val signalNetList= arrayListOf(
+            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化WiFi网络选择"),
+            ItemBean(icon = R.mipmap.icon_signal_normal,title = "智能调整WAN模式"),
+            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化Host/DNS域服务器")
+    )
+
 
 }

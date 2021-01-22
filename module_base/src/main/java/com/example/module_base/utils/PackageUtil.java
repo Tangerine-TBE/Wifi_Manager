@@ -6,8 +6,13 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
+import com.example.module_base.domain.AppInfo;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PackageUtil {
@@ -77,6 +82,77 @@ public class PackageUtil {
         }
         return "";
     }
+
+    /**
+     * 获取程序 图标
+     * @param context
+     * @param packName 应用包名
+     * @return
+     */
+    public Drawable getAppIcon(Context context, String packName){
+        try {
+            //包管理操作管理类
+            PackageManager pm = context.getPackageManager();
+            //获取到应用信息
+            ApplicationInfo info = pm.getApplicationInfo(packName, 0);
+            return info.loadIcon(pm);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    /**
+     *
+     * @param sign  1、本机全部app的信息 2、系统应用的信息 3、非系统应用的信息
+     * @return app的信息
+     */
+    public List<AppInfo> getAppInfo(Context context,int sign) {
+        List<AppInfo> appList = new ArrayList(); //用来存储获取的应用信息数据　　　　　
+        List<PackageInfo> packages = context.getPackageManager().getInstalledPackages(0);
+        for (int i = 0; i < packages.size(); i++) {
+            PackageInfo packageInfo = packages.get(i);
+            AppInfo tmpInfo = new AppInfo();
+            tmpInfo.setAppName(packageInfo.applicationInfo.loadLabel(context.getPackageManager()).toString());
+            tmpInfo.setPackageName(packageInfo.packageName);
+            tmpInfo.setVersionName( packageInfo.versionName);
+            tmpInfo.setVersionCode(packageInfo.versionCode);
+            tmpInfo.setAppIcon( packageInfo.applicationInfo.loadIcon(context.getPackageManager()));
+            if (sign == 1) {//全手机全部应用
+                appList.add(tmpInfo);
+            } else if (sign == 2) {
+                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                    appList.add(tmpInfo);//系统应用的信息，则添加至appList
+                }
+            } else if (sign == 3) {
+                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                    appList.add(tmpInfo);//如果非系统应用，则添加至appList
+                }
+            }
+        }
+        return appList;
+    }
+
+
+    //检查是否需要联网
+    public  static  boolean isConnectNetWorkApp(Context context,String packname){
+        boolean isConnect=false;
+        try {
+            //包管理操作管理类
+            PackageManager pm = context.getPackageManager();
+            PackageInfo packinfo =    pm.getPackageInfo(packname, PackageManager.GET_PERMISSIONS);
+            //获取到所有的权限
+            String[] requestedPermissions = packinfo.requestedPermissions;
+            isConnect= Arrays.asList(requestedPermissions).contains("android.permission.INTERNET");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return isConnect;
+        }
+        return isConnect;
+    }
+
+
 
     public static String  difPlatformName(Activity activity,int resource) {
            return String.format(activity.getString(resource),getAppMetaData(activity,"APP_NAME"));

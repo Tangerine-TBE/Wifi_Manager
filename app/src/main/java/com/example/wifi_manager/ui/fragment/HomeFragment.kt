@@ -163,7 +163,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                 }
             })
             connectError.observe(that, Observer { success->
-                if (!success) { dismissErrorPopup() }
+             //   if (!success) { dismissErrorPopup() }
             })
 
             connectingCount.observe(that, Observer { count ->
@@ -435,8 +435,10 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                     2 -> {
                     }
                     3 -> toOtherActivity<WifiProtectViewActivity>(activity) {}
-                    4 -> toOtherActivity<SignalUpActivity>(activity) {}
-                }
+                    4 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SignalUpActivity>(activity) {} else showToast(ConstantsUtil.NO_CONNECT_WIFI)
+                    }
+
+
             }
 
         }

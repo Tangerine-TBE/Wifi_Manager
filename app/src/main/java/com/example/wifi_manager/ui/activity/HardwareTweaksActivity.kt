@@ -19,14 +19,17 @@ import com.example.wifi_manager.utils.*
 import java.util.*
 
 class HardwareTweaksActivity : BaseViewActivity<ActivityHardwareTweaksBinding>() {
-    private val state= arrayListOf(
-            StepState.NONE,
-            StepState.ONE,
-            StepState.TWO,
-            StepState.THREE,
-            StepState.FOUR,
-            StepState.FIVE
-    )
+    companion object{
+        val state= arrayListOf(
+                StepState.NONE,
+                StepState.ONE,
+                StepState.TWO,
+                StepState.THREE,
+                StepState.FOUR,
+                StepState.FIVE
+        )
+    }
+
     private val time= arrayListOf(5000L,10000L,15000L)
 
     private val mHardwareOptimizeAdapter by lazy {

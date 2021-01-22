@@ -1,13 +1,12 @@
 package com.example.wifi_manager.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.getCurrentThreadName
 import com.example.wifi_manager.domain.DeviceBean
 import com.example.wifi_manager.domain.ValueScanDevice
-import com.example.wifi_manager.utils.ScanDeviceState
+import com.example.wifi_manager.utils.ProgressState
 import com.example.wifi_manager.utils.WifiUtils
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +37,7 @@ class CheckDeviceViewModel:BaseViewModel() {
 
     fun scanDevice(){
         mDeviceInfo.clear()
-        scanDeviceState.value= ValueScanDevice(ScanDeviceState.BEGIN,mDeviceInfo)
+        scanDeviceState.value= ValueScanDevice(ProgressState.BEGIN,mDeviceInfo)
         viewModelScope.launch(Dispatchers.IO) {
             LogUtils.i("--scanDevice--${getCurrentThreadName()}-")
             val ipAddressString = WifiUtils.getIpAddressString()
@@ -62,7 +61,7 @@ class CheckDeviceViewModel:BaseViewModel() {
 
             }
             task?.await().let {
-                scanDeviceState.postValue(ValueScanDevice(ScanDeviceState.END,mDeviceInfo))
+                scanDeviceState.postValue(ValueScanDevice(ProgressState.END,mDeviceInfo))
                 LogUtils.i("--scanDevice-------11111111----*****${mDeviceInfo.size}*************---")
             }
         }
@@ -76,7 +75,7 @@ class CheckDeviceViewModel:BaseViewModel() {
         val hostMac = getMacFromArpCache(hostAddress)
        // mDeviceInfo.add(DeviceBean(hostName,hostAddress,hostMac))
         mDeviceInfo.add(0,DeviceBean(hostName,hostAddress,hostMac))
-        scanDeviceState.postValue(ValueScanDevice(ScanDeviceState.BEGIN,mDeviceInfo))
+        scanDeviceState.postValue(ValueScanDevice(ProgressState.BEGIN,mDeviceInfo))
 
     }
 

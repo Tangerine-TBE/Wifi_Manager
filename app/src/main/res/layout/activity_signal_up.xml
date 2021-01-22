@@ -5,6 +5,10 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="com.example.wifi_manager.utils.ProgressState"/>
+        <variable
+            name="data"
+            type="com.example.wifi_manager.viewmodel.SignalUpViewModel" />
     </data>
 
 
@@ -33,40 +37,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.example.wifi_manager.ui.widget.SignalUpView
-            android:id="@+id/signalUpView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
+            <com.example.wifi_manager.ui.widget.SignalUpView
+                android:id="@+id/signalUpView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.285" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/nSignalUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="再增强+20"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:drawablePadding="5dp"
-            android:padding="8dp"
-            android:background="@drawable/shape_signal_up_text_bg"
-            android:drawableLeft="@mipmap/icon_signal_up"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+            <TextView
+                android:id="@+id/nSignalUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_signal_up_text_bg"
+                android:drawableLeft="@mipmap/icon_signal_up"
+                android:drawablePadding="5dp"
+                android:padding="8dp"
+                android:text="立即增强"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:layout_marginTop="45dp"
+                app:layout_constraintBottom_toBottomOf="@+id/signalUpView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/signalUpView" />
+
+
+            <TextView
+                android:id="@+id/nSignalUpTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@{`优化项：`+data.optimizeCount+`/8`}"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginTop="45dp"
+                app:layout_constraintBottom_toBottomOf="@+id/signalUpView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/signalUpView" />
 
             <include
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/signalNormalLayout"
@@ -77,6 +93,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signalUpView" />
 
+            <include
+                android:visibility="gone"
+                android:id="@+id/signalSelectLayout"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                style="@style/margin_right_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/layout_state_signal_select"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signalUpView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -129,7 +129,6 @@
                                         android:gravity="center"
                                         android:paddingTop="8dp"
                                         android:paddingBottom="8dp"
-                                        android:text="...WIFI管家已陪伴您..."
                                         android:textColor="@color/white"
                                         android:textSize="7sp"
                                         app:layout_constraintBottom_toBottomOf="parent"

@@ -28,7 +28,7 @@ import com.tamsiree.rxkit.RxNetTool
 class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
     companion object{
         const val REQUEST_CODE=1
-        const val NO_CONNECT_WIFI="WiFi未连接"
+
     }
 
     override fun getViewModelClass(): Class<MyViewModel> {
@@ -62,7 +62,7 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
             when (position) {
                 0 -> startActivityForResult(Intent(activity,ScanActivity::class.java),REQUEST_CODE)
                 1-> toOtherActivity<WifiProtectViewActivity>(activity){}
-                2 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(activity) {} else showToast(NO_CONNECT_WIFI)
+                2 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(activity) {} else showToast(ConstantsUtil.NO_CONNECT_WIFI)
                 3-> toOtherActivity<DistanceActivity>(activity){}
                 4-> toOtherActivity<HardwareTweaksActivity>(activity){}
             }

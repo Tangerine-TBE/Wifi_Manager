@@ -1,6 +1,7 @@
 package com.example.wifi_manager.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.example.module_base.base.BaseApplication
 
 /**
  * @name Wifi_Manager
@@ -12,5 +13,6 @@ import androidx.lifecycle.ViewModel
  */
 open class BaseViewModel:ViewModel(){
     protected val NET_SUCCESS=200
+    protected val context=BaseApplication.application
 
 }

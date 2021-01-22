@@ -3,6 +3,7 @@ package com.example.module_base.base
 import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.module_base.utils.MyStatusBarUtil
@@ -39,6 +40,19 @@ open class BaseActivity:FragmentActivity() {
     open fun setFullScreenWindow(){
         MyStatusBarUtil.setColor(this, Color.TRANSPARENT)
         MyStatusBarUtil.setFullWindow(this)
+    }
+
+
+    fun visibleView(vararg view:View){
+        view.forEach {
+            it.visibility=View.VISIBLE
+        }
+    }
+
+    fun goneView(vararg view:View){
+        view.forEach {
+            it.visibility=View.GONE
+        }
     }
 
 

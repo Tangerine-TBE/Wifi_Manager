@@ -4,18 +4,14 @@ package com.example.wifi_manager.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.WIFI_SERVICE
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import android.net.wifi.ScanResult
-import android.net.wifi.WifiConfiguration
-import android.net.wifi.WifiManager
-import android.net.wifi.WifiNetworkSpecifier
+import android.net.wifi.*
+import android.os.Build
 import android.os.PatternMatcher
-import android.util.Log
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.annotation.RequiresApi
 import com.example.module_base.base.BaseApplication.Companion.mContext
 import com.example.module_base.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
@@ -221,7 +217,7 @@ object WifiUtils {
         }
 
     //连接wifi
-    fun  connectWifi(wifiName:String,wifiPwd:String,networkCallback: NetworkCallback){
+    fun  connectWifi(wifiName: String, wifiPwd: String, networkCallback: NetworkCallback){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
             val specifier = WifiNetworkSpecifier.Builder()
                     .setSsidPattern(PatternMatcher(wifiName, PatternMatcher.PATTERN_PREFIX))
@@ -233,9 +229,9 @@ object WifiUtils {
                     .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                     .setNetworkSpecifier(specifier)
                     .build()
-                connectivityManager.requestNetwork(request,networkCallback)
+                connectivityManager.requestNetwork(request, networkCallback)
         } else {
-            connectWifiPws(wifiName,wifiPwd)
+            connectWifiPws(wifiName, wifiPwd)
         }
 
     }
@@ -251,4 +247,12 @@ object WifiUtils {
         LogUtils.i("----getConnectWifiName------${realName}------------")
         return realName
     }
+
+
+
+    fun getConnectWifiSignalLevel():Int{
+        val info: WifiInfo = wifiManager.connectionInfo
+        return  info.rssi
+    }
+
 }

@@ -25,7 +25,6 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
             mSaveSP.putBoolean(Constants.IS_FIRST, false)
         }
 
-
     }
 
 

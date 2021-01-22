@@ -5,5 +5,4 @@ package com.example.wifi_manager.domain
  * @date: 2021/1/17 0017
  * @description：
  */
-data class DeviceBean(var deviceName:String="",var deviceIp:String="",var deviceMac:String="",var deviceSign:String="") {
-}
+data class DeviceBean(var deviceName:String="",var deviceIp:String="",var deviceMac:String="",var deviceSign:String="")

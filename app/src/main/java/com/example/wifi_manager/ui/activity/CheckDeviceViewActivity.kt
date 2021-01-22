@@ -3,18 +3,15 @@ package com.example.wifi_manager.ui.activity
 
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.LayoutType
 import com.example.module_base.utils.setStatusBar
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityCheckDeviceBinding
 import com.example.wifi_manager.ui.adapter.recycleview.DevicesAdapter
-import com.example.wifi_manager.utils.ScanDeviceState
+import com.example.wifi_manager.utils.ProgressState
 import com.example.wifi_manager.utils.toolbarEvent
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
-import com.tamsiree.rxkit.RxTool
 import com.tamsiree.rxkit.view.RxToast
 
 class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,CheckDeviceViewModel>() {
@@ -43,14 +40,15 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
             scanDeviceState.observe(this@CheckDeviceViewActivity, Observer { result ->
                 val deviceContent = result.deviceContent
                 mSweeping = when (result.scanState) {
-                    ScanDeviceState.BEGIN -> {
+                    ProgressState.BEGIN -> {
                         mDevicesAdapter.setList(deviceContent)
                         true
                     }
-                    ScanDeviceState.END -> {
+                    ProgressState.END -> {
                         RxToast.success("扫描完成,共发现${deviceContent.size}台设备")
                         false
                     }
+                    else->{false}
                 }
             })
 

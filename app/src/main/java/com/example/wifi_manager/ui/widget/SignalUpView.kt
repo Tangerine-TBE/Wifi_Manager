@@ -1,5 +1,6 @@
 package com.example.wifi_manager.ui.widget
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -9,6 +10,7 @@ import com.example.module_base.utils.SizeUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
 import com.loc.dr
+import kotlinx.coroutines.*
 
 /**
  * @name Wifi_Manager
@@ -100,11 +102,11 @@ class SignalUpView @JvmOverloads constructor(
     }
 
     private fun Canvas.drawSignalText() {
-        drawText("86%",0f,-30f,mTextPaint)
+        drawText(mCurrentHint,0f,-30f,mTextPaint)
     }
 
     private fun Canvas.drawSignalCircle() {
-        for (i in 0 until 8) {
+        for (i in 0 until mProgress) {
             mOutsideCirclePaint.alpha=255-(255/10)*i
             drawCircle(
                 0f,
@@ -115,6 +117,47 @@ class SignalUpView @JvmOverloads constructor(
         }
         drawCircle(0f, 0f, mWidth / 5.5f, mInnerCirclePaint)
     }
+
+
+    private var mProgress=0
+    private var mCurrentHint="99%"
+    fun setProgress(progress: Int) {
+        mProgress=progress
+        invalidate()
+    }
+
+    fun setCurrentHint(currentHint:String){
+        mCurrentHint=currentHint
+        invalidate()
+    }
+
+
+    private var mJob:Job?=null
+
+
+
+    fun stateAnimation(){
+        mJob= CoroutineScope(Dispatchers.Main).launch {
+            while (true){
+                if (mProgress < 9) {
+                    mProgress++
+                } else {
+                    mProgress=0
+                }
+                delay(500)
+                invalidate()
+            }
+        }
+
+    }
+
+
+
+    fun stopAnimation(){
+        mJob?.cancel()
+    }
+
+
 }
 
 

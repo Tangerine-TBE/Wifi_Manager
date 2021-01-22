@@ -2,10 +2,8 @@ package com.example.wifi_manager.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import com.example.module_base.base.BaseApplication
-import com.example.wifi_manager.livedata.NetworkLiveData
 
 /**
  * @name Wifi_Manager

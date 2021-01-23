@@ -9,9 +9,8 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.wifi.*
-import android.os.Build
 import android.os.PatternMatcher
-import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
 import com.example.module_base.base.BaseApplication.Companion.mContext
 import com.example.module_base.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
@@ -116,9 +115,9 @@ object WifiUtils {
      * @param isHasPws
      */
     private fun getWifiConfig(
-            ssid: String,
-            pws: String,
-            isHasPws: Boolean
+        ssid: String,
+        pws: String,
+        isHasPws: Boolean
     ): WifiConfiguration {
         val config = WifiConfiguration()
 
@@ -248,11 +247,14 @@ object WifiUtils {
         return realName
     }
 
-
-
     fun getConnectWifiSignalLevel():Int{
         val info: WifiInfo = wifiManager.connectionInfo
         return  info.rssi
     }
 
+
+    fun getLocalMacAddress(): String {
+        val info = wifiManager.connectionInfo
+        return info.macAddress
+    }
 }

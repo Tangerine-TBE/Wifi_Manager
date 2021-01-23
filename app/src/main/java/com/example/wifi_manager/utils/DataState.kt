@@ -29,7 +29,7 @@ enum class WifiContentState(){
 
 //查看设备
 enum class ProgressState(){
-    BEGIN,END
+    NONE,BEGIN,END
 }
 
 

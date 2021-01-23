@@ -1,7 +1,6 @@
 package com.example.wifi_manager.ui.activity
 
 import android.animation.ValueAnimator
-import android.view.View
 import androidx.core.animation.doOnEnd
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +12,13 @@ import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.setStatusBar
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivitySignalUpBinding
+import com.example.wifi_manager.livedata.WifiStateLiveData
 
 import com.example.wifi_manager.ui.adapter.recycleview.SignalAppInfoAdapter
 import com.example.wifi_manager.ui.adapter.recycleview.SignalWifiCheckAdapter
 import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.SignalUpViewModel
+import kotlinx.android.synthetic.main.activity_signal_up.*
 import kotlinx.coroutines.*
 
 
@@ -46,9 +47,9 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
     override fun initView() {
         LogUtils.i("---SignalUpActivity------OOO/${   WifiUtils.getConnectWifiSignalLevel()}-----------------")
         viewModel.getWifiSignalLevel()
-
         binding.data=viewModel
         binding.apply {
+            lifecycle.addObserver(signalUpView)
             setStatusBar(this@SignalUpActivity, binding.mSignalUpToolbar, LayoutType.LINEARLAYOUT)
             signalSelectLayout.apply {
                 signalOne.layoutManager = LinearLayoutManager(this@SignalUpActivity, RecyclerView.HORIZONTAL, false)
@@ -63,7 +64,6 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
                 mSignalNetWorkAdapter.setList(DataProvider.signalNetList)
                 mSignalWifiCheckAdapter.setList(DataProvider.signalWifiList)
 
-                signalUpView.stateAnimation()
             }
 
         }
@@ -71,6 +71,7 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
 
 
     private var currentLevel=0
+    private var currentLevelUp=0
 
     override fun observerData() {
         binding.apply {
@@ -83,7 +84,6 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
                     when(state){
                         ProgressState.BEGIN->
                         {
-                            signalUpView.stopAnimation()
                             visibleView(nSignalUpTip,signalSelectLayout.root)
                             goneView(signalNormalLayout.root,nSignalUp)
                         }
@@ -93,27 +93,38 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
                             signalSelectLayout.apply {
                                 goneView(nSignalUpTip,root, signalTwo, signalOne)
                             }
-                            signalUpView.stateAnimation()
+
                         }
                     }
                 })
 
                 optimizeCount.observe(this@SignalUpActivity, Observer {
-                    signalUpView.setProgress(it)
+                    val atLastLevel = currentLevel + currentLevelUp
+                    signalUpView.startCurrentHint(   (if (atLastLevel < 99) atLastLevel else 99) *it/8)
+
                 })
 
                 wifiSignalLevel.observe(this@SignalUpActivity, Observer { level->
                     currentLevel=level
-                    signalUpView.setCurrentHint("${level}%")
+                    signalUpView.setCurrentHint(level)
                 })
 
                 wifiSignalUp.observe(this@SignalUpActivity, Observer {
+                    currentLevelUp=it
                     nSignalUp.text="立即增强+${it}"
                 })
 
             }
         }
 
+        WifiStateLiveData.observe(this, Observer{
+            when(it){
+                WifiState.DISABLED->{
+                    finish()
+                    showToast("WiFi已关闭")
+                }
+            }
+        })
 
     }
 
@@ -176,9 +187,5 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
         }.start()
     }
 
-
-    override fun release() {
-        binding.signalUpView.stopAnimation()
-    }
 
 }

@@ -84,7 +84,7 @@ ext {
 
             //数据库
             "litepal"                   : 'org.litepal.guolindev:core:3.2.2',
-
+            "glance"      :             'com.glance.guolindev:glance:1.0.0-alpha01',
             //侧滑删除
             "yanzhenjie"                : 'com.yanzhenjie.recyclerview:x:1.3.2',
 
@@ -117,6 +117,7 @@ ext {
             "umeng_common"              : 'com.umeng.umsdk:common:9.1.0',// (必选)
             "umeng_asms"                : 'com.umeng.umsdk:asms:1.1.3',// asms包依赖(必选)
             "umeng_crash"               : 'com.umeng.umsdk:crash:0.0.4',// native crash包依赖(必选)
+
 
             //jetPack
             //viewmodel

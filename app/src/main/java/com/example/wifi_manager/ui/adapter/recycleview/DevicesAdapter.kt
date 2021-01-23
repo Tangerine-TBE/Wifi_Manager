@@ -16,6 +16,7 @@ class DevicesAdapter:BaseQuickAdapter<DeviceBean,BaseViewHolder>(R.layout.item_d
         holder.itemView.apply {
             deviceName.text=item.deviceName
             deviceIpMac.text=item.deviceIp+"\n"+item.deviceMac
+            deviceTab.text= if(item.deviceSign!="") item.deviceSign+"" else "标记"
         }
     }
 }

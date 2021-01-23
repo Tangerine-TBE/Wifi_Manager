@@ -12,6 +12,7 @@ import com.tamsiree.rxkit.RxTool
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import org.litepal.LitePal
 
 
 /**
@@ -40,6 +41,8 @@ open class BaseApplication : Application() {
         GlobalScope.launch {
             SPUtil.init(this@BaseApplication)
             RxTool.init(this@BaseApplication)
+            LitePal.initialize(this@BaseApplication)
+            LitePal.getDatabase()
             //用户反馈
             FeedbackAPI.init(this@BaseApplication, "25822454", "7a8bb94331a5141dcea61ecb1056bbbd")
             val jsonObject = JSONObject()

@@ -35,6 +35,11 @@ object ConstantsUtil {
 
 
     //Toast
-    const val NO_CONNECT_WIFI="WiFi未连接"
+    const val NO_CONNECT_WIFI = "WiFi未连接"
+
+    //-----------------------------SP------------------
+    //信号增强
+    const val SP_SIGNAL_INFO = "SP_SIGNAL_INFO"
+
 
 }

@@ -2,6 +2,7 @@ package com.example.wifi_manager.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.module_base.base.BaseApplication
+import com.example.module_base.utils.SPUtil
 
 /**
  * @name Wifi_Manager
@@ -12,6 +13,9 @@ import com.example.module_base.base.BaseApplication
  * @class describe
  */
 open class BaseViewModel:ViewModel(){
+    protected val sp by lazy {
+        SPUtil.getInstance()
+    }
     protected val NET_SUCCESS=200
     protected val context=BaseApplication.application
 

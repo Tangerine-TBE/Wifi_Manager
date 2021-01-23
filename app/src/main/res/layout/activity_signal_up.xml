@@ -47,7 +47,6 @@
                 app:layout_constraintTop_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <TextView
                 android:id="@+id/nSignalUp"
                 android:layout_width="wrap_content"
@@ -58,13 +57,12 @@
                 android:padding="8dp"
                 android:text="立即增强"
                 android:textColor="@color/white"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:layout_marginTop="45dp"
                 app:layout_constraintBottom_toBottomOf="@+id/signalUpView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/signalUpView" />
-
 
             <TextView
                 android:id="@+id/nSignalUpTip"

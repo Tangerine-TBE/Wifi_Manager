@@ -9,7 +9,10 @@ import com.example.module_base.utils.setStatusBar
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityCheckDeviceBinding
 import com.example.wifi_manager.ui.adapter.recycleview.DevicesAdapter
+import com.example.wifi_manager.ui.popup.BasePopup
+import com.example.wifi_manager.ui.popup.RenamePopup
 import com.example.wifi_manager.utils.ProgressState
+import com.example.wifi_manager.utils.showToast
 import com.example.wifi_manager.utils.toolbarEvent
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
 import com.tamsiree.rxkit.view.RxToast
@@ -21,6 +24,10 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
         return CheckDeviceViewModel::class.java
     }
     private lateinit var mDevicesAdapter: DevicesAdapter
+    private val mRenamePopup by lazy {
+        RenamePopup(this)
+    }
+
 
     override fun initView() {
         binding.data=viewModel
@@ -31,6 +38,7 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
             adapter=mDevicesAdapter
 
         }
+        mDevicesAdapter.addChildClickViewIds(R.id.deviceTab)
         viewModel.scanDevice()
 
     }
@@ -45,22 +53,53 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
                         true
                     }
                     ProgressState.END -> {
-                        RxToast.success("扫描完成,共发现${deviceContent.size}台设备")
+                        showToast("扫描完成,共发现${deviceContent.size}台设备")
                         false
                     }
-                    else->{false}
+                    else->{
+                        mDevicesAdapter.setList(deviceContent)
+                        false
+                    }
                 }
             })
-
         }
     }
 
-
+    private var mSelectPosition=0
     override fun initEvent() {
         binding.apply {
             checkDeviceToolbar.toolbarEvent(this@CheckDeviceViewActivity) {}
             deviceRefresh.setOnClickListener {
                 if (mSweeping) RxToast.normal("正在扫描...") else viewModel.scanDevice()
+            }
+
+            mDevicesAdapter.setOnItemChildClickListener { adapter, view, position ->
+                mSelectPosition=position
+                when(view.id){
+                    R.id.deviceTab->{
+                        if (mSweeping) RxToast.normal("正在扫描...")
+                        else
+                        {
+                            mRenamePopup.setOldName(viewModel.getSignName(position))
+                            mRenamePopup.showPopupView(devicesContainer)
+                        }
+
+                    }
+                }
+
+            }
+
+            mRenamePopup?.apply {
+                setOnActionClickListener(object : BasePopup.OnActionClickListener {
+                    override fun sure() {
+                        val renameText = getRenameText()
+                        viewModel.saveSign(renameText,mSelectPosition)
+                        dismissPopup()
+                    }
+                    override fun cancel() {
+
+                    }
+                })
             }
 
         }

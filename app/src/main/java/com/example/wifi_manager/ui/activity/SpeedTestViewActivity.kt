@@ -6,6 +6,7 @@ import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivitySpeedTestBinding
 import com.example.wifi_manager.extensions.noFinishShow
+import com.example.wifi_manager.livedata.WifiStateLiveData
 import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.SpeedTestViewModel
 import com.tamsiree.rxkit.RxNetTool
@@ -65,6 +66,7 @@ class SpeedTestViewActivity : BaseVmViewActivity<ActivitySpeedTestBinding,SpeedT
 
             }
         }
+
 
     }
 

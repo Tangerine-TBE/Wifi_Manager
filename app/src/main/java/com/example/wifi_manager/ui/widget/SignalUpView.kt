@@ -4,8 +4,11 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.withTranslation
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.OnLifecycleEvent
 import com.example.module_base.utils.SizeUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
@@ -92,17 +95,9 @@ class SignalUpView @JvmOverloads constructor(
 
     }
 
-    private fun Canvas.drawSignalRectText() {
-        mTextRect.left=-mWidth/7
-        mTextRect.top=50f
-        mTextRect.right=mWidth/7
-        mTextRect.bottom=-100f
-
-        drawRoundRect(mTextRect,5f,5f,mTextRectPaint)
-    }
 
     private fun Canvas.drawSignalText() {
-        drawText(mCurrentHint,0f,-30f,mTextPaint)
+        drawText("${mCurrentHint}%",0f,-30f,mTextPaint)
     }
 
     private fun Canvas.drawSignalCircle() {
@@ -119,24 +114,30 @@ class SignalUpView @JvmOverloads constructor(
     }
 
 
-    private var mProgress=0
-    private var mCurrentHint="99%"
-    fun setProgress(progress: Int) {
-        mProgress=progress
-        invalidate()
+    private var mCurrentHint=0
+    private var mOldCurrentHint=0
+    fun startCurrentHint(currentHint:Int){
+        ValueAnimator.ofInt(mOldCurrentHint, currentHint).apply {
+            interpolator= AccelerateDecelerateInterpolator()
+            duration=1000
+            addUpdateListener {
+                mCurrentHint = it.animatedValue as Int
+                invalidate()
+                mOldCurrentHint=currentHint
+            }
+        }.start()
     }
 
-    fun setCurrentHint(currentHint:String){
+    fun setCurrentHint(currentHint:Int){
         mCurrentHint=currentHint
         invalidate()
     }
 
 
+    private var mProgress=0
     private var mJob:Job?=null
-
-
-
-    fun stateAnimation(){
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun startAnimation(){
         mJob= CoroutineScope(Dispatchers.Main).launch {
             while (true){
                 if (mProgress < 9) {
@@ -151,8 +152,7 @@ class SignalUpView @JvmOverloads constructor(
 
     }
 
-
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun stopAnimation(){
         mJob?.cancel()
     }

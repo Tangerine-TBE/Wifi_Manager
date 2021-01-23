@@ -209,7 +209,6 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             when (intent.action) {
                 SCAN_RESULTS_AVAILABLE_ACTION -> {
                     LogUtils.i("wifi列表发生变化")
-                    RxNetTool
                 }
                 NETWORK_STATE_CHANGED_ACTION -> {
                     LogUtils.i("NETWORK_STATE_CHANGED_ACTION")
@@ -435,7 +434,10 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                     2 -> {
                     }
                     3 -> toOtherActivity<WifiProtectViewActivity>(activity) {}
-                    4 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SignalUpActivity>(activity) {} else showToast(ConstantsUtil.NO_CONNECT_WIFI)
+                    4 -> if (RxNetTool.isWifiConnected(requireContext()))
+                        toOtherActivity<SignalUpActivity>(activity) {}
+                    else
+                        showToast(ConstantsUtil.NO_CONNECT_WIFI)
                     }
 
 

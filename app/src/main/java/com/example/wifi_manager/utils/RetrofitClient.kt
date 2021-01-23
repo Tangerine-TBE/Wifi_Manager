@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitClient {
     //https://down.qq.com/qqweb/QQ_1/android_apk/Android_8.5.5.5105_537066978.apk
-    private const val URL = "https://down.qq.com/"
+    private const val SPEED_URL = "https://down.qq.com/"
     private const val WIFI_URL = "http://wifi.aisou.club/"
 
     private val client = OkHttpClient.Builder()
@@ -26,7 +26,7 @@ object RetrofitClient {
             .build()
 
     private val textWifiSpeedRetrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(URL)
+            .baseUrl(SPEED_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

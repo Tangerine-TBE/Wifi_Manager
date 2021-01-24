@@ -1,6 +1,6 @@
 package com.example.wifi_manager.viewmodel
 
-import androidx.lifecycle.ViewModel
+import com.example.module_base.base.BaseViewModel
 
 /**
  * @name Wifi_Manager
@@ -10,5 +10,5 @@ import androidx.lifecycle.ViewModel
  * @time 2021/1/7 13:42:18
  * @class describe
  */
-class MyViewModel:BaseViewModel() {
+class MyViewModel: BaseViewModel() {
 }

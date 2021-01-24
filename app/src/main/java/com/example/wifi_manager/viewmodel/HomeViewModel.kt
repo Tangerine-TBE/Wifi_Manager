@@ -1,16 +1,15 @@
 package com.example.wifi_manager.viewmodel
 
 import android.annotation.SuppressLint
-import android.net.wifi.WifiConfiguration
-import android.net.wifi.WifiEnterpriseConfig
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.module_base.base.BaseViewModel
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.getCurrentThreadName
 import com.example.wifi_manager.domain.ValueNetWorkHint
 import com.example.wifi_manager.domain.ValueRefreshWifi
 import com.example.wifi_manager.domain.WifiMessageBean
-import com.example.wifi_manager.extensions.exAwait
+import com.example.module_base.extensions.exAwait
 import com.example.wifi_manager.repository.WifiInfoRepository
 import com.example.wifi_manager.ui.fragment.HomeFragment
 import com.example.wifi_manager.utils.WifiContentState

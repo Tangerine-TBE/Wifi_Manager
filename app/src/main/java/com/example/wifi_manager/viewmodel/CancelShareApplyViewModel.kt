@@ -1,9 +1,8 @@
 package com.example.wifi_manager.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.module_base.utils.LogUtils
-import com.example.wifi_manager.extensions.exAwait
+import com.example.module_base.base.BaseViewModel
+import com.example.module_base.extensions.exAwait
 import com.example.wifi_manager.repository.WifiInfoRepository
 import com.example.wifi_manager.utils.RequestNetState
 
@@ -15,7 +14,7 @@ import com.example.wifi_manager.utils.RequestNetState
  * @time 2021/1/12 17:03:41
  * @class describe
  */
-class CancelShareApplyViewModel:BaseViewModel(){
+class CancelShareApplyViewModel: BaseViewModel(){
 
     val cancelState by lazy{
         MutableLiveData<RequestNetState>()

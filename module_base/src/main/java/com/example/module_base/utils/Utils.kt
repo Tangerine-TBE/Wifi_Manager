@@ -2,6 +2,7 @@ package com.example.module_base.utils
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.view.View
 import android.widget.LinearLayout
@@ -10,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import com.example.module_base.base.BaseApplication
+import com.example.module_base.widget.MyToolbar
 import java.lang.Exception
 
 
@@ -47,4 +49,23 @@ fun toAppShop(activity: Activity?){
             it.finish()
         }
     }
+}
+
+
+//设置页面和状态栏的距离
+fun setToolBar(activity: Activity, title:String, view: MyToolbar, color: Int= Color.WHITE) {
+    MyStatusBarUtil.setColor(activity,color)
+    view.setTitle(title)
+}
+
+//toolbar事件
+fun MyToolbar.toolbarEvent(activity: Activity,event:()->Unit){
+    setOnBackClickListener(object :MyToolbar.OnBackClickListener{
+        override fun onBack() {
+            activity?.finish()
+        }
+        override fun onRightTo() {
+            event()
+        }
+    })
 }

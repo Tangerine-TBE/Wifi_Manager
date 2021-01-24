@@ -8,6 +8,7 @@ import com.example.module_base.activity.DealViewActivity
 import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.Constants
 import com.example.module_tool.activity.DistanceActivity
+import com.example.module_user.ui.activity.LoginActivity
 import com.example.wifi_manager.R
 import com.example.wifi_manager.ui.adapter.recycleview.MyBottomAdapter
 import com.example.wifi_manager.ui.adapter.recycleview.MyTopAdapter
@@ -58,13 +59,19 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
     }
 
     override fun initEvent() {
-        mMyTopAdapter.setOnItemClickListener { adapter, view, position ->
-            when (position) {
-                0 -> startActivityForResult(Intent(activity,ScanActivity::class.java),REQUEST_CODE)
-                1-> toOtherActivity<WifiProtectViewActivity>(activity){}
-                2 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(activity) {} else showToast(ConstantsUtil.NO_CONNECT_WIFI)
-                3-> toOtherActivity<DistanceActivity>(activity){}
-                4-> toOtherActivity<HardwareTweaksActivity>(activity){}
+        binding.apply {
+            mMyTopAdapter.setOnItemClickListener { adapter, view, position ->
+                when (position) {
+                    0 -> startActivityForResult(Intent(activity,ScanActivity::class.java),REQUEST_CODE)
+                    1-> toOtherActivity<WifiProtectViewActivity>(activity){}
+                    2 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(activity) {} else showToast(ConstantsUtil.NO_CONNECT_WIFI)
+                    3-> toOtherActivity<DistanceActivity>(activity){}
+                    4-> toOtherActivity<HardwareTweaksActivity>(activity){}
+                }
+            }
+
+            toLogin.setOnClickListener {
+                toOtherActivity<LoginActivity>(activity){}
             }
         }
 

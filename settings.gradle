@@ -1,3 +1,4 @@
+include ':module_user'
 include ':module_tool'
 include ':module_base'
 include ':app'

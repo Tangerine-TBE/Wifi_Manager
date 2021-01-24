@@ -2,11 +2,11 @@ package com.example.wifi_manager.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.module_base.base.BaseViewModel
 import com.example.module_base.domain.AppInfo
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.PackageUtil
 import com.example.wifi_manager.domain.SpSignalBean
-import com.example.wifi_manager.ui.adapter.recycleview.SignalAppInfoAdapter
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.ProgressState
 import com.example.wifi_manager.utils.WifiUtils

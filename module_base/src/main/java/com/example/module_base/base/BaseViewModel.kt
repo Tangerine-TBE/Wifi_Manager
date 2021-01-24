@@ -1,8 +1,13 @@
-package com.example.wifi_manager.viewmodel
+package com.example.module_base.base
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.module_base.base.BaseApplication
 import com.example.module_base.utils.SPUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 /**
  * @name Wifi_Manager
@@ -19,4 +24,17 @@ open class BaseViewModel:ViewModel(){
     protected val NET_SUCCESS=200
     protected val context=BaseApplication.application
 
+
+
+
+
+    protected  fun doRequest(success:suspend()->Unit, error:(errorInfo:String)->Unit){
+        viewModelScope.launch (Dispatchers.IO){
+            try {
+                success()
+            } catch (e: Exception) {
+                error( e.toString())
+            }
+    }
+    }
 }

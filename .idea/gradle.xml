@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/module_base" />
             <option value="$PROJECT_DIR$/module_tool" />
+            <option value="$PROJECT_DIR$/module_user" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

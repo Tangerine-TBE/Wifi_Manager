@@ -2,16 +2,15 @@ package com.example.wifi_manager.viewmodel
 
 import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.module_base.base.BaseViewModel
 import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.domain.ValueNetWorkSpeed
-import com.example.wifi_manager.extensions.exAwait
+import com.example.module_base.extensions.exAwait
 import com.example.wifi_manager.repository.NetSpeedTestRepository
 import com.example.wifi_manager.utils.*
 import kotlinx.coroutines.*
 import okhttp3.ResponseBody
-import java.net.HttpURLConnection
 
 
 /**
@@ -22,7 +21,7 @@ import java.net.HttpURLConnection
  * @time 2021/1/13 13:58:16
  * @class describe
  */
-class SpeedTestViewModel:BaseViewModel() {
+class SpeedTestViewModel: BaseViewModel() {
     companion object{
         const val millisinfuture=8000L
         const val pingTime=2000L

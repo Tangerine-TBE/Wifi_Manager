@@ -1,9 +1,9 @@
 package com.example.wifi_manager.viewmodel
 
-import android.content.ContentValues
 import androidx.core.content.contentValuesOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.module_base.base.BaseViewModel
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.getCurrentThreadName
 import com.example.wifi_manager.db.SQliteHelper
@@ -12,7 +12,6 @@ import com.example.wifi_manager.domain.ValueScanDevice
 import com.example.wifi_manager.utils.ProgressState
 import com.example.wifi_manager.utils.WifiUtils
 import kotlinx.coroutines.*
-import org.litepal.LitePal
 import java.io.BufferedReader
 import java.io.FileReader
 import java.lang.Exception
@@ -23,7 +22,7 @@ import java.net.InetAddress
  * @date: 2021/1/16 0016
  * @description：
  */
-class CheckDeviceViewModel:BaseViewModel() {
+class CheckDeviceViewModel: BaseViewModel() {
     companion object{
         const val CMD = "/system/bin/ping -c 1 %s"
         const val RANGE_IP=255

@@ -1,5 +1,6 @@
 package com.example.module_user.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import com.example.module_base.base.BaseApplication
 import com.example.module_base.base.BaseViewModel
 import com.example.module_base.utils.LogUtils
@@ -18,6 +19,12 @@ import com.example.module_user.utils.UserInfoHelper
  * @description：
  */
 class LoginViewModel : BaseViewModel() {
+
+
+
+    val loginState by lazy {
+        MutableLiveData<Boolean>()
+    }
 
     fun getVerCode(number: String) {
         doRequest({
@@ -38,13 +45,15 @@ class LoginViewModel : BaseViewModel() {
             UserRepository.userLogin(UserInfoHelper.userEvent(Constants.LOGIN,
                     mapOf(Constants.MOBILE to number, Constants.PASSWORD to md5Pwd)))?.string()?.let { it ->
                 GsonUtil.setUserResult<LoginMessage>(it, {
+                    loginState.postValue(true)
                     LogUtils.i("-----toLocalLogin-111- ${getCurrentThreadName()}-----${it.msg}------------------")
                 }, {
                     LogUtils.i("-----toLocalLogin-111- ${getCurrentThreadName()}-----${it.msg}------------------")
+                    loginState.postValue(false)
                 })
             }
         }) {
-
+            loginState.postValue(false)
         }
     }
 

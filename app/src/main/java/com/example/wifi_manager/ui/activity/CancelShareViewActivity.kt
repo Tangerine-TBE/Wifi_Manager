@@ -1,13 +1,14 @@
 package com.example.wifi_manager.ui.activity
 
 import com.example.module_base.base.BaseViewActivity
+import com.example.module_base.utils.setToolBar
 import com.example.module_base.utils.toAppShop
+import com.example.module_base.utils.toOtherActivity
+import com.example.module_base.utils.toolbarEvent
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityCancelShareBinding
 import com.example.wifi_manager.utils.ConstantsUtil
-import com.example.wifi_manager.utils.setToolBar
-import com.example.wifi_manager.utils.toOtherActivity
-import com.example.wifi_manager.utils.toolbarEvent
+
 
 
 class CancelShareViewActivity : BaseViewActivity<ActivityCancelShareBinding>() {

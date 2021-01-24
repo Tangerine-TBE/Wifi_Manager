@@ -3,6 +3,10 @@ package com.example.wifi_manager.ui.activity
 import android.content.Intent
 import android.net.Uri
 import com.example.module_base.base.BaseViewActivity
+import com.example.module_base.utils.copyContent
+import com.example.module_base.utils.setToolBar
+import com.example.module_base.utils.shareContent
+import com.example.module_base.utils.toolbarEvent
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityScanResultBinding
 import com.example.wifi_manager.utils.*

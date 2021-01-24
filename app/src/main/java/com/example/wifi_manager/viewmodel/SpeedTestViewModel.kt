@@ -7,6 +7,7 @@ import com.example.module_base.base.BaseViewModel
 import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.domain.ValueNetWorkSpeed
 import com.example.module_base.extensions.exAwait
+import com.example.module_base.utils.startCountDown
 import com.example.wifi_manager.repository.NetSpeedTestRepository
 import com.example.wifi_manager.utils.*
 import kotlinx.coroutines.*

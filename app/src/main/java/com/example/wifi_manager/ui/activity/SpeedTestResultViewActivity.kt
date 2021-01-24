@@ -1,6 +1,8 @@
 package com.example.wifi_manager.ui.activity
 
 import com.example.module_base.base.BaseViewActivity
+import com.example.module_base.utils.setToolBar
+import com.example.module_base.utils.toolbarEvent
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivitySpeedTestResultBinding
 import com.example.wifi_manager.utils.*

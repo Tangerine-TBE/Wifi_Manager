@@ -11,6 +11,7 @@ import com.example.module_base.base.BaseViewActivity
 import com.example.module_base.utils.LayoutType
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.setStatusBar
+import com.example.module_base.utils.toolbarEvent
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityHardwareTweaksBinding
 import com.example.wifi_manager.ui.adapter.recycleview.HardwareAdapter

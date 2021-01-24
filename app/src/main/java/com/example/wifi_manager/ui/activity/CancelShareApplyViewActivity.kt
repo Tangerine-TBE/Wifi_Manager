@@ -5,7 +5,7 @@ import android.view.Gravity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module_base.base.BaseVmViewActivity
-import com.example.module_base.utils.toAppShop
+import com.example.module_base.utils.*
 import com.example.wifi_manager.R
 import com.example.wifi_manager.ui.adapter.recycleview.CancelShareApplyAdapter
 import com.example.wifi_manager.databinding.ActivityCancelShareApplyBinding

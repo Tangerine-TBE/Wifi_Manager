@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.LayoutType
 import com.example.module_base.utils.setStatusBar
+import com.example.module_base.utils.showToast
+import com.example.module_base.utils.toolbarEvent
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityCheckDeviceBinding
 import com.example.wifi_manager.ui.adapter.recycleview.DevicesAdapter
 import com.example.wifi_manager.ui.popup.BasePopup
 import com.example.wifi_manager.ui.popup.RenamePopup
 import com.example.wifi_manager.utils.ProgressState
-import com.example.wifi_manager.utils.showToast
-import com.example.wifi_manager.utils.toolbarEvent
+
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
 import com.tamsiree.rxkit.view.RxToast
 

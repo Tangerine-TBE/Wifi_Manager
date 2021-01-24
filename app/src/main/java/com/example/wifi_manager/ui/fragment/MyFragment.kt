@@ -7,6 +7,8 @@ import com.alibaba.sdk.android.feedback.impl.FeedbackAPI
 import com.example.module_base.activity.DealViewActivity
 import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.Constants
+import com.example.module_base.utils.showToast
+import com.example.module_base.utils.toOtherActivity
 import com.example.module_tool.activity.DistanceActivity
 import com.example.module_user.ui.activity.LoginActivity
 import com.example.wifi_manager.R

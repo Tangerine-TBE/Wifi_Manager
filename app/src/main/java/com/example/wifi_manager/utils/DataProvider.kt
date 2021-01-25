@@ -64,17 +64,34 @@ object DataProvider {
     )
 
     val signalWifiList= arrayListOf(
-            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化无线模块内核，提高速度"),
-            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化无线网络多线程"),
-            ItemBean(icon = R.mipmap.icon_signal_normal,title = "过滤钓鱼WiFi"),
-            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化WiFi内存，减少网络丢包")
+            ItemBean(icon = R.mipmap.icon_signal_select,title = "优化无线模块内核，提高速度"),
+            ItemBean(icon = R.mipmap.icon_signal_select,title = "优化无线网络多线程"),
+            ItemBean(icon = R.mipmap.icon_signal_select,title = "过滤钓鱼WiFi"),
+            ItemBean(icon = R.mipmap.icon_signal_select,title = "优化WiFi内存，减少网络丢包")
     )
 
     val signalNetList= arrayListOf(
-            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化WiFi网络选择"),
-            ItemBean(icon = R.mipmap.icon_signal_normal,title = "智能调整WAN模式"),
-            ItemBean(icon = R.mipmap.icon_signal_normal,title = "优化Host/DNS域服务器")
+            ItemBean(icon = R.mipmap.icon_signal_select,title = "优化WiFi网络选择"),
+            ItemBean(icon = R.mipmap.icon_signal_select,title = "智能调整WAN模式"),
+            ItemBean(icon = R.mipmap.icon_signal_select,title = "优化Host/DNS域服务器")
     )
+
+    val safetyList= arrayListOf(
+            ItemBean(hint = "信号增强器",title = "",actionHint = "增强信号"),
+            ItemBean(hint = "防蹭网扫描",title = "",actionHint = "查看设备"),
+            ItemBean(hint = "WiFi保镖",title = "",actionHint = "开启保护"),
+            ItemBean(hint = "WiFi测速",title = "",actionHint = "重新测速"),
+            ItemBean(hint = "安全检测",title = "",actionHint = "查看详情")
+    )
+
+    val protectInfoList= arrayListOf(
+        ItemBean(icon = R.mipmap.icon_protect_finish,title = "WIFI平台防破解监听"),
+        ItemBean(icon = R.mipmap.icon_protect_finish,title = "密码未被分享"),
+        ItemBean(icon = R.mipmap.icon_protect_finish,title = "历史成功拦截破解次数"),
+        ItemBean(icon = R.mipmap.icon_protect_finish,title = "每7天需要登录一次")
+    )
+
+
 
 
 }

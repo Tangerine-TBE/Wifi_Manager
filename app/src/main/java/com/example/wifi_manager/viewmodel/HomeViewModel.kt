@@ -10,13 +10,19 @@ import com.example.wifi_manager.domain.ValueNetWorkHint
 import com.example.wifi_manager.domain.ValueRefreshWifi
 import com.example.wifi_manager.domain.WifiMessageBean
 import com.example.module_base.extensions.exAwait
+import com.example.module_base.utils.calLastedTime
 import com.example.wifi_manager.repository.WifiInfoRepository
 import com.example.wifi_manager.ui.fragment.HomeFragment
+import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.WifiContentState
 import com.example.wifi_manager.utils.WifiState
 import com.example.wifi_manager.utils.WifiUtils
+import com.tamsiree.rxkit.view.RxToast
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @name Wifi_Manager
@@ -64,6 +70,10 @@ class HomeViewModel : BaseViewModel() {
 
     val currentNetWorkName by lazy {
         MutableLiveData<ValueNetWorkHint>(ValueNetWorkHint(HomeFragment.NET_NOT_CONNECT_HINT,HomeFragment.NET_NOT_CONNECT))
+    }
+
+    val protectTimeOut by lazy {
+        MutableLiveData<Boolean>()
     }
 
 
@@ -241,5 +251,34 @@ class HomeViewModel : BaseViewModel() {
         mConnectingCount = 0
     }
 
+
+    fun checkProtectTimeOut(){
+        //wifi保镖计数
+        sp.apply {
+        val isOpen = getBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN, false)
+        if (isOpen) {
+            val time = getLong(ConstantsUtil.SP_WIFI_PROTECT_TIME,0L)
+            getString(ConstantsUtil.SP_WIFI_PROTECT_NAME)?.let {
+                val calLastedTime = calLastedTime(Date(), Date(time))
+                LogUtils.i("----isOpen-------$calLastedTime----------------")
+                if (calLastedTime > 7) {
+                    if (WifiUtils.getConnectWifiName() == it) {
+                        putBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN, false)
+                        protectTimeOut.value=true
+                    } else {
+                        putString(
+                            ConstantsUtil.SP_WIFI_PROTECT_NAME,
+                            WifiUtils.getConnectWifiName()
+                        )
+                        putLong(ConstantsUtil.SP_WIFI_PROTECT_TIME, System.currentTimeMillis())
+                    }
+                } else {
+                    putLong(ConstantsUtil.SP_WIFI_PROTECT_TIME, System.currentTimeMillis())
+                }
+            }
+        }
+
+        }
+    }
 
 }

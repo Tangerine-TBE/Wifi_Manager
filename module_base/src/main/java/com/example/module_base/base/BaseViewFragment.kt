@@ -28,7 +28,7 @@ abstract class BaseViewFragment<T : ViewDataBinding>:Fragment() {
         CoroutineScope(job)
     }
 
-    protected val mSaveSP: SPUtil by lazy{
+    protected val sp: SPUtil by lazy{
         SPUtil.getInstance()
     }
 

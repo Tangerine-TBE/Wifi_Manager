@@ -3,7 +3,8 @@ package com.example.wifi_manager.ui.popup
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import com.example.wifi_manager.R
-import kotlinx.android.synthetic.main.popup_remind_window.view.*
+import com.example.wifi_manager.databinding.PopupRemindWindowBinding
+
 
 /**
  * @name Wifi_Manager
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.popup_remind_window.view.*
  * @time 2021/1/19 11:05:14
  * @class describe
  */
-class RemindPopup(activity: FragmentActivity?):BasePopup(activity, R.layout.popup_remind_window,ViewGroup.LayoutParams.MATCH_PARENT) {
+class RemindPopup(activity: FragmentActivity?):BasePopup<PopupRemindWindowBinding>(activity, R.layout.popup_remind_window,ViewGroup.LayoutParams.MATCH_PARENT) {
 
     override fun initEvent() {
         mView.apply {
@@ -27,6 +28,10 @@ class RemindPopup(activity: FragmentActivity?):BasePopup(activity, R.layout.popu
             }
 
         }
+    }
+
+    fun setRemindContent(content:String){
+        mView.tip.text=content
     }
 
 }

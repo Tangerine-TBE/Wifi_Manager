@@ -14,11 +14,7 @@ import kotlinx.coroutines.Job
  */
 open class BaseLiveData<T>:LiveData<T>() {
     protected val mJob=Job()
-    protected val mScope= CoroutineScope(mJob)
+    protected var mScope=CoroutineScope(mJob)
 
 
-    override fun onInactive() {
-        super.onInactive()
-        mJob.cancel()
-    }
 }

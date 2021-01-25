@@ -1,50 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="22dp"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/mApplyTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WiFi名称"
-        android:textColor="@color/black"
-        />
+    <data>
 
-    <EditText
-        android:id="@+id/mApplyInput"
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-      android:layout_toRightOf="@+id/mApplyTitle"
-        android:layout_marginLeft="45dp"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:background="@null"
-        android:hint="输入WiFi名称"
-        android:textColorHint="@color/cancel_share_apply_hint_color"
-        />
-    <ImageView
-        android:id="@+id/mShareHelp"
-        android:visibility="gone"
-        android:layout_alignBottom="@+id/mApplyInput"
-        android:layout_alignTop="@+id/mApplyInput"
-        android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher"
-        android:layout_width="15dp"
-        android:layout_height="15dp"/>
+        android:layout_marginBottom="22dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginTop="17dp"
-        android:layout_marginLeft="14dp"
-        android:layout_toRightOf="@+id/mApplyTitle"
-        android:layout_height="1dp"
-        android:layout_below="@+id/mApplyInput"
-        android:background="@color/general_bg"
-    />
+        <TextView
+            android:id="@+id/mApplyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WiFi名称"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/mApplyInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/mApplyTitle"
+            android:layout_marginLeft="45dp"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:background="@null"
+            android:hint="输入WiFi名称"
+            android:textColorHint="@color/cancel_share_apply_hint_color" />
+
+        <ImageView
+            android:id="@+id/mShareHelp"
+            android:visibility="gone"
+            android:layout_alignBottom="@+id/mApplyInput"
+            android:layout_alignTop="@+id/mApplyInput"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="15dp"
+            android:layout_height="15dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="14dp"
+            android:layout_toRightOf="@+id/mApplyTitle"
+            android:layout_height="1dp"
+            android:layout_below="@+id/mApplyInput"
+            android:background="@color/general_bg" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

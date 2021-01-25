@@ -1,61 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="57dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/icon_device_wifi"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/deviceName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="xiaomi-wiun"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/white"
+    </data>
 
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/deviceTab"
-        app:layout_constraintEnd_toStartOf="@+id/deviceIpMac"
-        app:layout_constraintStart_toEndOf="@+id/imageView7" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="57dp">
 
-    <TextView
-        android:id="@+id/deviceTab"
-        android:layout_width="wrap_content"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:drawableRight="@mipmap/icon_device_edit"
-        android:drawablePadding="5dp"
-        android:text="标记"
-        android:maxLength="10"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/deviceName" />
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_device_wifi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/deviceIpMac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:text="192.168.10.2\n8c:65:29:WH:11"
-        android:textSize="12sp"
-        android:textColor="#80ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/deviceName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="xiaomi-wiun"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/white"
+
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/deviceTab"
+            app:layout_constraintEnd_toStartOf="@+id/deviceIpMac"
+            app:layout_constraintStart_toEndOf="@+id/imageView7" />
+
+        <TextView
+            android:id="@+id/deviceTab"
+            android:layout_width="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="9dp"
+            android:drawableRight="@mipmap/icon_device_edit"
+            android:drawablePadding="5dp"
+            android:text="标记"
+            android:maxLength="10"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/deviceName" />
+
+        <TextView
+            android:id="@+id/deviceIpMac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="192.168.10.2\n8c:65:29:WH:11"
+            android:textSize="12sp"
+            android:textColor="#80ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

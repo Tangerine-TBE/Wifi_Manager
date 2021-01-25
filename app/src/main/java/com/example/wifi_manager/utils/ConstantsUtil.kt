@@ -40,6 +40,8 @@ object ConstantsUtil {
     //-----------------------------SP------------------
     //信号增强
     const val SP_SIGNAL_INFO = "SP_SIGNAL_INFO"
-
-
+    //wifi保镖
+    const val SP_WIFI_PROTECT_OPEN = "SP_WIFI_PROTECT_OPEN"
+    const val SP_WIFI_PROTECT_TIME = "SP_WIFI_PROTECT_TIME"
+    const val SP_WIFI_PROTECT_NAME = "SP_WIFI_PROTECT_NAME"
 }

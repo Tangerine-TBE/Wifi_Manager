@@ -71,24 +71,28 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/protectContainer"
-            android:layout_marginTop="36dp"
-            android:layout_marginLeft="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
         <TextView
+            android:id="@+id/outTimeHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:layout_marginLeft="24dp"
             android:textColor="@color/wifi_protect_color"
             android:text="下次登录时间：10月01日前\n为验证你是WIFI主人，若超过7天未登录将取消保护"
-            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintBottom_toTopOf="@+id/cancelProtect"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/cancelProtect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="35dp"

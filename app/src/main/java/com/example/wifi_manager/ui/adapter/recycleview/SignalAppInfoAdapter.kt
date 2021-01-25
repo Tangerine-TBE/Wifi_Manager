@@ -1,10 +1,11 @@
 package com.example.wifi_manager.ui.adapter.recycleview
 
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.example.module_base.domain.AppInfo
 import com.example.wifi_manager.R
-import kotlinx.android.synthetic.main.item_app_info_container.view.*
+import com.example.wifi_manager.databinding.ItemAppInfoContainerBinding
+
 
 /**
  * @name Wifi_Manager
@@ -14,9 +15,12 @@ import kotlinx.android.synthetic.main.item_app_info_container.view.*
  * @time 2021/1/22 10:21:30
  * @class describe
  */
-class SignalAppInfoAdapter : BaseQuickAdapter<AppInfo, BaseViewHolder>(R.layout.item_app_info_container) {
-    override fun convert(holder: BaseViewHolder, item: AppInfo) {
-        holder.itemView.apply {
+class SignalAppInfoAdapter : BaseQuickAdapter<AppInfo, BaseDataBindingHolder<ItemAppInfoContainerBinding>>(R.layout.item_app_info_container) {
+    override fun convert(
+        holder: BaseDataBindingHolder<ItemAppInfoContainerBinding>,
+        item: AppInfo
+    ) {
+        holder.dataBinding?.apply {
             item.appIcon?.let {
                 signalAppIcon.setImageDrawable(it)
                 signalAppName.text=item.appName

@@ -4,8 +4,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.PopupConnectStateWindowBinding
 import com.example.wifi_manager.utils.StepState
-import kotlinx.android.synthetic.main.popup_connect_state_window.view.*
+
 
 /**
  * @name Wifi_Manager
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.popup_connect_state_window.view.*
  * @time 2021/1/19 14:10:46
  * @class describe
  */
-class ConnectStatePopup(activity: FragmentActivity?):BasePopup(activity, R.layout.popup_connect_state_window, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT) {
+class ConnectStatePopup(activity: FragmentActivity?):BasePopup<PopupConnectStateWindowBinding>(activity, R.layout.popup_connect_state_window, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT) {
     //icon_home_wifi_normal
     companion object{
         const val WIFI_CONNECT="正在建立连接..."

@@ -2,11 +2,14 @@ package com.example.wifi_manager.ui.adapter.recycleview
 
 import android.graphics.Color
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.ItemHardwareContainerBinding
+import com.example.wifi_manager.databinding.ItemHomeTopContainerBinding
 import com.example.wifi_manager.domain.ItemBean
 import com.example.wifi_manager.utils.StepState
-import kotlinx.android.synthetic.main.item_hardware_container.view.*
+
 
 /**
  * @name Wifi_Manager
@@ -16,12 +19,10 @@ import kotlinx.android.synthetic.main.item_hardware_container.view.*
  * @time 2021/1/20 10:04:25
  * @class describe
  */
-class HardwareAdapter : BaseQuickAdapter<ItemBean, BaseViewHolder>(R.layout.item_hardware_container) {
+class HardwareAdapter : BaseQuickAdapter<ItemBean, BaseDataBindingHolder<ItemHardwareContainerBinding>>(R.layout.item_hardware_container) {
     private val mList: MutableList<ItemBean> = ArrayList()
-
-    override fun convert(holder: BaseViewHolder, item: ItemBean) {
-
-        holder.itemView.apply {
+    override fun convert(holder: BaseDataBindingHolder<ItemHardwareContainerBinding>, item: ItemBean) {
+        holder.dataBinding?.apply {
             optimizeHint.text = item.title
             when (currentState) {
                 StepState.TWO -> addCurrentList(1)

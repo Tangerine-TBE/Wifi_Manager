@@ -45,8 +45,7 @@ object WifiStateLiveData:BaseLiveData<WifiState>() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
                 WifiManager.WIFI_STATE_CHANGED_ACTION -> {
-                    val state = intent.getIntExtra(EXTRA_WIFI_STATE, 0)
-                    when(state){
+                    when(intent.getIntExtra(EXTRA_WIFI_STATE, 0)){
                         WIFI_STATE_DISABLED -> {
                             value = WifiState.DISABLED
                     }

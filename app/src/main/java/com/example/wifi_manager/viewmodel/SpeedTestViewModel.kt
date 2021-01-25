@@ -109,8 +109,9 @@ class SpeedTestViewModel: BaseViewModel() {
                                     System.currentTimeMillis() - beginTime)
                     LogUtils.i("----byteStream2------${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------------------")
                 }).start()
-
     }
+
+
 
     //停止速度统计
     fun stopSaveFile(){

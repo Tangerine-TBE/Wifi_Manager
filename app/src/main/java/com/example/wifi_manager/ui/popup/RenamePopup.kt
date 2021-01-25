@@ -1,18 +1,15 @@
 package com.example.wifi_manager.ui.popup
 
-import android.app.Activity
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.view.LayoutInflater
+
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.PopupRenameWindowBinding
 import com.tamsiree.rxkit.RxKeyboardTool
-import kotlinx.android.synthetic.main.popup_mac_help_window.view.*
-import kotlinx.android.synthetic.main.popup_mac_help_window.view.mIKnow
-import kotlinx.android.synthetic.main.popup_rename_window.view.*
-import kotlinx.android.synthetic.main.popup_rename_window.view.cancel
+
+
+
+
 
 /**
  * @name Wifi_Manager
@@ -22,7 +19,7 @@ import kotlinx.android.synthetic.main.popup_rename_window.view.cancel
  * @time 2021/1/12 18:20:49
  * @class describe
  */
-class RenamePopup(activity: FragmentActivity):BasePopup(activity, R.layout.popup_rename_window){
+class RenamePopup(activity: FragmentActivity):BasePopup<PopupRenameWindowBinding>(activity, R.layout.popup_rename_window){
 
     override fun initEvent() {
         mView?.apply {
@@ -37,6 +34,8 @@ class RenamePopup(activity: FragmentActivity):BasePopup(activity, R.layout.popup
             }
         }
     }
+
+
 
     fun setOldName(name:String){
         mView.renameInput.setText(name)

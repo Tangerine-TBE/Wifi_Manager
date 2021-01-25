@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingTop="17dp"
+        android:paddingLeft="8dp"
+        android:paddingBottom="17dp"
+        android:background="@drawable/shape_general_bg"
+        android:paddingRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/safetyHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WiFi保镖"
+            android:textColor="@color/wifi_speed_color"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/safetyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未增强，当前80%"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/safetyHint"
+            app:layout_constraintTop_toBottomOf="@+id/safetyHint" />
+
+
+        <TextView
+            android:id="@+id/safetyMore"
+            android:elevation="2dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_scan_result_find_normal_bg"
+            android:text="查看设备"
+            android:gravity="center"
+            android:textColor="@color/theme_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

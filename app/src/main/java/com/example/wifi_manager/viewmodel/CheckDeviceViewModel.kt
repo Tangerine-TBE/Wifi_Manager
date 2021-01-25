@@ -42,7 +42,6 @@ class CheckDeviceViewModel: BaseViewModel() {
             oldSignList=withContext(Dispatchers.IO){
               SQliteHelper.findAllData()
             }
-            LogUtils.i("--scanDevice--${getCurrentThreadName()}-")
             val ipAddressString = WifiUtils.getIpAddressString()
             val last = ipAddressString.lastIndexOf(".")
             val segmentIp = ipAddressString.substring(0, last)
@@ -75,7 +74,7 @@ class CheckDeviceViewModel: BaseViewModel() {
         var hostSign=""
         val hostName = info.hostName
         val hostAddress = info.hostAddress
-        val hostMac = getMacFromArpCache(hostAddress)
+        val hostMac = WifiUtils.getMacFromArpCache(hostAddress)
         oldSignList.apply {
             if (isNotEmpty()) {
                 forEach {
@@ -114,24 +113,7 @@ class CheckDeviceViewModel: BaseViewModel() {
     }
 
 
-    private fun getMacFromArpCache(ip: String): String {
-        var br: BufferedReader?=null
-        try {
-            br = BufferedReader(FileReader(FILE_NAME))
-            var line: String
-            while (br.readLine().also { line = it } != null) {
-                val splitted = line.split(" +".toRegex()).toTypedArray()
-                if (splitted != null && splitted.size >= 4 && ip == splitted[0]) {
-                    return splitted[3]
-                }
-            }
-        } catch (e: Exception) {
 
-        } finally {
-            br?.close()
-        }
-        return WifiUtils.getLocalMacAddress()
-    }
 
 
 }

@@ -65,8 +65,17 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
             mMyTopAdapter.setOnItemClickListener { adapter, view, position ->
                 when (position) {
                     0 -> startActivityForResult(Intent(activity,ScanActivity::class.java),REQUEST_CODE)
-                    1-> toOtherActivity<WifiProtectViewActivity>(activity){}
-                    2 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(activity) {} else showToast(ConstantsUtil.NO_CONNECT_WIFI)
+                    1 -> {
+                        if (sp.getBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN)) {
+                            toOtherActivity<WifiProtectInfoViewActivity>(activity) {}
+                        } else {
+                            toOtherActivity<WifiProtectViewActivity>(activity) {}
+                        }
+
+                    }
+                    2 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(
+                        activity
+                    ) {} else showToast(ConstantsUtil.NO_CONNECT_WIFI)
                     3-> toOtherActivity<DistanceActivity>(activity){}
                     4-> toOtherActivity<HardwareTweaksActivity>(activity){}
                 }

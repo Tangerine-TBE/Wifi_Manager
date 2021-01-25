@@ -23,7 +23,7 @@ open class BaseActivity:FragmentActivity() {
     protected val mScope by lazy {
         CoroutineScope(mJob)
     }
-    protected val mSaveSP: SPUtil by lazy{
+    protected val sp: SPUtil by lazy{
         SPUtil.getInstance()
     }
 

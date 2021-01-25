@@ -1,15 +1,15 @@
 package com.example.wifi_manager.ui.popup
 
-import android.app.Service
+
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.FragmentActivity
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.PopupWifiConnectWindowBinding
 import com.tamsiree.rxkit.RxKeyboardTool
-import kotlinx.android.synthetic.main.popup_wifi_connect_window.view.*
+
 
 /**
  * @name Wifi_Manager
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.popup_wifi_connect_window.view.*
  * @time 2021/1/18 10:29:30
  * @class describe
  */
-class WifiConnectPopup(activity: FragmentActivity?):BasePopup(activity, R.layout.popup_wifi_connect_window, ViewGroup.LayoutParams.MATCH_PARENT) {
+class WifiConnectPopup(activity: FragmentActivity?):BasePopup<PopupWifiConnectWindowBinding>(activity, R.layout.popup_wifi_connect_window, ViewGroup.LayoutParams.MATCH_PARENT) {
     private var isShowPwd=true
 
     override fun initEvent() {

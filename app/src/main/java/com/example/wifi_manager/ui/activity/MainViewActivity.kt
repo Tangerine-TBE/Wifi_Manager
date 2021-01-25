@@ -3,12 +3,22 @@ package com.example.wifi_manager.ui.activity
 import androidx.fragment.app.Fragment
 import com.example.module_base.base.BaseViewActivity
 import com.example.module_base.utils.Constants
+import com.example.module_base.utils.LogUtils
+import com.example.module_base.utils.calLastedTime
+import com.example.module_base.utils.showToast
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityMainBinding
 import com.example.wifi_manager.ui.fragment.ClearFragment
 import com.example.wifi_manager.ui.fragment.HomeFragment
 import com.example.wifi_manager.ui.fragment.MyFragment
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.wifi_manager.utils.ConstantsUtil
+import com.example.wifi_manager.utils.WifiUtils
+import com.tamsiree.rxkit.view.RxToast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.*
+
 
 class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
     override fun getLayoutView(): Int = R.layout.activity_main
@@ -18,13 +28,14 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
     override fun initView() {
         binding.bottomNavigationView.itemIconTintList = null;
         showFragment(mHomeFragment)
-
-        val isFirst = mSaveSP.getBoolean(Constants.IS_FIRST, true)
-        if (isFirst) {
-            mSaveSP.putLong(Constants.FIRST_TIME,System.currentTimeMillis())
-            mSaveSP.putBoolean(Constants.IS_FIRST, false)
+        sp.apply {
+            //陪伴天数计数
+            val isFirst = getBoolean(Constants.IS_FIRST, true)
+            if (isFirst) {
+                putLong(Constants.FIRST_TIME,System.currentTimeMillis())
+                putBoolean(Constants.IS_FIRST, false)
+            }
         }
-
     }
 
 

@@ -13,6 +13,7 @@ import android.os.PatternMatcher
 import androidx.core.content.ContextCompat.getSystemService
 import com.example.module_base.base.BaseApplication.Companion.mContext
 import com.example.module_base.utils.LogUtils
+import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
@@ -253,8 +254,27 @@ object WifiUtils {
     }
 
 
-    fun getLocalMacAddress(): String {
+  private  fun getLocalMacAddress(): String {
         val info = wifiManager.connectionInfo
         return info.macAddress
+    }
+
+    fun getMacFromArpCache(ip: String): String {
+        var br: BufferedReader?=null
+        try {
+            br = BufferedReader(FileReader(CheckDeviceViewModel.FILE_NAME))
+            var line: String
+            while (br.readLine().also { line = it } != null) {
+                val splitted = line.split(" +".toRegex()).toTypedArray()
+                if (splitted != null && splitted.size >= 4 && ip == splitted[0]) {
+                    return splitted[3]
+                }
+            }
+        } catch (e: java.lang.Exception) {
+
+        } finally {
+            br?.close()
+        }
+        return getLocalMacAddress()
     }
 }

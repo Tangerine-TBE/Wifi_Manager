@@ -10,6 +10,7 @@ import android.os.Build
 import android.text.Html
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,16 +56,17 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     companion object {
         const val REFRESH_HINT = "我已开启，点击刷新"
         const val TOAST_TITLE = "WIFI未开启"
-        const val NET_WIFI ="扫描WiFi"
-        const val NET_FLOW ="一键连接"
-        const val NET_FLOW_HINT ="数据流量"
-        const val NET_NOT_CONNECT ="开启网络"
-        const val NET_NOT_CONNECT_HINT ="未连接网络"
+        const val NET_WIFI = "扫描WiFi"
+        const val NET_FLOW = "一键连接"
+        const val NET_FLOW_HINT = "数据流量"
+        const val NET_NOT_CONNECT = "开启网络"
+        const val NET_NOT_CONNECT_HINT = "未连接网络"
     }
+
     private var isUser = false
-    private var shareState=true
+    private var shareState = true
     private var selectPosition = 0
-    private var currentWifiMessages:WifiMessageBean?=null
+    private var currentWifiMessages: WifiMessageBean? = null
 
     override fun getViewModelClass(): Class<HomeViewModel> {
         return HomeViewModel::class.java
@@ -111,26 +113,45 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
         }
         activity?.registerReceiver(mNetReceiver, intentFilter)
         NetWorkHelp.registerNetCallback(netWorkCallback)
+
+
+
+
+        viewModel.checkProtectTimeOut()
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun observerData() {
         viewModel.apply {
             val that = this@HomeFragment
+            protectTimeOut.observe(that,{
+                if (it){
+                    mScope.launch(Dispatchers.Main) {
+                        delay(2000)
+                        RxToast.warning("WiFi保镖的保护已经取消")
+                    }
+                }
+            })
+
+
             wifiState.observe(that, Observer { state ->
                 when (state) {
                     WifiState.ENABLED, WifiState.ENABLING -> {
                         goneView(mCloseView.root)
                         showView(mOpenView.root)
+                     
                     }
                     WifiState.DISABLED, WifiState.UNKNOWN -> {
                         goneView(mOpenView.root)
                         showView(mCloseView.root)
                     }
+
+                    
                 }
             })
 
             wifiContentEvent.observe(that, Observer { result ->
+
                 when (result.state) {
                     WifiContentState.REFRESH -> {
                         binding.mOpenWifiLayout.mSmartRefreshLayout.finishRefresh()
@@ -140,14 +161,27 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                 mCurrentWifiContent = result.list
                 if (RxNetTool.isWifiConnected(requireContext())) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        mCurrentWifiContent.removeIf{ it.wifiName==getConnectWifiName() }
+                        mCurrentWifiContent.removeIf { it.wifiName == getConnectWifiName() }
                     }
                 }
                 mWifiListAdapter.setList(mCurrentWifiContent)
-                mOpenView.timeAttend.text= Html.fromHtml("...    WIFI管家已陪伴您<font color='#ffffff'><big><big><big><big>     ${calLastedTime(Date(mSaveSP.getLong(Constants.FIRST_TIME)), Date())}天    <small><small><small><small></font>...")
+
                 mCurrentWifiContent.forEach {
-               //     LogUtils.i("---wifiContent---------${it}-----------")
+                    //     LogUtils.i("---wifiContent---------${it}-----------")
                 }
+
+                mOpenView.timeAttend.apply {
+                    visibility=View.VISIBLE
+                    text = Html.fromHtml(
+                        "...    WIFI管家已陪伴您<font color='#ffffff'><big><big><big><big>     ${
+                            calLastedTime(
+                                Date(System.currentTimeMillis()),
+                                Date(sp.getLong(Constants.FIRST_TIME))
+                            )
+                        }天    <small><small><small><small></font>..."
+                    )
+                }
+
 
             })
 
@@ -155,27 +189,32 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                 if (count > 4) {
                     mConnectTimeOut.cancel()
                     dismissErrorPopup()
-                }else{
-                     mConnectTimeOut.start()
+                } else {
+                    mConnectTimeOut.start()
                 }
             })
-            connectError.observe(that, Observer { success->
-             //   if (!success) { dismissErrorPopup() }
+            connectError.observe(that, { success ->
+                //   if (!success) { dismissErrorPopup() }
             })
 
-            connectingCount.observe(that, Observer { count ->
-                mScope.launch (Dispatchers.Main) {
-                    withContext(Dispatchers.Main){
-                    mConnectStatePopup?.apply {
-                    when (count) {
-                         1 -> setConnectState(StepState.ONE)
-                         2->setConnectState(StepState.TWO)
-                         3->setConnectState(StepState.THREE)
-                        in 4..5->setConnectState(StepState.FOUR)
-                        in 6..10->setConnectState(StepState.FIVE)
-                    }
-                        LogUtils.i("-----ConnectProgressView--------------$count----")
-                    }
+            currentNetWorkName.observeForever {
+                mOpenView.mNetWorkName.text = it.currentNet
+                mOpenView.mScanWifi.text = it.currentAction
+            }
+
+            connectingCount.observe(that, { count ->
+                mScope.launch(Dispatchers.Main) {
+                    withContext(Dispatchers.Main) {
+                        mConnectStatePopup?.apply {
+                            when (count) {
+                                1 -> setConnectState(StepState.ONE)
+                                2 -> setConnectState(StepState.TWO)
+                                3 -> setConnectState(StepState.THREE)
+                                in 4..5 -> setConnectState(StepState.FOUR)
+                                in 6..10 -> setConnectState(StepState.FIVE)
+                            }
+                            LogUtils.i("-----ConnectProgressView--------------$count----")
+                        }
                     }
                     delay(3000)
                 }
@@ -193,7 +232,8 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
 
-    private var isWifi=false
+    private var isWifi = false
+
     inner class NetReceiver : BroadcastReceiver() {
         /**
          * WIFI_STATE_DISABLED    WLAN已经关闭
@@ -206,6 +246,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             when (intent.action) {
                 SCAN_RESULTS_AVAILABLE_ACTION -> {
                     LogUtils.i("wifi列表发生变化")
+
                 }
                 NETWORK_STATE_CHANGED_ACTION -> {
                     LogUtils.i("NETWORK_STATE_CHANGED_ACTION")
@@ -220,14 +261,14 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                         NetworkInfo.State.CONNECTED == info?.state -> {//wifi连接上了
                             LogUtils.i("wifi以连接")
                             mConnectTimeOut.cancel()
-                            isWifi=true
+                            isWifi = true
                             mScope.launch(Dispatchers.Main) {
                                 if (isUser) {
                                     mConnectStatePopup?.setConnectState(StepState.FIVE)
                                     delay(500)
                                     mConnectStatePopup?.dismissPopup()
                                     currentWifiMessages?.let {
-                                        if (shareState and (it.wifiProtectState != HomeViewModel.OPEN) and (getConnectWifiName()==it.wifiName)) {
+                                        if (shareState and (it.wifiProtectState != HomeViewModel.OPEN) and (getConnectWifiName() == it.wifiName)) {
                                             viewModel.shareWifiInfo(it)
                                         }
                                     }
@@ -236,8 +277,16 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                                 viewModel.getWifiList(WifiContentState.NORMAL)
 
                             }
-                            viewModel.setCurrentNetState(ValueNetWorkHint(getConnectWifiName(), NET_WIFI))
+                            viewModel.setCurrentNetState(
+                                ValueNetWorkHint(
+                                    getConnectWifiName(),
+                                    NET_WIFI
+                                )
+                            )
                             showConnectWifiName()
+
+
+
                         }
                         NetworkInfo.State.CONNECTING == info?.state -> {//正在连接
                             LogUtils.i("wifi正在连接");
@@ -255,6 +304,8 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                         WIFI_STATE_DISABLED -> {
                             viewModel.setWifiState(WifiState.DISABLED)
                             LogUtils.i(" WLAN已经关闭")
+
+                            mOpenView.timeAttend.visibility=View.GONE
                         }
                         WIFI_STATE_DISABLING -> {
                             viewModel.setWifiState(WifiState.DISABLING)
@@ -265,6 +316,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                             viewModel.setWifiState(WifiState.ENABLED)
                             viewModel.getWifiList(WifiContentState.NORMAL)
                             LogUtils.i(" WLAN已经打开")
+
                         }
                         WIFI_STATE_ENABLING -> {
                             viewModel.setWifiState(WifiState.ENABLING)
@@ -282,16 +334,19 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
 
         }
     }
+
     private fun dismissErrorPopup() {
         mConnectStatePopup?.dismissPopup()
         showToast("换一个试试吧亲！")
     }
+
     private fun showOpenView() {
         mOpenView.apply {
             setStatusBar(activity, mHomeTopContainer, LayoutType.LINEARLAYOUT)
             //顶部功能
             mHomeTopAdapter.setList(DataProvider.homeTopList)
-            mHomeTopContainer.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+            mHomeTopContainer.layoutManager =
+                LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
             mHomeTopContainer.adapter = mHomeTopAdapter
             //wifi列表
             mHomeWifiContainer.layoutManager = LinearLayoutManager(activity)
@@ -299,8 +354,6 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             mWifiListAdapter.addChildClickViewIds(R.id.mWifiInfo)
             //设置下拉刷新的头
             mSmartRefreshLayout.setRefreshHeader(MaterialHeader(activity))
-
-
 
 
         }
@@ -312,10 +365,11 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             mRefreshWifi.text = content
         }
     }
+
     override fun initEvent() {
         mConnectStatePopup?.setOnDismissListener {
             mConnectStatePopup.mOutValueAnimator.start()
-            isUser=false
+            isUser = false
         }
 
         mCloseView.apply {
@@ -355,8 +409,14 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                                 if (it.size > 0) {
                                     toOtherActivity<WifiInfoViewActivity>(activity) {
                                         putExtra(ConstantsUtil.WIFI_NAME_KEY, it[position].wifiName)
-                                        putExtra(ConstantsUtil.WIFI_LEVEL_KEY, it[position].wifiSignalState)
-                                        putExtra(ConstantsUtil.WIFI_PROTECT_KEY, it[position].wifiProtectState)
+                                        putExtra(
+                                            ConstantsUtil.WIFI_LEVEL_KEY,
+                                            it[position].wifiSignalState
+                                        )
+                                        putExtra(
+                                            ConstantsUtil.WIFI_PROTECT_KEY,
+                                            it[position].wifiProtectState
+                                        )
                                     }
                                 }
                             }
@@ -430,12 +490,19 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                     1 -> toOtherActivity<SafetyCheckActivity>(activity) {}
                     2 -> {
                     }
-                    3 -> toOtherActivity<WifiProtectViewActivity>(activity) {}
+                    3 -> {
+                        if (sp.getBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN)) {
+                            toOtherActivity<WifiProtectInfoViewActivity>(activity) {}
+                        } else {
+                            toOtherActivity<WifiProtectViewActivity>(activity) {}
+                        }
+
+                    }
                     4 -> if (RxNetTool.isWifiConnected(requireContext()))
                         toOtherActivity<SignalUpActivity>(activity) {}
                     else
                         showToast(ConstantsUtil.NO_CONNECT_WIFI)
-                    }
+                }
 
 
             }
@@ -444,7 +511,12 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
 
 
     }
-    private fun LayoutStateHomeOpenWifiBinding.beginConnectWifi(wifiMessage: WifiMessageBean, open: Boolean, wifiPwd: String = "") {
+
+    private fun LayoutStateHomeOpenWifiBinding.beginConnectWifi(
+        wifiMessage: WifiMessageBean,
+        open: Boolean,
+        wifiPwd: String = ""
+    ) {
         mConnectStatePopup?.apply {
             setState(wifiMessage.wifiProtectState == HomeViewModel.OPEN)
             setConnectName(wifiMessage.wifiName)
@@ -452,17 +524,18 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
 
 
             viewModel.connectWifi(wifiMessage, open, wifiPwd)
-            currentWifiMessages=wifiMessage
+            currentWifiMessages = wifiMessage
             currentWifiMessages?.let {
-                it.wifiPwd=wifiPwd
+                it.wifiPwd = wifiPwd
             }
 
         }
     }
+
     private fun LayoutStateHomeOpenWifiBinding.showPwdPopup(wifiMessage: WifiMessageBean) {
         mConnectStatePopup?.setConnectState(StepState.ONE)
         if (wifiMessage.shareState) {
-            beginConnectWifi(wifiMessage, false,wifiMessage.wifiPwd)
+            beginConnectWifi(wifiMessage, false, wifiMessage.wifiPwd)
         } else {
             if (wifiMessage.wifiProtectState == HomeViewModel.OPEN) {
                 beginConnectWifi(wifiMessage, true)
@@ -476,7 +549,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     private val netWorkCallback by lazy {
-        object :ConnectivityManager.NetworkCallback(){
+        object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
                 LogUtils.i("网络连接了")
@@ -487,12 +560,20 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                 super.onLost(network)
                 LogUtils.i("网络中断")
                 if (!isWifi) {
-                    viewModel.setCurrentNetState(ValueNetWorkHint(NET_NOT_CONNECT_HINT, NET_NOT_CONNECT))
+                    viewModel.setCurrentNetState(
+                        ValueNetWorkHint(
+                            NET_NOT_CONNECT_HINT,
+                            NET_NOT_CONNECT
+                        )
+                    )
                 }
-                isWifi=false
+                isWifi = false
             }
 
-            override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
+            override fun onCapabilitiesChanged(
+                network: Network,
+                networkCapabilities: NetworkCapabilities
+            ) {
                 super.onCapabilitiesChanged(network, networkCapabilities)
                 if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                     LogUtils.i("WIFI已连接")
@@ -506,11 +587,6 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             }
         }
     }
-
-
-
-
-
 
 
     override fun release() {

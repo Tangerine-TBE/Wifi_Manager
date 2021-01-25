@@ -16,7 +16,7 @@ import com.example.wifi_manager.ui.adapter.recycleview.SignalAppInfoAdapter
 import com.example.wifi_manager.ui.adapter.recycleview.SignalWifiCheckAdapter
 import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.SignalUpViewModel
-import kotlinx.android.synthetic.main.activity_signal_up.*
+import com.google.gson.annotations.Until
 import kotlinx.coroutines.*
 
 
@@ -82,6 +82,7 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
                     when(state){
                         ProgressState.BEGIN->
                         {
+
                             visibleView(nSignalUpTip,signalSelectLayout.root)
                             goneView(signalNormalLayout.root,nSignalUp)
                         }
@@ -92,6 +93,8 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
                                 goneView(nSignalUpTip,root, signalTwo, signalOne)
                             }
 
+                            mSignalNetWorkAdapter.cleanCurrentList()
+                            mSignalWifiCheckAdapter.cleanCurrentList()
                         }
                     }
                 })
@@ -127,6 +130,8 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
     }
 
 
+
+
     override fun initEvent() {
         binding.apply {
             mSignalUpToolbar.toolbarEvent(this@SignalUpActivity) {}
@@ -136,53 +141,32 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
             }
 
             nSignalUp.setOnClickListener {
-
-
-                viewModel.setAnimationState(ProgressState.BEGIN)
-                mSignalNetWorkAdapter.mList.clear()
-                mSignalWifiCheckAdapter.mList.clear()
-
-
-                visibleView(signalSelectLayout.root)
-
-                    animation(3, {
-                        mSignalNetWorkAdapter.setStepState(HardwareTweaksActivity.state[it])
-                        viewModel.setOptimizeCount(it)
-                    }) {
-                        BaseApplication.mHandler.postDelayed({
-
-                            visibleView( signalSelectLayout.signalTwo)
-
-                            animation(4, {
-                                mSignalWifiCheckAdapter.setStepState(HardwareTweaksActivity.state[it])
-                                viewModel.setOptimizeCount(3+it)
-                            }, {
-                                BaseApplication.mHandler.postDelayed({
-                                    viewModel.getAppInfo()
-
-                                    visibleView( signalSelectLayout.signalOne)
-
-
-                                },300)
-                            })
-                        },300)
-
-                    }
+                startAnimation()
                 }
             }
         }
 
-     private fun animation(step:Int,doing:(Int)->Unit,finish:()->Unit) {
-        ValueAnimator.ofInt(0, step).apply {
-            duration = 5000
-            addUpdateListener {
-                val animatedValue = it.animatedValue as Int
-                doing(animatedValue)
-            }
-            doOnEnd {
-                finish()
-            }
-        }.start()
+
+
+  private  fun startAnimation(){
+        mScope.launch (Dispatchers.Main){
+            viewModel.setAnimationState(ProgressState.BEGIN)
+            viewModel.setOptimizeCount(0)
+            for (i in 0 until  8){
+                if (i<=3){
+                    mSignalNetWorkAdapter.setStepState(HardwareTweaksActivity.state[i])
+                }else{
+                    visibleView(binding.signalSelectLayout.signalTwo)
+                        mSignalWifiCheckAdapter.setStepState(HardwareTweaksActivity.state[i-3])
+                    if (i==7){
+                        visibleView( binding.signalSelectLayout.signalOne)
+                        viewModel.getAppInfo()
+                    }
+                }
+                viewModel.setOptimizeCount(i)
+                delay(1000)
+                }
+        }
     }
 
 

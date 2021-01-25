@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import com.example.wifi_manager.R
 
@@ -20,10 +22,11 @@ import com.example.wifi_manager.R
  * @time 2020/11/26 17:21
  * @class describe
  */
-open class BasePopup(val activity: FragmentActivity?, layout:Int, width:Int= ViewGroup.LayoutParams.WRAP_CONTENT, height:Int=ViewGroup.LayoutParams.WRAP_CONTENT): PopupWindow(width, height) {
-    protected val mView: View = LayoutInflater.from(activity).inflate(layout,null)
+open class BasePopup<T:ViewDataBinding>(val activity: FragmentActivity?, layout:Int, width:Int= ViewGroup.LayoutParams.WRAP_CONTENT, height:Int=ViewGroup.LayoutParams.WRAP_CONTENT): PopupWindow(width, height) {
+    //protected val mView: View = LayoutInflater.from(activity).inflate(layout,null)
+    protected val mView = DataBindingUtil.inflate<T>(LayoutInflater.from(activity),layout,null,false)
     init {
-        contentView = mView
+        contentView = mView.root
         setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         isFocusable = true
         isOutsideTouchable = false

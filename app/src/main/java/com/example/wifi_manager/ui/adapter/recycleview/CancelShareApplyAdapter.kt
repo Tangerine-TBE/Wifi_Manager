@@ -4,10 +4,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.ItemCancelShareApplyContainerBinding
+import com.example.wifi_manager.databinding.ItemHardwareContainerBinding
 import com.example.wifi_manager.domain.ItemBean
-import kotlinx.android.synthetic.main.item_cancel_share_apply_container.view.*
+
 import java.util.HashMap
 
 /**
@@ -18,11 +21,10 @@ import java.util.HashMap
  * @time 2021/1/12 17:31:06
  * @class describe
  */
-class CancelShareApplyAdapter:BaseQuickAdapter<ItemBean,BaseViewHolder>(R.layout.item_cancel_share_apply_container) {
-
+class CancelShareApplyAdapter:BaseQuickAdapter<ItemBean, BaseDataBindingHolder<ItemCancelShareApplyContainerBinding>>(R.layout.item_cancel_share_apply_container) {
     private val mContentMap:MutableMap<Int,String> = HashMap()
-    override fun convert(holder: BaseViewHolder, item: ItemBean) {
-        holder.itemView.apply {
+    override fun convert(holder:  BaseDataBindingHolder<ItemCancelShareApplyContainerBinding>, item: ItemBean) {
+        holder.dataBinding?.apply {
             val position = holder.adapterPosition
             mShareHelp.visibility=if (position==1) View.VISIBLE else View.GONE
             mApplyTitle.text=item.title

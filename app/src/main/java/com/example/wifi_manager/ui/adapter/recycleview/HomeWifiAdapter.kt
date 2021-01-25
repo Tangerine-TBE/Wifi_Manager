@@ -2,11 +2,14 @@ package com.example.wifi_manager.ui.adapter.recycleview
 
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.wifi_manager.R
+import com.example.wifi_manager.databinding.ItemMyBottomContainerBinding
+import com.example.wifi_manager.databinding.ItemWifiContainerBinding
 import com.example.wifi_manager.domain.WifiMessageBean
 import com.example.wifi_manager.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.item_wifi_container.view.*
+
 
 /**
  * @name Wifi_Manager
@@ -16,9 +19,9 @@ import kotlinx.android.synthetic.main.item_wifi_container.view.*
  * @time 2021/1/7 17:09:41
  * @class describe
  */
-class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean,BaseViewHolder>(R.layout.item_wifi_container) {
-    override fun convert(holder: BaseViewHolder, item: WifiMessageBean) {
-        holder.itemView.apply {
+class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean, BaseDataBindingHolder<ItemWifiContainerBinding>>(R.layout.item_wifi_container) {
+    override fun convert(holder:  BaseDataBindingHolder<ItemWifiContainerBinding>, item: WifiMessageBean) {
+        holder.dataBinding?.apply {
             mWifiName.text=item.wifiName
             mWifiLevel.setImageResource(wifiSignalState(item.wifiLevel))
             item.encryptionWay.let {

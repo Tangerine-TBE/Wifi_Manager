@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
 
 
-    <ImageView
-        android:id="@+id/mWifiProtectIcon"
-        android:src="@mipmap/ic_launcher"
-        android:layout_marginRight="7dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/mWifiProtectIcon"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginRight="7dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/mWifiProtectTitle"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:text="防恶意蹭网"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/mWifiProtectTitle"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:text="防恶意蹭网"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

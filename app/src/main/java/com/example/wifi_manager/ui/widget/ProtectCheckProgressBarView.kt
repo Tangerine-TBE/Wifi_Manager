@@ -16,6 +16,7 @@ import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.SizeUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
+import com.example.wifi_manager.utils.StepState
 import com.tamsiree.rxkit.RxDeviceTool
 
 /**
@@ -54,7 +55,6 @@ class ProtectCheckProgressBarView @JvmOverloads constructor(
 
 
 
-    private var mCurrentProgress=0f
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.withTranslation (0f,mHeight/2){
@@ -63,27 +63,30 @@ class ProtectCheckProgressBarView @JvmOverloads constructor(
             drawLine(0f, 0f, mWidth, 0f, mPaint)
             mPaint.color=mCurrentProgressColor
             //进度
-            drawLine(0f,0f,mCurrentProgress,0f,mPaint)
+            drawLine(0f,0f,mWidth* progress(),0f,mPaint)
             //圆
-            drawCircle(mCurrentProgress+mRadius,0f,mRadius,mPaint)
+            drawCircle(mWidth* progress()+mRadius,0f,mRadius,mPaint)
         }
     }
 
-    fun startProtectCheck(){
-        LogUtils.i("-------startProtectCheck------------$mWidth---------------")
-        ValueAnimator.ofFloat(0f, RxDeviceTool.getScreenWidth(context).toFloat()).apply {
-            duration = 5000
-            interpolator= AccelerateDecelerateInterpolator()
-            addUpdateListener {
-                mCurrentProgress = it.animatedValue as Float
-                invalidate()
-            }
-
-           doOnEnd {
-               LogUtils.i("-------startProtectCheck--------onAnimationEnd---")
-           }
 
 
-        }.start()
+    fun setProgressState(progress: StepState) {
+        currentProgress=progress
+        invalidate()
     }
+
+
+    private var currentProgress= StepState.ONE
+    private fun progress() = when (currentProgress) {
+        StepState.ONE -> 0.2f
+        StepState.TWO -> 0.4f
+        StepState.THREE -> 0.6f
+        StepState.FOUR -> 0.8f
+        StepState.FIVE -> 1f
+        else->0.2f
+    }
+
+
+
 }

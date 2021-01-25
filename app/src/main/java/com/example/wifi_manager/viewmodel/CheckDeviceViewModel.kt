@@ -5,15 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.module_base.base.BaseViewModel
 import com.example.module_base.utils.LogUtils
-import com.example.module_base.utils.getCurrentThreadName
 import com.example.wifi_manager.db.SQliteHelper
 import com.example.wifi_manager.domain.DeviceBean
 import com.example.wifi_manager.domain.ValueScanDevice
 import com.example.wifi_manager.utils.ProgressState
 import com.example.wifi_manager.utils.WifiUtils
 import kotlinx.coroutines.*
-import java.io.BufferedReader
-import java.io.FileReader
 import java.lang.Exception
 import java.net.InetAddress
 
@@ -33,6 +30,9 @@ class CheckDeviceViewModel: BaseViewModel() {
     val scanDeviceState by lazy {
         MutableLiveData<ValueScanDevice>()
     }
+
+
+
 
     private var oldSignList:List<DeviceBean> = ArrayList()
     fun scanDevice(){

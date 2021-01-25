@@ -36,8 +36,8 @@ class SpeedTestViewActivity : BaseVmViewActivity<ActivitySpeedTestBinding,SpeedT
 
     //1610532064261  04   1610532084378    24
     private var currentTotalRxData=0L
-    private var currentPing=0
     private var currentTime=0f
+    private var currentPing=0
     override fun observerData() {
         viewModel.apply {
             binding.apply {

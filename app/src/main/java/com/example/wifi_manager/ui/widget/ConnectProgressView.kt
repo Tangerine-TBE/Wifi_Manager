@@ -77,4 +77,5 @@ class ConnectProgressView @JvmOverloads constructor(
         invalidate()
     }
 
+
 }

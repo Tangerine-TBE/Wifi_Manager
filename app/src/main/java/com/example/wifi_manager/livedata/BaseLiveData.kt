@@ -1,6 +1,7 @@
 package com.example.wifi_manager.livedata
 
 import androidx.lifecycle.LiveData
+import com.example.module_base.utils.SPUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 
@@ -16,5 +17,8 @@ open class BaseLiveData<T>:LiveData<T>() {
     protected val mJob=Job()
     protected var mScope=CoroutineScope(mJob)
 
+    protected val sp: SPUtil by lazy {
+        SPUtil.getInstance()
+    }
 
 }

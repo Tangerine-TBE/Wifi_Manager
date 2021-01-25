@@ -46,12 +46,22 @@
             android:paddingBottom="9dp"
             android:paddingRight="20dp"
             android:paddingLeft="20dp"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape_scan_result_find_normal_bg"
             android:text="查看设备"
             android:gravity="center"
             android:textColor="@color/theme_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ProgressBar
+            android:id="@+id/safetyLoading"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

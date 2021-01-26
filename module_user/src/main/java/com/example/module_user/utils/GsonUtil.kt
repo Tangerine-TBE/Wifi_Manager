@@ -13,13 +13,16 @@ import java.net.HttpURLConnection
 object GsonUtil {
 
    inline fun <reified T>setUserResult(resultStr:String,success:(T)->Unit,fail:(failMsg:GeneralMsg)->Unit){
-        val ret = JSONObject(resultStr).getInt("ret")
-       if (ret == 200) {
-           success(Gson().fromJson(resultStr, T::class.java))
-       } else {
-           fail(Gson().fromJson(resultStr, GeneralMsg::class.java))
+       try {
+           val ret = JSONObject(resultStr).getInt("ret")
+           if (ret == 200) {
+               success(Gson().fromJson(resultStr, T::class.java))
+           } else {
+               fail(Gson().fromJson(resultStr, GeneralMsg::class.java))
+           }
+       }catch (e:Exception){
+
        }
     }
-
 
 }

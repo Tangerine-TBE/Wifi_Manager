@@ -7,6 +7,7 @@ import com.example.module_base.base.BaseViewModel
 import com.example.module_base.extensions.exAwait
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.calLastedTime
+import com.example.module_base.utils.gsonHelper
 import com.example.module_base.utils.startCountDown
 import com.example.wifi_manager.db.SQliteHelper
 import com.example.wifi_manager.domain.*
@@ -15,7 +16,6 @@ import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.ProgressState
 import com.example.wifi_manager.utils.WifiSpeedTestUtil
 import com.example.wifi_manager.utils.WifiUtils
-import com.google.gson.Gson
 import kotlinx.coroutines.*
 import okhttp3.ResponseBody
 import java.lang.Exception
@@ -45,7 +45,7 @@ class SafetyCheckViewModel : BaseViewModel() {
         }
         val info = sp.getString(ConstantsUtil.SP_SIGNAL_INFO)
         if (info != null) {
-            Gson().fromJson(info, SpSignalBean::class.java)?.let {
+            gsonHelper<SpSignalBean>(info)?.let {
                 if (it.currentWifiName == WifiUtils.getConnectWifiName() && it.oldLevel == oldWifiLevel) {
                     currentWifiLevel.value = it.newLevel
                 } else {
@@ -117,12 +117,12 @@ class SafetyCheckViewModel : BaseViewModel() {
     }
 
 
-
     //保镖
     val protectState by lazy {
         MutableLiveData<ValueProtect>()
     }
-    fun getProtectInfo(){
+
+    fun getProtectInfo() {
         sp.apply {
             val openState = getBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN)
             protectState.value = if (openState) {
@@ -134,7 +134,7 @@ class SafetyCheckViewModel : BaseViewModel() {
                     )
                 }天")
             } else {
-                ValueProtect(false,"未开启")
+                ValueProtect(false, "未开启")
             }
         }
     }
@@ -143,7 +143,7 @@ class SafetyCheckViewModel : BaseViewModel() {
     //测速
     private var beginTime = 0L
     private var beginRxBytes = 0L
-     fun startSpeedTest() {
+    fun startSpeedTest() {
         beginTime = System.currentTimeMillis()
         beginRxBytes = WifiSpeedTestUtil.getTotalRxBytes()
         LogUtils.i("----byteStream------${beginRxBytes}--------------------")
@@ -208,5 +208,8 @@ class SafetyCheckViewModel : BaseViewModel() {
                     LogUtils.i("----byteStream2------${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------------------")
                 }).start()
     }
+
+
+
 
 }

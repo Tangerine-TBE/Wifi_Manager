@@ -10,13 +10,11 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.wifi.*
 import android.os.PatternMatcher
-import androidx.core.content.ContextCompat.getSystemService
+import android.text.TextUtils
+import android.util.Log
 import com.example.module_base.base.BaseApplication.Companion.mContext
 import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.FileReader
 import java.net.Inet4Address
@@ -116,9 +114,9 @@ object WifiUtils {
      * @param isHasPws
      */
     private fun getWifiConfig(
-        ssid: String,
-        pws: String,
-        isHasPws: Boolean
+            ssid: String,
+            pws: String,
+            isHasPws: Boolean
     ): WifiConfiguration {
         val config = WifiConfiguration()
 
@@ -189,33 +187,6 @@ object WifiUtils {
         return "0.0.0.0"
     }
 
-    suspend fun getConnectedIP(): List<String> = withContext(Dispatchers.IO) {
-            val connectedIP = ArrayList<String>()
-        val br = BufferedReader(FileReader("/proc/net/arp"))
-            try {
-                LogUtils.i("--------------${br.readLine()}------------")
-                val readLine = br.readLine()
-                while (readLine != null) {
-                    if (isActive) {
-                        val splitted = readLine.split(" +".toRegex()).toTypedArray()
-                        if (splitted != null && splitted.size >= 4) {
-                            val ip = splitted[0]
-                            connectedIP.add(ip)
-                            LogUtils.i("--------------${ip}------------")
-                        }
-                    } else {
-                        break
-                    }
-                }
-                connectedIP
-            } catch (e: Exception) {
-                connectedIP
-            }finally {
-                br.close()
-            }
-
-        }
-
     //连接wifi
     fun  connectWifi(wifiName: String, wifiPwd: String, networkCallback: NetworkCallback){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
@@ -277,4 +248,21 @@ object WifiUtils {
         }
         return getLocalMacAddress()
     }
+
+
+    fun getCipherType():Boolean{
+      wifiManager?.scanResults?.apply {
+          forEach {
+              if (it.SSID == getConnectWifiName()) {
+                  val capabilities: String = it.capabilities
+                  return if (capabilities.contains("WPA") || capabilities.contains("wpa")) {
+                      true
+                  } else capabilities.contains("WEP") || capabilities.contains("wep")
+                  }
+          }
+
+    }
+        return false
+    }
+
 }

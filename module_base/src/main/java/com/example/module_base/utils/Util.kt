@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.CountDownTimer
+import android.text.TextUtils
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentActivity
 import com.example.module_base.base.BaseApplication
 import com.example.module_base.widget.LoadingDialog
 import com.example.module_base.widget.MyToolbar
+import com.google.gson.Gson
 import com.tamsiree.rxkit.RxNetTool
 import com.tamsiree.rxkit.view.RxToast
 import java.lang.Exception
@@ -151,7 +153,7 @@ inline fun <reified T : View>setStatusBar(activity: FragmentActivity?, view: T, 
 
 
 //获取当前线程名字
-fun getCurrentThreadName()=Thread.currentThread().name
+fun getCurrentThreadName(): String =Thread.currentThread().name
 
 
 fun toAppShop(activity: Activity?){
@@ -166,3 +168,14 @@ fun toAppShop(activity: Activity?){
     }
 }
 
+
+inline fun <reified T> gsonHelper(result: String): T? =
+        try {
+            if (!TextUtils.isEmpty(result)) {
+                Gson().fromJson(result, T::class.java)
+            } else {
+                null
+            }
+        }catch (e:Exception){
+            null
+        }

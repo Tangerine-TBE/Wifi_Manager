@@ -5,8 +5,7 @@ package com.example.wifi_manager.domain
  * @class name：com.example.wifi_manager.domain
  * @class describe
  * @author wujinming QQ:1245074510
- * @time 2021/1/7 14:30:11
+ * @time 2021/1/26 13:44:04
  * @class describe
  */
-class ItemBean(var icon:Int=0,var title:String="",var hint:String="",var actionHint:String="",var state:Boolean=false) {
-}
+data class ValueScore(val score:Int,val optimize: String)

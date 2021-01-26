@@ -1,5 +1,7 @@
 package com.example.wifi_manager.utils
 
+import android.content.Context
+import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.showToast
 import com.google.zxing.common.StringUtils
 import java.text.SimpleDateFormat
@@ -32,4 +34,8 @@ fun  inner7Day(time:Long): String =
         } catch (e: Exception) {
             e.printStackTrace()
             SimpleDateFormat("MM月dd日").format(Date().time)
+}
+
+fun showLog(msg:String?){
+    LogUtils.i("------WJM-----------------------$msg---------------------")
 }

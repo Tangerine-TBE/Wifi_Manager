@@ -10,6 +10,7 @@ import android.os.Build
 import android.text.Html
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
@@ -195,6 +196,8 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             })
             connectError.observe(that, { success ->
                 //   if (!success) { dismissErrorPopup() }
+                mConnectTimeOut.start()
+
             })
 
             currentNetWorkName.observeForever {
@@ -271,22 +274,35 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                                         if (shareState and (it.wifiProtectState != HomeViewModel.OPEN) and (getConnectWifiName() == it.wifiName)) {
                                             viewModel.shareWifiInfo(it)
                                         }
+
+
+
+
                                     }
                                 }
+
+
 
                                 viewModel.getWifiList(WifiContentState.NORMAL)
 
                             }
                             viewModel.setCurrentNetState(
-                                ValueNetWorkHint(
-                                    getConnectWifiName(),
-                                    NET_WIFI
-                                )
+                                    ValueNetWorkHint(
+                                            getConnectWifiName(),
+                                            NET_WIFI
+                                    )
                             )
                             showConnectWifiName()
 
+                            //用于Wifi保镖检查
+                            if (WifiUtils.getCipherType()) {
+                                sp.putBoolean(ConstantsUtil.SP_WIFI_PROTECT_STATE, false)
+                            } else {
+                                sp.putBoolean(ConstantsUtil.SP_WIFI_PROTECT_STATE, true)
+                            }
 
 
+                            sp.putBoolean(ConstantsUtil.SP_SIGNAL_SATE, false)
                         }
                         NetworkInfo.State.CONNECTING == info?.state -> {//正在连接
                             LogUtils.i("wifi正在连接");
@@ -487,16 +503,23 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
             mHomeTopAdapter.setOnItemClickListener { adapter, view, position ->
                 when (position) {
                     0 -> toOtherActivity<CheckDeviceViewActivity>(activity) {}
-                    1 -> toOtherActivity<SafetyCheckActivity>(activity) {}
+                    1 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SafetyCheckActivity>(activity) {}
+                    else
+                        showToast(ConstantsUtil.NO_CONNECT_WIFI)
                     2 -> {
+                        if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(activity) {}
+                        else
+                            showToast(ConstantsUtil.NO_CONNECT_WIFI)
                     }
                     3 -> {
+                        if (RxNetTool.isWifiConnected(requireContext())){
                         if (sp.getBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN)) {
                             toOtherActivity<WifiProtectInfoViewActivity>(activity) {}
                         } else {
                             toOtherActivity<WifiProtectViewActivity>(activity) {}
                         }
-
+                    } else
+                            showToast(ConstantsUtil.NO_CONNECT_WIFI)
                     }
                     4 -> if (RxNetTool.isWifiConnected(requireContext()))
                         toOtherActivity<SignalUpActivity>(activity) {}
@@ -593,5 +616,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
         activity?.unregisterReceiver(mNetReceiver)
         NetWorkHelp.unregisterNetCallback(netWorkCallback)
     }
+
+
 
 }

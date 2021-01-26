@@ -23,7 +23,7 @@ import com.example.wifi_manager.R
  * @class describe
  */
 open class BasePopup<T:ViewDataBinding>(val activity: FragmentActivity?, layout:Int, width:Int= ViewGroup.LayoutParams.WRAP_CONTENT, height:Int=ViewGroup.LayoutParams.WRAP_CONTENT): PopupWindow(width, height) {
-    //protected val mView: View = LayoutInflater.from(activity).inflate(layout,null)
+
     protected val mView = DataBindingUtil.inflate<T>(LayoutInflater.from(activity),layout,null,false)
     init {
         contentView = mView.root

@@ -1,11 +1,9 @@
 package com.example.wifi_manager.ui.adapter.recycleview
 
+import android.graphics.Color
 import android.view.View
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ItemSafetyContainerBinding
 import com.example.wifi_manager.domain.ItemBean
@@ -41,10 +39,31 @@ class SafetyItemAdapter : BaseQuickAdapter<ItemBean, BaseDataBindingHolder<ItemS
                 StepState.FIVE -> addCurrentList(5)
             }
 
+
+            if (holder.bindingAdapterPosition==0){
+                if (item.state) {
+                    safetyTitle.setTextColor(Color.BLACK)
+                } else {
+                    safetyTitle.setTextColor(Color.RED)
+                }
+            }
+
+            if (holder.bindingAdapterPosition==4){
+                if (item.state) {
+                    safetyTitle.setTextColor(Color.RED)
+
+                } else {
+                    safetyTitle.setTextColor(Color.BLACK)
+                }
+            }
+
+
+
+
+
             if (mList.contains(item)) {
                 safetyMore.visibility= View.VISIBLE
-                safetyLoading.visibility= View.GONE
-
+                safetyLoading.visibility = View.GONE
             } else {
                 safetyMore.visibility= View.GONE
                 safetyLoading.visibility= View.VISIBLE

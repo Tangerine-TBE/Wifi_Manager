@@ -266,14 +266,13 @@ class HomeViewModel : BaseViewModel() {
                         putBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN, false)
                         protectTimeOut.value=true
                     } else {
-                        putString(
+                       /* putString(
                             ConstantsUtil.SP_WIFI_PROTECT_NAME,
                             WifiUtils.getConnectWifiName()
-                        )
-                        putLong(ConstantsUtil.SP_WIFI_PROTECT_TIME, System.currentTimeMillis())
+                        )*/
                     }
                 } else {
-                    putLong(ConstantsUtil.SP_WIFI_PROTECT_TIME, System.currentTimeMillis())
+                    putLong(ConstantsUtil.SP_WIFI_PROTECT_DAY, System.currentTimeMillis())
                 }
             }
         }

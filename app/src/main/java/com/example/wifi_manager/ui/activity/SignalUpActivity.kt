@@ -41,8 +41,10 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
     }
 
 
-
+    private var safetyState=false
     override fun initView() {
+        safetyState= intent.getBooleanExtra(ConstantsUtil.SIGNAL_SATE, false)
+
         LogUtils.i("---SignalUpActivity------OOO/${   WifiUtils.getConnectWifiSignalLevel()}-----------------")
         viewModel.getWifiSignalLevel()
         binding.data=viewModel
@@ -141,6 +143,9 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
             }
 
             nSignalUp.setOnClickListener {
+                if (safetyState) {
+                    sp.putBoolean(ConstantsUtil.SP_SIGNAL_SATE,true)
+                }
                 startAnimation()
                 }
             }

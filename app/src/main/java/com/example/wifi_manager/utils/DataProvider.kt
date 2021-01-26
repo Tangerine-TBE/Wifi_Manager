@@ -17,7 +17,7 @@ object DataProvider {
     val homeTopList= arrayListOf(
         ItemBean(icon = R.mipmap.icon_home_one,title = "一键加速"),
         ItemBean(icon = R.mipmap.icon_home_safety,title = "安全检测"),
-        ItemBean(icon = R.mipmap.icon_home_speed_up,title = "网络加速"),
+        ItemBean(icon = R.mipmap.icon_home_speed_up,title = "网络测速"),
         ItemBean(icon = R.mipmap.icon_home_protect,title = "WiFi保镖"),
         ItemBean(icon = R.mipmap.icon_home_signal_up,title = "信号增强")
     )
@@ -91,6 +91,15 @@ object DataProvider {
         ItemBean(icon = R.mipmap.icon_protect_finish,title = "每7天需要登录一次")
     )
 
+
+    val checkList= arrayListOf(
+            ItemBean(title = "检查网络是否被监听",hint = "正常"),
+            ItemBean(title = "检查是否遭到DNS劫持",hint = "正常"),
+            ItemBean(title = "检查是否为钓鱼WiFi",hint = "正常"),
+            ItemBean(title = "检查是否加密",hint = "正常"),
+            ItemBean(title = "检查Arp是否异常",hint = "正常"),
+            ItemBean(title = "检查是否存在SSL Strip攻击",hint = "正常"),
+    )
 
 
 

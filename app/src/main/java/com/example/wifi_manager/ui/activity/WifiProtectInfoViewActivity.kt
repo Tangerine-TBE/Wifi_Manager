@@ -12,6 +12,7 @@ import com.example.module_base.utils.setToolBar
 import com.example.module_base.utils.toolbarEvent
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityWifiProtectInfoBinding
+import com.example.wifi_manager.livedata.ScoreLiveData
 import com.example.wifi_manager.ui.adapter.recycleview.ProtectWifiCheckAdapter
 import com.example.wifi_manager.utils.*
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +40,8 @@ class WifiProtectInfoViewActivity : BaseViewActivity<ActivityWifiProtectInfoBind
                 )
             }天"
 
-            outTimeHint.text="下次登录时间：${inner7Day(endTime)}前"+"\n"+"为验证你是WIFI主人，若超过7天未登录将取消保护"
+            val dayTime = sp.getLong(ConstantsUtil.SP_WIFI_PROTECT_DAY, 0L)
+            outTimeHint.text="下次登录时间：${inner7Day(dayTime)}前"+"\n"+"为验证你是WIFI主人，若超过7天未登录将取消保护"
 
             protectContainer.also {
                 it.layoutManager= LinearLayoutManager(this@WifiProtectInfoViewActivity)

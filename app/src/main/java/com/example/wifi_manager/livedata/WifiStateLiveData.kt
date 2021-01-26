@@ -9,6 +9,7 @@ import android.net.wifi.WifiManager.EXTRA_WIFI_STATE
 import android.net.wifi.WifiManager.WIFI_STATE_DISABLED
 import androidx.navigation.compose.navArgument
 import com.example.module_base.base.BaseApplication
+import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.WifiState
 
 
@@ -48,6 +49,7 @@ object WifiStateLiveData:BaseLiveData<WifiState>() {
                     when(intent.getIntExtra(EXTRA_WIFI_STATE, 0)){
                         WIFI_STATE_DISABLED -> {
                             value = WifiState.DISABLED
+
                     }
                 }
                 }

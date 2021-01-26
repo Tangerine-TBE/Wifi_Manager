@@ -49,6 +49,7 @@ class WifiProtectViewActivity : BaseViewActivity<ActivityWifiProtectBinding>() {
                        putString(ConstantsUtil.SP_WIFI_PROTECT_NAME, WifiUtils.getConnectWifiName())
                         //1611986400000
                         putLong(ConstantsUtil.SP_WIFI_PROTECT_TIME,System.currentTimeMillis())
+                        putLong(ConstantsUtil.SP_WIFI_PROTECT_DAY,System.currentTimeMillis())
                     }
 
                 }

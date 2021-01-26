@@ -102,9 +102,9 @@ class SignalUpViewModel : BaseViewModel() {
    private fun setSignalUpLevel(){
        upSignalLevel = when(oldWifiLevel) {
             in 90 until 100->99-oldWifiLevel
-            in 75 until 90->Random().nextInt(10)
-            in 50 until 75->Random().nextInt(15)
-             in 0 until 50->Random().nextInt(20)
+            in 75 until 90->1+Random().nextInt(10)
+            in 50 until 75->1+Random().nextInt(15)
+             in 0 until 50->1+Random().nextInt(20)
            else -> 6
        }
 
@@ -117,7 +117,7 @@ class SignalUpViewModel : BaseViewModel() {
         wifiSignalLevel.postValue(if (level < 99) level else 99)
         sp.putString(ConstantsUtil.SP_SIGNAL_INFO,Gson().toJson(SpSignalBean(WifiUtils.getConnectWifiName(),
             oldWifiLevel,
-            level)))
+            level,upSignalLevel)))
     }
 
 

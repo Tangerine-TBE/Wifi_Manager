@@ -188,16 +188,13 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
 
             errorConnectCount.observe(that, Observer { count ->
                 if (count > 4) {
-                    mConnectTimeOut.cancel()
                     dismissErrorPopup()
                 } else {
                     mConnectTimeOut.start()
                 }
             })
             connectError.observe(that, { success ->
-                //   if (!success) { dismissErrorPopup() }
                 mConnectTimeOut.start()
-
             })
 
             currentNetWorkName.observeForever {
@@ -276,11 +273,8 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                                         }
 
 
-
-
                                     }
                                 }
-
 
 
                                 viewModel.getWifiList(WifiContentState.NORMAL)
@@ -386,6 +380,7 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
         mConnectStatePopup?.setOnDismissListener {
             mConnectStatePopup.mOutValueAnimator.start()
             isUser = false
+            mConnectTimeOut.cancel()
         }
 
         mCloseView.apply {
@@ -526,8 +521,6 @@ class HomeFragment : BaseVmFragment<FragmentHomeBinding, HomeViewModel>() {
                     else
                         showToast(ConstantsUtil.NO_CONNECT_WIFI)
                 }
-
-
             }
 
         }

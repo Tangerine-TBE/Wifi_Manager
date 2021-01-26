@@ -187,8 +187,8 @@ object WifiUtils {
         return "0.0.0.0"
     }
 
-    //连接wifi
-    fun  connectWifi(wifiName: String, wifiPwd: String, networkCallback: NetworkCallback){
+    //连接有密码wifi
+    fun  connectPwdWifi(wifiName: String, wifiPwd: String, networkCallback: NetworkCallback)=
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
             val specifier = WifiNetworkSpecifier.Builder()
                     .setSsidPattern(PatternMatcher(wifiName, PatternMatcher.PATTERN_PREFIX))
@@ -201,11 +201,32 @@ object WifiUtils {
                     .setNetworkSpecifier(specifier)
                     .build()
                 connectivityManager.requestNetwork(request, networkCallback)
+                true
         } else {
             connectWifiPws(wifiName, wifiPwd)
         }
 
+    //连接有无密码wifi
+    fun  connectNoPwdWifi(wifiName: String, networkCallback: NetworkCallback)=
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            val specifier = WifiNetworkSpecifier.Builder()
+                    .setSsidPattern(PatternMatcher(wifiName, PatternMatcher.PATTERN_PREFIX))
+                    .build()
+
+            val request = NetworkRequest.Builder()
+                    .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                    .removeCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .setNetworkSpecifier(specifier)
+                    .build()
+            connectivityManager.requestNetwork(request, networkCallback)
+            true
+        } else {
+            connectWifiNoPws(wifiName)
+
     }
+
+
+
 
 
     fun getConnectWifiName(): String {

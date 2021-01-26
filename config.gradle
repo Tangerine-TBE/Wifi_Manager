@@ -15,7 +15,7 @@ ext {
             versionName      : "1.0",              //版本名称
             compileSdkVersion: 30,
             minSdkVersion    : 21,
-            targetSdkVersion : 30,
+            targetSdkVersion : 28,
 
     ]
     //依赖

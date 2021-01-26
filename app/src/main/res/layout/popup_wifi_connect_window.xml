@@ -70,10 +70,10 @@
 
             <com.example.module_base.widget.SmoothCheckBox
                 android:id="@+id/sharePublicWifi"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_marginLeft="8dp"
-                app:color_checked="@color/theme_color"
+                app:color_checked="#DFDFDF"
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="@+id/wifiPwd"
                 app:layout_constraintTop_toBottomOf="@+id/wifiPwd" />

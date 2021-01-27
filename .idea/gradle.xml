@@ -14,8 +14,11 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/module_base" />
+            <option value="$PROJECT_DIR$/module_battery" />
+            <option value="$PROJECT_DIR$/module_cleaning" />
             <option value="$PROJECT_DIR$/module_tool" />
             <option value="$PROJECT_DIR$/module_user" />
+            <option value="$PROJECT_DIR$/openfile_library" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

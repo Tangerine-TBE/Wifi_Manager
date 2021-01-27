@@ -95,7 +95,7 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
                     override fun sure() {
                         val renameText = getRenameText()
                         viewModel.saveSign(renameText,mSelectPosition)
-                        dismissPopup()
+                        dismiss()
                     }
                     override fun cancel() {
 

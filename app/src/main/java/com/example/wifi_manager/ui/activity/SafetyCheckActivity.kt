@@ -184,10 +184,14 @@ class SafetyCheckActivity : BaseVmViewActivity<ActivitySafetyBinding, SafetyChec
                         }
                         1 -> toOtherActivity<CheckDeviceViewActivity>(this@SafetyCheckActivity) {}
                         2 -> {
-                            if (isOpenProtect) {
-                                toOtherActivity<WifiProtectInfoViewActivity>(this@SafetyCheckActivity) {}
+                            if (WifiUtils.getCipherType()) {
+                                if (isOpenProtect) {
+                                    toOtherActivity<WifiProtectInfoViewActivity>(this@SafetyCheckActivity) {}
+                                } else {
+                                    toOtherActivity<WifiProtectViewActivity>(this@SafetyCheckActivity) {}
+                                }
                             } else {
-                                toOtherActivity<WifiProtectViewActivity>(this@SafetyCheckActivity) {}
+                                showToast("开放WiFi无法开启保护哦")
                             }
                         }
                         3 -> toOtherActivity<SpeedTestViewActivity>(this@SafetyCheckActivity) {}

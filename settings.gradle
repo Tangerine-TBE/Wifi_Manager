@@ -1,3 +1,6 @@
+include ':module_battery'
+include ':openfile_library'
+include ':module_cleaning'
 include ':module_user'
 include ':module_tool'
 include ':module_base'

@@ -43,14 +43,20 @@ class WifiProtectViewActivity : BaseViewActivity<ActivityWifiProtectBinding>() {
 
             mProtectInfoPopup.setOnActionClickListener(object : BasePopup.OnActionClickListener {
                 override fun sure() {
-                    toOtherActivity<WifiProtectInfoViewActivity>(this@WifiProtectViewActivity,true) {}
-                    sp.apply {
-                       putBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN, true)
-                       putString(ConstantsUtil.SP_WIFI_PROTECT_NAME, WifiUtils.getConnectWifiName())
-                        //1611986400000
-                        putLong(ConstantsUtil.SP_WIFI_PROTECT_TIME,System.currentTimeMillis())
-                        putLong(ConstantsUtil.SP_WIFI_PROTECT_DAY,System.currentTimeMillis())
-                    }
+                        toOtherActivity<WifiProtectInfoViewActivity>(
+                            this@WifiProtectViewActivity,
+                            true
+                        ) {}
+                        sp.apply {
+                            putBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN, true)
+                            putString(
+                                ConstantsUtil.SP_WIFI_PROTECT_NAME,
+                                WifiUtils.getConnectWifiName()
+                            )
+                            //1611986400000
+                            putLong(ConstantsUtil.SP_WIFI_PROTECT_TIME, System.currentTimeMillis())
+                            putLong(ConstantsUtil.SP_WIFI_PROTECT_DAY, System.currentTimeMillis())
+                        }
 
                 }
 
@@ -60,8 +66,13 @@ class WifiProtectViewActivity : BaseViewActivity<ActivityWifiProtectBinding>() {
             })
 
             mOpenProtect.setOnClickListener {
-                mProtectInfoPopup.showPopupView(mWifiProtectContainer)
+                if (WifiUtils.getCipherType()) {
+                    mProtectInfoPopup.showPopupView(mWifiProtectContainer)
+                } else {
+                    showToast("开放WiFi无法开启保护哦")
+                }
             }
+
 
         }
     }

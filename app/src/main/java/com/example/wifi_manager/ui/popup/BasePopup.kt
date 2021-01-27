@@ -33,7 +33,7 @@ open class BasePopup<T:ViewDataBinding>(val activity: FragmentActivity?, layout:
         intBgAnimation()
         setOnDismissListener {
             mOutValueAnimator?.start()
-            mListener?.cancel()
+
         }
         initEvent()
     }
@@ -58,7 +58,7 @@ open class BasePopup<T:ViewDataBinding>(val activity: FragmentActivity?, layout:
         mInValueAnimator?.duration = 300
         mInValueAnimator?.addUpdateListener { animation -> updateBgWindowAlpha(animation.animatedValue as Float) }
         mOutValueAnimator = ValueAnimator.ofFloat(0.5f, 1.0f)
-        mOutValueAnimator?.duration = 300
+        mOutValueAnimator?.duration = 100
         mOutValueAnimator?.addUpdateListener { animation -> updateBgWindowAlpha(animation.animatedValue as Float) }
     }
 
@@ -83,10 +83,6 @@ open class BasePopup<T:ViewDataBinding>(val activity: FragmentActivity?, layout:
         mListener=listener
     }
 
-   open fun dismissPopup(){
-        if (isShowing) {
-            dismiss()
-        }
-    }
+
 
 }

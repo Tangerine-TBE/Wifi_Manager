@@ -43,7 +43,6 @@ class ConnectStatePopup(activity: FragmentActivity?):BasePopup<PopupConnectState
 
     override fun initEvent() {
         setOnDismissListener {
-            mOutValueAnimator?.start()
             mView.connectWifiView.setStepState(StepState.ONE)
         }
     }

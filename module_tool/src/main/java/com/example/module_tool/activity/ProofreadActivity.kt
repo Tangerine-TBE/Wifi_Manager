@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bumptech.glide.Glide
 import com.example.module_tool.R
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
 import kotlinx.android.synthetic.main.activity_proofread_cjy.*
 
 import java.text.DecimalFormat

@@ -108,23 +108,12 @@ class HomeViewModel : BaseViewModel() {
     fun getWifiList(state: WifiContentState) {
         mCurrentWifiMessageBeans?.let { list ->
             val wifiList = WifiUtils.wifiList.filter { it.SSID != "" }
-            val configuredNetworks = WifiUtils.wifiManager.configuredNetworks
-
-
-            configuredNetworks?.forEach {
-
-                //  LogUtils.i("--configuredNetworks---${configuredNetworks.size}-----------${it}---------------")
-            }
-
             if (wifiList.isNotEmpty()) {
                 list.clear()
-
                 wifiList.forEach {
-                    list.add(WifiMessageBean(it.SSID, it.BSSID, it.capabilities, it.level, wifiSignalState(it.level), wifiProtectState(it.capabilities)))
+                    list.add(WifiMessageBean(it.SSID, it.BSSID, it.capabilities, it.level, wifiSignalState(it.level), wifiProtectState(it.capabilities),saveWifiPwdState = WifiUtils.isSaveWifiPwd(it.SSID)))
                 }
-
                 list.sortWith(compareBy({ it.wifiProtectState.length }, { it.wifiName }))
-
                 mOldWifiMessageBeans?.clear()
                 mOldWifiMessageBeans?.addAll(list)
                 setWifiContent(state, list)
@@ -135,13 +124,13 @@ class HomeViewModel : BaseViewModel() {
                     getUserShareList(mOldWifiMessageBeans)
                 }
             }
-
         }
     }
 
     private var realList: MutableList<WifiMessageBean> = ArrayList()
     private fun getUserShareList(list: MutableList<WifiMessageBean>) {
-        LogUtils.i("-----newData-------begin---------------------")
+        viewModelScope.launch(Dispatchers.IO) {
+    //    LogUtils.i("-----newData-------begin---------------------")
         val filterList: MutableList<WifiMessageBean> = list.filter { it.wifiProtectState != OPEN }.toMutableList()
         realList = if (filterList.size > 20) filterList.subList(0, 20) else filterList
         val addressList = StringBuffer()
@@ -149,9 +138,8 @@ class HomeViewModel : BaseViewModel() {
             addressList.append("${it.wifiMacAddress},")
             //LogUtils.i("-----newData---realList--${it.wifiName}--------------$addressList---------")
         }
-
         WifiInfoRepository.getShareWifiList(addressList.substring(0, addressList.length - 1)).exAwait({
-            LogUtils.i("-----newData----center--${it.message}-----------------------")
+          //  LogUtils.i("-----newData----center--${it.message}-----------------------")
         }, { it ->
             if (it.code() == NET_SUCCESS) {
                 it.body()?.apply {
@@ -164,34 +152,36 @@ class HomeViewModel : BaseViewModel() {
                                         oldData.shareState = true
                                     }
                                 }
-                                LogUtils.i("-----newData----end--${newData.name}-----------------------")
+                           //     LogUtils.i("-----newData----end--${newData.name}-----------------------")
                             }
                             setWifiContent(WifiContentState.NONE, list)
                         }
 
                     } else {
-                        LogUtils.i("-----getUserShareList-----${msg}-----------------------")
+                   //     LogUtils.i("-----getUserShareList-----${msg}-----------------------")
                     }
                 }
             }
+
         })
+        }
     }
 
 
     private fun setWifiContent(state: WifiContentState, list: MutableList<WifiMessageBean>) {
-        wifiContentEvent.value = ValueRefreshWifi(state, list)
+        wifiContentEvent.postValue(ValueRefreshWifi(state, list))
     }
 
     fun shareWifiInfo(wifiMessages: WifiMessageBean) {
         if (!wifiMessages.shareState) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO){
                 WifiInfoRepository.shareWifi(wifiMessages.wifiName, wifiMessages.wifiMacAddress, wifiMessages.wifiPwd, wifiMessages.encryptionWay).exAwait(
                         {
-                            LogUtils.i("--------shareWifiInfo------${it.message}--------")
+                     //       LogUtils.i("--------shareWifiInfo------${it.message}--------")
                         },
                         { result ->
                             val body = result.body()
-                            LogUtils.i("--------shareWifiInfo---------------${body?.string()}---------------------------")
+                     //       LogUtils.i("--------shareWifiInfo---------------${body?.string()}---------------------------")
                         })
             }
         }
@@ -226,7 +216,6 @@ class HomeViewModel : BaseViewModel() {
     }
 
     fun connectWifi(wifiMessage: WifiMessageBean, open: Boolean, wifiPwd: String = "") {
-
         viewModelScope.launch(Dispatchers.Default) {
             if (open) {
              //   connectError.postValue(WifiUtils.connectNoPwdWifi(wifiMessage.wifiName, netWorkCallback))
@@ -235,10 +224,14 @@ class HomeViewModel : BaseViewModel() {
               //  connectError.postValue(WifiUtils.connectPwdWifi(wifiMessage.wifiName, wifiPwd, netWorkCallback))
                 connectError.postValue(WifiUtils.connectWifiPws(wifiMessage.wifiName, wifiPwd))
             }
-            LogUtils.i("--------connectWifi-${getCurrentThreadName()}-----${wifiMessage.wifiName}--------")
+    //        LogUtils.i("--------connectWifi-${getCurrentThreadName()}-----${wifiMessage.wifiName}--------")
         }
-
     }
+
+    fun savePwdConnectWifi(SSID:String){
+        connectError.postValue(WifiUtils.savePwdConnect(SSID))
+    }
+
 
 
     fun connectAction(wifiMessage: WifiMessageBean, showPopupAction: () -> Unit) {
@@ -276,23 +269,17 @@ class HomeViewModel : BaseViewModel() {
             val isOpen = getBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN, false)
             if (isOpen) {
                 val time = getLong(ConstantsUtil.SP_WIFI_PROTECT_TIME, 0L)
-                getString(ConstantsUtil.SP_WIFI_PROTECT_NAME)?.let {
                     val calLastedTime = calLastedTime(Date(), Date(time))
-                    LogUtils.i("----isOpen-------$calLastedTime----------------")
+            //        LogUtils.i("----isOpen-------$calLastedTime----------------")
                     if (calLastedTime > 7) {
-                        if (WifiUtils.getConnectWifiName() == it) {
                             putBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN, false)
+                            putString(ConstantsUtil.SP_WIFI_PROTECT_NAME, "")
+                            putLong(ConstantsUtil.SP_WIFI_PROTECT_DAY, 0L)
+                            putLong(ConstantsUtil.SP_WIFI_PROTECT_TIME, 0L)
                             protectTimeOut.value = true
-                        } else {
-                            /* putString(
-                                 ConstantsUtil.SP_WIFI_PROTECT_NAME,
-                                 WifiUtils.getConnectWifiName()
-                             )*/
-                        }
                     } else {
                         putLong(ConstantsUtil.SP_WIFI_PROTECT_DAY, System.currentTimeMillis())
                     }
-                }
             }
 
         }

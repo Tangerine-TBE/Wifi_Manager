@@ -65,7 +65,7 @@ class WifiProtectInfoViewActivity : BaseViewActivity<ActivityWifiProtectInfoBind
             cancelProtect.setOnClickListener {
                 sp.apply {
                     putBoolean (ConstantsUtil.SP_WIFI_PROTECT_OPEN,false)
-                    putString (ConstantsUtil.SP_WIFI_PROTECT_NAME,WifiUtils.getConnectWifiName())
+                    putString (ConstantsUtil.SP_WIFI_PROTECT_NAME,"")
                 }
                 finish()
             }

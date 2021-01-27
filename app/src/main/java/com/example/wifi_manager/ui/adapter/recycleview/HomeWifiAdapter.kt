@@ -27,6 +27,7 @@ class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean, BaseDataBindingHolder<It
             item.encryptionWay.let {
                 if (it.contains("WPA2") and it.contains("WPS") || it.contains("WPA")) {
                     mWifiStateIcon.visibility=View.VISIBLE
+                    mWifiStateIcon.setImageResource( if (item.saveWifiPwdState) R.mipmap.icon_wifi_un_protect else R.mipmap.icon_wifi_protect)
                 }
                 else{
                     mWifiStateIcon.visibility=View.GONE
@@ -34,6 +35,10 @@ class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean, BaseDataBindingHolder<It
             }
 
             mWifiStateHint.text=if (item.shareState)  "分享过的wifi" else ""
+
+
+
+
 
         }
     }

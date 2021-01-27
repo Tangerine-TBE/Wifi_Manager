@@ -15,7 +15,8 @@ import com.example.module_tool.base.BaseAppCompatActivity
 import com.example.module_tool.base.BaseConstant
 import com.example.module_tool.widget.MyRulerView2
 import com.example.module_tool.widget.PopupWindowView2
-import com.gyf.barlibrary.ImmersionBar
+import com.gyf.immersionbar.ImmersionBar
+
 import kotlinx.android.synthetic.main.activity_ruler2_cjy.*
 import kotlin.math.abs
 

@@ -9,9 +9,11 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.net.wifi.*
+import android.os.Build
 import android.os.PatternMatcher
 import android.text.TextUtils
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.example.module_base.base.BaseApplication.Companion.mContext
 import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
@@ -151,16 +153,54 @@ object WifiUtils {
      * @param ssid
      * @return
      */
-    private fun isExist(ssid: String): WifiConfiguration? {
-        @SuppressLint("MissingPermission") val configs =
-            wifiManager.configuredNetworks
-        for (config in configs) {
-            if (config.SSID == "\"" + ssid + "\"") {
-                return config
+    @SuppressLint("MissingPermission")
+     private fun isExist(ssid: String): WifiConfiguration? {
+        val configuredNetworks = wifiManager.configuredNetworks
+        if (configuredNetworks.size > 0) {
+            for (config in configuredNetworks) {
+                if (config.SSID == "\"" + ssid + "\"") {
+                    return config
+                }
             }
+        } else {
+            return null
         }
         return null
     }
+
+
+    /**
+     *  判断wifi是否保存过
+     * @param ssid
+     * @return
+     */
+    @SuppressLint("MissingPermission")
+     fun isSaveWifiPwd(ssid: String): Boolean {
+        val configuredNetworks = wifiManager.configuredNetworks
+        if (configuredNetworks.size > 0) {
+            configuredNetworks.forEach {
+                if (it.SSID== "\"" + ssid + "\"") {
+                    LogUtils.i("-isSaveWifiPwd---------$ssid-----${it.SSID}-------")
+                    return true
+                }
+            }
+        } else {
+            return false
+        }
+        return false
+    }
+
+
+    //保存密码连接
+    fun savePwdConnect(ssid:String):Boolean{
+        val wifiConfig = isExist(ssid)
+        return if (wifiConfig != null) {
+            wifiManager.enableNetwork(wifiConfig.networkId, true)
+        } else {
+            false
+        }
+    }
+
 
 
     /**
@@ -194,6 +234,8 @@ object WifiUtils {
                     .setSsidPattern(PatternMatcher(wifiName, PatternMatcher.PATTERN_PREFIX))
                     .setWpa2Passphrase(wifiPwd)
                     .build()
+
+
 
             val request = NetworkRequest.Builder()
                     .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
@@ -270,7 +312,7 @@ object WifiUtils {
         return getLocalMacAddress()
     }
 
-
+    //是否加密
     fun getCipherType():Boolean{
       wifiManager?.scanResults?.apply {
           forEach {

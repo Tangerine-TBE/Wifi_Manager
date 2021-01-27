@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularProgress">
+        <attr name="progress" format="float"/>
+        <attr name="defOutProgressColor" format="color"/>
+        <attr name="fillOutProgressColor" format="color"/>
+        <attr name="insideColor" format="color"/>
+        <attr name="centerText" format="string"/>
+        <attr name="leftToRight" format="boolean"/>
+        <attr name="radio" format="float"/>
+        <attr name="progressTextSize" format="dimension"/>
+        <attr name="progressTextColor" format="color"/>
+    </declare-styleable>
+</resources>

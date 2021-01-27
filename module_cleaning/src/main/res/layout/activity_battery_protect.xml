@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.BatteryProtectActivity"
+    android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/frame_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp" />
+    </RelativeLayout>
+</RelativeLayout>

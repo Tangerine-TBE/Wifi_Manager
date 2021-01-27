@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--tablayout上的线条颜色-->
+    <color name="tab_top_color">#d6d6d6</color>
+    <color name="garbageHigh">#FF4848</color>
+    <color name="garbageHighDark">#FF0000</color>
+    <color name="garbageHighDarkBehind">#B70909</color>
+
+    <color name="garbageDark">#0626C8</color>
+    <color name="garbageDarkBehind">#284CFE</color>
+
+    <color name="antivirus_progress_bg">#02868F</color>
+    <color name="antivirus_progress">#00EEFF</color>
+    
+    <color name="cooling_progress_start">#00FFFFFF</color>
+    <color name="cooling_progress_end">#8FFFFFFF</color>
+
+    <color name="scan_animator_start">#80FFFFFF</color>
+    <color name="scan_animator_end">#1FFFFFFF</color>
+
+    <color name="theme_blue">#284CFE</color>
+
+    <color name="theme_base">#126FFE</color>
+
+</resources>

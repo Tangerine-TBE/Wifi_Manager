@@ -1,0 +1,53 @@
+<LinearLayout android:id="@+id/requestRootView"
+    android:layout_below="@id/bar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:background="#FAFAFA"
+    tools:visibility="visible"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:text="@string/notificationTip"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="#121212"
+        android:layout_marginTop="41dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="36dp"
+        android:textColor="#B3B3B3"
+        android:textSize="12sp"
+        android:text="@string/showDes" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/no_p_notification_clean"
+            app:layout_constraintBottom_toBottomOf="parent" />
+        <Button
+            android:id="@+id/requestP"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="50dp"
+            android:text="@string/justClean"
+            android:textColor="#fff"
+            android:background="@color/themeColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/itemDecoration"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:background="@android:color/white">
+        <TextView
+            android:id="@+id/titleSoftware"
+            android:textColor="#A4A6A8"
+            android:textSize="13sp"
+            tools:text="已安装"
+            android:maxWidth="150dp"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/childCount"
+            android:textColor="#A4A6A8"
+            android:textSize="13sp"
+            tools:text="(12)"
+            android:layout_toEndOf="@id/titleSoftware"
+            android:layout_alignBottom="@id/titleSoftware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:id="@+id/allChooseRoot"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/allChoose"
+                android:layout_centerVertical="true"
+                android:text="@string/allChoose"
+                android:layout_marginEnd="10dp"
+                android:textColor="#A4A6A8"
+                android:textSize="13sp" />
+            <ImageView
+                android:id="@+id/allChoose"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/selector_item_selector" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

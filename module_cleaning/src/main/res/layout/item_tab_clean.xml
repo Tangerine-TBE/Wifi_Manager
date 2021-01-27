@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:orientation="vertical">
+    <View
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:background="@drawable/selector_dian"
+        android:layout_alignBottom="@id/tabItemTitle"
+        android:layout_alignRight="@id/tabItemTitle"/>
+    <TextView
+        android:id="@+id/tabItemTitle"
+        tools:text="全部软件"
+        android:textColor="@color/selector_tab_color"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

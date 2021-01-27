@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_height="70dp"
+    android:fitsSystemWindows="true"
+    android:id="@+id/barViewRoot">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0000">
+        <ImageView
+            android:id="@+id/barBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:layout_centerVertical="true"/>
+        <TextView
+            android:id="@+id/barTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:textColor="#FF222F3A"/>
+        <ImageView
+            android:id="@+id/barSetting"
+            android:layout_width="23dp"
+            android:layout_height="25dp"
+            tools:visibility="gone"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:clickable="true"
+            android:layout_marginEnd="15dp"
+            android:focusable="true" />
+    </RelativeLayout>
+</LinearLayout>

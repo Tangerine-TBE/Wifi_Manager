@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="optimize_view_out">#4BFFFFFF</color>
+    <color name="optimize_view_animator">#B3FFFFFF</color>
+    <color name="circleProgressBg">#CEF2FF</color>
+</resources>

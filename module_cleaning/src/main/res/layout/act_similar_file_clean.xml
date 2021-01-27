@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <include layout="@layout/item_action_bar"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/reFileRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomButton"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        tools:visibility="visible">
+        <Button
+            android:id="@+id/reClean"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="208dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/delete"
+            android:textColor="#fff"
+            android:background="@drawable/selector_button"/>
+        <LinearLayout
+            android:id="@+id/brainpower"
+            app:layout_constraintStart_toEndOf="@id/reClean"
+            app:layout_constraintTop_toTopOf="@id/reClean"
+            app:layout_constraintBottom_toBottomOf="@id/reClean"
+            android:layout_marginStart="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <ImageView
+                android:src="@drawable/selector_circle_image"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"/>
+            <TextView
+                android:textColor="#FF070505"
+                android:textSize="17sp"
+                android:layout_marginStart="20dp"
+                android:text="@string/brainpowerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

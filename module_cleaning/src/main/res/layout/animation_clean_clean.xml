@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0c69c7"
+    android:id="@+id/includeAnim"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:id="@+id/textRoot_a"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+        <TextView
+            android:id="@+id/text_a"
+            android:textSize="67sp"
+            android:textColor="#fff"
+            tools:text="12"
+            android:gravity="top"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/text_a"
+            android:layout_marginTop="14sp"
+            android:layout_toRightOf="@id/text_a"
+            tools:text="GB"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+    </RelativeLayout>
+    <com.feisukj.base.view.WaveViewDouble
+        android:id="@+id/waveView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        app:waveShape_="square"
+        app:showWave="true"
+        app:behindWaveColor="#48c0e6"
+        app:frontWaveColor="#fff"
+        android:layout_below="@id/textRoot_a"/>
+</LinearLayout>

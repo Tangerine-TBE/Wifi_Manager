@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#0000"
+            android:layout_weight="7"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#E8E8E8"
+            android:layout_weight="86"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#0000"
+            android:layout_weight="7"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="#3392FD"
+        android:text="查看更多"
+        android:layout_below="@id/line1"
+        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:layout_below="@id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#0000"
+            android:layout_weight="7"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#E8E8E8"
+            android:layout_weight="86"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="#0000"
+            android:layout_weight="7"/>
+    </LinearLayout>
+</RelativeLayout>

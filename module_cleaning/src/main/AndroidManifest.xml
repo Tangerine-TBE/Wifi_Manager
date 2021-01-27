@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.feisukj.cleaning">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION"/> -->
+    <uses-permission android:name="android.permission.REORDER_TASKS" /> <!-- 读取储存 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!--  -->
+    <!-- 打开手电筒的权限 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 获取应用大小 -->
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" /> <!-- 卸载软件 -->
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <uses-permission-sdk-23 android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 查看应用使用情况 -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <application>
+        <activity android:name=".ui.activity.BatteryProtectActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <!-- <activity -->
+        <!-- android:name=".ui.SpActivity" -->
+        <!-- android:theme="@style/sp" -->
+        <!-- android:screenOrientation="portrait"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <action android:name="android.intent.action.VIEW" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity
+            android:name=".ui.activity.VideoManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PhotoManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MusicActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AllFileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.BigFileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PhotoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CachePhotoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.DocActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.NotificationCleanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PhotoCleanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AboutActivity"
+            android:screenOrientation="portrait">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW"/> -->
+            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+            <!-- <data android:mimeType="video/*" android:scheme="content"/> -->
+            <!-- <data android:mimeType="video/*" android:scheme="file"/> -->
+            <!-- <data android:mimeType="image/*" android:scheme="content"/> -->
+            <!-- <data android:mimeType="image/*" android:scheme="file"/> -->
+            <!-- <data android:mimeType="text/*" android:scheme="content"/> -->
+            <!-- <data android:mimeType="text/*" android:scheme="file"/> -->
+            <!-- </intent-filter> -->
+        </activity> <!-- <data android:scheme="file"/> -->
+        <!-- <data android:scheme="content"/> -->
+        <!-- <data android:scheme="http"/> -->
+        <!-- <data android:scheme="rtsp"/> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.VIEW"/> -->
+        <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+        <!-- <data android:mimeType="video/*" android:scheme="file"/> -->
+        <!-- </intent-filter> -->
+        <activity
+            android:name=".ui.activity.WeChatAndQQCleanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CompleteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.WeAndQQManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.QQAndWeFileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ShortVideoDesActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SimilarPhotoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CleanActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.DesktopZSActivity" />
+        <activity
+            android:name=".ui.activity.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CleanAnimatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AntivirusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CoolingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.NetworkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AccelerateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AntivirusCompleteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CoolingCompleteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.NetworkCompleteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SavePowerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.StrongAccelerateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.StrongAccelerateCompleteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.OptimizeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.BatteryInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.OptimizeCompleteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ApkActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AppActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PhoneLoseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.RepetitionFileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.UnloadingResidueActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.LatelyFileActivity"
+            android:screenOrientation="portrait" />
+
+        <receiver android:name=".recriver.LightSwitchReceiver">
+            <intent-filter>
+                <action android:name="com.feisukj.cleaning.light" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".service.MyNotificationListenerService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

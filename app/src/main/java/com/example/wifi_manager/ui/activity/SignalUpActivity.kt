@@ -120,7 +120,7 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
             }
         }
 
-        WifiStateLiveData.observe(this, Observer{
+        WifiStateLiveData.observe(this, {
             when(it){
                 WifiState.DISABLED->{
                     finish()

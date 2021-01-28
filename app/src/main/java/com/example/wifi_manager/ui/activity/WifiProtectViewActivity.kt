@@ -2,12 +2,12 @@ package com.example.wifi_manager.ui.activity
 
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.module_base.base.BasePopup
 import com.example.module_base.base.BaseViewActivity
 import com.example.module_base.utils.*
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityWifiProtectBinding
 import com.example.wifi_manager.ui.adapter.recycleview.WifiProtectAdapter
-import com.example.wifi_manager.ui.popup.BasePopup
 import com.example.wifi_manager.ui.popup.RemindPopup
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.DataProvider

@@ -6,6 +6,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import com.example.module_base.base.BasePopup
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.PopupWifiConnectWindowBinding
 import com.tamsiree.rxkit.RxKeyboardTool
@@ -19,7 +20,8 @@ import com.tamsiree.rxkit.RxKeyboardTool
  * @time 2021/1/18 10:29:30
  * @class describe
  */
-class WifiConnectPopup(activity: FragmentActivity?):BasePopup<PopupWifiConnectWindowBinding>(activity, R.layout.popup_wifi_connect_window, ViewGroup.LayoutParams.MATCH_PARENT) {
+class WifiConnectPopup(activity: FragmentActivity?):
+    BasePopup<PopupWifiConnectWindowBinding>(activity, R.layout.popup_wifi_connect_window, ViewGroup.LayoutParams.MATCH_PARENT) {
     private var isShowPwd=true
 
     override fun initEvent() {

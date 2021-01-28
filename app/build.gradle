@@ -167,6 +167,7 @@ dependencies {
     implementation project(path: ':module_base')
     implementation project(path: ':module_tool')
     implementation project(path: ':module_user')
+    implementation project(path: ':module_ad')
     implementation project(path: ':module_cleaning')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

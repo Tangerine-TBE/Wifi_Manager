@@ -2,6 +2,7 @@ package com.example.wifi_manager.ui.popup
 
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import com.example.module_base.base.BasePopup
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.PopupRemindWindowBinding
 
@@ -14,7 +15,8 @@ import com.example.wifi_manager.databinding.PopupRemindWindowBinding
  * @time 2021/1/19 11:05:14
  * @class describe
  */
-class RemindPopup(activity: FragmentActivity?):BasePopup<PopupRemindWindowBinding>(activity, R.layout.popup_remind_window,ViewGroup.LayoutParams.MATCH_PARENT) {
+class RemindPopup(activity: FragmentActivity?):
+    BasePopup<PopupRemindWindowBinding>(activity, R.layout.popup_remind_window,ViewGroup.LayoutParams.MATCH_PARENT) {
 
     override fun initEvent() {
         mView.apply {

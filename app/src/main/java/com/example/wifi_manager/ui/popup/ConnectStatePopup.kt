@@ -2,6 +2,7 @@ package com.example.wifi_manager.ui.popup
 
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import com.example.module_base.base.BasePopup
 import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.PopupConnectStateWindowBinding
@@ -16,7 +17,7 @@ import com.example.wifi_manager.utils.StepState
  * @time 2021/1/19 14:10:46
  * @class describe
  */
-class ConnectStatePopup(activity: FragmentActivity?):BasePopup<PopupConnectStateWindowBinding>(activity, R.layout.popup_connect_state_window, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT) {
+class ConnectStatePopup(activity: FragmentActivity?): BasePopup<PopupConnectStateWindowBinding>(activity, R.layout.popup_connect_state_window, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT) {
     //icon_home_wifi_normal
     companion object{
         const val WIFI_CONNECT="正在建立连接..."
@@ -49,7 +50,7 @@ class ConnectStatePopup(activity: FragmentActivity?):BasePopup<PopupConnectState
 
     fun setConnectState(state: StepState){
         mView.apply {
-            LogUtils.i("----setConnectState----$state--------------------")
+        //    LogUtils.i("----setConnectState----$state--------------------")
             connectWifiView.setStepState(state,mState)
             connectProgressView.setProgressState(state)
             connectStep.text=""+when(state){

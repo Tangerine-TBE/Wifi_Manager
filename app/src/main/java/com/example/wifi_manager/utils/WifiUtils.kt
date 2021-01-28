@@ -89,10 +89,10 @@ object WifiUtils {
      * @param pws
      */
     fun connectWifiPws(ssid: String, pws: String):Boolean   {
-        val disableNetwork = wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
+         wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, pws, true))
         val enableNetwork = wifiManager.enableNetwork(netId, true)
-        LogUtils.i("-----connectWifiPws-${wifiManager.connectionInfo.networkId}----$disableNetwork---------$enableNetwork------------")
+      //  LogUtils.i("-----connectWifiPws-${wifiManager.connectionInfo.networkId}----$disableNetwork---------$enableNetwork------------")
         return enableNetwork
     }
 
@@ -104,7 +104,7 @@ object WifiUtils {
         wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, "", false))
         val enableNetwork = wifiManager.enableNetwork(netId, true)
-        LogUtils.i("-----connectWifiNoPws-------$enableNetwork----------------")
+   //     LogUtils.i("-----connectWifiNoPws-------$enableNetwork----------------")
         return enableNetwork
 
     }
@@ -180,7 +180,7 @@ object WifiUtils {
         if (configuredNetworks.size > 0) {
             configuredNetworks.forEach {
                 if (it.SSID== "\"" + ssid + "\"") {
-                    LogUtils.i("-isSaveWifiPwd---------$ssid-----${it.SSID}-------")
+              //      LogUtils.i("-isSaveWifiPwd---------$ssid-----${it.SSID}-------")
                     return true
                 }
             }
@@ -278,7 +278,7 @@ object WifiUtils {
         if (name!="<unknown ssid>"&&name!=""){
             realName= wifiInfo.ssid.replace("\"", "")
         }
-        LogUtils.i("----getConnectWifiName------${realName}------------")
+     //   LogUtils.i("----getConnectWifiName------${realName}------------")
         return realName
     }
 

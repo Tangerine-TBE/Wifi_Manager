@@ -6,7 +6,7 @@ package com.example.module_user.domain.login
  * @description：
  */
 
-data class LoginMessage(
+data class LoginBean(
         val `data`: Data,
         val msg: String,
         val ret: Int

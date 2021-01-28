@@ -106,4 +106,24 @@ object Constants {
 
     //获取手机号码
     const val GET_PHONE = "passport.getMobile"
+
+
+    //测试
+    /*    public static final double VIP_price_13 = 0.01;
+    public static final double VIP_price_12 = 0.01;
+    public static final double VIP_price_3 =0.01;
+    public static final double VIP_price_1 = 0.01;*/
+
+    //储存用户信息
+    const val LOCAL_TYPE = "2" //本地登陆
+    const val USER_INFO = "user_info"
+    const val USER_ID = "id"
+    const val USER_IS_LOGIN = "isLogin"
+    const val USER_ID_TYPE = "id_type"
+    const val USER_ACCOUNT = "user_account"
+    const val USER_PWD = "user_pwd"
+    const val USER_THIRDLY_OPENID = "user_thirdly_openid"
+    const val USER_VIP_LEVEL = "vip_level"
+    const val USER_VIP_TIME = "vip_time"
+    const val USER_LOGIN_TIME = "user_login_time"
 }

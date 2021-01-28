@@ -247,13 +247,13 @@ class HomeViewModel : BaseViewModel() {
     fun setConnectErrorCount(count: Int) {
         mConnectErrorCount += count
         errorConnectCount.value = mConnectErrorCount
-        LogUtils.i("---没连接上---------${mConnectErrorCount}-----------")
+     //   LogUtils.i("---没连接上---------${mConnectErrorCount}-----------")
     }
 
     fun setConnectingCount(count: Int) {
         mConnectingCount += count
         connectingCount.value = mConnectingCount
-        LogUtils.i("---正在连接---------${mConnectingCount}-----------")
+  //      LogUtils.i("---正在连接---------${mConnectingCount}-----------")
     }
 
 

@@ -12,12 +12,12 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@drawable/shape_popup_wifi_connect_edit_bg"
-            android:paddingBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:background="@drawable/shape_popup_wifi_connect_edit_bg"
+         >
 
             <TextView
                 android:id="@+id/textView"
@@ -25,9 +25,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="40dp"
-                android:text="温馨提示"
-                android:drawablePadding="7dp"
                 android:drawableLeft="@mipmap/icon_home_remind"
+                android:drawablePadding="7dp"
+                android:text="温馨提示"
                 android:textColor="@color/theme_color"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -39,9 +39,9 @@
                 android:id="@+id/tip"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginLeft="25dp"
                 android:text="您当前已连接WIFI，确定要连接其他WIFI"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -74,7 +74,7 @@
             <TextView
                 android:id="@+id/cancel"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="44dp"
                 android:gravity="center"
                 android:text="取消"
                 android:textColor="@color/black"
@@ -88,11 +88,11 @@
                 android:id="@+id/sure"
                 android:layout_width="0dp"
 
-                android:layout_height="wrap_content"
-                android:text="确定"
-                android:textStyle="bold"
+                android:layout_height="44dp"
                 android:gravity="center"
+                android:text="确定"
                 android:textColor="@color/theme_color"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/view3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/view3"

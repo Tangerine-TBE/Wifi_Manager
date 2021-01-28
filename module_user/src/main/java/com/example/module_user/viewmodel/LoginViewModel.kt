@@ -5,8 +5,7 @@ import com.example.module_base.base.BaseApplication
 import com.example.module_base.base.BaseViewModel
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.getCurrentThreadName
-import com.example.module_user.domain.GeneralMsg
-import com.example.module_user.domain.login.LoginMessage
+import com.example.module_user.domain.login.LoginBean
 import com.example.module_user.repository.UserRepository
 import com.example.module_user.utils.ApiMapUtil
 import com.example.module_user.utils.Constants
@@ -44,7 +43,7 @@ class LoginViewModel : BaseViewModel() {
         doRequest({
             UserRepository.userLogin(UserInfoHelper.userEvent(Constants.LOGIN,
                     mapOf(Constants.MOBILE to number, Constants.PASSWORD to md5Pwd)))?.string()?.let { it ->
-                GsonUtil.setUserResult<LoginMessage>(it, {
+                GsonUtil.setUserResult<LoginBean>(it, {
                     loginState.postValue(true)
                     LogUtils.i("-----toLocalLogin-111- ${getCurrentThreadName()}-----${it.msg}------------------")
                 }, {

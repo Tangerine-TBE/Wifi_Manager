@@ -3,6 +3,7 @@ package com.example.wifi_manager.ui.popup
 
 import android.view.View
 import androidx.fragment.app.FragmentActivity
+import com.example.module_base.base.BasePopup
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.PopupRenameWindowBinding
 import com.tamsiree.rxkit.RxKeyboardTool
@@ -19,7 +20,7 @@ import com.tamsiree.rxkit.RxKeyboardTool
  * @time 2021/1/12 18:20:49
  * @class describe
  */
-class RenamePopup(activity: FragmentActivity):BasePopup<PopupRenameWindowBinding>(activity, R.layout.popup_rename_window){
+class RenamePopup(activity: FragmentActivity): BasePopup<PopupRenameWindowBinding>(activity, R.layout.popup_rename_window){
 
     override fun initEvent() {
         mView?.apply {

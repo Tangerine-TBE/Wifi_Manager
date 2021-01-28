@@ -6,13 +6,11 @@ import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module_base.base.BaseViewActivity
-import com.example.module_base.utils.LogUtils
-import com.example.module_base.utils.calLastedTime
-import com.example.module_base.utils.setToolBar
-import com.example.module_base.utils.toolbarEvent
+import com.example.module_base.utils.*
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityWifiProtectInfoBinding
 import com.example.wifi_manager.livedata.ScoreLiveData
+import com.example.wifi_manager.livedata.WifiStateLiveData
 import com.example.wifi_manager.ui.adapter.recycleview.ProtectWifiCheckAdapter
 import com.example.wifi_manager.utils.*
 import kotlinx.coroutines.Dispatchers
@@ -52,11 +50,29 @@ class WifiProtectInfoViewActivity : BaseViewActivity<ActivityWifiProtectInfoBind
         }
 
 
+        WifiStateLiveData.observe(this, {
+            when(it){
+                WifiState.DISABLED->{
+                    finish()
+                    showToast("WiFi已关闭")
+                }
+            }
+        })
+
+
+
         startAnimation()
 
     }
 
+
+
     override fun initEvent() {
+
+
+
+
+
         binding.apply {
 
             mProtectInfoToolbar.toolbarEvent(this@WifiProtectInfoViewActivity) {}

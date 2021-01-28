@@ -61,6 +61,17 @@ class SafetyCheckActivity : BaseVmViewActivity<ActivitySafetyBinding, SafetyChec
     override fun observerData() {
         binding.apply {
             viewModel.apply {
+                WifiStateLiveData.observe(this@SafetyCheckActivity, {
+                    when(it){
+                        WifiState.DISABLED->{
+                            finish()
+                            showToast("WiFi已关闭")
+                        }
+                    }
+                })
+
+
+
                 ScoreLiveData.observe(this@SafetyCheckActivity, {
                     score.text = "${it.score}分"
                     scoreHint = it.optimize

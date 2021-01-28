@@ -37,13 +37,23 @@
             android:name=".ui.activity.SpeedTestViewActivity"
             android:launchMode="singleTop" />
         <activity android:name=".ui.activity.ScanResultViewActivity" />
-        <activity android:name=".ui.activity.MainViewActivity">
+        <activity
+            android:name=".ui.activity.MainViewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.example.module_ad.ui.activity.BeginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppStartTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity
             android:name=".ui.activity.ScanActivity"
             android:launchMode="singleTop"

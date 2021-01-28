@@ -1,3 +1,4 @@
+include ':module_ad'
 include ':module_battery'
 include ':openfile_library'
 include ':module_cleaning'

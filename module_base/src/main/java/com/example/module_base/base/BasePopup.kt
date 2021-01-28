@@ -1,7 +1,7 @@
-package com.example.wifi_manager.ui.popup
+package com.example.module_base.base
 
 import android.animation.ValueAnimator
-import android.app.Activity
+
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
@@ -12,7 +12,7 @@ import android.widget.PopupWindow
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
-import com.example.wifi_manager.R
+
 
 /**
  * @name AlarmClock

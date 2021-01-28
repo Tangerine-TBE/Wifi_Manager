@@ -58,7 +58,7 @@ class ConnectProgressView @JvmOverloads constructor(
             mPaint.color=mCurrentProgressColor
             //进度
             drawLine(0f,0f,mWidth* progress(),0f,mPaint)
-            LogUtils.i("-ConnectProgressView---$mWidth--------$mCurrentProgress--------${mWidth*progress()}---------")
+           // LogUtils.i("-ConnectProgressView---$mWidth--------$mCurrentProgress--------${mWidth*progress()}---------")
         }
     }
 

@@ -5,15 +5,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module_base.base.BasePopup
 import com.example.module_base.base.BaseVmViewActivity
-import com.example.module_base.utils.LayoutType
-import com.example.module_base.utils.setStatusBar
-import com.example.module_base.utils.showToast
-import com.example.module_base.utils.toolbarEvent
+import com.example.module_base.utils.*
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityCheckDeviceBinding
 import com.example.wifi_manager.ui.adapter.recycleview.DevicesAdapter
 import com.example.wifi_manager.ui.popup.RenamePopup
+import com.example.wifi_manager.utils.DataProvider
 import com.example.wifi_manager.utils.ProgressState
+import com.example.wifi_manager.utils.WifiContentState
 
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
 import com.tamsiree.rxkit.view.RxToast
@@ -81,8 +80,15 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
                         if (mSweeping) RxToast.normal("正在扫描...")
                         else
                         {
-                            mRenamePopup.setOldName(viewModel.getSignName(position))
-                            mRenamePopup.showPopupView(devicesContainer)
+                            checkAppPermission(DataProvider.askStoragePermissionLis,{
+                                mRenamePopup?.apply {
+                                    setOldName(viewModel.getSignName(position))
+                                    showPopupView(devicesContainer)
+                                }
+                            },{
+                                showToast("缺少权限，无法标记")
+                            },this@CheckDeviceViewActivity)
+
                         }
 
                     }

@@ -13,11 +13,14 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.module_base.base.BaseApplication
 import com.example.module_base.widget.LoadingDialog
 import com.example.module_base.widget.MyToolbar
 import com.google.gson.Gson
+import com.google.gson.annotations.Until
+import com.permissionx.guolindev.PermissionX
 import com.tamsiree.rxkit.RxNetTool
 import com.tamsiree.rxkit.view.RxToast
 import java.lang.Exception
@@ -179,3 +182,35 @@ inline fun <reified T> gsonHelper(result: String): T? =
         }catch (e:Exception){
             null
         }
+
+
+fun checkAppPermission( permissions:ArrayList<String>,success:()->Unit,fail:()->Unit,activity: FragmentActivity?=null,fragment: Fragment?=null,){
+    try {
+        val permissionCollection = if (activity == null) {
+            PermissionX.init(fragment)
+        } else {
+            PermissionX.init(activity)
+        }
+        permissionCollection
+            .permissions(permissions)
+            .setDialogTintColor(  Color.parseColor("#285FF5"),
+                Color.parseColor("#285FF5"))
+            .onExplainRequestReason { scope, deniedList, beforeRequest ->
+                val msg = "即将申请的权限是程序必须依赖的权限"
+                scope.showRequestReasonDialog(deniedList, msg, "开启", "取消")
+            }
+            .onForwardToSettings { scope, deniedList ->
+                val msg = "您需要去应用程序设置当中手动开启权限"
+                scope.showForwardToSettingsDialog(deniedList, msg, "开启", "取消")
+            }
+            .request { allGranted, grantedList, deniedList ->
+                if (allGranted) {
+                    success()
+                } else {
+                    fail()
+                }
+            }
+    }catch (e:Exception){
+    }
+
+}

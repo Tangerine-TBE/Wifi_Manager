@@ -7,6 +7,7 @@ import com.example.module_base.databinding.ActivityDealBinding
 import com.example.module_base.utils.Constants
 import com.example.module_base.utils.MyStatusBarUtil
 import com.example.module_base.utils.PackageUtil
+import com.example.module_base.utils.toolbarEvent
 import com.example.module_base.widget.MyToolbar
 import kotlinx.android.synthetic.main.activity_deal.*
 
@@ -38,15 +39,9 @@ class DealViewActivity : BaseViewActivity<ActivityDealBinding>()  {
     }
 
     override fun initEvent() {
-        privacy_toolbar.setOnBackClickListener(object : MyToolbar.OnBackClickListener{
-            override fun onBack() {
-               finish()
-            }
 
-            override fun onRightTo() {
+        privacy_toolbar.toolbarEvent(this) {}
 
-            }
-        })
     }
 
 }

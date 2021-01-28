@@ -1,5 +1,6 @@
 package com.example.wifi_manager.base
 
+import com.example.module_ad.advertisement.TTAdManagerHolder
 import com.example.module_base.base.BaseApplication
 
 /**
@@ -12,4 +13,7 @@ import com.example.module_base.base.BaseApplication
  */
 class MainApplication:BaseApplication() {
 
+    override fun initData() {
+        TTAdManagerHolder.init(applicationContext)
+    }
 }

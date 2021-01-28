@@ -57,5 +57,11 @@ open class BaseApplication : Application() {
             FeedbackAPI.setAppExtInfo(jsonObject)
 
         }
+
+        initData()
+    }
+
+    open fun initData() {
+
     }
 }

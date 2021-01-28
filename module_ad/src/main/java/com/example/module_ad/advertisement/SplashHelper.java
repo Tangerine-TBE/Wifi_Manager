@@ -10,6 +10,7 @@ import com.example.module_ad.utils.AdMsgUtil;
 import com.example.module_ad.utils.StartActivityUtil;
 import com.example.module_base.base.BaseApplication;
 import com.example.module_user.utils.SpUtil;
+import com.tamsiree.rxkit.RxNetTool;
 
 
 public class SplashHelper {
@@ -33,9 +34,10 @@ public class SplashHelper {
             StartActivityUtil.startActivity(mActivity, mClass, true);
             return;
         }
-        //广告key
-        if (AdMsgUtil.isHaveAdData()) {
-            final AdBean.DataBean.StartPageBean.SpreadScreenBean spread_screen = AdMsgUtil.getAdState().getStart_page().getSpread_screen();
+        if (RxNetTool.isNetworkAvailable(mActivity)) {
+            //广告key
+            if (AdMsgUtil.isHaveAdData()) {
+                final AdBean.DataBean.StartPageBean.SpreadScreenBean spread_screen = AdMsgUtil.getAdState().getStart_page().getSpread_screen();
                 if (spread_screen.isStatus()) {
                     BaseApplication.mHandler.post(new Runnable() {
                         @Override
@@ -50,6 +52,9 @@ public class SplashHelper {
                 } else {
                     StartActivityUtil.startActivity(mActivity, mClass, true);
                 }
+            } else {
+                StartActivityUtil.startActivity(mActivity, mClass, true);
+            }
         } else {
             StartActivityUtil.startActivity(mActivity, mClass, true);
         }

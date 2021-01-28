@@ -42,7 +42,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.module_ad.ui.activity.BeginActivity"
+            android:name=".ui.activity.BeginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppStartTheme">

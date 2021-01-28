@@ -229,7 +229,7 @@ object WifiUtils {
 
     //连接有密码wifi
     fun  connectPwdWifi(wifiName: String, wifiPwd: String, networkCallback: NetworkCallback)=
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val specifier = WifiNetworkSpecifier.Builder()
                     .setSsidPattern(PatternMatcher(wifiName, PatternMatcher.PATTERN_PREFIX))
                     .setWpa2Passphrase(wifiPwd)
@@ -250,7 +250,7 @@ object WifiUtils {
 
     //连接有无密码wifi
     fun  connectNoPwdWifi(wifiName: String, networkCallback: NetworkCallback)=
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val specifier = WifiNetworkSpecifier.Builder()
                     .setSsidPattern(PatternMatcher(wifiName, PatternMatcher.PATTERN_PREFIX))
                     .build()
@@ -275,8 +275,10 @@ object WifiUtils {
         var realName=""
         val wifiInfo = wifiManager.connectionInfo
         var name = wifiInfo.ssid
-        if (name!="<unknown ssid>"&&name!=""){
-            realName= wifiInfo.ssid.replace("\"", "")
+        if (name != "<unknown ssid>" && name != "") {
+            realName = wifiInfo.ssid.replace("\"", "")
+        }else{
+            realName="WiFi名获取失败"
         }
      //   LogUtils.i("----getConnectWifiName------${realName}------------")
         return realName

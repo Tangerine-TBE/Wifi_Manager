@@ -3,10 +3,13 @@ package com.example.wifi_manager.ui.activity
 import androidx.fragment.app.Fragment
 import com.example.module_base.base.BaseViewActivity
 import com.example.module_base.utils.Constants
+import com.example.module_base.utils.checkAppPermission
+import com.example.module_base.utils.showToast
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityMainBinding
 import com.example.wifi_manager.ui.fragment.HomeFragment
 import com.example.wifi_manager.ui.fragment.MyFragment
+import com.example.wifi_manager.utils.DataProvider
 import com.feisukj.cleaning.file.FileManager
 import com.feisukj.cleaning.ui.fragment.CleanFragment
 import java.util.*
@@ -20,16 +23,12 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
     override fun initView() {
         binding.bottomNavigationView.itemIconTintList = null;
         showFragment(mHomeFragment)
-        sp.apply {
-            //陪伴天数计数
-            val isFirst = getBoolean(Constants.IS_FIRST, true)
-            if (isFirst) {
-                putLong(Constants.FIRST_TIME,System.currentTimeMillis())
-                putBoolean(Constants.IS_FIRST, false)
-            }
-        }
-
+        sp. putBoolean(Constants.IS_FIRST, false)
         FileManager.start()
+
+
+
+
     }
 
 

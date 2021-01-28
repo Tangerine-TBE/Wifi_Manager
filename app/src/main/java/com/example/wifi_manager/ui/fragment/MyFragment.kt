@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI
+import com.example.module_base.activity.AboutActivity
 import com.example.module_base.activity.DealViewActivity
 import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.Constants
 import com.example.module_base.utils.showToast
+import com.example.module_base.utils.toAppShop
 import com.example.module_base.utils.toOtherActivity
 import com.example.module_tool.activity.DistanceActivity
 import com.example.module_user.ui.activity.LoginActivity
@@ -90,12 +92,12 @@ class MyFragment:BaseVmFragment<FragmentMyBinding,MyViewModel>() {
 
         mMyBottomAdapter.setOnItemClickListener { adapter, view, position ->
             when (position) {
-                1-> toOtherActivity<CancelShareViewActivity>(activity){
-
-                }
-                2 -> FeedbackAPI.openFeedbackActivity()
-                3 -> toOtherActivity<DealViewActivity>(activity) { putExtra(Constants.SET_DEAL1, 1) }
-                4 -> toOtherActivity<DealViewActivity>(activity) { putExtra(Constants.SET_DEAL1, 2) }
+                0-> toOtherActivity<CancelShareViewActivity>(activity){}
+                1 -> FeedbackAPI.openFeedbackActivity()
+                2 -> toOtherActivity<DealViewActivity>(activity) { putExtra(Constants.SET_DEAL1, 1) }
+                3 -> toOtherActivity<DealViewActivity>(activity) { putExtra(Constants.SET_DEAL1, 2) }
+                4 -> toOtherActivity<AboutActivity>(activity) { }
+                5 -> toAppShop(activity)
             }
         }
     }

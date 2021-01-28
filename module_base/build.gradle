@@ -89,6 +89,8 @@ dependencies {
     api rootProject.ext.dependencies["glance"]
     //Gson
     api rootProject.ext.dependencies["Gson"]
+    //permissionx
+    api rootProject.ext.dependencies["permissionx"]
     //定位
     api 'com.amap.api:location:5.2.0'
 

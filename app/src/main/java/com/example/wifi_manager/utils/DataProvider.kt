@@ -1,5 +1,6 @@
 package com.example.wifi_manager.utils
 
+import android.Manifest
 import com.example.wifi_manager.R
 import com.example.wifi_manager.domain.ItemBean
 
@@ -13,6 +14,24 @@ import com.example.wifi_manager.domain.ItemBean
  */
 object DataProvider {
 
+
+    val permissionList= arrayListOf(
+        ItemBean(icon = R.mipmap.icon_ps_store,title = "储存",hint = "为您记录蹭网的设备信息"),
+        ItemBean(icon = R.mipmap.icon_ps_location,title = "位置",hint = "为您提供附近更多的WiFi信息"),
+    )
+
+
+
+    val askStoragePermissionLis = arrayListOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    )
+
+
+    val askLocationPermissionLis = arrayListOf(
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+    )
 
     val homeTopList= arrayListOf(
         ItemBean(icon = R.mipmap.icon_home_one,title = "一键加速"),
@@ -32,7 +51,6 @@ object DataProvider {
     )
 
    val myBottomList= arrayListOf(
-           ItemBean(title = "应用设置"),
            ItemBean(title = "取消WiFi分享"),
            ItemBean(title = "帮助与反馈"),
            ItemBean(title = "用户协议"),

@@ -1,4 +1,4 @@
-package com.example.wifi_manager.livedata
+package com.example.module_base.base
 
 import androidx.lifecycle.LiveData
 import com.example.module_base.utils.SPUtil

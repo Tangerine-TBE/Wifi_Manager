@@ -186,6 +186,9 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                 mOpenView.mScanWifi.text = it.currentAction
             }
 
+            connectError.observe(that,{
+                if (!it) mConnectTimeOut.start()
+            })
 
         }
     }
@@ -364,6 +367,8 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                 mConnectTimeOut.cancel()
                 mOutValueAnimator?.start()
                 isUser = false
+                saveConnectSate = false
+                shareConnectSate = false
             }
         }
 
@@ -539,8 +544,7 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
 
 
     private fun dismissErrorPopup() {
-        mConnectStatePopup?.dismiss()
-        showToast("换一个试试吧亲！")
+
 
         if (saveConnectSate) {
             currentWifiMessages?.apply {
@@ -553,8 +557,9 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
             currentWifiMessages?.apply { showPwConnectPopup(this) }
         }
 
-        saveConnectSate = false
-        shareConnectSate = false
+        mConnectStatePopup?.dismiss()
+        showToast("换一个试试吧亲！")
+
 
     }
 

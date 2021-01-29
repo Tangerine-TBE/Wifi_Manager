@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoginView" >
+        <attr name="verificationTextColor" format="reference|color"/>
+        <attr name="countDownTime" format="integer"/>
+        <attr name="passwordLength" format="integer"/>
+    </declare-styleable>
+
+    <!--输入框颜色-->
+    <style name="RegisterEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/themeColor</item>
+        <item name="colorControlActivated">@color/themeColor</item>
+    </style>
+
+</resources>

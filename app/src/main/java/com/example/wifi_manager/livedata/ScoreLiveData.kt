@@ -1,5 +1,6 @@
 package com.example.wifi_manager.livedata
 
+import com.example.module_base.base.BaseLiveData
 import com.example.wifi_manager.domain.ValueScore
 import com.example.wifi_manager.utils.ConstantsUtil
 

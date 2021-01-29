@@ -21,11 +21,12 @@ open class BaseViewModel:ViewModel(){
     protected val sp by lazy {
         SPUtil.getInstance()
     }
+    companion object{
+        const val NET_ERROR ="网络错误"
+    }
+
     protected val NET_SUCCESS=200
     protected val context=BaseApplication.application
-
-
-
 
 
     protected  fun doRequest(success:suspend()->Unit, error:(errorInfo:String)->Unit){

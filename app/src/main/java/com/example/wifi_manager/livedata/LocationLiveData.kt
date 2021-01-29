@@ -6,9 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.location.LocationManager
-import android.net.wifi.WifiManager
+
 import com.example.module_base.base.BaseApplication
-import com.example.module_base.utils.LogUtils
+import com.example.module_base.base.BaseLiveData
+
 
 /**
  * @name Wifi_Manager
@@ -18,7 +19,7 @@ import com.example.module_base.utils.LogUtils
  * @time 2021/1/28 16:25:59
  * @class describe
  */
-object LocationLiveData:BaseLiveData<Boolean>() {
+object LocationLiveData: BaseLiveData<Boolean>() {
 
     private  val mGpsOpenReceiver by lazy {
         GpsOpenReceiver()

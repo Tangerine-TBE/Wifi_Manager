@@ -1,7 +1,9 @@
 package com.example.wifi_manager.ui.activity
 
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.module_base.base.BaseViewActivity
+import com.example.module_base.provider.ModuleProvider
 import com.example.module_base.utils.Constants
 import com.example.module_base.utils.checkAppPermission
 import com.example.module_base.utils.showToast
@@ -14,7 +16,7 @@ import com.feisukj.cleaning.file.FileManager
 import com.feisukj.cleaning.ui.fragment.CleanFragment
 import java.util.*
 
-
+@Route(path = ModuleProvider.ROUTE_MAIN_ACTIVITY)
 class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
     override fun getLayoutView(): Int = R.layout.activity_main
     private val mHomeFragment by lazy {  HomeFragment()}
@@ -25,10 +27,14 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
         showFragment(mHomeFragment)
         sp. putBoolean(Constants.IS_FIRST, false)
         FileManager.start()
+    }
 
 
-
-
+    override fun onResume() {
+        super.onResume()
+        when (intent.getIntExtra(ModuleProvider.FRAGMENT_ID, 5)) {
+            3->showFragment(mMyFragment)
+        }
     }
 
 

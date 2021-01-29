@@ -65,13 +65,13 @@ class AgreementPopup(activity: FragmentActivity):BasePopup<PopupAgreementWindowB
 
     override fun initEvent() {
         mView.apply {
-            ivCancel.setOnClickListener {
+            ivCancel?.setOnClickListener {
                 dismiss()
                 mListener?.cancel()
 
             }
 
-            btSure.setOnClickListener {
+            btSure?.setOnClickListener {
                 if (scbAgreement.isChecked) {
                     dismiss()
                     mListener?.sure()

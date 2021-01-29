@@ -10,7 +10,7 @@ import com.example.module_ad.service.TimeService;
 import com.example.module_ad.utils.AdMsgUtil;
 import com.example.module_ad.utils.AdProbabilityUtil;
 import com.example.module_ad.utils.Contents;
-import com.example.module_user.utils.SpUtil;
+import com.example.module_user.utils.UserInfoUtil;
 
 
 public class InsertHelper {
@@ -31,7 +31,7 @@ public class InsertHelper {
 
 
     public void showAd(AdType type) {
-        if (SpUtil.isVIP()) {
+        if (UserInfoUtil.isVIP()) {
             return;
         }
         if (AdMsgUtil.isHaveAdData()) {

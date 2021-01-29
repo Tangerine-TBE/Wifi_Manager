@@ -10,13 +10,14 @@ import com.example.module_base.utils.LogUtils;
 import com.example.module_base.utils.SPUtil;
 import com.example.module_user.R;
 import com.example.module_user.domain.login.LoginBean;
+import com.google.gson.Gson;
 import com.tamsiree.rxkit.RxTimeTool;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SpUtil {
+public class UserInfoUtil {
 
     public static void removeAdView(boolean hidden,FrameLayout frameLayout){
         if (SPUtil.getInstance().getInt(Constants.USER_VIP_LEVEL)>0) {
@@ -46,6 +47,18 @@ public class SpUtil {
                 .putLong(Constants.USER_LOGIN_TIME, System.currentTimeMillis());
 
     }
+
+
+    public static void saveUserMsg(LoginBean loginBean){
+        SPUtil.getInstance().putString(Constants.USER_INFO,new Gson().toJson(loginBean));
+    }
+
+    public static void deleteUserMsg(){
+        SPUtil.getInstance().putString(Constants.USER_INFO,"");
+    }
+
+
+
 
     public static void deleteUserInfo() {
         SPUtil.getInstance().putString(Constants.USER_ID, "")

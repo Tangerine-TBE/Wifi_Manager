@@ -21,5 +21,7 @@ object UserRepository {
     suspend fun userLogin(params: Map<String, Any>)
             =RetrofitClient.createUserService().toLogin(params)
 
+    suspend fun userLogOut(params: Map<String, Any>)
+            =RetrofitClient.createUserService().toLogout(params)
 
 }

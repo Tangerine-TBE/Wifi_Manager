@@ -9,6 +9,7 @@ import android.net.wifi.WifiManager.EXTRA_WIFI_STATE
 import android.net.wifi.WifiManager.WIFI_STATE_DISABLED
 import androidx.navigation.compose.navArgument
 import com.example.module_base.base.BaseApplication
+import com.example.module_base.base.BaseLiveData
 import com.example.wifi_manager.utils.ConstantsUtil
 import com.example.wifi_manager.utils.WifiState
 
@@ -21,7 +22,7 @@ import com.example.wifi_manager.utils.WifiState
  * @time 2021/1/21 10:25:28
  * @class describe
  */
-object WifiStateLiveData:BaseLiveData<WifiState>() {
+object WifiStateLiveData: BaseLiveData<WifiState>() {
 
     private  val mWifiStateReceiver by lazy {
         WifiStateReceiver()

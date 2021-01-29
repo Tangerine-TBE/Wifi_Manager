@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import com.alibaba.android.arouter.launcher.ARouter
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI
 import com.example.module_base.provider.ModuleProvider
 import com.example.module_base.utils.PackageUtil
@@ -43,6 +44,7 @@ open class BaseApplication : Application() {
             RxTool.init(this@BaseApplication)
             LitePal.initialize(this@BaseApplication)
             LitePal.getDatabase()
+            ARouter.init(this@BaseApplication)
             //用户反馈
             FeedbackAPI.init(this@BaseApplication, "25822454", "7a8bb94331a5141dcea61ecb1056bbbd")
             val jsonObject = JSONObject()

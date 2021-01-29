@@ -3,6 +3,7 @@ package com.example.module_user.repository.api
 
 import com.example.module_user.domain.RegisterBean
 import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.http.POST
 import retrofit2.http.QueryMap
 
@@ -14,7 +15,7 @@ import retrofit2.http.QueryMap
 interface UserService {
 
     @POST("/api.php")
-    suspend fun getVerCode(@QueryMap params: Map<String,@JvmSuppressWildcards Any>):RegisterBean
+    suspend fun getVerCode(@QueryMap params: Map<String, @JvmSuppressWildcards Any>):RegisterBean
 
 
     @POST("/api.php")
@@ -22,11 +23,14 @@ interface UserService {
 
 
     @POST("/api.php")
-    suspend fun toFindPwd(@QueryMap params: Map<String,@JvmSuppressWildcards Any>): RegisterBean
+    suspend fun toFindPwd(@QueryMap params: Map<String, @JvmSuppressWildcards Any>): RegisterBean
 
 
     @POST("/api.php")
-    suspend fun toLogin(@QueryMap params: Map<String,@JvmSuppressWildcards Any>):ResponseBody
+    suspend fun toLogin(@QueryMap params: Map<String, @JvmSuppressWildcards Any>):ResponseBody
 
+
+    @POST("/api.php")
+    suspend  fun toLogout(@QueryMap params: Map<String,@JvmSuppressWildcards Any>): RegisterBean
 
 }

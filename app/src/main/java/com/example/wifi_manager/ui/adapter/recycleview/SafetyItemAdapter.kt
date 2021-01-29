@@ -40,7 +40,7 @@ class SafetyItemAdapter : BaseQuickAdapter<ItemBean, BaseDataBindingHolder<ItemS
             }
 
 
-            if (holder.bindingAdapterPosition==0){
+            if (holder.adapterPosition==0){
                 if (item.state) {
                     safetyTitle.setTextColor(Color.BLACK)
                 } else {
@@ -48,7 +48,7 @@ class SafetyItemAdapter : BaseQuickAdapter<ItemBean, BaseDataBindingHolder<ItemS
                 }
             }
 
-            if (holder.bindingAdapterPosition==4){
+            if (holder.adapterPosition==4){
                 if (item.state) {
                     safetyTitle.setTextColor(Color.RED)
 

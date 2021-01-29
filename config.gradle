@@ -9,7 +9,7 @@ ext {
     //版本号
     versions = [
 
-            applicationId    : "com.twx.clock",   //应用ID
+            applicationId    : "com.twx.wifi.manager",   //应用ID
             applicationName  : "WIFI管家",                  //应用名称
             versionCode      : 10000,                    //版本号
             versionName      : "1.0",              //版本名称

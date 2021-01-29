@@ -2,5 +2,5 @@
 <resources>
 
     <color name="input_bg_color">#FAFAFA</color>
-
+    <color name="colorEnableFalse">#CCCCCC</color>
 </resources>

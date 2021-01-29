@@ -8,7 +8,7 @@ import com.example.module_ad.base.IBaseXXBean;
 import com.example.module_ad.base.IShowAdCallback;
 import com.example.module_ad.utils.AdProbabilityUtil;
 import com.example.module_ad.utils.AdMsgUtil;
-import com.example.module_user.utils.SpUtil;
+import com.example.module_user.utils.UserInfoUtil;
 
 
 public class FeedHelper {
@@ -30,7 +30,7 @@ public class FeedHelper {
 
 
     public void showAd(AdType type) {
-        if (SpUtil.isVIP()) {
+        if (UserInfoUtil.isVIP()) {
             return;}
         //拿到缓存接口信息
         if (AdMsgUtil.isHaveAdData()) {

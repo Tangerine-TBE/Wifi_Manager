@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.example.module_base.utils.SPUtil
+import com.example.module_base.widget.LoadingDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 
@@ -31,6 +32,11 @@ abstract class BaseViewFragment<T : ViewDataBinding>:Fragment() {
     protected val sp: SPUtil by lazy{
         SPUtil.getInstance()
     }
+
+    protected val mLoadingDialog by lazy {
+        LoadingDialog(requireContext())
+    }
+
 
     protected lateinit var binding: T
     override fun onCreateView(

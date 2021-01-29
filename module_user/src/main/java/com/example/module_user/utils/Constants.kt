@@ -6,6 +6,9 @@ package com.example.module_user.utils
  * @description：
  */
 object Constants {
+    const val PLATFORM_KEY = "CHANNEL" //平台
+    const val APP_NAME = "APP_NAME" //app名字
+
     //注册、登陆参数
     const val SERVICE = "service" //接口名
 
@@ -126,4 +129,14 @@ object Constants {
     const val USER_VIP_LEVEL = "vip_level"
     const val USER_VIP_TIME = "vip_time"
     const val USER_LOGIN_TIME = "user_login_time"
+
+
+
+
+
+    //Intent  ket
+    const val USER_ACTION="USER_ACTION"
+
+
+
 }

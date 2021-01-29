@@ -2,15 +2,21 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape>
-            <solid android:color="@color/white"/>
+            <solid android:color="@color/white" />
         </shape>
     </item>
 
     <item>
-        <bitmap android:src="@drawable/lace_blue"
-            android:gravity="fill"/>
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/qdy_logo" />
     </item>
 
+    <item android:top="350dp">
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/qdy_text" />
+    </item>
 
 
 </layer-list>

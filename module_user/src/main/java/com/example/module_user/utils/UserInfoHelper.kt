@@ -1,6 +1,5 @@
 package com.example.module_user.utils
 
-import android.util.ArrayMap
 import com.example.module_base.base.BaseApplication
 import java.util.*
 
@@ -31,15 +30,21 @@ object UserInfoHelper {
         )
     }
 
-    fun userEvent(event:String,userInfo:Map<String, String> ):Map<String, Any>{
+    fun userEvent(event:String, userInfo:Map<String, String>):Map<String, Any>{
         val currentTimeMillis = System.currentTimeMillis()
         val random = Random().nextInt()
         val sortMapByValue = SortMapUtil.sortMapByValue(userInfo)
-        val md5: String = ApiMapUtil.md5(Constants.TOKEN + currentTimeMillis + random + event + sortMapByValue)
+        val md5 = ApiMapUtil.md5(Constants.TOKEN + currentTimeMillis + random + event + sortMapByValue)
         return ApiMapUtil.setMapValues(event, currentTimeMillis, random, md5, userInfo)
     }
 
 
+    fun userLogOut(event:String, userId:String):Map<String, Any>{
+        val currentTimeMillis = System.currentTimeMillis()
+        val random = Random().nextInt()
+        val md5 = ApiMapUtil.md5(Constants.TOKEN + currentTimeMillis + random + event + userId)
+        return ApiMapUtil.setStringValues(event, currentTimeMillis, random, md5, userId)
+    }
 
 
 

@@ -25,4 +25,12 @@ object GsonUtil {
        }
     }
 
+
+    inline fun <reified T> strResolve(str:String):T?{
+        return if (str != "") {
+           Gson().fromJson(str, T::class.java)
+        } else {
+            null
+        }
+    }
 }

@@ -46,7 +46,7 @@ class ProtectWifiCheckAdapter:BaseQuickAdapter<ItemBean, BaseDataBindingHolder<I
             }
 
             if (mList.contains(item)) {
-                when (holder.bindingAdapterPosition) {
+                when (holder.adapterPosition) {
                     2 -> {
                         numberHistory.visibility = View.VISIBLE
                         protectCheckState.visibility = View.GONE

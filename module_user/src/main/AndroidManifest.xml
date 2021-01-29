@@ -3,7 +3,8 @@
     package="com.example.module_user">
 
     <application>
-        <activity android:name=".ui.activity.LoginActivity"></activity>
+        <activity android:name=".ui.activity.RegisterPwdActivity"></activity>
+        <activity android:name=".ui.activity.LoginActivity" android:screenOrientation="portrait" android:launchMode="singleTop" />
     </application>
 
 </manifest>

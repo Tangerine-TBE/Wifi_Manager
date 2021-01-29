@@ -9,7 +9,8 @@ import com.example.module_ad.utils.AdProbabilityUtil;
 import com.example.module_ad.utils.AdMsgUtil;
 import com.example.module_ad.utils.StartActivityUtil;
 import com.example.module_base.base.BaseApplication;
-import com.example.module_user.utils.SpUtil;
+
+import com.example.module_user.utils.UserInfoUtil;
 import com.tamsiree.rxkit.RxNetTool;
 
 
@@ -30,7 +31,7 @@ public class SplashHelper {
     }
 
     public void showAd() {
-        if (SpUtil.isVIP()) {
+        if (UserInfoUtil.isVIP()) {
             StartActivityUtil.startActivity(mActivity, mClass, true);
             return;
         }

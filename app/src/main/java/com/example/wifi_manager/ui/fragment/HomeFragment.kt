@@ -309,6 +309,12 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                         WIFI_STATE_DISABLED -> {
                             viewModel.setWifiState(WifiState.DISABLED)
                             mOpenView.timeAttend.visibility = View.GONE
+                            viewModel.setCurrentNetState(
+                                    ValueNetWorkHint(
+                                            NET_NOT_CONNECT_HINT,
+                                            NET_NOT_CONNECT
+                                    )
+                            )
                             LogUtils.i(" WLAN已经关闭")
                         }
                         WIFI_STATE_DISABLING -> {

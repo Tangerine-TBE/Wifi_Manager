@@ -1,12 +1,23 @@
 package com.example.wifi_manager.ui.popup
 
 
+import android.graphics.Rect
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.method.HideReturnsTransformationMethod
+import android.text.method.LinkMovementMethod
 import android.text.method.PasswordTransformationMethod
+import android.text.style.ClickableSpan
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import com.example.module_base.activity.DealViewActivity
 import com.example.module_base.base.BasePopup
+import com.example.module_base.utils.Constants
+import com.example.module_base.utils.LogUtils
+import com.example.module_base.utils.toOtherActivity
+import com.example.module_tool.utils.ColorUtil
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.PopupWifiConnectWindowBinding
 import com.tamsiree.rxkit.RxKeyboardTool
@@ -23,6 +34,29 @@ import com.tamsiree.rxkit.RxKeyboardTool
 class WifiConnectPopup(activity: FragmentActivity?):
     BasePopup<PopupWifiConnectWindowBinding>(activity, R.layout.popup_wifi_connect_window, ViewGroup.LayoutParams.MATCH_PARENT) {
     private var isShowPwd=true
+
+
+    init {
+        val str ="分享为公共WiFi/已阅读并同意《功能说明》"
+        val stringBuilder = SpannableStringBuilder(str)
+        val span1 = TextViewSpan1()
+        stringBuilder.setSpan(span1, str.length-5, str.length-1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        mView.shareDes.text=stringBuilder
+        mView.shareDes.movementMethod= LinkMovementMethod.getInstance()
+    }
+
+    inner class TextViewSpan1 : ClickableSpan() {
+        override fun updateDrawState(ds: TextPaint) {
+            ds.color = ColorUtil.THEME_COLOR
+        }
+
+        override fun onClick(widget: View) {
+            //点击事件
+            toOtherActivity<DealViewActivity>(activity,false){
+                putExtra(Constants.SET_DEAL1,1)
+            }
+        }
+    }
 
     override fun initEvent() {
         mView.apply {
@@ -66,6 +100,7 @@ class WifiConnectPopup(activity: FragmentActivity?):
         activity?.let {
             RxKeyboardTool.toggleSoftInput(it,mView.wifiPwd)
         }
+
     }
 
 

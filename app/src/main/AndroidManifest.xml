@@ -40,6 +40,7 @@
         <activity
             android:name=".ui.activity.MainViewActivity"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.BeginActivity"

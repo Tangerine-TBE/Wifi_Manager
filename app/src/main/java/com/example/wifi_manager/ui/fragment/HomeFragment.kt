@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Rect
 import android.location.LocationManager
 import android.net.*
 import android.net.wifi.SupplicantState
@@ -13,6 +14,7 @@ import android.os.Build
 import android.text.Html
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
+import android.view.Gravity
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +36,8 @@ import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.HomeViewModel
 import com.feisukj.cleaning.ui.activity.StrongAccelerateActivity
 import com.scwang.smart.refresh.header.MaterialHeader
+import com.tamsiree.rxkit.RxDeviceTool
+import com.tamsiree.rxkit.RxKeyboardTool
 import com.tamsiree.rxkit.RxNetTool
 import com.tamsiree.rxkit.view.RxToast
 import kotlinx.coroutines.Dispatchers
@@ -361,7 +365,17 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
         }
     }
 
+
+    private fun showPwConnectPopup(wifiMessage: WifiMessageBean) {
+        mConnectWifiPopup?.apply {
+            setWifiName(wifiMessage.wifiName)
+            showPopupView(mOpenView.mSmartRefreshLayout,Gravity.BOTTOM,y=RxDeviceTool.getScreenHeights(requireContext())/2+50)
+        }
+    }
+
+
     override fun initEvent() {
+
         mConnectStatePopup?.apply {
             setOnDismissListener {
                 mConnectTimeOut.cancel()
@@ -530,6 +544,7 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
         }
 
 
+
     }
 
     private fun showConnectPopup(wifiMessage: WifiMessageBean) {
@@ -588,13 +603,6 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                     }
                 }
             }
-        }
-    }
-
-    private fun showPwConnectPopup(wifiMessage: WifiMessageBean) {
-        mConnectWifiPopup?.apply {
-            setWifiName(wifiMessage.wifiName)
-            showPopupView(mOpenView.mSmartRefreshLayout)
         }
     }
 

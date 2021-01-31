@@ -6,10 +6,12 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Rect
 import android.net.Uri
 import android.os.CountDownTimer
 import android.text.TextUtils
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -19,11 +21,9 @@ import com.example.module_base.base.BaseApplication
 import com.example.module_base.widget.LoadingDialog
 import com.example.module_base.widget.MyToolbar
 import com.google.gson.Gson
-import com.google.gson.annotations.Until
 import com.permissionx.guolindev.PermissionX
 import com.tamsiree.rxkit.RxNetTool
 import com.tamsiree.rxkit.view.RxToast
-import java.lang.Exception
 import java.util.*
 
 /**
@@ -37,15 +37,19 @@ import java.util.*
 
 
 //跳转Activity
-inline fun <reified T>toOtherActivity(activity: Activity?,block:Intent.()->Unit){
-    val intent = Intent(activity,T::class.java)
+inline fun <reified T>toOtherActivity(activity: Activity?, block: Intent.() -> Unit){
+    val intent = Intent(activity, T::class.java)
     intent.block()
     activity?.startActivity(intent)
 }
 
 //跳转Activity
-inline fun <reified T>toOtherActivity(activity: Activity?,isFinish: Boolean,block:Intent.()->Unit){
-    val intent = Intent(activity,T::class.java)
+inline fun <reified T>toOtherActivity(
+    activity: Activity?,
+    isFinish: Boolean,
+    block: Intent.() -> Unit
+){
+    val intent = Intent(activity, T::class.java)
     intent.block()
     activity?.startActivity(intent)
     if (isFinish) {
@@ -54,31 +58,42 @@ inline fun <reified T>toOtherActivity(activity: Activity?,isFinish: Boolean,bloc
 }
 
 //跳转Activity带请求码
-inline fun <reified T>toOtherResultActivity(context: Activity?,requestCode:Int,block:Intent.()->Unit){
-    val intent = Intent(context,T::class.java)
+inline fun <reified T>toOtherResultActivity(
+    context: Activity?,
+    requestCode: Int,
+    block: Intent.() -> Unit
+){
+    val intent = Intent(context, T::class.java)
     intent.block()
-    context?.startActivityForResult(intent,requestCode)
+    context?.startActivityForResult(intent, requestCode)
 }
 //复制
-fun copyContent(context: Context,result:String){
+fun copyContent(context: Context, result: String){
     val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val mClipData = ClipData.newPlainText("text", result)
     cm.setPrimaryClip(mClipData)
     RxToast.normal("已复制到剪切板")
 }
 //分享
-fun shareContent(context: Context,result:String){
+fun shareContent(context: Context, result: String){
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain" // 纯文本
         putExtra(Intent.EXTRA_SUBJECT, PackageUtil.getAppMetaData(context, Constants.APP_NAME))
         putExtra(Intent.EXTRA_TEXT, result)
         flags = Intent.FLAG_ACTIVITY_NEW_TASK
     }
-    context.startActivity(Intent.createChooser(intent,PackageUtil.getAppMetaData(context, Constants.APP_NAME)))
+    context.startActivity(
+        Intent.createChooser(
+            intent, PackageUtil.getAppMetaData(
+                context,
+                Constants.APP_NAME
+            )
+        )
+    )
 }
 //设置页面和状态栏的距离
- fun setToolBar(activity: Activity,title:String,view: MyToolbar,color: Int=Color.WHITE) {
-    MyStatusBarUtil.setColor(activity,color)
+ fun setToolBar(activity: Activity, title: String, view: MyToolbar, color: Int = Color.WHITE) {
+    MyStatusBarUtil.setColor(activity, color)
     view.setTitle(title)
 }
 
@@ -101,11 +116,12 @@ fun calLastedTime(endDate: Date, nowDate: Date): Long {
     return day+1
 }
 //toolbar事件
-fun MyToolbar.toolbarEvent(activity: Activity,event:()->Unit){
-    setOnBackClickListener(object :MyToolbar.OnBackClickListener{
+fun MyToolbar.toolbarEvent(activity: Activity, event: () -> Unit){
+    setOnBackClickListener(object : MyToolbar.OnBackClickListener {
         override fun onBack() {
             activity?.finish()
         }
+
         override fun onRightTo() {
             event()
         }
@@ -113,7 +129,10 @@ fun MyToolbar.toolbarEvent(activity: Activity,event:()->Unit){
 }
 
 //计时
-fun startCountDown(totalTime: Long, followTime: Long, finish: () -> Unit, ticking: () -> Unit) = object:CountDownTimer(totalTime,followTime){
+fun startCountDown(totalTime: Long, followTime: Long, finish: () -> Unit, ticking: () -> Unit) = object:CountDownTimer(
+    totalTime,
+    followTime
+){
         override fun onFinish() {
             finish()
         }
@@ -128,7 +147,7 @@ fun isConnectedWifi(context: Context)=RxNetTool.isConnected(context)
 
 
 //弹出toast
-fun showToast(str:String){
+fun showToast(str: String){
     RxToast.normal(str)
 }
 
@@ -143,7 +162,11 @@ fun LoadingDialog.showDialog(activity: Activity?){
 }
 
 //不全屏
-inline fun <reified T : View>setStatusBar(activity: FragmentActivity?, view: T, layoutType: LayoutType){
+inline fun <reified T : View>setStatusBar(
+    activity: FragmentActivity?,
+    view: T,
+    layoutType: LayoutType
+){
     val layoutParams = when (layoutType) {
         LayoutType.RELATIVELAYOUT -> view.layoutParams as RelativeLayout.LayoutParams
         LayoutType.LINEARLAYOUT -> view.layoutParams as LinearLayout.LayoutParams
@@ -179,12 +202,18 @@ inline fun <reified T> gsonHelper(result: String): T? =
             } else {
                 null
             }
-        }catch (e:Exception){
+        }catch (e: Exception){
             null
         }
 
 
-fun checkAppPermission( permissions:ArrayList<String>,success:()->Unit,fail:()->Unit,activity: FragmentActivity?=null,fragment: Fragment?=null,){
+fun checkAppPermission(
+    permissions: ArrayList<String>,
+    success: () -> Unit,
+    fail: () -> Unit,
+    activity: FragmentActivity? = null,
+    fragment: Fragment? = null
+){
     try {
         val permissionCollection = if (activity == null) {
             PermissionX.init(fragment)
@@ -193,8 +222,10 @@ fun checkAppPermission( permissions:ArrayList<String>,success:()->Unit,fail:()->
         }
         permissionCollection
             .permissions(permissions)
-            .setDialogTintColor(  Color.parseColor("#285FF5"),
-                Color.parseColor("#285FF5"))
+            .setDialogTintColor(
+                Color.parseColor("#285FF5"),
+                Color.parseColor("#285FF5")
+            )
             .onExplainRequestReason { scope, deniedList, beforeRequest ->
                 val msg = "即将申请的权限是程序必须依赖的权限"
                 scope.showRequestReasonDialog(deniedList, msg, "开启", "取消")
@@ -210,7 +241,10 @@ fun checkAppPermission( permissions:ArrayList<String>,success:()->Unit,fail:()->
                     fail()
                 }
             }
-    }catch (e:Exception){
+    }catch (e: Exception){
     }
 
 }
+
+
+

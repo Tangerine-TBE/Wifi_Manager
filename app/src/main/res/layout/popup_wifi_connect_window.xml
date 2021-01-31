@@ -72,7 +72,6 @@
                 android:id="@+id/sharePublicWifi"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="16dp"
                 app:color_checked="#DFDFDF"
                 app:layout_constraintStart_toStartOf="@+id/wifiPwd"
@@ -80,6 +79,7 @@
 
 
             <TextView
+                android:id="@+id/shareDes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

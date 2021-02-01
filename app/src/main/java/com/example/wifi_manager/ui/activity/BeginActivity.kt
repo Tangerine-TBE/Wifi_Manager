@@ -9,7 +9,7 @@ import com.example.module_base.utils.*
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityBeginBinding
 import com.example.wifi_manager.ui.popup.AgreementPopup
-import com.example.wifi_manager.utils.DataProvider.askLocationPermissionLis
+import com.example.wifi_manager.utils.DataProvider.askAllPermissionLis
 import com.example.wifi_manager.viewmodel.BeginViewModel
 
 class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>() {
@@ -55,7 +55,7 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
         mAgreementPopup.setOnActionClickListener(object : BasePopup.OnActionClickListener {
             override fun sure() {
                 checkAppPermission(
-                    askLocationPermissionLis, {
+                    askAllPermissionLis, {
                         if (AdMsgUtil.getADKey() != null) {
                             mSplashHelper.showAd()
                         } else {

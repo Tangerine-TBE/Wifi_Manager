@@ -14,15 +14,15 @@
 
         <TextView
             android:id="@+id/mWifiName"
-            android:text="HUng-ku"
             android:textSize="16sp"
+            android:maxLength="20"
+            android:ellipsize="end"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/mWifiStateHint"
-            android:text="免费WiFi-ku"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:layout_below="@+id/mWifiName"
@@ -32,7 +32,6 @@
         <ImageView
             android:id="@+id/mWifiStateIcon"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon_wifi_protect"
             android:layout_toLeftOf="@+id/mWifiLevel"
             android:layout_width="20dp"
             android:layout_height="20dp" />

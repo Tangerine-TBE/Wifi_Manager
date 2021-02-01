@@ -24,18 +24,26 @@ class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean, BaseDataBindingHolder<It
         holder.dataBinding?.apply {
             mWifiName.text=item.wifiName
             mWifiLevel.setImageResource(wifiSignalState(item.wifiLevel))
-            item.encryptionWay.let {
-                if (it.contains("WPA2") and it.contains("WPS") || it.contains("WPA")) {
+            item.wifiProtectState.let {
+                if (it!=HomeViewModel.OPEN) {
                     mWifiStateIcon.visibility=View.VISIBLE
-                    mWifiStateIcon.setImageResource( if (item.saveWifiPwdState) R.mipmap.icon_wifi_un_protect else R.mipmap.icon_wifi_protect)
+                    mWifiStateIcon.setImageResource( if (item.shareState) R.mipmap.icon_home_open_lock else R.mipmap.icon_wifi_protect)
+                    when {
+                        item.shareState -> {
+                            mWifiStateHint.text="推荐"
+                        }
+                        !item.shareState and item.saveWifiPwdState -> {
+                            mWifiStateHint.text = "已保存密码"
+                        }
+
+
+                    }
+
                 }
                 else{
                     mWifiStateIcon.visibility=View.GONE
                 }
             }
-
-            mWifiStateHint.text=if (item.shareState)  "分享过的wifi" else ""
-
 
 
 

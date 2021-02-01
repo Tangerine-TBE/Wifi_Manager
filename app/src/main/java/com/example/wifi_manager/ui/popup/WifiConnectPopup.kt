@@ -53,7 +53,7 @@ class WifiConnectPopup(activity: FragmentActivity?):
         override fun onClick(widget: View) {
             //点击事件
             toOtherActivity<DealViewActivity>(activity,false){
-                putExtra(Constants.SET_DEAL1,1)
+                putExtra(Constants.SET_DEAL1,3)
             }
         }
     }

@@ -9,6 +9,7 @@ import com.example.module_base.utils.MyStatusBarUtil
 import com.example.module_base.utils.PackageUtil
 import com.example.module_base.utils.toolbarEvent
 import com.example.module_base.widget.MyToolbar
+import com.tamsiree.rxkit.RxKeyboardTool
 import kotlinx.android.synthetic.main.activity_deal.*
 
 
@@ -33,6 +34,11 @@ class DealViewActivity : BaseViewActivity<ActivityDealBinding>()  {
                 mTitleMsg="隐私协议"
                 mContent=R.string.privacy
             }
+            3->{
+                mTitleMsg="功能说明"
+                mContent=R.string.shareText
+            }
+
         }
         privacy_toolbar.setTitle(mTitleMsg)
         text.text = PackageUtil.difPlatformName(this,mContent)
@@ -41,6 +47,9 @@ class DealViewActivity : BaseViewActivity<ActivityDealBinding>()  {
     override fun initEvent() {
 
         privacy_toolbar.toolbarEvent(this) {}
+
+
+
 
     }
 

@@ -11,11 +11,7 @@ import android.net.NetworkRequest
 import android.net.wifi.*
 import android.os.Build
 import android.os.PatternMatcher
-import android.text.TextUtils
-import android.util.Log
-import androidx.annotation.RequiresApi
 import com.example.module_base.base.BaseApplication.Companion.mContext
-import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
 import java.io.BufferedReader
 import java.io.FileReader
@@ -68,20 +64,6 @@ object WifiUtils {
         }
     }
 
-    /**
-     * 获取WiFi列表
-     * @return
-     */
-    val wifiList: MutableList<ScanResult>
-        get() {
-
-            val resultList: MutableList<ScanResult> = ArrayList()
-            if (wifiManager != null && isWifiEnable) {
-                wifiManager.startScan()
-                resultList.addAll(wifiManager.scanResults)
-            }
-            return resultList
-        }
 
     /**
      * 有密码连接
@@ -91,9 +73,7 @@ object WifiUtils {
     fun connectWifiPws(ssid: String, pws: String):Boolean   {
          wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, pws, true))
-        val enableNetwork = wifiManager.enableNetwork(netId, true)
-      //  LogUtils.i("-----connectWifiPws-${wifiManager.connectionInfo.networkId}----$disableNetwork---------$enableNetwork------------")
-        return enableNetwork
+        return wifiManager.enableNetwork(netId, true)
     }
 
     /**
@@ -103,9 +83,7 @@ object WifiUtils {
     fun connectWifiNoPws(ssid: String):Boolean {
         wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, "", false))
-        val enableNetwork = wifiManager.enableNetwork(netId, true)
-   //     LogUtils.i("-----connectWifiNoPws-------$enableNetwork----------------")
-        return enableNetwork
+        return wifiManager.enableNetwork(netId, true)
 
     }
 
@@ -116,9 +94,9 @@ object WifiUtils {
      * @param isHasPws
      */
     private fun getWifiConfig(
-            ssid: String,
-            pws: String,
-            isHasPws: Boolean
+        ssid: String,
+        pws: String,
+        isHasPws: Boolean
     ): WifiConfiguration {
         val config = WifiConfiguration()
 
@@ -192,7 +170,7 @@ object WifiUtils {
 
 
     //保存密码连接
-    fun savePwdConnect(ssid:String):Boolean{
+    fun savePwdConnect(ssid: String):Boolean{
         val wifiConfig = isExist(ssid)
         return if (wifiConfig != null) {
             wifiManager.enableNetwork(wifiConfig.networkId, true)
@@ -202,6 +180,20 @@ object WifiUtils {
     }
 
 
+    // 锁定WifiLock
+    private fun acquireWifiLock(name:String) {
+        wifiManager.createWifiLock(name).acquire()
+    }
+
+    // 解锁WifiLock
+    fun releaseWifiLock(name:String) {
+        // 判断时候锁定
+        val createWifiLock = wifiManager.createWifiLock(name)
+        if (createWifiLock.isHeld) {
+            createWifiLock.release()
+        }
+
+    }
 
     /**
      * 获取本机 ip地址
@@ -330,4 +322,56 @@ object WifiUtils {
         return false
     }
 
+
+
+
+    /**
+     * 返回item在list中的坐标
+     */
+    private fun getItemPosition(list: List<ScanResult>, item: ScanResult): Int {
+        for (i in list.indices) {
+            if (item.SSID == list[i].SSID) {
+                return i
+            }
+        }
+        return -1
+    }
+
+
+    /**
+     * 获取WiFi列表
+     * @return
+     */
+    val wifiList: MutableList<ScanResult>
+        get() {
+            val nlist: MutableList<ScanResult> = ArrayList()
+            if (wifiManager != null && isWifiEnable) {
+                wifiManager.startScan()
+                val olist = wifiManager.scanResults
+                val info = wifiManager.connectionInfo
+                for (i in olist.indices) {
+                    if (info != null && info.bssid == olist[i].BSSID) {
+                        // 当前已连接设备不显示在列表中
+                        continue
+                    }
+                    // 该热点SSID是否已在列表中
+                    val position = getItemPosition(nlist, olist[i])
+                    if (position != -1) { // 已在列表
+                        // 相同SSID热点，取信号强的
+                        if (nlist[position].level < olist[i].level) {
+                            nlist.removeAt(position)
+                            nlist.add(position, olist[i])
+                        }
+                    } else {
+                        nlist.add(olist[i])
+                    }
+                }
+            }
+            return nlist
+        }
+
 }
+
+
+
+

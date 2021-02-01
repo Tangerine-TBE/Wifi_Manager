@@ -44,8 +44,9 @@
             android:id="@+id/imageView3"
             android:layout_marginTop="11dp"
             android:layout_width="match_parent"
-            android:layout_height="244dp"
-            android:src="@mipmap/ic_launcher"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_mac_des"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />

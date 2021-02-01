@@ -42,8 +42,6 @@ object ConstantsUtil {
     const val DIS_WIFI = "WiFi已关闭"
 
 
-
-
     //-----------------------------SP------------------
     //信号增强
     const val SP_SIGNAL_INFO = "SP_SIGNAL_INFO"
@@ -59,4 +57,12 @@ object ConstantsUtil {
     const val SP_WIFI_PROTECT_TIME = "SP_WIFI_PROTECT_TIME"
     const val SP_WIFI_PROTECT_NAME = "SP_WIFI_PROTECT_NAME"
     const val SP_WIFI_PROTECT_DAY = "SP_WIFI_PROTECT_DAY"
+
+
+
+    //-------------------------通知-----------------
+    const val ACTION_WIFI_CONNECT_CANCEL = "ACTION_WIFI_CONNECT_CANCEL"
+    const val NOTIFICATION_WIFI_ID = "NOTIFICATION_WIFI_ID"
+
+
 }

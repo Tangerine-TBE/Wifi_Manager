@@ -21,7 +21,7 @@ object WifiInfoRepository {
 
 
 
-    fun getShareWifiList(wifiMacAddress: String?)
+    suspend fun getShareWifiList(wifiMacAddress: String?)
         =RetrofitClient.createWifiManager().getShareWifiContent(wifiMacAddress)
 
 

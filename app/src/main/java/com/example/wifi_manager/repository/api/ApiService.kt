@@ -31,6 +31,6 @@ interface ApiService {
     fun queryShareWifiInfo(@Query("name") name:String?,@Query("address") address:String?,@Query("password") password:String?): Call<queryShareWifiResult>
 
     @POST("customer/using/historyList")
-    fun getShareWifiContent(@Query("address") address:String?):Call<RequestWifiBean>
+    suspend fun getShareWifiContent(@Query("address") address:String?):RequestWifiBean
 
 }

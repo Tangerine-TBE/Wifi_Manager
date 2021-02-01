@@ -75,26 +75,7 @@ class HomeViewModel : BaseViewModel() {
     }
 
 
-    private val netWorkCallback by lazy {
-        object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                super.onAvailable(network)
 
-
-            }
-
-            override fun onLost(network: Network) {
-                super.onLost(network)
-            }
-
-            override fun onCapabilitiesChanged(
-                    network: Network,
-                    networkCapabilities: NetworkCapabilities
-            ) {
-
-            }
-        }
-    }
 
 
     private val mOldWifiMessageBeans: MutableList<WifiMessageBean> = ArrayList()
@@ -113,7 +94,7 @@ class HomeViewModel : BaseViewModel() {
                 wifiList.forEach {
                     list.add(WifiMessageBean(it.SSID, it.BSSID, it.capabilities, it.level, wifiSignalState(it.level), wifiProtectState(it.capabilities),saveWifiPwdState = WifiUtils.isSaveWifiPwd(it.SSID)))
                 }
-                list.sortWith(compareBy({ it.wifiProtectState.length }, { it.wifiName }))
+
                 mOldWifiMessageBeans?.clear()
                 mOldWifiMessageBeans?.addAll(list)
                 setWifiContent(state, list)
@@ -129,7 +110,6 @@ class HomeViewModel : BaseViewModel() {
 
     private var realList: MutableList<WifiMessageBean> = ArrayList()
     private fun getUserShareList(list: MutableList<WifiMessageBean>) {
-        viewModelScope.launch(Dispatchers.IO) {
     //    LogUtils.i("-----newData-------begin---------------------")
         val filterList: MutableList<WifiMessageBean> = list.filter { it.wifiProtectState != OPEN }.toMutableList()
         realList = if (filterList.size > 20) filterList.subList(0, 20) else filterList
@@ -138,38 +118,63 @@ class HomeViewModel : BaseViewModel() {
             addressList.append("${it.wifiMacAddress},")
             //LogUtils.i("-----newData---realList--${it.wifiName}--------------$addressList---------")
         }
-        WifiInfoRepository.getShareWifiList(addressList.substring(0, addressList.length - 1)).exAwait({
-          //  LogUtils.i("-----newData----center--${it.message}-----------------------")
-        }, { it ->
-            if (it.code() == NET_SUCCESS) {
-                it.body()?.apply {
-                    if (code == NET_SUCCESS) {
-                        data.list?.let {
-                            it.forEach { newData ->
-                                list.forEach { oldData ->
-                                    if (oldData.wifiMacAddress == newData.address) {
-                                        oldData.wifiPwd = newData.password
-                                        oldData.shareState = true
-                                    }
-                                }
-                           //     LogUtils.i("-----newData----end--${newData.name}-----------------------")
-                            }
-                            setWifiContent(WifiContentState.NONE, list)
+        doRequest({
+            val shareWifiList = WifiInfoRepository.getShareWifiList(addressList.substring(0, addressList.length - 1))
+             shareWifiList?.data?.list?.let { it ->
+                it.forEach { newData ->
+                    list.forEach { oldData ->
+                        if (oldData.wifiMacAddress == newData.address) {
+                            oldData.wifiPwd = newData.password
+                            oldData.shareState = true
                         }
-
-                    } else {
-                   //     LogUtils.i("-----getUserShareList-----${msg}-----------------------")
                     }
+                    LogUtils.i("-----newData----end--${newData.name}-----------------------")
                 }
+                setWifiContent(WifiContentState.NONE, list)
             }
 
+        },{
+
         })
+
+    }
+
+    private fun sortList(list: MutableList<WifiMessageBean>): MutableList<WifiMessageBean> {
+        val shareList:MutableList<WifiMessageBean> = ArrayList()
+        val saveList:MutableList<WifiMessageBean> = ArrayList()
+        val openList:MutableList<WifiMessageBean> = ArrayList()
+        val closeList:MutableList<WifiMessageBean> = ArrayList()
+        val realList:MutableList<WifiMessageBean> = ArrayList()
+        list.forEach {
+            if (it.wifiProtectState == OPEN) {
+                openList.add(it)
+            } else {
+                when {
+                    it.shareState -> {
+                        shareList.add(it)
+                    }
+                    !it.shareState and it.saveWifiPwdState -> {
+                        saveList.add(it)
+                    }
+                    !it.shareState and !it.saveWifiPwdState -> {
+                        closeList.add(it)
+                    }
+                }
+
+            }
         }
+        realList.addAll(shareList)
+        realList.addAll(saveList)
+        realList.addAll(openList)
+        realList.addAll(closeList)
+        return realList
     }
 
 
+
     private fun setWifiContent(state: WifiContentState, list: MutableList<WifiMessageBean>) {
-        wifiContentEvent.postValue(ValueRefreshWifi(state, list))
+        val sortList = sortList(list)
+        wifiContentEvent.postValue(ValueRefreshWifi(state,sortList))
     }
 
     fun shareWifiInfo(wifiMessages: WifiMessageBean) {
@@ -216,30 +221,21 @@ class HomeViewModel : BaseViewModel() {
     }
 
     fun connectWifi(wifiMessage: WifiMessageBean, open: Boolean, wifiPwd: String = "") {
-        viewModelScope.launch(Dispatchers.Default) {
             if (open) {
              //   connectError.postValue(WifiUtils.connectNoPwdWifi(wifiMessage.wifiName, netWorkCallback))
-                connectError.postValue(WifiUtils.connectWifiNoPws(wifiMessage.wifiName))
+                connectError.value=WifiUtils.connectWifiNoPws(wifiMessage.wifiName)
             } else {
               //  connectError.postValue(WifiUtils.connectPwdWifi(wifiMessage.wifiName, wifiPwd, netWorkCallback))
-                connectError.postValue(WifiUtils.connectWifiPws(wifiMessage.wifiName, wifiPwd))
+                connectError.value=WifiUtils.connectWifiPws(wifiMessage.wifiName, wifiPwd)
             }
-    //        LogUtils.i("--------connectWifi-${getCurrentThreadName()}-----${wifiMessage.wifiName}--------")
-        }
+           LogUtils.i("--------connectWifi---1---${wifiMessage.wifiName}--------")
     }
 
     fun savePwdConnectWifi(SSID:String){
-        connectError.postValue(WifiUtils.savePwdConnect(SSID))
+        connectError.value=WifiUtils.savePwdConnect(SSID)
+        LogUtils.i("--------connectWifi---2---${SSID}--------")
     }
 
-
-
-    fun connectAction(wifiMessage: WifiMessageBean, showPopupAction: () -> Unit) {
-        if (wifiMessage.wifiProtectState == OPEN) {
-            connectWifi(wifiMessage, true)
-        }
-        showPopupAction()
-    }
 
 
     private var mConnectErrorCount = 0
@@ -282,6 +278,25 @@ class HomeViewModel : BaseViewModel() {
                     }
             }
 
+        }
+    }
+
+    private val netWorkCallback by lazy {
+        object : ConnectivityManager.NetworkCallback() {
+            override fun onAvailable(network: Network) {
+                super.onAvailable(network)
+            }
+
+            override fun onLost(network: Network) {
+                super.onLost(network)
+            }
+
+            override fun onCapabilitiesChanged(
+                network: Network,
+                networkCapabilities: NetworkCapabilities
+            ) {
+
+            }
         }
     }
 

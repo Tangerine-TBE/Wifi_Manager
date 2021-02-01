@@ -1,12 +1,9 @@
 package com.example.wifi_manager.ui.fragment
 
-import android.app.Service
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Rect
-import android.location.LocationManager
 import android.net.*
 import android.net.wifi.SupplicantState
 import android.net.wifi.WifiManager.*
@@ -26,6 +23,7 @@ import com.example.wifi_manager.R
 import com.example.wifi_manager.domain.ValueNetWorkHint
 import com.example.wifi_manager.domain.WifiMessageBean
 import com.example.wifi_manager.livedata.LocationLiveData
+import com.example.wifi_manager.notification.NotificationFactory
 import com.example.wifi_manager.ui.activity.*
 import com.example.wifi_manager.ui.adapter.recycleview.HomeTopAdapter
 import com.example.wifi_manager.ui.adapter.recycleview.HomeWifiAdapter
@@ -37,7 +35,6 @@ import com.example.wifi_manager.viewmodel.HomeViewModel
 import com.feisukj.cleaning.ui.activity.StrongAccelerateActivity
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.tamsiree.rxkit.RxDeviceTool
-import com.tamsiree.rxkit.RxKeyboardTool
 import com.tamsiree.rxkit.RxNetTool
 import com.tamsiree.rxkit.view.RxToast
 import kotlinx.coroutines.Dispatchers
@@ -103,8 +100,6 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
             addAction(WIFI_STATE_CHANGED_ACTION)
             addAction(SCAN_RESULTS_AVAILABLE_ACTION)
             addAction(SUPPLICANT_STATE_CHANGED_ACTION)
-
-
         }
 
 
@@ -155,20 +150,24 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
             })
 
             wifiContentEvent.observe(that, { result ->
-
                 when (result.state) {
                     WifiContentState.REFRESH -> {
                         binding.mOpenWifiLayout.mSmartRefreshLayout.finishRefresh()
                         RxToast.normal("发现了${result.list.size}个wifi")
                     }
                 }
-                mCurrentWifiContent = result.list
+
                 if (RxNetTool.isWifiConnected(requireContext())) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        mCurrentWifiContent.removeIf { it.wifiName == getConnectWifiName() }
+                        result.list.removeIf { it.wifiName == getConnectWifiName() }
                     }
                 }
+
+                mCurrentWifiContent=result.list
+
                 mWifiListAdapter.setList(mCurrentWifiContent)
+
+
 
                 mOpenView.timeAttend.apply {
                     visibility = View.VISIBLE
@@ -197,9 +196,12 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
         }
     }
 
+
+
+
+
     private var isWifi = false
     private var connectBegin = false
-
     inner class NetReceiver : BroadcastReceiver() {
         /**
          * WIFI_STATE_DISABLED    WLAN已经关闭
@@ -270,8 +272,8 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                                 }
                             }
 
+                            viewModel.getWifiList(WifiContentState.NONE)
 
-                            viewModel.getWifiList(WifiContentState.NORMAL)
 
                             viewModel.setCurrentNetState(
                                 ValueNetWorkHint(
@@ -280,6 +282,9 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                                 )
                             )
                             showConnectWifiName(context)
+
+                            NotificationFactory.wiFiNotification(getConnectWifiName())
+
 
                             //用于Wifi保镖检查
                             if (WifiUtils.getCipherType()) {
@@ -290,6 +295,7 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
 
                             sp.putBoolean(ConstantsUtil.SP_SIGNAL_SATE, false)
                         }
+
 
                         NetworkInfo.State.DISCONNECTED == info?.state -> {//wifi没连接上
                             if (isUser) viewModel.setConnectErrorCount(1)
@@ -315,6 +321,7 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                                             NET_NOT_CONNECT
                                     )
                             )
+                            NotificationFactory.noWiFiNotification()
                             LogUtils.i(" WLAN已经关闭")
                         }
                         WIFI_STATE_DISABLING -> {
@@ -434,7 +441,7 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                 setOnItemChildClickListener { adapter, view, position ->
                     when (view.id) {
                         R.id.mWifiInfo -> {
-                            mCurrentWifiContent?.let {
+                            mCurrentWifiContent.let {
                                 if (it.size > 0) {
                                     toOtherActivity<WifiInfoViewActivity>(activity) {
                                         putExtra(ConstantsUtil.WIFI_NAME_KEY, it[position].wifiName)
@@ -455,19 +462,16 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                 }
                 //wifi列表主view监听
                 setOnItemClickListener { adapter, view, position ->
-                    mCurrentWifiContent?.let {
+                    mCurrentWifiContent.let {
                         isUser = true
                         viewModel.clearConnectCount()
-
                         selectPosition = position
                         val wifiMessageBean = it[position]
                         currentWifiMessages = wifiMessageBean
                         if (RxNetTool.isWifiConnected(requireContext())) {
                             mRemindDialog.showPopupView(mSmartRefreshLayout, y = -150)
                         } else {
-                            viewModel.connectAction(wifiMessageBean) {
-                                connectStateAction(wifiMessageBean)
-                            }
+                             connectStateAction(wifiMessageBean)
                         }
                     }
                 }
@@ -477,11 +481,9 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
             mRemindDialog?.apply {
                 setOnActionClickListener(object : BasePopup.OnActionClickListener {
                     override fun sure() {
-                        mCurrentWifiContent?.let {
+                        mCurrentWifiContent.let {
                             val wifiMessage = it[selectPosition]
-                            viewModel.connectAction(wifiMessage) {
-                                connectStateAction(wifiMessage)
-                            }
+                            connectStateAction(wifiMessage)
                         }
                     }
 
@@ -494,7 +496,7 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
             mConnectWifiPopup?.apply {
                 setOnActionClickListener(object : BasePopup.OnActionClickListener {
                     override fun sure() {
-                        mCurrentWifiContent?.let { it ->
+                        mCurrentWifiContent.let { it ->
                             val pwd = getWifiPwd()
                             shareState = getShareState()
                             val wifiMessageBean = it[selectPosition]
@@ -502,7 +504,6 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                                 showToast("WiFi密码必须是8位及以上")
                             } else {
                                 dismiss()
-
                                 showConnectPopup(wifiMessageBean)
                                 viewModel.connectWifi(wifiMessageBean, false, pwd)
                                 currentWifiMessages?.let { it.wifiPwd = pwd }
@@ -565,7 +566,6 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
 
 
     private fun dismissErrorPopup() {
-
 
         if (saveConnectSate) {
             currentWifiMessages?.apply {
@@ -646,6 +646,7 @@ class HomeFragment : BaseVmFragment<com.example.wifi_manager.databinding.Fragmen
                     //         LogUtils.i("移动网络已连接")
                     if (!isWifi) {
                         viewModel.setCurrentNetState(ValueNetWorkHint(NET_FLOW_HINT, NET_FLOW))
+                        NotificationFactory.noWiFiNotification()
                     }
                 }
             }

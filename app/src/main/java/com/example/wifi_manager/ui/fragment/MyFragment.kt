@@ -104,7 +104,14 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
         binding.apply {
             mMyTopAdapter.setOnItemClickListener { adapter, view, position ->
                 when (position) {
-                    0 -> startActivityForResult(Intent(activity, ScanActivity::class.java), REQUEST_CODE)
+                    0 ->{
+                        checkAppPermission(DataProvider.askCameraPermissionLis,{
+                            startActivityForResult(Intent(activity, ScanActivity::class.java), REQUEST_CODE)
+                        },{
+                            showToast("无法获得权限，请重试！！！")
+                        },fragment = this@MyFragment)
+
+                    }
                     1 -> {
                         if (sp.getBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN)) {
                             toOtherActivity<WifiProtectInfoViewActivity>(activity) {}
@@ -174,6 +181,7 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
             }
         }
     }
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

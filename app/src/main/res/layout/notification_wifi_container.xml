@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notification_include"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/app_logo" />
+
+    <TextView
+        android:id="@+id/notification_title"
+        android:layout_alignTop="@+id/imageView9"
+        android:layout_toRightOf="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+     />
+
+    <TextView
+        android:id="@+id/notification_content"
+        android:layout_alignLeft="@+id/notification_title"
+        android:layout_alignBottom="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wwwwwww" />
+
+
+    <ImageView
+        android:id="@+id/notification_speed"
+        android:layout_toLeftOf="@+id/notification_protect"
+        android:layout_centerVertical="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/icon_notification_speed" />
+
+
+    <ImageView
+        android:id="@+id/notification_protect"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/icon_notification_protect" />
+
+
+</RelativeLayout>

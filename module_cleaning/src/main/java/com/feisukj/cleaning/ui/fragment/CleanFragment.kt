@@ -1,5 +1,6 @@
 package com.feisukj.cleaning.ui.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -19,6 +20,8 @@ import com.example.module_base.cleanbase.BaseConstant
 import com.example.module_base.cleanbase.PackageUtils
 import com.example.module_base.cleanbase.SectionData
 import com.example.module_base.cleanbase.toast
+import com.example.module_base.utils.checkAppPermission
+import com.example.module_base.utils.showToast
 
 import com.feisukj.cleaning.R
 import com.feisukj.cleaning.bean.GarbageBean
@@ -40,6 +43,10 @@ import kotlin.concurrent.thread
 import kotlin.random.Random
 
 class CleanFragment:Fragment(R.layout.fragment_home_clean) {
+    private val askStoragePermissionLis = arrayListOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    )
     companion object{
         val adapterData= ArrayList<SectionData<TitleBean_Group, GarbageBean>>()
         const val TO_SEE_DETAILS_CODE=3
@@ -185,7 +192,18 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
         initAnim()
 
         title_text.text ="清理"
+
+
+        checkAppPermission(askStoragePermissionLis,{
+            FileManager.start()
+        },{
+            showToast("我们将无法为您提清理服务！！！")
+        },fragment = this)
+
+
     }
+
+
 
     private fun initAnim() {
         setAnim(anim1,1600,true,Animation.RESTART,LinearInterpolator(),-1)
@@ -391,7 +409,7 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
     }
 
     private fun updateUIState(){
-        val clip = cleanButton_anim.drawable
+        val clip = cleanButton_anim?.drawable
         val time = Timer()
         when(currentState){
             ScanState.noScan -> {
@@ -415,18 +433,22 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
                 round_5.animation = anim5
 
                 time.schedule(object : TimerTask(){
+
                     override fun run() {
-                        activity?.runOnUiThread {
-                            if (clip.level >= 10000){
-                                clip.level = 0
-                            }else{
-                                clip.level += 40
-                            }
-                            if (currentState == ScanState.completeScan){
-                                clip.level = 0
-                                time.cancel()
+                        clip?.apply {
+                            activity?.runOnUiThread {
+                                if (clip.level >= 10000){
+                                    clip.level = 0
+                                }else{
+                                    clip.level += 40
+                                }
+                                if (currentState == ScanState.completeScan){
+                                    clip.level = 0
+                                    time.cancel()
+                                }
                             }
                         }
+
                     }
                 },5,5)
             }

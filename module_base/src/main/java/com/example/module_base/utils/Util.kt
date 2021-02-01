@@ -195,9 +195,9 @@ fun toAppShop(activity: Activity?){
 }
 
 
-inline fun <reified T> gsonHelper(result: String): T? =
+inline fun <reified T> gsonHelper(result: String?): T? =
         try {
-            if (!TextUtils.isEmpty(result)) {
+            if (result!=null) {
                 Gson().fromJson(result, T::class.java)
             } else {
                 null

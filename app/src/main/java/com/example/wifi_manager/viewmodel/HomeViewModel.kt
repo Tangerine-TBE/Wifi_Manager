@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.wifi.ScanResult
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.module_base.base.BaseViewModel
@@ -92,7 +93,8 @@ class HomeViewModel : BaseViewModel() {
             if (wifiList.isNotEmpty()) {
                 list.clear()
                 wifiList.forEach {
-                    list.add(WifiMessageBean(it.SSID, it.BSSID, it.capabilities, it.level, wifiSignalState(it.level), wifiProtectState(it.capabilities),saveWifiPwdState = WifiUtils.isSaveWifiPwd(it.SSID)))
+                    list.add(WifiMessageBean(it.SSID, it.BSSID, it.capabilities, it.level, wifiSignalState(it.level),
+                            wifiProtectState(it.capabilities),saveWifiPwdState = WifiUtils.isSaveWifiPwd(it.SSID)))
                 }
 
                 mOldWifiMessageBeans?.clear()
@@ -107,6 +109,9 @@ class HomeViewModel : BaseViewModel() {
             }
         }
     }
+
+
+
 
     private var realList: MutableList<WifiMessageBean> = ArrayList()
     private fun getUserShareList(list: MutableList<WifiMessageBean>) {
@@ -139,41 +144,37 @@ class HomeViewModel : BaseViewModel() {
 
     }
 
-    private fun sortList(list: MutableList<WifiMessageBean>): MutableList<WifiMessageBean> {
-        val shareList:MutableList<WifiMessageBean> = ArrayList()
-        val saveList:MutableList<WifiMessageBean> = ArrayList()
-        val openList:MutableList<WifiMessageBean> = ArrayList()
-        val closeList:MutableList<WifiMessageBean> = ArrayList()
-        val realList:MutableList<WifiMessageBean> = ArrayList()
+
+    private fun sortResult(list: MutableList<WifiMessageBean>):MutableList<WifiMessageBean>{
+        val realList: MutableList<WifiMessageBean> = ArrayList()
         list.forEach {
             if (it.wifiProtectState == OPEN) {
-                openList.add(it)
+                it.sort = 3
+                realList.add(it)
             } else {
                 when {
                     it.shareState -> {
-                        shareList.add(it)
+                        it.sort = 1
+                        realList.add(it)
                     }
                     !it.shareState and it.saveWifiPwdState -> {
-                        saveList.add(it)
+                        it.sort = 2
+                        realList.add(it)
                     }
                     !it.shareState and !it.saveWifiPwdState -> {
-                        closeList.add(it)
+                        it.sort = 4
+                        realList.add(it)
                     }
                 }
-
             }
         }
-        realList.addAll(shareList)
-        realList.addAll(saveList)
-        realList.addAll(openList)
-        realList.addAll(closeList)
         return realList
     }
 
 
-
     private fun setWifiContent(state: WifiContentState, list: MutableList<WifiMessageBean>) {
-        val sortList = sortList(list)
+        val sortList = sortResult(list)
+        sortList.sortBy { it.sort }
         wifiContentEvent.postValue(ValueRefreshWifi(state,sortList))
     }
 

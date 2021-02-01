@@ -81,7 +81,7 @@ public class SPUtil {
     }
 
     public String getString(String key) {
-        return this.prefs.getString(key, "");
+        return this.prefs.getString(key, null);
     }
 
     public int getInt(String key, int defaultVal) {

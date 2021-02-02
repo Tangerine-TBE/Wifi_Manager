@@ -19,6 +19,7 @@ import com.example.wifi_manager.repository.WifiInfoRepository
 import com.example.wifi_manager.ui.fragment.HomeFragment
 import com.example.wifi_manager.utils.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
@@ -77,7 +78,8 @@ class HomeViewModel : BaseViewModel() {
 
 
 
-
+    private var oldRealList: MutableList<WifiMessageBean> = ArrayList()
+    private var realList: MutableList<WifiMessageBean> = ArrayList()
 
     private val mOldWifiMessageBeans: MutableList<WifiMessageBean> = ArrayList()
     private val mCurrentWifiMessageBeans: MutableList<WifiMessageBean> = ArrayList()
@@ -99,23 +101,16 @@ class HomeViewModel : BaseViewModel() {
 
                 mOldWifiMessageBeans?.clear()
                 mOldWifiMessageBeans?.addAll(list)
-                setWifiContent(state, list)
-                getUserShareList(list)
+                getUserShareList(state,list)
             } else {
                 if (mOldWifiMessageBeans?.size > 0) {
-                    setWifiContent(state, mOldWifiMessageBeans)
-                    getUserShareList(mOldWifiMessageBeans)
+                    getUserShareList(state,mOldWifiMessageBeans)
                 }
             }
         }
     }
 
-
-
-
-    private var realList: MutableList<WifiMessageBean> = ArrayList()
-    private fun getUserShareList(list: MutableList<WifiMessageBean>) {
-    //    LogUtils.i("-----newData-------begin---------------------")
+    private fun getUserShareList(state: WifiContentState,list: MutableList<WifiMessageBean>) {
         val filterList: MutableList<WifiMessageBean> = list.filter { it.wifiProtectState != OPEN }.toMutableList()
         realList = if (filterList.size > 20) filterList.subList(0, 20) else filterList
         val addressList = StringBuffer()
@@ -124,8 +119,13 @@ class HomeViewModel : BaseViewModel() {
             //LogUtils.i("-----newData---realList--${it.wifiName}--------------$addressList---------")
         }
         doRequest({
-            val shareWifiList = WifiInfoRepository.getShareWifiList(addressList.substring(0, addressList.length - 1))
-             shareWifiList?.data?.list?.let { it ->
+            val shareWifiList = WifiInfoRepository.getShareWifiList(
+                addressList.substring(
+                    0,
+                    addressList.length - 1
+                )
+            )
+            shareWifiList?.data?.list?.let { it ->
                 it.forEach { newData ->
                     list.forEach { oldData ->
                         if (oldData.wifiMacAddress == newData.address) {
@@ -133,17 +133,27 @@ class HomeViewModel : BaseViewModel() {
                             oldData.shareState = true
                         }
                     }
-                    LogUtils.i("-----newData----end--${newData.name}-----------------------")
-                }
-                setWifiContent(WifiContentState.NONE, list)
-            }
 
-        },{
+                }
+
+                list.forEach {
+                    LogUtils.i("------shareState---------${it.shareState}------${it.wifiName}----------")
+                }
+
+                oldRealList.clear()
+                oldRealList.addAll(list)
+                setWifiContent(state, oldRealList)
+            }
+        }, {
+            if (oldRealList.size != 0) {
+                setWifiContent(WifiContentState.ERROR, oldRealList)
+            } else {
+                setWifiContent(WifiContentState.ERROR, list)
+            }
 
         })
 
     }
-
 
     private fun sortResult(list: MutableList<WifiMessageBean>):MutableList<WifiMessageBean>{
         val realList: MutableList<WifiMessageBean> = ArrayList()
@@ -181,13 +191,14 @@ class HomeViewModel : BaseViewModel() {
     fun shareWifiInfo(wifiMessages: WifiMessageBean) {
         if (!wifiMessages.shareState) {
             viewModelScope.launch(Dispatchers.IO){
+                delay(1000)
                 WifiInfoRepository.shareWifi(wifiMessages.wifiName, wifiMessages.wifiMacAddress, wifiMessages.wifiPwd, wifiMessages.encryptionWay).exAwait(
                         {
-                     //       LogUtils.i("--------shareWifiInfo------${it.message}--------")
+                           LogUtils.i("--------shareWifiInfo------${it.message}--------")
                         },
                         { result ->
                             val body = result.body()
-                     //       LogUtils.i("--------shareWifiInfo---------------${body?.string()}---------------------------")
+                            LogUtils.i("--------shareWifiInfo---------------${body?.string()}---------------------------")
                         })
             }
         }

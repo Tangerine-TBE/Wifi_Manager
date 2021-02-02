@@ -35,8 +35,6 @@ class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean, BaseDataBindingHolder<It
                         !item.shareState and item.saveWifiPwdState -> {
                             mWifiStateHint.text = "已保存密码"
                         }
-
-
                     }
 
                 }
@@ -44,9 +42,6 @@ class HomeWifiAdapter:BaseQuickAdapter<WifiMessageBean, BaseDataBindingHolder<It
                     mWifiStateIcon.visibility=View.GONE
                 }
             }
-
-
-
 
         }
     }

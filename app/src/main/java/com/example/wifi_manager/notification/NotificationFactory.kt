@@ -33,7 +33,7 @@ object NotificationFactory {
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(ConstantsUtil.ACTION_WIFI_CONNECT_CANCEL, "WIFI通知", NotificationManager.IMPORTANCE_HIGH)
+            val notificationChannel = NotificationChannel(ConstantsUtil.ACTION_WIFI_CONNECT_CANCEL, "WIFI通知", NotificationManager.IMPORTANCE_LOW )
             mNotificationManager.createNotificationChannel(notificationChannel)
         }
 

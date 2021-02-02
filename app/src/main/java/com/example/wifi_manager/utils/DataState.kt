@@ -24,7 +24,7 @@ enum class WifiState {
 
 //wifi列表状态
 enum class WifiContentState(){
-    NORMAL,REFRESH,NONE
+    NORMAL,REFRESH,ERROR
 }
 
 //查看设备

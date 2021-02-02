@@ -109,6 +109,10 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
                 })
             }
 
+            protectNet.setOnClickListener {
+                toOtherActivity<ProtectNetActivity>(this@CheckDeviceViewActivity){}
+            }
+
         }
     }
 

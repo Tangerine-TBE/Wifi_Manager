@@ -39,6 +39,7 @@
             app:layout_constraintTop_toBottomOf="@+id/checkDeviceToolbar">
 
             <TextView
+                android:id="@+id/protectNet"
                 android:background="@drawable/shape_check_device_hint_bg"
                 android:padding="9dp"
                 android:layout_width="wrap_content"

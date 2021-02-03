@@ -21,10 +21,10 @@
         android:theme="@style/Theme.Wifi_Manager"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup,android:label">
-        <activity android:name=".ui.activity.ProtectNetActivity"></activity>
-        <activity android:name=".ui.activity.SignalUpActivity" />
-        <activity android:name=".ui.activity.HardwareTweaksActivity" />
-        <activity android:name=".ui.activity.SafetyCheckActivity" />
+        <activity android:name=".ui.activity.ProtectNetActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.activity.SignalUpActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.HardwareTweaksActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.SafetyCheckActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.CheckDeviceViewActivity" />
         <activity android:name=".ui.activity.WifiProtectInfoViewActivity" />
         <activity android:name=".ui.activity.WifiProtectViewActivity" />

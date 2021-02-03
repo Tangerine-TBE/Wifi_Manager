@@ -107,7 +107,7 @@
             app:layout_constraintBottom_toBottomOf="@id/photoImage4"
             android:gravity="center"
             android:background="#5000"
-            tools:text="+859"
+            tools:text="暂无"
             android:textColor="#fff"
             android:textSize="23sp"
             android:layout_width="0dp"

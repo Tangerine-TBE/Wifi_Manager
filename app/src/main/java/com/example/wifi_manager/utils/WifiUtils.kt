@@ -12,6 +12,7 @@ import android.net.wifi.*
 import android.os.Build
 import android.os.PatternMatcher
 import com.example.module_base.base.BaseApplication.Companion.mContext
+import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
 import java.io.BufferedReader
 import java.io.FileReader
@@ -71,8 +72,9 @@ object WifiUtils {
      * @param pws
      */
     fun connectWifiPws(ssid: String, pws: String):Boolean   {
-         wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
+        wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
         val netId = wifiManager.addNetwork(getWifiConfig(ssid, pws, true))
+        LogUtils.i("---connectWifiPws-----$netId-------$ssid-------------")
         return wifiManager.enableNetwork(netId, true)
     }
 
@@ -81,8 +83,15 @@ object WifiUtils {
      * @param ssid
      */
     fun connectWifiNoPws(ssid: String):Boolean {
-        wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
-        val netId = wifiManager.addNetwork(getWifiConfig(ssid, "", false))
+        val tempConfig = isExist(ssid)
+       val netId = if (tempConfig != null) {
+            tempConfig.networkId
+        } else {
+            wifiManager.disableNetwork(wifiManager.connectionInfo.networkId)
+            wifiManager.addNetwork(getWifiConfig(ssid, "", false))
+        }
+        LogUtils.i("---connectWifiNoPws-----$netId------$ssid-----------")
+
         return wifiManager.enableNetwork(netId, true)
 
     }
@@ -99,7 +108,6 @@ object WifiUtils {
         isHasPws: Boolean
     ): WifiConfiguration {
         val config = WifiConfiguration()
-
         config.allowedAuthAlgorithms.clear()
         config.allowedGroupCiphers.clear()
         config.allowedKeyManagement.clear()
@@ -120,11 +128,15 @@ object WifiUtils {
             config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP)
             config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP)
             config.status = WifiConfiguration.Status.ENABLED
+            LogUtils.i(" --------connectWifi---has--------")
         } else {
             config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
         }
         return config
     }
+
+
+
 
     /**
      * 得到配置好的网络连接
@@ -177,16 +189,17 @@ object WifiUtils {
         } else {
             false
         }
+
     }
 
 
     // 锁定WifiLock
-    private fun acquireWifiLock(name:String) {
+    private fun acquireWifiLock(name: String) {
         wifiManager.createWifiLock(name).acquire()
     }
 
     // 解锁WifiLock
-    fun releaseWifiLock(name:String) {
+    fun releaseWifiLock(name: String) {
         // 判断时候锁定
         val createWifiLock = wifiManager.createWifiLock(name)
         if (createWifiLock.isHeld) {
@@ -267,10 +280,10 @@ object WifiUtils {
         var realName=""
         val wifiInfo = wifiManager.connectionInfo
         var name = wifiInfo.ssid
-        if (name != "<unknown ssid>" && name != "") {
-            realName = wifiInfo.ssid.replace("\"", "")
+        realName = if (name != "<unknown ssid>" && name != "") {
+            wifiInfo.ssid.replace("\"", "")
         }else{
-            realName="WiFi名获取失败"
+            "WiFi名获取失败"
         }
      //   LogUtils.i("----getConnectWifiName------${realName}------------")
         return realName

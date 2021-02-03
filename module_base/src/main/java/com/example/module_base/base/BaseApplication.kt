@@ -10,6 +10,7 @@ import com.example.module_base.provider.ModuleProvider
 import com.example.module_base.utils.PackageUtil
 import com.example.module_base.utils.SPUtil
 import com.tamsiree.rxkit.RxTool
+import com.umeng.commonsdk.UMConfigure
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -59,6 +60,9 @@ open class BaseApplication : Application() {
             FeedbackAPI.setAppExtInfo(jsonObject)
 
         }
+        //友盟
+        UMConfigure.init(applicationContext, UMConfigure.DEVICE_TYPE_PHONE, "01a1119aa055917f8816f3a")
+        UMConfigure.setLogEnabled(true)
 
         initData()
     }

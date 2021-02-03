@@ -62,29 +62,7 @@
         <activity
             android:name=".ui.activity.PhotoCleanActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.AboutActivity"
-            android:screenOrientation="portrait">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.VIEW"/> -->
-            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-            <!-- <data android:mimeType="video/*" android:scheme="content"/> -->
-            <!-- <data android:mimeType="video/*" android:scheme="file"/> -->
-            <!-- <data android:mimeType="image/*" android:scheme="content"/> -->
-            <!-- <data android:mimeType="image/*" android:scheme="file"/> -->
-            <!-- <data android:mimeType="text/*" android:scheme="content"/> -->
-            <!-- <data android:mimeType="text/*" android:scheme="file"/> -->
-            <!-- </intent-filter> -->
-        </activity> <!-- <data android:scheme="file"/> -->
-        <!-- <data android:scheme="content"/> -->
-        <!-- <data android:scheme="http"/> -->
-        <!-- <data android:scheme="rtsp"/> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.VIEW"/> -->
-        <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-        <!-- <data android:mimeType="video/*" android:scheme="file"/> -->
-        <!-- </intent-filter> -->
         <activity
             android:name=".ui.activity.WeChatAndQQCleanActivity"
             android:screenOrientation="portrait" />
@@ -107,9 +85,7 @@
             android:name=".ui.activity.CleanActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.DesktopZSActivity" />
-        <activity
-            android:name=".ui.activity.SettingActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activity.CleanAnimatorActivity"
             android:screenOrientation="portrait" />
@@ -177,6 +153,16 @@
                 <action android:name="com.feisukj.cleaning.light" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:authorities="${applicationId}.myProvider"
+            android:name=".MyProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/my_provider_paths" />
+        </provider>
 
         <service
             android:name=".service.MyNotificationListenerService"

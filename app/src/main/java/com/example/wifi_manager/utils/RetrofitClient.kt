@@ -21,8 +21,8 @@ object RetrofitClient {
     private const val WIFI_URL = "http://wifi.aisou.club/"
 
     private val client = OkHttpClient.Builder()
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
             .build()
 
     private val textWifiSpeedRetrofit: Retrofit = Retrofit.Builder()

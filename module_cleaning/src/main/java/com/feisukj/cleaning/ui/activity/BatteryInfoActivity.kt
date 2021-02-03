@@ -43,6 +43,10 @@ class BatteryInfoActivity : FragmentActivity(){
             }
         }
 
+        backOne.setOnClickListener {
+            finish()
+        }
+
 
     }
 

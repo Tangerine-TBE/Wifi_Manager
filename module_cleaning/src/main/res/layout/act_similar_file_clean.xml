@@ -11,43 +11,57 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomButton"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         tools:visibility="visible">
+
         <Button
             android:id="@+id/reClean"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="208dp"
+            android:layout_width="0dp"
             android:layout_height="46dp"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/selector_button"
+            android:gravity="center"
             android:text="@string/delete"
             android:textColor="#fff"
-            android:background="@drawable/selector_button"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/brainpower"
-            app:layout_constraintStart_toEndOf="@id/reClean"
-            app:layout_constraintTop_toTopOf="@id/reClean"
-            app:layout_constraintBottom_toBottomOf="@id/reClean"
-            android:layout_marginStart="23dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:layout_marginRight="24dp"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
-                android:src="@drawable/selector_circle_image"
                 android:layout_width="wrap_content"
-                android:layout_height="43dp"/>
+                android:layout_height="wrap_content"
+                android:src="@drawable/selector_circle_image" />
+
             <TextView
-                android:textColor="#FF070505"
-                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="@string/brainpowerText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textColor="#FF070505"
+                android:textSize="17sp" />
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.60" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

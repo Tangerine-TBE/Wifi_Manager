@@ -15,6 +15,7 @@ import com.example.wifi_manager.domain.ValueRefreshWifi
 import com.example.wifi_manager.domain.WifiMessageBean
 import com.example.module_base.extensions.exAwait
 import com.example.module_base.utils.calLastedTime
+import com.example.module_user.utils.NetState
 import com.example.wifi_manager.repository.WifiInfoRepository
 import com.example.wifi_manager.ui.fragment.HomeFragment
 import com.example.wifi_manager.utils.*
@@ -48,6 +49,9 @@ class HomeViewModel : BaseViewModel() {
 
     }
 
+    val wifiNetState by lazy {
+        MutableLiveData<NetState>()
+    }
 
     val wifiState by lazy {
         MutableLiveData<WifiState>()
@@ -111,12 +115,13 @@ class HomeViewModel : BaseViewModel() {
     }
 
     private fun getUserShareList(state: WifiContentState,list: MutableList<WifiMessageBean>) {
+        setWifiContent(WifiContentState.NORMAL, list)
         val filterList: MutableList<WifiMessageBean> = list.filter { it.wifiProtectState != OPEN }.toMutableList()
         realList = if (filterList.size > 20) filterList.subList(0, 20) else filterList
         val addressList = StringBuffer()
         realList.forEach {
             addressList.append("${it.wifiMacAddress},")
-            //LogUtils.i("-----newData---realList--${it.wifiName}--------------$addressList---------")
+         //   LogUtils.i("--------addressList------$addressList---------")
         }
         doRequest({
             val shareWifiList = WifiInfoRepository.getShareWifiList(
@@ -125,31 +130,41 @@ class HomeViewModel : BaseViewModel() {
                     addressList.length - 1
                 )
             )
-            shareWifiList?.data?.list?.let { it ->
-                it.forEach { newData ->
-                    list.forEach { oldData ->
-                        if (oldData.wifiMacAddress == newData.address) {
-                            oldData.wifiPwd = newData.password
-                            oldData.shareState = true
+            LogUtils.i("------shareState--555-------${shareWifiList}------${shareWifiList?.data}------${shareWifiList?.data?.list}-----")
+            val netList = shareWifiList?.data?.list
+            if (netList.isNotEmpty()) {
+                netList.let { it ->
+                    it.forEach { newData ->
+                        list.forEach { oldData ->
+                            if (oldData.wifiMacAddress == newData.address) {
+                                oldData.wifiPwd = newData.password
+                                oldData.shareState = true
+                            }
                         }
+
                     }
-
+                    list.forEach {
+                        LogUtils.i("------shareState---------${it.shareState}------${it.wifiName}----------")
+                    }
+                    oldRealList.clear()
+                    oldRealList.addAll(list)
+                    setWifiContent(state, oldRealList)
                 }
-
-                list.forEach {
-                    LogUtils.i("------shareState---------${it.shareState}------${it.wifiName}----------")
+            } else {
+                if (oldRealList.size != 0) {
+                    setWifiContent(WifiContentState.ERROR, oldRealList)
+                } else {
+                    setWifiContent(WifiContentState.ERROR, list)
                 }
-
-                oldRealList.clear()
-                oldRealList.addAll(list)
-                setWifiContent(state, oldRealList)
             }
+
         }, {
             if (oldRealList.size != 0) {
                 setWifiContent(WifiContentState.ERROR, oldRealList)
             } else {
                 setWifiContent(WifiContentState.ERROR, list)
             }
+            LogUtils.i("------shareState---------${it}---------")
 
         })
 
@@ -232,20 +247,26 @@ class HomeViewModel : BaseViewModel() {
         }
     }
 
+
     fun connectWifi(wifiMessage: WifiMessageBean, open: Boolean, wifiPwd: String = "") {
             if (open) {
              //   connectError.postValue(WifiUtils.connectNoPwdWifi(wifiMessage.wifiName, netWorkCallback))
                 connectError.value=WifiUtils.connectWifiNoPws(wifiMessage.wifiName)
+
             } else {
               //  connectError.postValue(WifiUtils.connectPwdWifi(wifiMessage.wifiName, wifiPwd, netWorkCallback))
                 connectError.value=WifiUtils.connectWifiPws(wifiMessage.wifiName, wifiPwd)
             }
-           LogUtils.i("--------connectWifi---1---${wifiMessage.wifiName}--------")
+           LogUtils.i("--------connectWifi---1---${ connectError.value}--------")
     }
+
+
+
+
 
     fun savePwdConnectWifi(SSID:String){
         connectError.value=WifiUtils.savePwdConnect(SSID)
-        LogUtils.i("--------connectWifi---2---${SSID}--------")
+        LogUtils.i("--------connectWifi---2---${connectError.value}--------")
     }
 
 

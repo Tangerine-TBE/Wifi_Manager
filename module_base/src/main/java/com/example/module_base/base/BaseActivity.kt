@@ -1,5 +1,6 @@
 package com.example.module_base.base
 
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -34,6 +35,7 @@ open class BaseActivity:FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreenWindow()
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
 
     }
 

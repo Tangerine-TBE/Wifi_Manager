@@ -28,7 +28,7 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
 
     override fun getLayoutView(): Int = R.layout.activity_begin
     override fun initView() {
-        viewModel.loadAdMsg()
+       // viewModel.loadAdMsg()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

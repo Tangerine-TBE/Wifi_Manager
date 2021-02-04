@@ -69,9 +69,9 @@
 
             <com.example.module_base.widget.SmoothCheckBox
                 android:id="@+id/scbAgreement"
-                android:layout_width="14dp"
+                android:layout_width="20dp"
                 android:layout_marginTop="5dp"
-                android:layout_height="14dp"
+                android:layout_height="20dp"
                 app:color_checked="@color/theme_color"
                 android:layout_marginLeft="26dp"
                 app:layout_constraintStart_toStartOf="parent"

@@ -165,8 +165,6 @@ class HomeFragment :
                         goneView(mOpenView.root)
                         showView(mCloseView.root)
                     }
-
-
                 }
             })
 
@@ -176,7 +174,12 @@ class HomeFragment :
                 when (result.state) {
                     WifiContentState.REFRESH -> {
                         binding.mOpenWifiLayout.mSmartRefreshLayout.finishRefresh()
-                        RxToast.normal("发现了${result.list.size}个wifi")
+                        val shareList = result.list.filter { it.shareState }
+                        if (shareList.isNotEmpty()) {
+                            RxToast.normal("发现了${shareList.size}个分享WiFi")
+                        } else {
+                            RxToast.normal("发现了${result.list.size}个WiFi")
+                        }
                     }
                     WifiContentState.ERROR -> binding.mOpenWifiLayout.mSmartRefreshLayout.finishRefresh()
                 }
@@ -309,7 +312,7 @@ class HomeFragment :
 
                             mCurrentWifiList.clear()
                             mCurrentWifiList.addAll(mOldWifiContent)
-                            LogUtils.i("---wjm333-----begin-------${getConnectWifiName()}-----------------------")
+                            LogUtils.i("---wjm333-----begin-------${getConnectWifiName()}------${mCurrentWifiList.size}-----------------")
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                 mCurrentWifiList.removeIf {
                                         it.wifiName == getConnectWifiName()

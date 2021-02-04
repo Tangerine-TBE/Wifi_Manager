@@ -121,7 +121,7 @@ class HomeViewModel : BaseViewModel() {
         val addressList = StringBuffer()
         realList.forEach {
             addressList.append("${it.wifiMacAddress},")
-         //   LogUtils.i("--------addressList------$addressList---------")
+            LogUtils.i("------addressList---------${addressList}-----------")
         }
         doRequest({
             val shareWifiList = WifiInfoRepository.getShareWifiList(
@@ -130,7 +130,6 @@ class HomeViewModel : BaseViewModel() {
                     addressList.length - 1
                 )
             )
-            LogUtils.i("------shareState--555-------${shareWifiList}------${shareWifiList?.data}------${shareWifiList?.data?.list}-----")
             val netList = shareWifiList?.data?.list
             if (netList.isNotEmpty()) {
                 netList.let { it ->

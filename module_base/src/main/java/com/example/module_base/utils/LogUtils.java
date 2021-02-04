@@ -3,8 +3,6 @@ package com.example.module_base.utils;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.module_base.BuildConfig;
-import com.example.module_base.base.BaseApplication;
 
 import java.util.List;
 

@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
 import com.example.module_base.cleanbase.BaseMvpActivity
 
 import com.feisukj.cleaning.R
@@ -127,6 +129,11 @@ class WeChatAndQQCleanActivity : BaseMvpActivity<WeChatAndQQCleanActivity, ScanP
         initClick()
         disposable=mPresenter.requestData()
 
+        feedHelper.showAd(AdType.WX_QQ_SHORTVIDEO_PACKAGE_PICTURE_PAGE)
+    }
+
+    private val feedHelper by lazy {
+        FeedHelper(this,FrameLayout(this).also { adapter?.adView=it })
     }
 
     private fun initClick(){

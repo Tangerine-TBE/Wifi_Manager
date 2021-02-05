@@ -10,6 +10,9 @@ import android.os.BatteryManager
 import android.os.Bundle
 
 import androidx.fragment.app.FragmentActivity
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.BanFeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.utils.SPUtil
 
 import com.feisukj.cleaning.R
@@ -48,6 +51,13 @@ class BatteryInfoActivity : FragmentActivity(){
         }
 
 
+        banFeedHelper.showAd(AdType.BATTERY_PAGE)
+
+    }
+
+
+    private val banFeedHelper by lazy {
+        BanFeedHelper(this, frameAd, frameLayout)
     }
 
     override fun onResume() {
@@ -72,6 +82,8 @@ class BatteryInfoActivity : FragmentActivity(){
         if (batteryAnimator?.isStarted==true){
             batteryAnimator?.cancel()
         }
+
+        banFeedHelper.releaseAd()
     }
 
     private val batteryInfoReceiver=object : BroadcastReceiver(){
@@ -164,4 +176,8 @@ class BatteryInfoActivity : FragmentActivity(){
             batteryView.batterQuantity=batteryInfo.br
         }
     }
+
+
+   // onDestroy
+
 }

@@ -15,12 +15,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.BannerHelper
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.feisukj.cleaning.R
 import com.feisukj.cleaning.bean.AppBean
 import com.feisukj.cleaning.ui.fragment.*
 import com.feisukj.cleaning.viewmodel.AppViewModel
 import com.gyf.immersionbar.ImmersionBar
 import kotlinx.android.synthetic.main.activity_app_clean.*
+import kotlinx.android.synthetic.main.activity_cooling_complete.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -119,10 +124,28 @@ class AppActivity2 : FragmentActivity(R.layout.activity_app_clean){
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED)
         intentFilter.addDataScheme("package")
         registerReceiver(unInstallAppReceiver,intentFilter)
+
+
+
+        insertHelper.showAd(AdType.SOFTWARE_MANAGEMENT_PAGE)
+        bannerHelper.showAd(AdType.CHARGE_PAGE)
     }
+
+
+
+    private val insertHelper by lazy {
+        InsertHelper(this)
+    }
+
+
+    private val bannerHelper by lazy {
+        BannerHelper(this,top_ad)
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
+        insertHelper.releaseAd()
         unregisterReceiver(unInstallAppReceiver)
         job?.cancel()
     }

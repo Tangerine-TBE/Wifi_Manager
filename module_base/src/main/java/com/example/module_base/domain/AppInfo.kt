@@ -10,7 +10,7 @@ import android.graphics.drawable.Drawable
  * @time 2021/1/22 10:08:12
  * @class describe
  */
-data class AppInfo(var appName:String,var packageName:String,var versionName:String,var versionCode:Int,var appIcon:Drawable?,)
+data class AppInfo(var appName:String?="",var packageName:String?="",var versionName:String?="",var versionCode:Int=0,var appIcon:Drawable?)
 {
     constructor():this("","","",0,null)
 }

@@ -14,13 +14,19 @@ import android.widget.Switch
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.BanFeedHelper
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.cleanbase.toast
 
 
 import com.feisukj.cleaning.R
 import com.feisukj.cleaning.bean.BatteryInfo
 import com.gyf.immersionbar.ImmersionBar
+import kotlinx.android.synthetic.main.activity_cooling_complete.*
 import kotlinx.android.synthetic.main.activity_save_power.*
+import kotlinx.android.synthetic.main.activity_save_power.leftBack
 
 
 class SavePowerActivity :FragmentActivity(){
@@ -30,6 +36,8 @@ class SavePowerActivity :FragmentActivity(){
 
     private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
     private val bluetoothAdapter by lazy { BluetoothAdapter.getDefaultAdapter()?:null }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +54,26 @@ class SavePowerActivity :FragmentActivity(){
         initListener()
 
 
+        feedHelper.showAd(AdType.POWERSAVING_PAGE)
+        insertHelper.showAd(AdType.POWERSAVING_PAGE)
     }
+
+    private val feedHelper by lazy {
+        FeedHelper(this,frameLayout)
+    }
+
+    private val insertHelper by lazy {
+        InsertHelper(this)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        feedHelper.releaseAd()
+        insertHelper.releaseAd()
+    }
+
+
 
     private fun initSwitch(){
         locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER).let {

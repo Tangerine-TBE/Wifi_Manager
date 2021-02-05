@@ -44,4 +44,14 @@ abstract class BaseFragment2 : Fragment(){
     abstract fun initView()
 
     abstract fun initListener()
+
+
+    open fun release(){
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        release()
+    }
 }

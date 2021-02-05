@@ -17,6 +17,6 @@ import retrofit2.http.QueryMap;
  */
 public interface AdService {
 
-    @GET("anClock")
+    @GET("twxWifiMaster")
     Call<AdBean> getAdMessage(@QueryMap Map<String,String> params);
 }

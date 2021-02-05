@@ -2,6 +2,9 @@ package com.example.wifi_manager.ui.activity
 
 import android.content.Intent
 import android.net.Uri
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.base.BaseViewActivity
 import com.example.module_base.utils.copyContent
 import com.example.module_base.utils.setToolBar
@@ -20,9 +23,21 @@ class ScanResultViewActivity : BaseViewActivity<ActivityScanResultBinding>() {
             setToolBar(this@ScanResultViewActivity,"扫描结果",mScanToolbar)
             intent.getStringExtra(ConstantsUtil.ZXING_RESULT_KEY)?.let { mResult=it }
             mResultContent.text=mResult
+
+
+            insertHelper.showAd(AdType.CLEAN_FINISHED)
+            feedHelper.showAd(AdType.CLEAN_FINISHED)
         }
 
 
+
+    }
+
+    private val feedHelper by lazy {
+        FeedHelper(this,binding.bottomAd)
+    }
+    private val insertHelper by lazy {
+        InsertHelper(this)
     }
 
 
@@ -46,5 +61,8 @@ class ScanResultViewActivity : BaseViewActivity<ActivityScanResultBinding>() {
 
     }
 
-
+    override fun release() {
+        insertHelper.releaseAd()
+        feedHelper.releaseAd()
+    }
 }

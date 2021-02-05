@@ -3,9 +3,9 @@ package com.example.module_ad.utils;
 import android.text.TextUtils;
 
 import com.example.module_ad.advertisement.AdType;
-import com.example.module_ad.base.IBaseAdBean;
-import com.example.module_ad.bean.AdBean;
+import com.example.module_ad.base.AdTypeBean;
 
+import com.example.module_ad.bean.AdBean;
 import com.example.module_base.utils.SPUtil;
 import com.google.gson.Gson;
 
@@ -81,22 +81,39 @@ public class AdMsgUtil {
     }
 
 
-    public static IBaseAdBean switchAdType(AdType type, AdBean.DataBean dataBean) {
-        if (type == AdType.HOME_PAGE) {
-            return dataBean.getHome_page();
-        }  else if (type == AdType.EXIT_PAGE) {
+    public static AdTypeBean switchAdType(AdType type, AdBean.DataBean dataBean) {
+        if (type == AdType.SEE_DETAIL) {
+            return dataBean.getSee_detail();
+        } else if (type == AdType.CLEAN_FINISHED) {
+            return dataBean.getClean_finished();
+        } else if (type == AdType.COOLING_PAGE) {
+            return dataBean.getCooling_page();
+        } else if (type == AdType.COOLING_FINISHED) {
+            return dataBean.getCooling_finished();
+        } else if (type == AdType.BATTERY_PAGE) {
+            return dataBean.getBattery_page();
+        } else if (type == AdType.POWERSAVING_PAGE) {
+            return dataBean.getPowersaving_page();
+        } else if (type == AdType.CHARGE_PAGE) {
+            return dataBean.getCharge_page();
+        } else if (type == AdType.COMMONLY_USED_PAGE_SECOND_LEVEL) {
+            return dataBean.getCommonly_used_page_second_level();
+        } else if (type == AdType.VIDEO_MANAGEMENT) {
+            return dataBean.getVideo_management();
+        } else if (type == AdType.WX_QQ_SHORTVIDEO_PACKAGE_PICTURE_PAGE) {
+            return dataBean.getWx_qq_shortvideo_package_picture_page();
+        } else if (type == AdType.ALBUM_VIDEO_MUSIC_FILE_PACKAGE_PAGE) {
+            return dataBean.getAlbum_video_music_file_package_page();
+        } else if (type == AdType.EXIT_PAGE) {
             return dataBean.getExit_page();
         } else if (type == AdType.SETTING_PAGE) {
             return dataBean.getSetting_page();
-        } else if (type == AdType.SKIN_PAGE) {
-            return dataBean.getSkin_page();
-        }  else if (type == AdType.MORE_PAGE) {
-            return dataBean.getMore_page();
         }
-        return dataBean.getHome_page();
+        else if (type == AdType.SOFTWARE_MANAGEMENT_PAGE) {
+            return dataBean.getSoftware_management_page();
+        }
+        return dataBean.getSetting_page();
     }
-
-
 
 
 }

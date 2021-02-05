@@ -17,6 +17,15 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:layout_marginLeft="20dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp" />
+
             <TextView
                 android:text="充电状态"
                 android:textColor="#1A1A1A"
@@ -213,7 +222,7 @@
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_gravity="center_horizontal"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

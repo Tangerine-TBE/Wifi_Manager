@@ -6,6 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#0E67FF"
     android:orientation="vertical">
+
+
     <LinearLayout
         android:id="@+id/title"
         android:fitsSystemWindows="true"
@@ -27,6 +29,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/top_ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="84dp"
@@ -274,7 +291,10 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:layout_marginTop="12dp"
+        android:id="@+id/bottom_ad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

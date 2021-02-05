@@ -5,6 +5,9 @@ import android.net.ConnectivityManager
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.base.BaseViewActivity
 import com.example.module_base.utils.*
 import com.example.wifi_manager.R
@@ -25,6 +28,14 @@ class WifiProtectInfoViewActivity : BaseViewActivity<ActivityWifiProtectInfoBind
     private val mProtectInfoAdapter by lazy {
         ProtectWifiCheckAdapter()
     }
+
+    private val feedHelper by lazy {
+        FeedHelper(this,binding.bottomAd)
+    }
+    private val insertHelper by lazy {
+        InsertHelper(this)
+    }
+
 
     override fun initView() {
         binding.apply {
@@ -95,8 +106,18 @@ class WifiProtectInfoViewActivity : BaseViewActivity<ActivityWifiProtectInfoBind
             for (i in 0 until  5){
                 mProtectInfoAdapter.setStepState(HardwareTweaksActivity.state[i])
                 delay(1000)
+
+                if (i==4){
+                    insertHelper.showAd(AdType.CLEAN_FINISHED)
+                    feedHelper.showAd(AdType.CLEAN_FINISHED)
+                }
             }
         }
+    }
+
+    override fun release() {
+        insertHelper.releaseAd()
+        feedHelper.releaseAd()
     }
 
 }

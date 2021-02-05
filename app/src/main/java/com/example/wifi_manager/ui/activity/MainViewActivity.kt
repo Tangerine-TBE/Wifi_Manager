@@ -1,5 +1,7 @@
 package com.example.wifi_manager.ui.activity
 
+import android.view.Gravity
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.example.module_base.base.BaseViewActivity
@@ -11,6 +13,7 @@ import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityMainBinding
 import com.example.wifi_manager.ui.fragment.HomeFragment
 import com.example.wifi_manager.ui.fragment.MyFragment
+import com.example.wifi_manager.ui.popup.ExitPoPupWindow
 import com.example.wifi_manager.utils.DataProvider
 import com.feisukj.cleaning.file.FileManager
 import com.feisukj.cleaning.ui.fragment.CleanFragment
@@ -22,6 +25,7 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
     private val mHomeFragment by lazy {  HomeFragment()}
     private val mClearFragment by lazy {  CleanFragment() }
     private val mMyFragment by lazy {  MyFragment()}
+    private val mExitPoPupWindow by lazy { ExitPoPupWindow(this) }
     override fun initView() {
         binding.bottomNavigationView.itemIconTintList = null;
         showFragment(mHomeFragment)
@@ -65,5 +69,14 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
             oldFragment=fragment
             commitAllowingStateLoss()
         }
+    }
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+            if (keyCode==KeyEvent.KEYCODE_BACK){
+                mExitPoPupWindow.showPopupView(binding.navHomeFrameLayout,Gravity.BOTTOM)
+                return true
+            }
+        return super.onKeyDown(keyCode, event)
     }
 }

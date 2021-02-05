@@ -3,8 +3,8 @@ package com.example.module_ad.advertisement;
 import android.app.Activity;
 import android.widget.FrameLayout;
 
-import com.example.module_ad.base.IBaseAdBean;
-import com.example.module_ad.base.IBaseXXBean;
+import com.example.module_ad.base.AdTypeBean;
+import com.example.module_ad.base.AdActionBean;
 import com.example.module_ad.base.IShowAdCallback;
 import com.example.module_ad.utils.AdProbabilityUtil;
 import com.example.module_ad.utils.AdMsgUtil;
@@ -19,7 +19,7 @@ public class FeedHelper {
     private boolean mAddTengxunAdError=false;
     private TTFeedAd mTTFeedAd;
     private TXFeedAd mTxFeedAd;
-    private IBaseAdBean mManager_page;
+    private AdTypeBean mManager_page;
 
     public FeedHelper(Activity activity,FrameLayout frameLayout) {
         this.mActivity=activity;
@@ -36,7 +36,7 @@ public class FeedHelper {
         if (AdMsgUtil.isHaveAdData()) {
             mManager_page=AdMsgUtil.switchAdType(type, AdMsgUtil.getAdState());
             if (mManager_page != null) {
-            IBaseXXBean baseNative_screen = mManager_page.getBaseNative_screen();
+            AdActionBean baseNative_screen = mManager_page.getBaseNative_screen();
                 if (baseNative_screen != null) {
             //判断时候展示广告
             if (baseNative_screen.isBaseStatus()) {

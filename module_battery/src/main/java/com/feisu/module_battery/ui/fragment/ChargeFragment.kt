@@ -7,6 +7,8 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import android.view.LayoutInflater
 import android.widget.PopupWindow
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.BanFeedHelper
 import com.example.module_base.cleanbase.BaseFragment2
 import com.example.module_base.utils.LogUtils
 import com.feisu.module_battery.R
@@ -18,6 +20,10 @@ import kotlinx.android.synthetic.main.fragment_charge.*
 class ChargeFragment: BaseFragment2() {
     override fun getLayoutId()= R.layout.fragment_charge
 
+    private val banFeedHelper by lazy {
+        BanFeedHelper(activity, bannerAd, frameLayout)
+    }
+
     override fun initView() {
         for (i in 0 until chargeStatic.childCount){
             chargeStatic.getChildAt(i).setOnTouchListener { view, _ ->
@@ -26,7 +32,11 @@ class ChargeFragment: BaseFragment2() {
             }
         }
 
-        LogUtils.i("-----------ChargeFragment------------------")
+        banFeedHelper.showAd(AdType.CHARGE_PAGE)
+    }
+
+    override fun release() {
+        banFeedHelper.releaseAd()
     }
 
     override fun initListener() {
@@ -41,6 +51,11 @@ class ChargeFragment: BaseFragment2() {
             popupWindow.setBackgroundDrawable(null)
             popupWindow.showAsDropDown(it, -popupWindow.width, 0)
         }
+
+        back.setOnClickListener {
+            activity?.finish()
+        }
+
     }
 
     override fun onResume() {

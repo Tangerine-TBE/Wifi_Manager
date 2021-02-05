@@ -6,7 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.LinearInterpolator
+import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.base.BaseViewActivity
 import com.example.module_base.utils.LayoutType
 import com.example.module_base.utils.LogUtils
@@ -37,9 +41,17 @@ class HardwareTweaksActivity : BaseViewActivity<ActivityHardwareTweaksBinding>()
         HardwareAdapter()
     }
 
+    private val feedHelper by lazy {
+        FeedHelper(this,binding.bottomAd)
+    }
+    private val insertHelper by lazy {
+        InsertHelper(this)
+    }
+
+
     override fun getLayoutView(): Int = R.layout.activity_hardware_tweaks
     override fun initView() {
-        setStatusBar(this, binding.hardwareToolbar, LayoutType.CONSTRAINTLAYOUT)
+        setStatusBar(this, binding.hardwareToolbar, LayoutType.LINEARLAYOUT)
         binding.apply {
             optimizeContainer.layoutManager = LinearLayoutManager(this@HardwareTweaksActivity)
             mHardwareOptimizeAdapter.setList(DataProvider.hardwareList)
@@ -66,7 +78,8 @@ class HardwareTweaksActivity : BaseViewActivity<ActivityHardwareTweaksBinding>()
     }
 
     override fun release() {
-
+        insertHelper.releaseAd()
+        feedHelper.releaseAd()
     }
 
     private fun animation(){
@@ -77,6 +90,11 @@ class HardwareTweaksActivity : BaseViewActivity<ActivityHardwareTweaksBinding>()
             val animatedValue = it.animatedValue as Int
 
               binding.hardwareProgressView.setProgressState(state[animatedValue])
+          }
+
+          doOnEnd {
+              insertHelper.showAd(AdType.CLEAN_FINISHED)
+              feedHelper.showAd(AdType.CLEAN_FINISHED)
           }
       }.start()
     }

@@ -28,7 +28,7 @@ public class Contents {
 
 
     //穿山甲
-    public static final String  CSJ_APPID= "5130956";
+    public static final String  CSJ_APPID= "5143358";
 
 
     //广告key

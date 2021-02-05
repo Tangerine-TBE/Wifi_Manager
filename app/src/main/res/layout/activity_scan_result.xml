@@ -78,5 +78,16 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 
+
+        <FrameLayout
+            android:id="@+id/bottom_ad"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mFindResult" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

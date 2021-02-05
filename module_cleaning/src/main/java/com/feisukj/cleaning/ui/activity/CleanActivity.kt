@@ -13,6 +13,9 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.ScaleAnimation
 import android.widget.FrameLayout
 import android.widget.Toast
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.cleanbase.BaseActivity2
 import com.example.module_base.cleanbase.BaseSectionAdapter
 import com.example.module_base.cleanbase.SectionData
@@ -26,6 +29,8 @@ import com.feisukj.cleaning.bean.TitleBean_Group
 import com.feisukj.cleaning.ui.fragment.CleanFragment
 import com.feisukj.cleaning.utils.getSizeString
 import kotlinx.android.synthetic.main.act_clean_clean.*
+import kotlinx.android.synthetic.main.activity_cooling_complete.*
+
 class CleanActivity : BaseActivity2(), BaseSectionAdapter.ItemSelectListener<TitleBean_Group,GarbageBean> {
     private lateinit var adapter:CleanAdapter_
     private val stack=HashSet<GarbageBean>()
@@ -62,6 +67,24 @@ class CleanActivity : BaseActivity2(), BaseSectionAdapter.ItemSelectListener<Tit
         img_anim.animation = anim
 
 
+
+        feedHelper.showAd(AdType.SEE_DETAIL)
+        insertHelper.showAd(AdType.SEE_DETAIL)
+    }
+
+    private val feedHelper by lazy {
+        FeedHelper(this,FrameLayout(this).also { adapter.adView=it })
+    }
+
+    private val insertHelper by lazy {
+        InsertHelper(this)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        feedHelper.releaseAd()
+        insertHelper.releaseAd()
     }
 
     override fun initListener() {

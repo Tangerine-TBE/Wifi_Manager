@@ -2,13 +2,17 @@ package com.feisukj.cleaning.ui.fragment
 
 import android.text.format.Formatter
 import android.view.View
+import com.example.module_ad.advertisement.FeedHelper
 import com.example.module_base.cleanbase.RecyclerViewHolder
 
 import com.feisukj.cleaning.R
 import com.feisukj.cleaning.adapter.AppAdapter_
 import com.feisukj.cleaning.bean.AppBean
+import kotlinx.android.synthetic.main.activity_cooling_complete.*
 
 class NameSortAppFragment:AbstractAppFragment() {
+
+
 
     override fun getAdapter(): AppAdapter_ {
         return AppAdapter_(R.layout.item_software2_clean, emptyList(), Comparator { o1, o2 ->
@@ -49,4 +53,6 @@ class NameSortAppFragment:AbstractAppFragment() {
     override fun onPackageAdd(appBean: AppBean) {
         super.onPackageAdd(appBean)
     }
+
+
 }

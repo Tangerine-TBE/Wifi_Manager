@@ -1,5 +1,8 @@
 package com.feisukj.cleaning.ui.activity
 
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.cleanbase.BaseActivity
 
 
@@ -7,6 +10,9 @@ import com.feisukj.cleaning.R
 import com.feisukj.cleaning.manager.FloatBallManager
 import com.feisukj.cleaning.utils.getSizeString
 import kotlinx.android.synthetic.main.act_complete_clean.*
+import kotlinx.android.synthetic.main.act_complete_clean.frameLayout
+import kotlinx.android.synthetic.main.act_complete_clean.leftBack
+import kotlinx.android.synthetic.main.activity_strong_accelerate_complete.*
 
 class CompleteActivity: BaseActivity() {
     companion object{
@@ -27,6 +33,24 @@ class CompleteActivity: BaseActivity() {
         }
         initClick()
 
+
+        feedHelper.showAd(AdType.CLEAN_FINISHED)
+        insertHelper.showAd(AdType.CLEAN_FINISHED)
+    }
+
+    private val feedHelper by lazy {
+        FeedHelper(this,frameLayout)
+    }
+
+    private val insertHelper by lazy {
+        InsertHelper(this)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        feedHelper.releaseAd()
+        insertHelper.releaseAd()
     }
     private fun initClick(){
         leftBack.setOnClickListener { finish() }

@@ -1,5 +1,8 @@
 package com.example.wifi_manager.ui.activity
 
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.base.BaseViewActivity
 import com.example.module_base.utils.setToolBar
 import com.example.module_base.utils.toolbarEvent
@@ -8,6 +11,13 @@ import com.example.wifi_manager.databinding.ActivitySpeedTestResultBinding
 import com.example.wifi_manager.utils.*
 
 class SpeedTestResultViewActivity : BaseViewActivity<ActivitySpeedTestResultBinding>() {
+    private val feedHelper by lazy {
+        FeedHelper(this,binding.bottomAd)
+    }
+    private val insertHelper by lazy {
+        InsertHelper(this)
+    }
+
     override fun getLayoutView(): Int=R.layout.activity_speed_test_result
     override fun initView() {
         binding.apply {
@@ -20,11 +30,20 @@ class SpeedTestResultViewActivity : BaseViewActivity<ActivitySpeedTestResultBind
                 mWifiSpeedRange.text="用户宽带在${WifiSpeedTestUtil.netWorkLevel(downSpeed?.toFloat())}之间"
                 mSpeedWifiName.text=getConnectWifiName()
         }
+
+            insertHelper.showAd(AdType.CLEAN_FINISHED)
+            feedHelper.showAd(AdType.CLEAN_FINISHED)
+
     }
 
     }
 
     override fun initEvent() {
         binding.mSpeedResultToolbar.toolbarEvent(this){}
+    }
+
+    override fun release() {
+        insertHelper.releaseAd()
+        feedHelper.releaseAd()
     }
 }

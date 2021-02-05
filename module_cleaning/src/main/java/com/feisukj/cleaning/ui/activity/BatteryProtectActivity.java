@@ -13,7 +13,7 @@ import com.feisu.module_battery.ui.fragment.ChargeFragment;
 import com.feisukj.cleaning.R;
 import com.gyf.immersionbar.ImmersionBar;
 
-public class BatteryProtectActivity extends AppCompatActivity implements View.OnClickListener {
+public class BatteryProtectActivity extends AppCompatActivity {
 
     private ImageView back;
 
@@ -34,14 +34,7 @@ public class BatteryProtectActivity extends AppCompatActivity implements View.On
         transaction.add(R.id.frame_root, new ChargeFragment());
         transaction.commit();
 
-        back.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        if (id == R.id.back) {
-            finish();
-        }
-    }
+
 }

@@ -7,7 +7,8 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/shape_home_close_bg"
@@ -25,27 +26,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.example.wifi_manager.ui.widget.HardwareProgressView
-            android:id="@+id/hardwareProgressView"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="98dp"
-            android:layout_marginTop="39dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hardwareToolbar" />
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:paddingTop="44dp"
-            android:id="@+id/optimizeContainer"
-            android:background="@drawable/shape_hardware_bg"
-            style="@style/margin_right_left"
-            android:layout_marginTop="65dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hardwareProgressView" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <com.example.wifi_manager.ui.widget.HardwareProgressView
+                    android:id="@+id/hardwareProgressView"
+                    android:layout_width="match_parent"
+                    android:layout_height="98dp"
+                    android:layout_marginTop="39dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:paddingTop="44dp"
+                    android:id="@+id/optimizeContainer"
+                    android:background="@drawable/shape_hardware_bg"
+                    style="@style/margin_right_left"
+                    android:layout_marginTop="65dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hardwareProgressView" />
+
+
+
+                <FrameLayout
+                    android:id="@+id/bottom_ad"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/optimizeContainer" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    </LinearLayout>
 </layout>

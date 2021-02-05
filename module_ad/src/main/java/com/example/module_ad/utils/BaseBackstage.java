@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
+
 import com.example.module_ad.bean.AdBean;
 import com.example.module_ad.ui.activity.BackActivity;
 import com.example.module_base.utils.LogUtils;
@@ -19,7 +20,7 @@ public class BaseBackstage {
     private static int mShowTime=1000;
 
 
-    private static boolean isAppOnForeground(Activity activity) {
+    private static boolean isAppOnForeground(Context activity) {
         // Returns a list of application processes that are running on the
         // device
         ActivityManager activityManager = (ActivityManager) activity.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
@@ -39,7 +40,7 @@ public class BaseBackstage {
     }
 
 
-    public static void setStop(Activity activity) {
+    public static void setStop(Context activity) {
         AdBean.DataBean adState = AdMsgUtil.getAdState();
         if (adState != null) {
             AdBean.DataBean.StartPageBean.SpreadScreenBean spread_screen = adState.getStart_page().getSpread_screen();
@@ -61,7 +62,7 @@ public class BaseBackstage {
     }
 
 
-    public static void setBackstage(Activity context) {
+    public static void setBackstage(Context context) {
         LogUtils.i("------------isExit-----------------"+isExit);
         boolean no_back = SPUtil.getInstance().getBoolean(Contents.NO_BACK, false);
         if (!no_back) {
@@ -73,7 +74,7 @@ public class BaseBackstage {
                             if (isShow) {
                                 if (!isExit) {
                                     Intent intent = new Intent(context, BackActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     context.startActivity(intent);
                                 }
 

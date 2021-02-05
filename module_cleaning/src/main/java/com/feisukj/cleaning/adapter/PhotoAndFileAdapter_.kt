@@ -49,7 +49,7 @@ class PhotoAndFileAdapter_(data: List<SectionData<TitleBean_Group, AllFileBean>>
                 if (p is ViewGroup){
                     p.removeAllViews()
                 }
-                it.layoutParams=FrameLayout.LayoutParams(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,300f,parent.context.resources.displayMetrics).toInt()
+                it.layoutParams=FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                         ,ViewGroup.LayoutParams.WRAP_CONTENT
                         , Gravity.CENTER_HORIZONTAL)
                 frameLayout.addView(it)

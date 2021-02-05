@@ -7,7 +7,8 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.activity.WifiProtectInfoViewActivity">
@@ -22,90 +23,113 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="95dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginRight="24dp"
-            android:background="@drawable/shape_wifin_protect_bg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mProtectInfoToolbar" />
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="59dp"
-            android:layout_height="62dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="51dp"
-            android:src="@mipmap/icon_protect_result"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginRight="24dp"
+                    android:background="@drawable/shape_wifin_protect_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="59dp"
+                    android:layout_height="62dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="51dp"
+                    android:src="@mipmap/icon_protect_result"
+                    app:layout_constraintStart_toStartOf="@+id/imageView5"
+                    app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
 
-        <TextView
-            android:id="@+id/protectWifiName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HUNuxa_--."
-            android:layout_marginTop="28dp"
-            android:layout_marginRight="53dp"
-            android:textColor="@color/theme_color"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5" />
+                <TextView
+                    android:id="@+id/protectWifiName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HUNuxa_--."
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="53dp"
+                    android:textColor="@color/theme_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView5"
+                    app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
-        <TextView
-            android:id="@+id/protectTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="已保护23天"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/protectWifiName"
-            app:layout_constraintStart_toStartOf="@+id/protectWifiName"
-            app:layout_constraintTop_toBottomOf="@+id/protectWifiName" />
+                <TextView
+                    android:id="@+id/protectTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已保护23天"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/protectWifiName"
+                    app:layout_constraintStart_toStartOf="@+id/protectWifiName"
+                    app:layout_constraintTop_toBottomOf="@+id/protectWifiName" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/protectContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="36dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/protectContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="36dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-        <TextView
-            android:id="@+id/outTimeHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:layout_marginLeft="24dp"
-            android:textColor="@color/wifi_protect_color"
-            android:text="下次登录时间：10月01日前\n为验证你是WIFI主人，若超过7天未登录将取消保护"
-            app:layout_constraintBottom_toTopOf="@+id/cancelProtect"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/outTimeHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
 
-        <Button
-            android:id="@+id/cancelProtect"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="35dp"
-            android:background="@drawable/shape_scan_result_find_normal_bg"
-            android:paddingLeft="20dp"
-            android:paddingTop="9dp"
-            android:paddingRight="20dp"
-            android:paddingBottom="9dp"
-            android:text="取消保护"
-            android:textColor="@color/theme_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                    android:text="下次登录时间：10月01日前\n为验证你是WIFI主人，若超过7天未登录将取消保护"
+                    android:textColor="@color/wifi_protect_color"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/protectContainer" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/cancelProtect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="35dp"
+                    android:background="@drawable/shape_scan_result_find_normal_bg"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="9dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="9dp"
+                    android:text="取消保护"
+                    android:layout_marginTop="32dp"
+                    android:textColor="@color/theme_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/outTimeHint" />
+
+                <FrameLayout
+                    android:id="@+id/bottom_ad"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cancelProtect" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
 </layout>

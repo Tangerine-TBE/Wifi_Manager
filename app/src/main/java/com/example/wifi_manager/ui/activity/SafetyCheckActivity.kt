@@ -2,6 +2,9 @@ package com.example.wifi_manager.ui.activity
 
 import android.content.SharedPreferences
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.*
 import com.example.wifi_manager.R
@@ -49,6 +52,14 @@ class SafetyCheckActivity : BaseVmViewActivity<ActivitySafetyBinding, SafetyChec
             currentText.text = "正在检测中..."
         }
         loadLiveData()
+
+
+    }
+    private val feedHelper by lazy {
+        FeedHelper(this,binding.bottomAd)
+    }
+    private val insertHelper by lazy {
+        InsertHelper(this)
     }
 
 
@@ -171,6 +182,9 @@ class SafetyCheckActivity : BaseVmViewActivity<ActivitySafetyBinding, SafetyChec
 
                             checkFinish = true
 
+                            insertHelper.showAd(AdType.CLEAN_FINISHED)
+                            feedHelper.showAd(AdType.CLEAN_FINISHED)
+
                         }
                     }
                 })
@@ -255,6 +269,11 @@ class SafetyCheckActivity : BaseVmViewActivity<ActivitySafetyBinding, SafetyChec
 
         }
 
+    }
+
+    override fun release() {
+        insertHelper.releaseAd()
+        feedHelper.releaseAd()
     }
 
 }

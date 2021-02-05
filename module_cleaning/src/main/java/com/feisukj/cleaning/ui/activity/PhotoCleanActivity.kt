@@ -8,6 +8,8 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.ScaleAnimation
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
 import com.example.module_base.cleanbase.BaseActivity
 import com.example.module_base.cleanbase.toast
 
@@ -50,6 +52,11 @@ class PhotoCleanActivity: BaseActivity(),NextFileCallback {
         }
         img_anim.animation = anim
 
+        feedHelper.showAd(AdType.WX_QQ_SHORTVIDEO_PACKAGE_PICTURE_PAGE)
+    }
+
+    private val feedHelper by lazy {
+        FeedHelper(this,frameLayout)
     }
 
     override fun onResume() {

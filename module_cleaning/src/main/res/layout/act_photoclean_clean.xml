@@ -104,7 +104,7 @@
             </LinearLayout>
             <FrameLayout
                 android:id="@+id/frameLayout"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>

@@ -6,6 +6,8 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
 import com.example.module_base.cleanbase.BaseActivity2
 import com.example.module_base.cleanbase.BaseSectionAdapter
 import com.example.module_base.cleanbase.SectionData
@@ -79,9 +81,14 @@ class ShortVideoDesActivity2: BaseActivity2(),ShortVideoHelper.ShortVideoCallBac
         recyclerView.adapter=adapter
         ShortVideoHelper.instance.requestData(this)
 
-        val f= FrameLayout(this).apply { this.layoutParams= ViewGroup.LayoutParams((resources.displayMetrics.density*300).toInt(),ViewGroup.LayoutParams.WRAP_CONTENT) }
-        adapter?.adView=f
+      //  val f= FrameLayout(this).apply { this.layoutParams= ViewGroup.LayoutParams((resources.displayMetrics.density*300).toInt(),ViewGroup.LayoutParams.WRAP_CONTENT) }
+      //  adapter?.adView=f
 
+        feedHelper.showAd(AdType.WX_QQ_SHORTVIDEO_PACKAGE_PICTURE_PAGE)
+    }
+
+    private val feedHelper by lazy {
+        FeedHelper(this,FrameLayout(this).also { adapter?.adView=it })
     }
 
     override fun initListener() {

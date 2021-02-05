@@ -8,6 +8,8 @@ import android.widget.Toast
 import android.widget.ViewSwitcher
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
 import com.example.module_base.cleanbase.BaseConstant
 import com.example.module_base.cleanbase.BaseFragment
 import com.example.module_base.cleanbase.BaseSectionAdapter
@@ -54,6 +56,10 @@ class FileFragment : BaseFragment(), BaseSectionAdapter.ItemSelectListener<Title
     private var adapter: PhotoAndFileAdapter_?=null
     override fun getLayoutId()= R.layout.frag_qq_and_we_file_clean
 
+    private val feedHelper by lazy {
+        FeedHelper(activity,FrameLayout(requireContext()).also { adapter?.adView=it })
+    }
+
     override fun initView() {
         super.initView()
         loadingViewSwitch(true,chooseViewSwitch)
@@ -85,7 +91,7 @@ class FileFragment : BaseFragment(), BaseSectionAdapter.ItemSelectListener<Title
         adapter?.allChooserListener=this
         recyclerView.adapter=adapter
         activity?.let { activity ->
-
+            feedHelper.showAd(AdType.ALBUM_VIDEO_MUSIC_FILE_PACKAGE_PAGE)
         }
         initClick()
         GlobalScope.launch{

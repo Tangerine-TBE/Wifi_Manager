@@ -5,6 +5,9 @@ import androidx.core.animation.doOnEnd
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.module_ad.advertisement.AdType
+import com.example.module_ad.advertisement.FeedHelper
+import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.base.BaseApplication
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.*
@@ -33,6 +36,14 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
     private val mSignalNetWorkAdapter by lazy {
         SignalWifiCheckAdapter()
     }
+
+    private val feedHelper by lazy {
+        FeedHelper(this,binding.bottomAd)
+    }
+    private val insertHelper by lazy {
+        InsertHelper(this)
+    }
+
 
 
     override fun getLayoutView(): Int = R.layout.activity_signal_up
@@ -97,6 +108,9 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
 
                             mSignalNetWorkAdapter.cleanCurrentList()
                             mSignalWifiCheckAdapter.cleanCurrentList()
+
+                            insertHelper.showAd(AdType.CLEAN_FINISHED)
+                            feedHelper.showAd(AdType.CLEAN_FINISHED)
                         }
                     }
                 })
@@ -174,5 +188,8 @@ class SignalUpActivity : BaseVmViewActivity<ActivitySignalUpBinding, SignalUpVie
         }
     }
 
-
+    override fun release() {
+        insertHelper.releaseAd()
+        feedHelper.releaseAd()
+    }
 }

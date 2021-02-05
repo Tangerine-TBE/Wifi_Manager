@@ -3,6 +3,7 @@ package com.example.wifi_manager.ui.activity
 import android.view.KeyEvent
 import com.example.module_ad.advertisement.SplashHelper
 import com.example.module_ad.utils.AdMsgUtil
+import com.example.module_ad.utils.Contents
 import com.example.module_base.base.BasePopup
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.*
@@ -28,7 +29,8 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
 
     override fun getLayoutView(): Int = R.layout.activity_begin
     override fun initView() {
-       // viewModel.loadAdMsg()
+        sp.putBoolean(Contents.NO_BACK, true)
+       viewModel.loadAdMsg()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -76,6 +78,8 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
     }
 
     fun goHome() {
+
+
         toOtherActivity<MainViewActivity>(this@BeginActivity, true) {}
     }
 
@@ -84,5 +88,9 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
         if (keyCode == KeyEvent.KEYCODE_BACK) true
         else super.onKeyDown(keyCode, event)
 
+
+    override fun release() {
+        sp.putBoolean(Contents.NO_BACK, false)
+    }
 
 }

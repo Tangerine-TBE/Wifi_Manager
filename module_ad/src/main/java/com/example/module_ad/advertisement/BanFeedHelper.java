@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.example.module_ad.base.IBaseAdBean;
-import com.example.module_ad.base.IBaseXXBean;
+import com.example.module_ad.base.AdTypeBean;
+import com.example.module_ad.base.AdActionBean;
 import com.example.module_ad.base.IShowAdCallback;
 import com.example.module_ad.utils.AdProbabilityUtil;
 import com.example.module_ad.utils.AdMsgUtil;
@@ -27,9 +27,9 @@ public class BanFeedHelper {
     private TTFeedAd mTtFeedAd;
     private FrameLayout mFeedContainer;
     private FrameLayout mBannerContainer;
-    private IBaseXXBean mBanner_screen;
-    private IBaseXXBean mNative_screen;
-    private IBaseAdBean mManager_page;
+    private AdActionBean mBanner_screen;
+    private AdActionBean mNative_screen;
+    private AdTypeBean mManager_page;
 
 
     public BanFeedHelper(Activity activity, FrameLayout banner, FrameLayout feed) {

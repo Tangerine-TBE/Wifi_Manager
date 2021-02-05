@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.module_ad.advertisement.FeedHelper
 import com.example.module_base.cleanbase.RecyclerViewHolder
 
 
@@ -18,6 +19,7 @@ import com.feisukj.cleaning.adapter.AppAdapter_
 import com.feisukj.cleaning.bean.AppBean
 import com.feisukj.cleaning.utils.isInstallApp
 import com.feisukj.cleaning.viewmodel.AppViewModel
+import kotlinx.android.synthetic.main.activity_cooling_complete.*
 import kotlinx.android.synthetic.main.fragment_app_clean.*
 import java.util.*
 
@@ -59,7 +61,14 @@ abstract class AbstractAppFragment:Fragment(R.layout.fragment_app_clean) {
         val f= FrameLayout(context as Activity).apply { this.layoutParams= ViewGroup.LayoutParams((resources.displayMetrics.density*300).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT) }
         appAdapter?.adView=f
 
+
+
     }
+
+    private val feedHelper by lazy {
+        FeedHelper(activity,frameLayout)
+    }
+
 
     protected open fun onListenerKeyword(){
         viewModel?.keyword?.observe(viewLifecycleOwner, androidx.lifecycle.Observer {keyword->

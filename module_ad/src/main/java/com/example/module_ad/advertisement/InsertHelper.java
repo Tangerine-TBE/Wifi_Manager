@@ -3,8 +3,8 @@ package com.example.module_ad.advertisement;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.example.module_ad.base.IBaseAdBean;
-import com.example.module_ad.base.IBaseXXBean;
+import com.example.module_ad.base.AdTypeBean;
+import com.example.module_ad.base.AdActionBean;
 import com.example.module_ad.base.IShowAdCallback;
 import com.example.module_ad.service.TimeService;
 import com.example.module_ad.utils.AdMsgUtil;
@@ -16,8 +16,8 @@ import com.example.module_user.utils.UserInfoUtil;
 public class InsertHelper {
 
     private Activity mActivity;
-    private IBaseAdBean mManager_page;
-    private IBaseXXBean mBaseInsert_screen;
+    private AdTypeBean mManager_page;
+    private AdActionBean mBaseInsert_screen;
     private TTInsertAd mTtInsertAd;
     private boolean mAddToutiaoAdError=false;
     private boolean mAddTengxunAdError=false;

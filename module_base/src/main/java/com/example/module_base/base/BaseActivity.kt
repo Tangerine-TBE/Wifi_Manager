@@ -7,6 +7,7 @@ import android.os.PersistableBundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.example.module_base.utils.MyActivityManager
 import com.example.module_base.utils.MyStatusBarUtil
 import com.example.module_base.utils.SPUtil
 import com.example.module_base.widget.LoadingDialog
@@ -36,6 +37,7 @@ open class BaseActivity:FragmentActivity() {
         super.onCreate(savedInstanceState)
         setFullScreenWindow()
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        MyActivityManager.addActivity(this)
 
     }
 
@@ -64,6 +66,7 @@ open class BaseActivity:FragmentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        MyActivityManager.removeActivity(this)
         release()
     }
 }

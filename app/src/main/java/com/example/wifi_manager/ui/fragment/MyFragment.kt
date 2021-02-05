@@ -113,11 +113,16 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
 
                     }
                     1 -> {
-                        if (sp.getBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN)) {
-                            toOtherActivity<WifiProtectInfoViewActivity>(activity) {}
-                        } else {
-                            toOtherActivity<WifiProtectViewActivity>(activity) {}
+                        if (RxNetTool.isWifiConnected(requireContext())){
+                            if (sp.getBoolean(ConstantsUtil.SP_WIFI_PROTECT_OPEN)) {
+                                toOtherActivity<WifiProtectInfoViewActivity>(activity) {}
+                            } else {
+                                toOtherActivity<WifiProtectViewActivity>(activity) {}
+                            }
+                        }else{
+                            showToast("WiFi未连接")
                         }
+
 
                     }
                     2 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(

@@ -57,13 +57,7 @@ public abstract class BaseMvpActivity<V, P extends BasePresenter> extends Fragme
             actionBar = findViewById(R.id.actionbar);
             actionBar.setVisibility(View.VISIBLE);
         } else {
-//            setContentView(getLayoutId());
-            if (Build.VERSION.SDK_INT<=22) {
-                setContentView(R.layout.activity_base);
-                ((ViewGroup) findViewById(R.id.fl_content)).addView(getLayoutInflater().inflate(getLayoutId(), null));
-            }else {
-                setContentView(getLayoutId());
-            }
+           setContentView(getLayoutId());
         }
         //沉浸式状态栏
         initImmersionBar(getStatusBarColor());

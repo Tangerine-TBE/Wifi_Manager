@@ -23,6 +23,7 @@ import com.example.module_base.cleanbase.toast
 
 import com.feisukj.cleaning.R
 import com.feisukj.cleaning.bean.BatteryInfo
+
 import com.gyf.immersionbar.ImmersionBar
 import kotlinx.android.synthetic.main.activity_cooling_complete.*
 import kotlinx.android.synthetic.main.activity_save_power.*
@@ -36,7 +37,11 @@ class SavePowerActivity :FragmentActivity(){
 
     private val locationManager by lazy { getSystemService(Context.LOCATION_SERVICE) as LocationManager }
     private val bluetoothAdapter by lazy { BluetoothAdapter.getDefaultAdapter()?:null }
+    private lateinit var banFeedHelper: BanFeedHelper
 
+    private val insertHelper by lazy {
+        InsertHelper(this)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,22 +59,18 @@ class SavePowerActivity :FragmentActivity(){
         initListener()
 
 
-        feedHelper.showAd(AdType.POWERSAVING_PAGE)
+
+        banFeedHelper=BanFeedHelper(this,top_ad,bottom_ad)
+        banFeedHelper.showAd(AdType.POWERSAVING_PAGE)
         insertHelper.showAd(AdType.POWERSAVING_PAGE)
     }
 
-    private val feedHelper by lazy {
-        FeedHelper(this,frameLayout)
-    }
 
-    private val insertHelper by lazy {
-        InsertHelper(this)
-    }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        feedHelper.releaseAd()
+        banFeedHelper.releaseAd()
         insertHelper.releaseAd()
     }
 

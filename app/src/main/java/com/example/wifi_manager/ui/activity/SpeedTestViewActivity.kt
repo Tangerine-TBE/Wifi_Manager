@@ -2,13 +2,10 @@ package com.example.wifi_manager.ui.activity
 
 import androidx.lifecycle.Observer
 import com.example.module_base.base.BaseVmViewActivity
-import com.example.module_base.utils.LogUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivitySpeedTestBinding
 import com.example.module_base.extensions.noFinishShow
-import com.example.module_base.utils.setToolBar
-import com.example.module_base.utils.toOtherActivity
-import com.example.module_base.utils.toolbarEvent
+import com.example.module_base.utils.*
 import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.SpeedTestViewModel
 import com.tamsiree.rxkit.RxNetTool
@@ -51,17 +48,23 @@ class SpeedTestViewActivity : BaseVmViewActivity<ActivitySpeedTestBinding,SpeedT
 
             downState.observe(this@SpeedTestViewActivity, Observer {
                 if (it) {
-                    if (currentTotalRxData!=0L) {
-                        val downLoadSpeed =  DecimalFormat("0.00").format(currentTotalRxData / currentTime)
+                        val downLoadSpeed =
+                            DecimalFormat("0.00").format(currentTotalRxData / currentTime)
                         LogUtils.i("--------downLoadSpeed---$downLoadSpeed-----")
-                        toOtherActivity<SpeedTestResultViewActivity>(this@SpeedTestViewActivity,true){
-                            putExtra(ConstantsUtil.WIFI_DELAY_KEY,currentPing.toString())
-                            putExtra(ConstantsUtil.WIFI_DOWN_LOAD_KEY,downLoadSpeed)
+                        toOtherActivity<SpeedTestResultViewActivity>(
+                            this@SpeedTestViewActivity,
+                            true
+                        ) {
+                            putExtra(ConstantsUtil.WIFI_DELAY_KEY, currentPing.toString())
+                            putExtra(ConstantsUtil.WIFI_DOWN_LOAD_KEY, downLoadSpeed)
                         }
-                    }
+
+                } else {
+                    showToast("网络错误，测速失败！")
+                    finish()
                 }
             })
-            pingValue.observe(this@SpeedTestViewActivity, Observer {
+            pingValue.observe(this@SpeedTestViewActivity, {
                 currentPing=it
                 testSpeedState.text="网络延时检测中"
             })

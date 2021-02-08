@@ -108,8 +108,10 @@ class WifiProtectInfoViewActivity : BaseViewActivity<ActivityWifiProtectInfoBind
                 delay(1000)
 
                 if (i==4){
-                    insertHelper.showAd(AdType.CLEAN_FINISHED)
-                    feedHelper.showAd(AdType.CLEAN_FINISHED)
+                    if (!isFinishing) {
+                        insertHelper.showAd(AdType.CLEAN_FINISHED)
+                        feedHelper.showAd(AdType.CLEAN_FINISHED)
+                    }
                 }
             }
         }

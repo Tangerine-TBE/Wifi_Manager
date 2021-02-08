@@ -1,5 +1,6 @@
 package com.example.wifi_manager.viewmodel
 
+import android.net.TrafficStats
 import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -47,22 +48,23 @@ class SpeedTestViewModel: BaseViewModel() {
     }
 
 
-    //10582382
-    //10594013
-
     //开始下载文件测速
    private fun startSpeedTest(){
         beginTime=System.currentTimeMillis()
         beginRxBytes=WifiSpeedTestUtil.getTotalRxBytes()
         LogUtils.i("----byteStream------${beginRxBytes}--------------------")
         viewModelScope.launch {
-        NetSpeedTestRepository.getNetSpeed().exAwait({},
-                    { it ->
-                        if (it.code()==NET_SUCCESS) {
-                            it.body()?.let {
-                                startSaveFile(it)
-                            }
-                        }
+        NetSpeedTestRepository.getNetSpeed().exAwait({
+            downState.postValue(false)
+        },
+            { it ->
+                if (it.code() == NET_SUCCESS) {
+                    it.body()?.let {
+                        startSaveFile(it)
+                    }
+                } else {
+                    downState.postValue(false)
+                }
             })
         }
     }
@@ -77,6 +79,8 @@ class SpeedTestViewModel: BaseViewModel() {
                 try {
                     val buf = ByteArray(1024)
                     while (read(buf, 0, buf.size).also { it } != -1) {
+                        LogUtils.i("-----while--${TrafficStats.getTotalRxBytes()}--${TrafficStats.UNSUPPORTED.toLong()}----${if (TrafficStats.getTotalRxBytes() == TrafficStats.UNSUPPORTED.toLong()) 0 else TrafficStats.getTotalRxBytes() / 1024}------------")
+
                         if (!isActive) {
                             break
                         }
@@ -86,7 +90,7 @@ class SpeedTestViewModel: BaseViewModel() {
                         start?.cancel()
                         downState.postValue(true)
                     }
-                    LogUtils.i("-----end--byteStream4--------${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------${System.currentTimeMillis() - beginTime}------------")
+
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
@@ -107,7 +111,7 @@ class SpeedTestViewModel: BaseViewModel() {
                             ValueNetWorkSpeed(
                                     WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes,
                                     System.currentTimeMillis() - beginTime)
-                    LogUtils.i("----byteStream2------${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------------------")
+                    LogUtils.i("----byteStream2--${WifiSpeedTestUtil.getTotalRxBytes()}----${WifiSpeedTestUtil.getTotalRxBytes() - beginRxBytes}--------------------")
                 }).start()
     }
 

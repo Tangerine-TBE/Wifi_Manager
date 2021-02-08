@@ -128,7 +128,13 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
                     2 -> if (RxNetTool.isWifiConnected(requireContext())) toOtherActivity<SpeedTestViewActivity>(
                             activity
                     ) {} else showToast(ConstantsUtil.NO_CONNECT_WIFI)
-                    3 -> toOtherActivity<DistanceActivity>(activity) {}
+                    3 ->{
+                        checkAppPermission(DataProvider.askCameraPermissionLis,{
+                            toOtherActivity<DistanceActivity>(activity) {}
+                        },{
+                            showToast("无法获得权限，请重试！！！")
+                        },fragment = this@MyFragment)
+                    }
                     4 -> toOtherActivity<HardwareTweaksActivity>(activity) {}
                 }
             }

@@ -62,7 +62,7 @@ open class BaseApplication : Application() {
 
         }
         //友盟
-        UMConfigure.init(applicationContext, UMConfigure.DEVICE_TYPE_PHONE, "01a1119aa055917f8816f3a")
+        UMConfigure.init(applicationContext, UMConfigure.DEVICE_TYPE_PHONE, "601a1119aa055917f8816f3a")
         UMConfigure.setLogEnabled(true)
 
 

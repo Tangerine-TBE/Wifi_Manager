@@ -161,19 +161,18 @@ class SafetyCheckActivity : BaseVmViewActivity<ActivitySafetyBinding, SafetyChec
 
                 downState.observe(this@SafetyCheckActivity, {
                     if (it) {
-                        if (currentTotalRxData != 0L) {
-                            speed = DecimalFormat("0.00").format(currentTotalRxData / currentTime) + "MB/s"
+                            speed =
+                                DecimalFormat("0.00").format(currentTotalRxData / currentTime) + "MB/s"
                             DataProvider.safetyList[3].title = speed
 
-
                             val open = sp.getBoolean(ConstantsUtil.SP_WIFI_PROTECT_STATE)
-                            currentText.text = if (open) "开放网络注意安全, 网速为${speed}$scoreHint" else "经过6项检测无异常, 网速为${speed}$scoreHint"
+                            currentText.text =
+                                if (open) "开放网络注意安全, 网速为${speed}$scoreHint" else "经过6项检测无异常, 网速为${speed}$scoreHint"
                             DataProvider.safetyList[4].title = if (open) "存在风险项" else "经过6项检测无异常"
                             DataProvider.safetyList[4].state = open
 
                             DataProvider.checkList[3].hint = if (open) "异常" else "正常"
                             DataProvider.checkList[3].state = open
-
 
 
                             mSafetyItemAdapter.setList(DataProvider.safetyList)
@@ -185,7 +184,22 @@ class SafetyCheckActivity : BaseVmViewActivity<ActivitySafetyBinding, SafetyChec
                             insertHelper.showAd(AdType.CLEAN_FINISHED)
                             feedHelper.showAd(AdType.CLEAN_FINISHED)
 
-                        }
+                    } else {
+                        DataProvider.safetyList[3].title ="网络异常"
+                        currentText.text = "网络异常"
+                        DataProvider.safetyList[4].title ="网络异常"
+                        DataProvider.safetyList[4].state = false
+
+                        DataProvider.checkList[3].hint = "异常"
+                        DataProvider.checkList[3].state = false
+
+
+                        mSafetyItemAdapter.setList(DataProvider.safetyList)
+                        mSafetyItemAdapter.setStepState(StepState.FIVE)
+                        protectCheckView.setProgressState(StepState.FIVE)
+
+
+                        checkFinish = true
                     }
                 })
 

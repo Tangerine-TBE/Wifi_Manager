@@ -12,9 +12,7 @@ import com.example.module_ad.advertisement.InsertHelper
 import com.feisukj.cleaning.R
 import com.gyf.immersionbar.ImmersionBar
 import kotlinx.android.synthetic.main.activity_antivirus_complete.*
-import kotlinx.android.synthetic.main.activity_cooling_complete.*
 import kotlinx.android.synthetic.main.activity_cooling_complete.completeTitle
-import kotlinx.android.synthetic.main.activity_cooling_complete.frameLayout
 import kotlinx.android.synthetic.main.activity_cooling_complete.leftBack
 
 class CoolingCompleteActivity :FragmentActivity(){

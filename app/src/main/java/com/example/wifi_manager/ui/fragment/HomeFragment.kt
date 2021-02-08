@@ -141,10 +141,6 @@ class HomeFragment :
     override fun observerData() {
         viewModel.apply {
             val that = this@HomeFragment
-            LocationLiveData.observe(that, {
-                LogUtils.i("---------LocationLiveData----------$it-------------------")
-            })
-
             protectTimeOut.observe(that, {
                 if (it) {
                     mScope.launch(Dispatchers.Main) {

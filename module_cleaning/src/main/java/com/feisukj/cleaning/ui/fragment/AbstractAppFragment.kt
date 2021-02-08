@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module_ad.advertisement.FeedHelper
 import com.example.module_base.cleanbase.RecyclerViewHolder
-
-
 import com.feisukj.cleaning.R
 import com.feisukj.cleaning.adapter.AppAdapter_
 import com.feisukj.cleaning.bean.AppBean

@@ -25,10 +25,17 @@ object RetrofitClient {
             .readTimeout(5, TimeUnit.SECONDS)
             .build()
 
+    private val clientSpeed = OkHttpClient.Builder()
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(10, TimeUnit.SECONDS)
+        .build()
+
+
     private val textWifiSpeedRetrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(SPEED_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        .baseUrl(SPEED_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(clientSpeed)
+        .build()
 
 
     private val wifiManagerRetrofit: Retrofit = Retrofit.Builder()

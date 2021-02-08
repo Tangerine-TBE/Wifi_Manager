@@ -11,8 +11,8 @@ ext {
 
             applicationId    : "com.twx.wifi",   //应用ID
             applicationName  : "WiFi万能管家",                  //应用名称
-            versionCode      : 10000,                    //版本号
-            versionName      : "1.0",              //版本名称
+            versionCode      : 10001,                    //版本号
+            versionName      : "1.1",              //版本名称
             compileSdkVersion: 30,
             minSdkVersion    : 21,
             targetSdkVersion : 28,

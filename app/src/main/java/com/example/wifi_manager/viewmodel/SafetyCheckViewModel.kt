@@ -148,14 +148,19 @@ class SafetyCheckViewModel : BaseViewModel() {
         beginRxBytes = WifiSpeedTestUtil.getTotalRxBytes()
         LogUtils.i("----byteStream------${beginRxBytes}--------------------")
         viewModelScope.launch {
-            NetSpeedTestRepository.getNetSpeed().exAwait({},
-                    { it ->
-                        if (it.code() == NET_SUCCESS) {
-                            it.body()?.let {
-                                startSaveFile(it)
-                            }
+            NetSpeedTestRepository.getNetSpeed().exAwait({
+                downState.postValue(false)
+            },
+                { it ->
+                    if (it.code() == NET_SUCCESS) {
+                        it.body()?.let {
+                            startSaveFile(it)
                         }
-                    })
+                    } else {
+                        downState.postValue(false)
+                    }
+
+                })
         }
     }
 

@@ -91,6 +91,7 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
 
     override fun release() {
         sp.putBoolean(Contents.NO_BACK, false)
+        mAgreementPopup.dismiss()
     }
 
 }

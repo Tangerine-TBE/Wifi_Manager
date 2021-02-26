@@ -21,6 +21,7 @@ import com.example.module_tool.utils.ColorUtil
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.PopupWifiConnectWindowBinding
 import com.tamsiree.rxkit.RxKeyboardTool
+import java.lang.Exception
 
 
 /**
@@ -98,8 +99,11 @@ class WifiConnectPopup(activity: FragmentActivity?):
 
     override fun showPopupView(view: View, gravity: Int, x: Int, y: Int) {
         super.showPopupView(view, gravity, x, y)
-        activity?.let {
-            RxKeyboardTool.toggleSoftInput(it,mView.wifiPwd)
+        try {
+            activity?.let {
+                RxKeyboardTool.toggleSoftInput(it,mView.wifiPwd)
+            }
+        }catch (e:Exception){
         }
 
     }

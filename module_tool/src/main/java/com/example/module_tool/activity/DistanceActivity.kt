@@ -289,7 +289,7 @@ class DistanceActivity : BaseActivity(), RectControlView.OnRulerHeightChangedLis
             val outputSizes=mCameraManager?.getCameraCharacteristics(mCameraID!!)?.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)?.getOutputSizes(SurfaceTexture::class.java)?.toList()?:return
             val size=getCloselyPreSize(true, DeviceUtils.getScreenWidth(this@DistanceActivity),DeviceUtils.getScreenHeight(this@DistanceActivity),outputSizes)
             if (size!=null)
-                surfaceTexture!!.setDefaultBufferSize(size.width,size.height)
+                surfaceTexture?.setDefaultBufferSize(size.width,size.height)
             surface= Surface(surfaceTexture)
             previewRequestBuilder?.addTarget(surface)
             // 创建CameraCaptureSession，该对象负责管理处理预览请求和拍照请求
@@ -317,7 +317,7 @@ class DistanceActivity : BaseActivity(), RectControlView.OnRulerHeightChangedLis
                 }
 
             }, childHandler)
-        } catch (e: CameraAccessException) {
+        } catch (e:Exception) {
         }
     }
 

@@ -79,4 +79,9 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
             }
         return super.onKeyDown(keyCode, event)
     }
+
+
+    override fun release() {
+        mExitPoPupWindow.dismiss()
+    }
 }

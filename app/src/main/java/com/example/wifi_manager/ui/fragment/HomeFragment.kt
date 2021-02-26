@@ -534,18 +534,20 @@ class HomeFragment :
             mConnectWifiPopup?.apply {
                 setOnActionClickListener(object : BasePopup.OnActionClickListener {
                     override fun sure() {
-                        mCurrentWifiList.let { it ->
-                            val pwd = getWifiPwd()
-                            sharePwdState = getShareState()
-                            val wifiMessageBean = it[selectPosition]
-                            if (pwd.length < 8) {
-                                showToast("WiFi密码必须是8位及以上")
-                            } else {
-                                dismiss()
-                                showConnectPopup(wifiMessageBean)
-                                viewModel.connectWifi(wifiMessageBean, false, pwd)
-                                currentWifiMessages?.let { it.wifiPwd = pwd }
-                            }
+                        mCurrentWifiList?.let { it ->
+                           if (it.size>selectPosition) {
+                               val pwd = getWifiPwd()
+                               sharePwdState = getShareState()
+                               val wifiMessageBean = it[selectPosition]
+                               if (pwd.length < 8) {
+                                   showToast("WiFi密码必须是8位及以上")
+                               } else {
+                                   dismiss()
+                                   showConnectPopup(wifiMessageBean)
+                                   viewModel.connectWifi(wifiMessageBean, false, pwd)
+                                   currentWifiMessages?.let { it.wifiPwd = pwd }
+                               }
+                           }
                         }
                     }
 
@@ -684,6 +686,11 @@ class HomeFragment :
     override fun release() {
         activity?.unregisterReceiver(mNetReceiver)
         NetWorkHelp.unregisterNetCallback(netWorkCallback)
+        mRemindDialog.dismiss()
+        mConnectWifiPopup.dismiss()
+        mConnectStatePopup.dismiss()
+
+
     }
 
 

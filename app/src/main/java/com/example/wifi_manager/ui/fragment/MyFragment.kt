@@ -202,4 +202,10 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
         }
     }
 
+
+    override fun release() {
+        mRemindPopup.dismiss()
+        mLogoutPopup.dismiss()
+    }
+
 }

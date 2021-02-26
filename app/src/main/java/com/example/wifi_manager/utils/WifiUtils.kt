@@ -146,7 +146,7 @@ object WifiUtils {
     @SuppressLint("MissingPermission")
      private fun isExist(ssid: String): WifiConfiguration? {
         val configuredNetworks = wifiManager.configuredNetworks
-        if (configuredNetworks.size > 0) {
+        if (configuredNetworks?.size?:0 > 0) {
             for (config in configuredNetworks) {
                 if (config.SSID == "\"" + ssid + "\"") {
                     return config
@@ -167,15 +167,17 @@ object WifiUtils {
     @SuppressLint("MissingPermission")
      fun isSaveWifiPwd(ssid: String): Boolean {
         val configuredNetworks = wifiManager.configuredNetworks
-        if (configuredNetworks.size > 0) {
-            configuredNetworks.forEach {
-                if (it.SSID== "\"" + ssid + "\"") {
-              //      LogUtils.i("-isSaveWifiPwd---------$ssid-----${it.SSID}-------")
-                    return true
+        if (configuredNetworks!=null) {
+            if (configuredNetworks.size > 0) {
+                configuredNetworks.forEach {
+                    if (it.SSID== "\"" + ssid + "\"") {
+                        //      LogUtils.i("-isSaveWifiPwd---------$ssid-----${it.SSID}-------")
+                        return true
+                    }
                 }
+            } else {
+                return false
             }
-        } else {
-            return false
         }
         return false
     }

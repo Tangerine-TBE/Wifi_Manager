@@ -26,9 +26,11 @@ class SpeedTestResultViewActivity : BaseViewActivity<ActivitySpeedTestResultBind
                 val delay = getStringExtra(ConstantsUtil.WIFI_DELAY_KEY)
                 val downSpeed = getStringExtra(ConstantsUtil.WIFI_DOWN_LOAD_KEY)
                 mWifiDelay.text="${delay?:"0"}ms"
-                mWifiDownSpeed.text="${downSpeed?:"0"}MB/s"
-                mWifiSpeedRange.text="用户宽带在${WifiSpeedTestUtil.netWorkLevel(downSpeed?.toFloat())}之间"
                 mSpeedWifiName.text=getConnectWifiName()
+                downSpeed?.let {
+                    mWifiDownSpeed.text="${it}MB/s"
+                    mWifiSpeedRange.text="用户宽带在${WifiSpeedTestUtil.netWorkLevel(it.toFloat())}之间"
+                }
         }
 
             insertHelper.showAd(AdType.CLEAN_FINISHED)

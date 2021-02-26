@@ -77,6 +77,9 @@ class WifiProtectViewActivity : BaseViewActivity<ActivityWifiProtectBinding>() {
         }
     }
 
+    override fun release() {
+        mProtectInfoPopup.dismiss()
+    }
 
 
 }

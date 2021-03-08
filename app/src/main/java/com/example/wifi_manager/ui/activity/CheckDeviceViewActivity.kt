@@ -45,20 +45,22 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
 
     override fun observerData() {
         viewModel.apply {
-            scanDeviceState.observe(this@CheckDeviceViewActivity, Observer { result ->
-                val deviceContent = result.deviceContent
-                mSweeping = when (result.scanState) {
-                    ProgressState.BEGIN -> {
-                        mDevicesAdapter.setList(deviceContent)
-                        true
-                    }
-                    ProgressState.END -> {
-                        showToast("扫描完成,共发现${deviceContent.size}台设备")
-                        false
-                    }
-                    else->{
-                        mDevicesAdapter.setList(deviceContent)
-                        false
+            scanDeviceState.observe(this@CheckDeviceViewActivity, { result ->
+                result?.let {
+                    val deviceContent = it.deviceContent
+                    mSweeping = when (result.scanState) {
+                        ProgressState.BEGIN -> {
+                            mDevicesAdapter.setList(deviceContent)
+                            true
+                        }
+                        ProgressState.END -> {
+                            showToast("扫描完成,共发现${deviceContent.size}台设备")
+                            false
+                        }
+                        else->{
+                            mDevicesAdapter.setList(deviceContent)
+                            false
+                        }
                     }
                 }
             })
@@ -117,7 +119,7 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
     }
 
     override fun release() {
-
+        mRenamePopup.dismiss()
     }
 
 }

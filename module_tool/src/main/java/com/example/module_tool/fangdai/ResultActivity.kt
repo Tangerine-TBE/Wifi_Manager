@@ -27,55 +27,61 @@ class ResultActivity : BaseActivity() {
 
         showLoading()
         result_toolbar.setTitle("房贷清单")
-        val bean = intent?.extras!!["bean"]
-        if (bean != null) {
-            bean as BaseBean
+        intent.extras?.apply {
+            val bean =this["bean"]?:null
+            if (bean != null) {
+                bean as BaseBean
 
-            //开始计算
-            calculateLoanInfo(bean)
+                //开始计算
+                calculateLoanInfo(bean)
 
-            monthPayTv.text = refundDesc.monthPay
-            refundSumTv.text = refundDesc.sumPay
-            refundInterestTv.text = refundDesc.interestPay
-            refundDetailMsgTv.text = String.format(resources.getString(R.string.refundDetailMsg), refundDesc.years)
-            refundDesc.down?.apply {
-                downTv.visibility = View.VISIBLE
-                downTv.text = String.format(resources.getString(R.string.down), this)
-            }
-            refundDesc.businessSum?.apply {
-                refundSumMsgTv.textSize = 18f
-                refundSumTv.textSize = 18f
-                refundInterestMsgTv.textSize = 18f
-                refundInterestTv.textSize = 18f
-                ll_business.visibility = View.VISIBLE
-                businessSum.text = this
-            }
-            refundDesc.fundSum?.apply {
-                ll_fund.visibility = View.VISIBLE
-                fundSum.text = this
-            }
+                monthPayTv.text = refundDesc.monthPay
+                refundSumTv.text = refundDesc.sumPay
+                refundInterestTv.text = refundDesc.interestPay
+                refundDetailMsgTv.text = String.format(resources.getString(R.string.refundDetailMsg), refundDesc.years)
+                refundDesc.down?.apply {
+                    downTv.visibility = View.VISIBLE
+                    downTv.text = String.format(resources.getString(R.string.down), this)
+                }
+                refundDesc.businessSum?.apply {
+                    refundSumMsgTv.textSize = 18f
+                    refundSumTv.textSize = 18f
+                    refundInterestMsgTv.textSize = 18f
+                    refundInterestTv.textSize = 18f
+                    ll_business.visibility = View.VISIBLE
+                    businessSum.text = this
+                }
+                refundDesc.fundSum?.apply {
+                    ll_fund.visibility = View.VISIBLE
+                    fundSum.text = this
+                }
 
-            refundDesc.businessInterest?.apply {
-                ll_business_interest.visibility = View.VISIBLE
-                businessInterest.text = this
-            }
+                refundDesc.businessInterest?.apply {
+                    ll_business_interest.visibility = View.VISIBLE
+                    businessInterest.text = this
+                }
 
-            refundDesc.fundInterest?.apply {
-                ll_fund_interest.visibility = View.VISIBLE
-                fundInterest.text = this
-            }
-            dismissLoading()
+                refundDesc.fundInterest?.apply {
+                    ll_fund_interest.visibility = View.VISIBLE
+                    fundInterest.text = this
+                }
+                dismissLoading()
 
-            payRecycler.layoutManager = LinearLayoutManager(this)
-            val adapter = YearDetailAdapter()
-            payRecycler.adapter = adapter
-            payRecycler.isNestedScrollingEnabled = false
-            adapter.setNewData(yearDetailList)
-            ll_detail.setOnClickListener {
-                arrowIv.isSelected = !arrowIv.isSelected
-                payRecycler.visibility = if (payRecycler.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                payRecycler.layoutManager = LinearLayoutManager(this@ResultActivity)
+                val adapter = YearDetailAdapter()
+                payRecycler.adapter = adapter
+                payRecycler.isNestedScrollingEnabled = false
+                adapter.setNewData(yearDetailList)
+                ll_detail.setOnClickListener {
+                    arrowIv.isSelected = !arrowIv.isSelected
+                    payRecycler.visibility = if (payRecycler.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+                }
             }
         }
+
+
+
+
     }
 
     private fun calculateLoanInfo(info: BaseBean) {

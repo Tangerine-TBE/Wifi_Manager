@@ -128,4 +128,8 @@ class CancelShareApplyViewActivity : BaseVmViewActivity<ActivityCancelShareApply
 
     }
 
+    override fun release() {
+        mCheckHelpPopupWindow.dismiss()
+    }
+
 }

@@ -18,13 +18,13 @@ class DevicesAdapter:BaseQuickAdapter<DeviceBean, BaseDataBindingHolder<ItemDevi
         holder: BaseDataBindingHolder<ItemDeviceContainerBinding>,
         item: DeviceBean
     ) {
-        holder.dataBinding?.apply {
-            item.apply {
-
+        holder?.dataBinding?.apply {
+            item?.let {
+                deviceName.text="${it.deviceName}"
+                deviceIpMac.text="${it.deviceIp}"+"\n"+"${it.deviceMac}"
+                deviceTab.text= if(it.deviceSign!="") it.deviceSign+"" else "标记"
             }
-            deviceName.text=item.deviceName
-            deviceIpMac.text=item.deviceIp+"\n"+item.deviceMac
-            deviceTab.text= if(item.deviceSign!="") item.deviceSign+"" else "标记"
+
         }
     }
 }

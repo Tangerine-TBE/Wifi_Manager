@@ -288,6 +288,7 @@ class SafetyCheckActivity : BaseVmViewActivity<ActivitySafetyBinding, SafetyChec
     override fun release() {
         insertHelper.releaseAd()
         feedHelper.releaseAd()
+        mCheckItemPopup.dismiss()
     }
 
 }

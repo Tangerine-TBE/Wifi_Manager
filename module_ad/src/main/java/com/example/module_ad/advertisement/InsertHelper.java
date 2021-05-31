@@ -31,30 +31,35 @@ public class InsertHelper {
 
 
     public void showAd(AdType type) {
-        if (UserInfoUtil.isVIP()) {
-            return;
-        }
-        if (AdMsgUtil.isHaveAdData()) {
-            mCurrentType=type;
-            mManager_page=AdMsgUtil.switchAdType(type, AdMsgUtil.getAdState());
-            if (mManager_page != null) {
-            mBaseInsert_screen = mManager_page.getBaseInsert_screen();
-                if (mBaseInsert_screen != null) {
-                    String baseAd_percent = mBaseInsert_screen.getBaseAd_percent();
-                    showTime = mBaseInsert_screen.getShowTime();
-                    double probability = AdProbabilityUtil.showAdProbability(baseAd_percent);
-                    if (mBaseInsert_screen.isBaseStatus()) {
-                        double random = Math.random();
-                        if (random >probability) {
-                            showTTInsertAd();
-                        } else {
-                            showTXInsertAd();
+        try {
+            if (UserInfoUtil.isVIP()) {
+                return;
+            }
+            if (AdMsgUtil.isHaveAdData()) {
+                mCurrentType=type;
+                mManager_page=AdMsgUtil.switchAdType(type, AdMsgUtil.getAdState());
+                if (mManager_page != null) {
+                    mBaseInsert_screen = mManager_page.getBaseInsert_screen();
+                    if (mBaseInsert_screen != null) {
+                        String baseAd_percent = mBaseInsert_screen.getBaseAd_percent();
+                        showTime = mBaseInsert_screen.getShowTime();
+                        double probability = AdProbabilityUtil.showAdProbability(baseAd_percent);
+                        if (mBaseInsert_screen.isBaseStatus()) {
+                            double random = Math.random();
+                            if (random >probability) {
+                                showTTInsertAd();
+                            } else {
+                                showTXInsertAd();
+                            }
                         }
                     }
                 }
             }
+        }catch (Exception e){
+            if (mActivity != null) {
+                mActivity.finish();
+            }
         }
-
     }
 
 

@@ -22,7 +22,7 @@ class DevicesAdapter:BaseQuickAdapter<DeviceBean, BaseDataBindingHolder<ItemDevi
             item?.let {
                 deviceName.text="${it.deviceName}"
                 deviceIpMac.text="${it.deviceIp}"+"\n"+"${it.deviceMac}"
-                deviceTab.text= if(it.deviceSign!="") it.deviceSign+"" else "标记"
+                deviceTab.text= if(it.deviceSign!="") "${it.deviceSign}" else "标记"
             }
 
         }

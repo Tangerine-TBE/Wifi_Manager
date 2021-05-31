@@ -9,7 +9,7 @@ import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.calLastedTime
 import com.example.module_base.utils.gsonHelper
 import com.example.module_base.utils.startCountDown
-import com.example.wifi_manager.db.SQliteHelper
+import com.example.wifi_manager.db.SQLiteHelper
 import com.example.wifi_manager.domain.*
 import com.example.wifi_manager.repository.NetSpeedTestRepository
 import com.example.wifi_manager.utils.ConstantsUtil
@@ -69,7 +69,7 @@ class SafetyCheckViewModel : BaseViewModel() {
         scanDeviceState.value = ValueScanDevice(ProgressState.BEGIN, mDeviceInfo)
         viewModelScope.launch(Dispatchers.IO) {
             oldSignList = withContext(Dispatchers.IO) {
-                SQliteHelper.findAllData()
+                SQLiteHelper.findAllData()
             }
             val ipAddressString = WifiUtils.getIpAddressString()
             val last = ipAddressString.lastIndexOf(".")

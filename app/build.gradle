@@ -109,7 +109,7 @@ android {
         _oppo {
 
             manifestPlaceholders = [
-                    app_name_channel: "智能WiFi管家",
+                    app_name_channel: "天王星WiFi万能管家",
                     CHANNEL_VALUE:"_oppo"]
         }
         _vivo {
@@ -163,7 +163,7 @@ android {
 
             manifestPlaceholders = [
                     app_name_channel:  rootProject.ext.versions.applicationName,
-                    CHANNEL_VALUE:"_alibaba"]
+                    CHANNEL_VALUE:"_ali"]
         }
         _google {
 

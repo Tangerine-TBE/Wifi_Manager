@@ -143,7 +143,7 @@ class HomeViewModel : BaseViewModel() {
 
                     }
                     list.forEach {
-                        LogUtils.i("------shareState---------${it.shareState}------${it.wifiName}----------")
+                        LogUtils.i("------shareStateSuccess---------${it.shareState}------${it.wifiName}----------")
                     }
                     oldRealList.clear()
                     oldRealList.addAll(list)
@@ -163,7 +163,7 @@ class HomeViewModel : BaseViewModel() {
             } else {
                 setWifiContent(WifiContentState.ERROR, list)
             }
-            LogUtils.i("------shareState---------${it}---------")
+            LogUtils.i("------shareStateError---------${it}---------")
 
         })
 

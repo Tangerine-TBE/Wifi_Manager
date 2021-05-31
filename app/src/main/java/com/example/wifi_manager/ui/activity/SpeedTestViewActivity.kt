@@ -96,5 +96,9 @@ class SpeedTestViewActivity : BaseVmViewActivity<ActivitySpeedTestBinding,SpeedT
 
     }
 
+    override fun release() {
+        mTestRemindDialog.dismiss()
+    }
+
 
 }

@@ -152,9 +152,9 @@ class CycleRulerActivity : BaseActivity(), View.OnClickListener {
                 return
             }
             //打开摄像头
-            mCameraManager?.openCamera(mCameraID!!, stateCallback, mainHandler)
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
+            mCameraManager?.openCamera(mCameraID?:"0", stateCallback, mainHandler)
+        } catch (e:Exception) {
+            finish()
         }
 
     }

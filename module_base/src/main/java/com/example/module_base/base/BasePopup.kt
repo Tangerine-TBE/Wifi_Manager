@@ -12,6 +12,7 @@ import android.widget.PopupWindow
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
+import com.example.module_base.utils.isMainThread
 
 
 /**
@@ -65,9 +66,11 @@ open class BasePopup<T:ViewDataBinding>(val activity: FragmentActivity?, layout:
 
    open fun showPopupView(view: View,gravity:Int=Gravity.CENTER,x:Int=0,y:Int=0){
        activity?.let {
-           if (!it.isFinishing) {
-               mInValueAnimator.start()
-               showAtLocation(view,gravity,x,y)
+               if (!it.isFinishing) {
+                   if (!it.isDestroyed) {
+                   mInValueAnimator.start()
+                   showAtLocation(view,gravity,x,y)
+               }
            }
        }
     }

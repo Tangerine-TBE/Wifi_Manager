@@ -12,7 +12,7 @@ import org.litepal.crud.LitePalSupport
  * @date: 2021/1/23 0023
  * @description：
  */
-object SQliteHelper {
+object SQLiteHelper {
 
 
     suspend inline fun <reified T : LitePalSupport> saveData(

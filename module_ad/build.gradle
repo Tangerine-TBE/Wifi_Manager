@@ -46,7 +46,7 @@ dependencies {
     }
 
     implementation 'androidx.lifecycle:lifecycle-service:2.3.0-beta01'
-
+    implementation 'com.pangle.cn:ads-sdk:3.5.0.8'
 
 
 }

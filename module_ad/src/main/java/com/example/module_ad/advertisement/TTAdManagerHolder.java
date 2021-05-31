@@ -6,6 +6,8 @@ import com.bytedance.sdk.openadsdk.TTAdConfig;
 import com.bytedance.sdk.openadsdk.TTAdConstant;
 import com.bytedance.sdk.openadsdk.TTAdManager;
 import com.bytedance.sdk.openadsdk.TTAdSdk;
+import com.bytedance.sdk.openadsdk.TTCustomController;
+import com.bytedance.sdk.openadsdk.TTLocation;
 import com.example.module_ad.R;
 import com.example.module_ad.utils.Contents;
 import com.example.module_ad.utils.AdMsgUtil;
@@ -53,11 +55,50 @@ public class TTAdManagerHolder {
                 .appName(context.getResources().getString(R.string.app_name))
                 .titleBarTheme(TTAdConstant.TITLE_BAR_THEME_DARK)
                 .allowShowNotify(true) //是否允许sdk展示通知栏提示
-                .allowShowPageWhenScreenLock(true) //是否在锁屏场景支持展示广告落地页
                 .debug(false) //测试阶段打开，可以通过日志排查问题，上线时去除该调用
-//                .globalDownloadListener(new AppDownloadStatusListener(context)) //下载任务的全局监听
-                .directDownloadNetworkType(TTAdConstant.NETWORK_STATE_WIFI, TTAdConstant.NETWORK_STATE_3G) //允许直接下载的网络状态集合
+                .directDownloadNetworkType(TTAdConstant.NETWORK_STATE_WIFI) //允许直接下载的网络状态集合
                 .supportMultiProcess(false)
+                .customController(new TTCustomController() {
+                    @Override
+                    public boolean isCanUseLocation() {
+                        return false;
+                    }
+
+                    @Override
+                    public TTLocation getTTLocation() {
+                        return super.getTTLocation();
+                    }
+
+                    @Override
+                    public boolean alist() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isCanUsePhoneState() {
+                        return false;
+                    }
+
+                    @Override
+                    public String getDevImei() {
+                        return super.getDevImei();
+                    }
+
+                    @Override
+                    public boolean isCanUseWifiState() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean isCanUseWriteExternal() {
+                        return false;
+                    }
+
+                    @Override
+                    public String getDevOaid() {
+                        return super.getDevOaid();
+                    }
+                })
                 .build();
     }
 }

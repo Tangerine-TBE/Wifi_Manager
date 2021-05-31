@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.net.Uri
 import android.os.CountDownTimer
+import android.os.Looper
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
@@ -245,6 +246,6 @@ fun checkAppPermission(
     }
 
 }
-
+fun isMainThread()= Looper.getMainLooper().thread === Thread.currentThread()
 
 

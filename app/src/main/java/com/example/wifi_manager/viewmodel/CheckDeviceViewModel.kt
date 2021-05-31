@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.module_base.base.BaseViewModel
 import com.example.module_base.utils.LogUtils
-import com.example.wifi_manager.db.SQliteHelper
+import com.example.wifi_manager.db.SQLiteHelper
 import com.example.wifi_manager.domain.DeviceBean
 import com.example.wifi_manager.domain.ValueScanDevice
 import com.example.wifi_manager.utils.ProgressState
@@ -40,7 +40,7 @@ class CheckDeviceViewModel: BaseViewModel() {
         scanDeviceState.value= ValueScanDevice(ProgressState.BEGIN,mDeviceInfo)
         viewModelScope.launch(Dispatchers.IO) {
             oldSignList=withContext(Dispatchers.IO){
-              SQliteHelper.findAllData()
+              SQLiteHelper.findAllData()
             }
             val ipAddressString = WifiUtils.getIpAddressString()
             val last = ipAddressString.lastIndexOf(".")
@@ -103,7 +103,7 @@ class CheckDeviceViewModel: BaseViewModel() {
                 if (mDeviceInfo.size>position){
                     val deviceBean = mDeviceInfo[position]
                     deviceBean.deviceSign=name
-                    if (SQliteHelper.saveData<DeviceBean>("deviceMac=?","${deviceBean.deviceMac}",deviceBean) { contentValuesOf("deviceSign" to name) }) {
+                    if (SQLiteHelper.saveData<DeviceBean>("deviceMac=?","${deviceBean.deviceMac}",deviceBean) { contentValuesOf("deviceSign" to name) }) {
                         mDeviceInfo[position] = deviceBean
                         scanDeviceState.value=ValueScanDevice(ProgressState.NONE,mDeviceInfo)
                     }

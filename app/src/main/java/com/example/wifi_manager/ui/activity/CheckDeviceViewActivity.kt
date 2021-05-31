@@ -17,12 +17,13 @@ import com.example.wifi_manager.utils.WifiContentState
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
 import com.tamsiree.rxkit.view.RxToast
 
-class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,CheckDeviceViewModel>() {
-    private var mSweeping=true
-    override fun getLayoutView(): Int=R.layout.activity_check_device
+class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding, CheckDeviceViewModel>() {
+    private var mSweeping = true
+    override fun getLayoutView(): Int = R.layout.activity_check_device
     override fun getViewModelClass(): Class<CheckDeviceViewModel> {
         return CheckDeviceViewModel::class.java
     }
+
     private lateinit var mDevicesAdapter: DevicesAdapter
     private val mRenamePopup by lazy {
         RenamePopup(this)
@@ -30,12 +31,12 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
 
 
     override fun initView() {
-        binding.data=viewModel
-        setStatusBar(this,   binding.checkDeviceToolbar, LayoutType.CONSTRAINTLAYOUT)
-        mDevicesAdapter= DevicesAdapter()
+        binding.data = viewModel
+        setStatusBar(this, binding.checkDeviceToolbar, LayoutType.CONSTRAINTLAYOUT)
+        mDevicesAdapter = DevicesAdapter()
         binding.devicesContainer.apply {
-            layoutManager=LinearLayoutManager(this@CheckDeviceViewActivity)
-            adapter=mDevicesAdapter
+            layoutManager = LinearLayoutManager(this@CheckDeviceViewActivity)
+            adapter = mDevicesAdapter
 
         }
         mDevicesAdapter.addChildClickViewIds(R.id.deviceTab)
@@ -46,19 +47,22 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
     override fun observerData() {
         viewModel.apply {
             scanDeviceState.observe(this@CheckDeviceViewActivity, { result ->
-                result?.let {
-                    val deviceContent = it.deviceContent
+                result.deviceContent?.let { it ->
                     mSweeping = when (result.scanState) {
                         ProgressState.BEGIN -> {
-                            mDevicesAdapter.setList(deviceContent)
+                            if (it.size > 0) {
+                                mDevicesAdapter.setList(it)
+                            }
                             true
                         }
                         ProgressState.END -> {
-                            showToast("扫描完成,共发现${deviceContent.size}台设备")
+                            showToast("扫描完成,共发现${it.size}台设备")
                             false
                         }
-                        else->{
-                            mDevicesAdapter.setList(deviceContent)
+                        else -> {
+                            if (it.size > 0) {
+                                mDevicesAdapter.setList(it)
+                            }
                             false
                         }
                     }
@@ -67,7 +71,7 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
         }
     }
 
-    private var mSelectPosition=0
+    private var mSelectPosition = 0
     override fun initEvent() {
         binding.apply {
             checkDeviceToolbar.toolbarEvent(this@CheckDeviceViewActivity) {}
@@ -76,20 +80,19 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
             }
 
             mDevicesAdapter.setOnItemChildClickListener { adapter, view, position ->
-                mSelectPosition=position
-                when(view.id){
-                    R.id.deviceTab->{
+                mSelectPosition = position
+                when (view.id) {
+                    R.id.deviceTab -> {
                         if (mSweeping) RxToast.normal("正在扫描...")
-                        else
-                        {
-                            checkAppPermission(DataProvider.askStoragePermissionLis,{
+                        else {
+                            checkAppPermission(DataProvider.askStoragePermissionLis, {
                                 mRenamePopup?.apply {
                                     setOldName(viewModel.getSignName(position))
                                     showPopupView(devicesContainer)
                                 }
-                            },{
+                            }, {
                                 showToast("缺少权限，无法标记")
-                            },this@CheckDeviceViewActivity)
+                            }, this@CheckDeviceViewActivity)
 
                         }
 
@@ -102,9 +105,10 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
                 setOnActionClickListener(object : BasePopup.OnActionClickListener {
                     override fun sure() {
                         val renameText = getRenameText()
-                        viewModel.saveSign(renameText,mSelectPosition)
+                        viewModel.saveSign(renameText, mSelectPosition)
                         dismiss()
                     }
+
                     override fun cancel() {
 
                     }
@@ -112,7 +116,7 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding,Ch
             }
 
             protectNet.setOnClickListener {
-                toOtherActivity<ProtectNetActivity>(this@CheckDeviceViewActivity){}
+                toOtherActivity<ProtectNetActivity>(this@CheckDeviceViewActivity) {}
             }
 
         }

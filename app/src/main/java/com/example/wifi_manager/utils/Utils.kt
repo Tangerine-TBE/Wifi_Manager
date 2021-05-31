@@ -1,11 +1,10 @@
 package com.example.wifi_manager.utils
 
-import android.app.Activity
 import android.content.Context
 import android.location.LocationManager
+import android.os.Looper
 import com.example.module_base.utils.LogUtils
 import com.example.module_base.utils.showToast
-import com.tamsiree.rxkit.RxNetTool
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -70,3 +69,5 @@ fun isOPen(context: Context): Boolean {
     val network: Boolean = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     return gps || network
 }
+
+

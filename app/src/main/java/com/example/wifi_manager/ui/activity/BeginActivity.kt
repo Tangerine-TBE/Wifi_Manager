@@ -2,16 +2,20 @@ package com.example.wifi_manager.ui.activity
 
 import android.view.KeyEvent
 import com.example.module_ad.advertisement.SplashHelper
+import com.example.module_ad.advertisement.TTAdManagerHolder
 import com.example.module_ad.utils.AdMsgUtil
 import com.example.module_ad.utils.Contents
+import com.example.module_base.base.BaseApplication
 import com.example.module_base.base.BasePopup
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.*
 import com.example.wifi_manager.R
+import com.example.wifi_manager.base.MainApplication
 import com.example.wifi_manager.databinding.ActivityBeginBinding
 import com.example.wifi_manager.ui.popup.AgreementPopup
 import com.example.wifi_manager.utils.DataProvider.askAllPermissionLis
 import com.example.wifi_manager.viewmodel.BeginViewModel
+import com.umeng.commonsdk.UMConfigure
 
 class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>() {
 
@@ -56,6 +60,10 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
     override fun initEvent() {
         mAgreementPopup.setOnActionClickListener(object : BasePopup.OnActionClickListener {
             override fun sure() {
+                TTAdManagerHolder.init(BaseApplication.application)
+                //友盟
+                UMConfigure.init(applicationContext, UMConfigure.DEVICE_TYPE_PHONE, "01a1119aa055917f8816f3a")
+                UMConfigure.setLogEnabled(true)
                 checkAppPermission(
                     askAllPermissionLis, {
                         if (AdMsgUtil.getADKey() != null) {

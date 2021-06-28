@@ -37,23 +37,6 @@ android {
         enabled = true
     }
 
-    buildTypes {
-        release {
-            lintOptions {
-                checkReleaseBuilds false
-                abortOnError false
-            }
-
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-
     signingConfigs {
         release {
             storeFile file("cn.yuntk.reader.jks")
@@ -76,6 +59,24 @@ android {
         }
     }
 
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
     sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
@@ -86,14 +87,14 @@ android {
     }
 
     //    只在打包提测时改apk文件名，开发时记得注释掉
-    applicationVariants.all { variant ->
-        variant.getPackageApplication().outputDirectory = new File("F:/WIFI管家")
-        variant.outputs.all {
-            outputFileName = "${variant.productFlavors[0].manifestPlaceholders.get("app_name_channel")}" +
-                    "_${variant.productFlavors[0].name}" +
-                    "_${variant.versionName}.apk"
-        }
-    }
+//    applicationVariants.all { variant ->
+//        variant.getPackageApplication().outputDirectory = new File("F:/安装包/WIFI管家/天王星/1.7")
+//        variant.outputs.all {
+//            outputFileName = "${variant.productFlavors[0].manifestPlaceholders.get("app_name_channel")}" +
+//                    "_${variant.productFlavors[0].name}" +
+//                    "_${variant.versionName}.apk"
+//        }
+//    }
 
     productFlavors {
         _anzhi {
@@ -109,7 +110,7 @@ android {
         _oppo {
 
             manifestPlaceholders = [
-                    app_name_channel: "天王星WiFi万能管家",
+                    app_name_channel: "万能钥匙wifi助手",
                     CHANNEL_VALUE:"_oppo"]
         }
         _vivo {

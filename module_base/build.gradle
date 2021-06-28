@@ -104,9 +104,14 @@ dependencies {
 
 
     //友盟
-    api rootProject.ext.dependencies["umeng_common"]
-    api rootProject.ext.dependencies["umeng_asms"]
-    api rootProject.ext.dependencies["umeng_crash"]
+//    api rootProject.ext.dependencies["umeng_common"]
+//    api rootProject.ext.dependencies["umeng_asms"]
+//    api rootProject.ext.dependencies["umeng_crash"]
+    //友盟统计
+    api  'com.umeng.umsdk:common:9.3.8'// 必选
+    api  'com.umeng.umsdk:asms:1.2.2'// 必选
+    api 'com.umeng.umsdk:apm:1.2.0' // 错误分析升级为独立产品U-APM可按需集成，可选
+    api  'com.umeng.umsdk:abtest:1.0.0'//使用U-App中ABTest能力，可选
 
 
 

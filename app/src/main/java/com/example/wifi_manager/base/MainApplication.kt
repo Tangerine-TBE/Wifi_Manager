@@ -2,7 +2,6 @@ package com.example.wifi_manager.base
 
 import android.app.Activity
 import android.os.Bundle
-import com.example.module_ad.advertisement.TTAdManagerHolder
 import com.example.module_ad.utils.BaseBackstage
 import com.example.module_base.base.BaseApplication
 
@@ -17,7 +16,7 @@ import com.example.module_base.base.BaseApplication
 class MainApplication:BaseApplication() {
 
     override fun initData() {
-        TTAdManagerHolder.init(applicationContext)
+
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             private var activityStartCount = 0
 

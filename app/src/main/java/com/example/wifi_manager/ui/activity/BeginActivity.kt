@@ -49,6 +49,10 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
                         mAgreementPopup?.showPopupView(binding.mAdContainer)
                         showConut++
                     } else {
+                        TTAdManagerHolder.init(BaseApplication.application)
+                        //友盟
+                        UMConfigure.init(applicationContext, UMConfigure.DEVICE_TYPE_PHONE, "601a1119aa055917f8816f3a")
+                        UMConfigure.setLogEnabled(true)
                        mSplashHelper.showAd()
                     }
                 }
@@ -62,7 +66,7 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
             override fun sure() {
                 TTAdManagerHolder.init(BaseApplication.application)
                 //友盟
-                UMConfigure.init(applicationContext, UMConfigure.DEVICE_TYPE_PHONE, "01a1119aa055917f8816f3a")
+                UMConfigure.init(applicationContext, UMConfigure.DEVICE_TYPE_PHONE, "601a1119aa055917f8816f3a")
                 UMConfigure.setLogEnabled(true)
                 checkAppPermission(
                     askAllPermissionLis, {

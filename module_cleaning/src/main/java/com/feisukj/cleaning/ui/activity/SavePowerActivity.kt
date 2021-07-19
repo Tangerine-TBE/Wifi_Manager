@@ -19,12 +19,14 @@ import com.example.module_ad.advertisement.BanFeedHelper
 import com.example.module_ad.advertisement.FeedHelper
 import com.example.module_ad.advertisement.InsertHelper
 import com.example.module_base.cleanbase.toast
+import com.example.module_base.utils.PermissionUtils
 
 
 import com.feisukj.cleaning.R
 import com.feisukj.cleaning.bean.BatteryInfo
 
 import com.gyf.immersionbar.ImmersionBar
+import com.hjq.permissions.Permission
 import kotlinx.android.synthetic.main.activity_cooling_complete.*
 import kotlinx.android.synthetic.main.activity_save_power.*
 import kotlinx.android.synthetic.main.activity_save_power.leftBack
@@ -165,10 +167,14 @@ class SavePowerActivity :FragmentActivity(){
         screenTimeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (progress<10){
-                    Settings.System.putInt(contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, 10*1000)
-                    screenTimeSeekBar.progress=10
+                    PermissionUtils.askPermission(this@SavePowerActivity,Permission.WRITE_SETTINGS){
+                        Settings.System.putInt(contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, 10*1000)
+                        screenTimeSeekBar.progress=10
+                    }
                 }else{
-                    Settings.System.putInt(contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, progress*1000)
+                    PermissionUtils.askPermission(this@SavePowerActivity,Permission.WRITE_SETTINGS){
+                        Settings.System.putInt(contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, progress*1000)
+                    }
                 }
             }
 
@@ -182,11 +188,13 @@ class SavePowerActivity :FragmentActivity(){
         })
         brightnessSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                try {
-                    Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, progress)//设置当前屏幕亮度值
-                }catch (e:IllegalArgumentException){
-                    if (Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS)!=255){
-                        Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, 255)
+                PermissionUtils.askPermission(this@SavePowerActivity,Permission.WRITE_SETTINGS){
+                    try {
+                        Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, progress)//设置当前屏幕亮度值
+                    }catch (e:IllegalArgumentException){
+                        if (Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS)!=255){
+                            Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, 255)
+                        }
                     }
                 }
             }

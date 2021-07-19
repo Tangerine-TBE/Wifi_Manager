@@ -20,7 +20,7 @@ class RepetitionFileAdapter(data: List<SectionData<TitleBean_Group, FileBean>>):
     var adView: FrameLayout?=null
 
     override fun getItemCount(): Int {
-        return super.getItemCount()+if (adView==null) 0 else 1
+        return super.getItemCount()//+if (adView==null) 0 else 1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {

@@ -66,7 +66,8 @@ object DataProvider {
         ItemBean(title = "隐私政策"),
         ItemBean(title = "关于我们"),
         ItemBean(title = "检测更新"),
-        ItemBean(title = "账号注销")
+        ItemBean(title = "账号注销"),
+        ItemBean(title = "退出登录")
     )
 
     val shareApplyList = arrayListOf(

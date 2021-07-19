@@ -34,7 +34,12 @@ public class TXSplashAd extends AdWatcher{
 
     @Override
     public void showAd() {
-        if (!RxNetTool.isConnected(BaseApplication.Companion.getApplication())) {
+        try{
+            if (!RxNetTool.isConnected(BaseApplication.Companion.getApplication())) {
+                return;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
             return;
         }
         mSplashAD = new SplashAD(mActivity, mKgdtMobSDKKaiPingKey, new SplashADListener() {

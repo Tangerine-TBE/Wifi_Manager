@@ -9,12 +9,13 @@ import com.example.module_base.base.BaseApplication
 import com.example.module_base.base.BasePopup
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.*
+import com.example.module_tool.base.BaseConstant
 import com.example.wifi_manager.R
-import com.example.wifi_manager.base.MainApplication
 import com.example.wifi_manager.databinding.ActivityBeginBinding
 import com.example.wifi_manager.ui.popup.AgreementPopup
 import com.example.wifi_manager.utils.DataProvider.askAllPermissionLis
 import com.example.wifi_manager.viewmodel.BeginViewModel
+import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
 
 class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>() {
@@ -51,8 +52,8 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
                     } else {
                         TTAdManagerHolder.init(BaseApplication.application)
                         //友盟
-                        UMConfigure.init(applicationContext, UMConfigure.DEVICE_TYPE_PHONE, "601a1119aa055917f8816f3a")
-                        UMConfigure.setLogEnabled(true)
+                        UMConfigure.init(BaseApplication.application,"601a1119aa055917f8816f3a",BaseConstant.channel,UMConfigure.DEVICE_TYPE_PHONE,null)
+                        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO)
                        mSplashHelper.showAd()
                     }
                 }
@@ -66,8 +67,8 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
             override fun sure() {
                 TTAdManagerHolder.init(BaseApplication.application)
                 //友盟
-                UMConfigure.init(applicationContext, UMConfigure.DEVICE_TYPE_PHONE, "601a1119aa055917f8816f3a")
-                UMConfigure.setLogEnabled(true)
+                UMConfigure.init(BaseApplication.application,"601a1119aa055917f8816f3a",BaseConstant.channel,UMConfigure.DEVICE_TYPE_PHONE,null)
+                MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO)
                 checkAppPermission(
                     askAllPermissionLis, {
                         if (AdMsgUtil.getADKey() != null) {

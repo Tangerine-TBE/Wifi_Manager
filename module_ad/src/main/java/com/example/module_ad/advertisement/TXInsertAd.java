@@ -99,6 +99,16 @@ public class TXInsertAd extends AdWatcher implements UnifiedInterstitialADListen
     }
 
     @Override
+    public void onRenderSuccess() {
+
+    }
+
+    @Override
+    public void onRenderFail() {
+
+    }
+
+    @Override
     public void onVideoInit() {
 
     }

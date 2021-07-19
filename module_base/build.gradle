@@ -94,6 +94,8 @@ dependencies {
     //阿里路由
     api rootProject.ext.dependencies["arouter_api"]
 
+    api 'com.github.getActivity:XXPermissions:11.5'
+
 
 
     //日志打印

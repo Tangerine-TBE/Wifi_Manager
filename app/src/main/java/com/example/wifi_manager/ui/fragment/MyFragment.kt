@@ -93,7 +93,7 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
             UserInfoLiveData.observe(this@MyFragment, {
                 userId = it.userInfo?.data?.id.toString()
                 currentLoginState = it.loginState
-                binding.userInfoText.text = "${if (it.loginState) userId else "登录/注册"}"
+                binding.userInfoText.text = if (it.loginState) userId else "登录/注册"
             })
         }
     }
@@ -181,6 +181,15 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
                 5 -> {
                     if (currentLoginState) {
                         mLogoutPopup?.apply {
+                            showPopupView(binding.mMyTopContainer)
+                        }
+                    } else {
+                        showToast("您还没有登录呢！")
+                    }
+                }
+                6 -> {
+                    if (currentLoginState) {
+                        mRemindPopup?.apply {
                             showPopupView(binding.mMyTopContainer)
                         }
                     } else {

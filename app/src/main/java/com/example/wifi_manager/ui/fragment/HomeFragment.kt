@@ -190,10 +190,14 @@ class HomeFragment :
 
 
 
-                if (RxNetTool.isWifiConnected(requireContext())) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        mCurrentWifiList.removeIf { it.wifiName == getConnectWifiName() }
+                try {
+                    if (RxNetTool.isWifiConnected(requireContext())) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            mCurrentWifiList.removeIf { it.wifiName == getConnectWifiName() }
+                        }
                     }
+                }catch (e : Exception){
+                    e.printStackTrace()
                 }
 
                 mWifiListAdapter.setList(mCurrentWifiList)

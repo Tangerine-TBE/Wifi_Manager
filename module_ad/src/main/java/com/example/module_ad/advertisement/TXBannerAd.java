@@ -9,6 +9,7 @@ import com.example.module_base.utils.LogUtils;
 import com.qq.e.ads.banner2.UnifiedBannerADListener;
 import com.qq.e.ads.banner2.UnifiedBannerView;
 import com.qq.e.comm.managers.GDTADManager;
+import com.qq.e.comm.managers.GDTAdSdk;
 import com.qq.e.comm.util.AdError;
 import com.tamsiree.rxkit.RxNetTool;
 
@@ -23,8 +24,7 @@ public class TXBannerAd  extends AdWatcher{
     public TXBannerAd(Activity activity, FrameLayout frameLayout) {
         this.mActivity=activity;
         this.mBannerContainer=frameLayout;
-        GDTADManager.getInstance().initWith(activity, mKgdtMobSDKAppKey);
-
+        GDTAdSdk.init(activity,mKgdtMobSDKAppKey);
     }
 
     @Override

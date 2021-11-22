@@ -12,7 +12,6 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.example.module_base.utils.SizeUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
-import com.loc.dr
 import kotlinx.coroutines.*
 
 /**

@@ -11,6 +11,7 @@ import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.ads.nativ.NativeExpressMediaListener;
 import com.qq.e.comm.constants.AdPatternType;
 import com.qq.e.comm.managers.GDTADManager;
+import com.qq.e.comm.managers.GDTAdSdk;
 import com.qq.e.comm.util.AdError;
 import com.tamsiree.rxkit.RxNetTool;
 
@@ -29,7 +30,7 @@ public class TXFeedAd extends AdWatcher {
         this.mActivity=activity;
 
         this.mFeedContainer=frameLayout;
-        GDTADManager.getInstance().initWith(activity, mKgdtMobSDKAppKey);
+        GDTAdSdk.init(activity,mKgdtMobSDKAppKey);
     }
 
 

@@ -170,7 +170,7 @@ public class TTBannerAd extends AdWatcher {
             }
 
             @Override
-            public void onSelected(int position, String value) {
+            public void onSelected(int position, String value,boolean b) {
                 //用户选择不喜欢原因后，移除广告展示
                 mBannerContainer.removeAllViews();
                 mBannerContainer.setVisibility(View.GONE);
@@ -178,11 +178,6 @@ public class TTBannerAd extends AdWatcher {
 
             @Override
             public void onCancel() {
-            }
-
-            @Override
-            public void onRefuse() {
-
             }
 
         });

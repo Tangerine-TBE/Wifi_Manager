@@ -317,7 +317,7 @@ class DealViewActivity : BaseViewActivity<ActivityDealBinding>()  {
                         " \n" +
                         " 客服邮箱：${email}\n" +
                         "\n" +
-                        "最后更新日期：2021年5月27日\n\n"
+                        "最后更新日期：2021年11月18日\n\n"
             )
         return stringBuilder
     }

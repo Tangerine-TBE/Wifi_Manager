@@ -90,7 +90,7 @@ dependencies {
     //permissionx
     api rootProject.ext.dependencies["permissionx"]
     //定位
-    api 'com.amap.api:location:5.2.0'
+//    api 'com.amap.api:location:5.2.0'
     //阿里路由
     api rootProject.ext.dependencies["arouter_api"]
 
@@ -110,9 +110,9 @@ dependencies {
 //    api rootProject.ext.dependencies["umeng_asms"]
 //    api rootProject.ext.dependencies["umeng_crash"]
     //友盟统计
-    api  'com.umeng.umsdk:common:9.3.8'// 必选
-    api  'com.umeng.umsdk:asms:1.2.2'// 必选
-    api 'com.umeng.umsdk:apm:1.2.0' // 错误分析升级为独立产品U-APM可按需集成，可选
+    api  'com.umeng.umsdk:common:9.4.2'// 必选
+    api  'com.umeng.umsdk:asms:1.4.1'// 必选
+    api 'com.umeng.umsdk:apm:1.4.2' // 错误分析升级为独立产品U-APM可按需集成，可选
     api  'com.umeng.umsdk:abtest:1.0.0'//使用U-App中ABTest能力，可选
 
 

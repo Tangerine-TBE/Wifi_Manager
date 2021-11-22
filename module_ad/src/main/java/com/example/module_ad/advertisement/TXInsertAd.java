@@ -8,6 +8,7 @@ import com.qq.e.ads.interstitial2.UnifiedInterstitialADListener;
 import com.qq.e.ads.interstitial2.UnifiedInterstitialMediaListener;
 import com.qq.e.comm.constants.AdPatternType;
 import com.qq.e.comm.managers.GDTADManager;
+import com.qq.e.comm.managers.GDTAdSdk;
 import com.qq.e.comm.util.AdError;
 
 
@@ -18,7 +19,7 @@ public class TXInsertAd extends AdWatcher implements UnifiedInterstitialADListen
 
     public TXInsertAd(Activity activity) {
         this.mActivity=activity;
-        GDTADManager.getInstance().initWith(activity, mKgdtMobSDKAppKey);
+        GDTAdSdk.init(activity,mKgdtMobSDKAppKey);
 
     }
 

@@ -65,11 +65,6 @@ public class TTAdManagerHolder {
                     }
 
                     @Override
-                    public TTLocation getTTLocation() {
-                        return super.getTTLocation();
-                    }
-
-                    @Override
                     public boolean alist() {
                         return false;
                     }

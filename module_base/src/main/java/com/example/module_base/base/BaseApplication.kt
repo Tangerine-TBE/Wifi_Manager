@@ -5,8 +5,10 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.module_base.cleanbase.PackageUtils
 import com.example.module_base.utils.SPUtil
 import com.tamsiree.rxkit.RxTool
+import com.umeng.commonsdk.UMConfigure
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.litepal.LitePal
@@ -54,7 +56,8 @@ open class BaseApplication : Application() {
                 e.printStackTrace()
             }
             FeedbackAPI.setAppExtInfo(jsonObject)*/
-
+            UMConfigure.preInit(application,"601a1119aa055917f8816f3a",
+                PackageUtils.getAppMetaData(application, "CHANNEL"))
         }
 
 

@@ -131,7 +131,7 @@ class FloatBallManager private constructor(){
         homeGarbage.clear()
 
 
-        val max= listOf(weChatGarbageLength,qqGarbageLength,shortVideoGarbageLength,homeGarbageLength).maxBy { it }?:return
+        val max= listOf(weChatGarbageLength,qqGarbageLength,shortVideoGarbageLength,homeGarbageLength).maxByOrNull { it }?:return
         val maxList=getSizeString(max,separation = ",").split(",")
         if(maxList.size<2)
             return

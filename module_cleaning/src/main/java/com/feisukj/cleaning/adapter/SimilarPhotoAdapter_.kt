@@ -94,7 +94,7 @@ class SimilarPhotoAdapter_(data: List<SectionData<TitleBean_Group, ImageBean>>):
                 }
             }
         }
-        if (treeData.getItemData().maxBy { it.fileSize }==subItem){
+        if (treeData.getItemData().maxByOrNull { it.fileSize }==subItem){
             holder.getView<View>(R.id.goodPicture).visibility=View.VISIBLE
         }else{
             holder.getView<View>(R.id.goodPicture).visibility=View.GONE

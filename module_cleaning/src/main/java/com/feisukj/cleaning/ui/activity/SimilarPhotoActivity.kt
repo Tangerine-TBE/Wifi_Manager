@@ -107,7 +107,7 @@ class SimilarPhotoActivity : BaseActivity2(), BaseSectionAdapter.ItemSelectListe
         }
         if (enabled){
             data.forEach { stickySectionData ->
-                val imageBean=stickySectionData.getItemData().maxBy { it.fileSize }
+                val imageBean=stickySectionData.getItemData().maxByOrNull { it.fileSize }
                 stickySectionData.getItemData().toList().forEach {
                     if (it!=imageBean){
                         it.isCheck=true

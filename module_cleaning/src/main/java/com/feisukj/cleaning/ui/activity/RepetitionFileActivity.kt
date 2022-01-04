@@ -122,7 +122,7 @@ class RepetitionFileActivity:FragmentActivity(), BaseSectionAdapter.ItemSelectLi
         }
         if (enabled){
             data.forEach { stickySectionData ->
-                val imageBean=stickySectionData.getItemData().minBy { it.fileName.length }
+                val imageBean=stickySectionData.getItemData().minByOrNull { it.fileName.length }
                 stickySectionData.getItemData().toList().forEach {
                     if (it!=imageBean){
                         it.isCheck=true

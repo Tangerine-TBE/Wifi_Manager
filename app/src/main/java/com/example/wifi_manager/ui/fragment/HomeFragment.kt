@@ -127,12 +127,6 @@ class HomeFragment :
 
         viewModel.checkProtectTimeOut()
 
-
-        checkAppPermission(DataProvider.askLocationPermissionLis, {
-            //    viewModel.getWifiList(WifiContentState.NORMAL)
-        }, {
-            showToast("我们将无法为您提供附近的WiFi信息！！！")
-        }, fragment = this)
     }
 
     private val mOldWifiContent: MutableList<WifiMessageBean> = ArrayList()
@@ -474,9 +468,14 @@ class HomeFragment :
             }
             //扫描wifi监听
             mScanWifi.setOnClickListener {
-                gpsState(requireContext()) {
-                    mSmartRefreshLayout.autoRefresh()
-                }
+                checkAppPermission(DataProvider.askLocationPermissionLis, {
+                    //    viewModel.getWifiList(WifiContentState.NORMAL)
+                    gpsState(requireContext()) {
+                        mSmartRefreshLayout.autoRefresh()
+                    }
+                }, {
+                    showToast("我们将无法为您提供附近的WiFi信息！！！")
+                }, fragment = this@HomeFragment)
             }
             // wifi列表子view监听
             mWifiListAdapter.apply {

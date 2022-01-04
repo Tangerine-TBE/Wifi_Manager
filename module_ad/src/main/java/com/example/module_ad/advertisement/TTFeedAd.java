@@ -52,6 +52,7 @@ public class TTFeedAd extends AdWatcher {
                 .setCodeId(mKTouTiaoSeniorKey) //广告位id
                 .setSupportDeepLink(true)
                 .setAdCount(1) //请求广告数量为1到3条
+                .setDownloadType(TTAdConstant.DOWNLOAD_TYPE_POPUP)
                 .setExpressViewAcceptedSize(mExpressViewWidth,expressViewHeight) //期望模板广告view的size,单位dp
                 .build();
         //step5:请求广告，对请求回调的广告作渲染处理

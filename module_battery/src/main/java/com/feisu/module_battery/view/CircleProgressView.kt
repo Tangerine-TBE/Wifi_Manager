@@ -50,7 +50,7 @@ class CircleProgressView @JvmOverloads constructor(context: Context, attrs: Attr
         super.onSizeChanged(w, h, oldw, oldh)
         val min:Float
         val paintStrokeWidth=paint.strokeWidth
-        listOf(w,h).min().also {
+        listOf(w,h).minOrNull().also {
             it?:return
             min=it-paintStrokeWidth/2
         }

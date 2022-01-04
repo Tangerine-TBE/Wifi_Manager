@@ -45,6 +45,7 @@ public class TTBannerAd extends AdWatcher {
                 .setCodeId(mKTouTiaoBannerKey)
                 .setSupportDeepLink(true)
                 .setAdCount(3)
+                .setDownloadType(TTAdConstant.DOWNLOAD_TYPE_POPUP)
                 .setExpressViewAcceptedSize(RxDeviceTool.getScreenWidth(mActivity),80) //期望模板广告view的size,单位dp
                 .build();
 

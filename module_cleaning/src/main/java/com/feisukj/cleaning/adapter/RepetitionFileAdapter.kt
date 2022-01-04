@@ -83,7 +83,7 @@ class RepetitionFileAdapter(data: List<SectionData<TitleBean_Group, FileBean>>):
     }
 
     override fun onBindSubItemViewHolder(holder: RecyclerViewHolder, treeData: SectionData<TitleBean_Group, FileBean>, subItem: FileBean) {
-        if (treeData.getItemData().minBy { it.fileName.length }==subItem){
+        if (treeData.getItemData().minByOrNull { it.fileName.length }==subItem){
             holder.getView<View>(R.id.goodPicture).visibility=View.VISIBLE
         }else{
             holder.getView<View>(R.id.goodPicture).visibility=View.GONE

@@ -5,10 +5,11 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import com.example.module_base.R
-import com.example.module_base.utils.LogUtils
-import kotlinx.android.synthetic.main.layout_toolbar_new.view.*
 
 /**
  * @name WeatherOne
@@ -22,8 +23,19 @@ class MyToolbar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
+    private lateinit var tv_toolbarTitle: TextView
+    private lateinit var rl_bar: RelativeLayout
+    private lateinit var iv_bar_back: ImageView
+    private lateinit var iv_bar_add: ImageView
+    private lateinit var tv_bar_right: TextView
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.layout_toolbar_new, this, true)
+        val view = LayoutInflater.from(context).inflate(R.layout.layout_toolbar_new, this, true)
+        tv_toolbarTitle = view.findViewById(R.id.tv_toolbarTitle)
+        rl_bar = view.findViewById(R.id.rl_bar)
+        iv_bar_back = view.findViewById(R.id.iv_bar_back)
+        iv_bar_add = view.findViewById(R.id.iv_bar_add)
+        tv_bar_right = view.findViewById(R.id.tv_bar_right)
         context.obtainStyledAttributes(attrs, R.styleable.MyToolbar).apply {
             mTitle = getString(R.styleable.MyToolbar_toolbarTitle) ?: "顶部栏"
             mRightTitle = getString(R.styleable.MyToolbar_rightTitle)
@@ -59,7 +71,7 @@ class MyToolbar @JvmOverloads constructor(
 
 
     private fun initView() {
-        mTitle?.let {
+        mTitle.let {
             tv_toolbarTitle?.text = it
         }
 

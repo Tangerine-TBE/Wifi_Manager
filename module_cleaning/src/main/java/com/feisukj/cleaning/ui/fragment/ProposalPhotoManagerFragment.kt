@@ -61,10 +61,10 @@ class ProposalPhotoManagerFragment: BaseFragment2() {
                 val similar=group.photos
                 if (similar!=null) {
                     val sectionData=SectionData<TitleBean_Group,ImageBean>().apply {
-                        val minDate=similar.minBy {
+                        val minDate=similar.minByOrNull {
                             it.year*12+it.month
                         }?:return@apply
-                        val maxDate=similar.maxBy {
+                        val maxDate=similar.maxByOrNull {
                             it.year*12+it.month
                         }?:return@apply
                         val date=if (minDate==maxDate){

@@ -34,7 +34,7 @@ class CircleProgress @JvmOverloads constructor(context: Context,attributeSet: At
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        val min= listOf(w,h).min()?:return
+        val min= listOf(w,h).minOrNull()?:return
         circleProgressRect.also {
             it.left=circleProgressPaint.strokeWidth/2
             it.top=circleProgressPaint.strokeWidth/2

@@ -290,11 +290,11 @@ class PhoneLoseActivity :FragmentActivity(R.layout.activity_phone_lose), NextFil
         val fileIconView= arrayOf(bigFileIcon1,bigFileIcon2,bigFileIcon3)
 
         val tempBigFile=ArrayList(bigFile)
-        val max1=tempBigFile.maxBy { it.fileSize }
+        val max1=tempBigFile.maxByOrNull { it.fileSize }
         tempBigFile.remove(max1)
-        val max2=tempBigFile.maxBy { it.fileSize }
+        val max2=tempBigFile.maxByOrNull { it.fileSize }
         tempBigFile.remove(max2)
-        val max3=tempBigFile.maxBy { it.fileSize }
+        val max3=tempBigFile.maxByOrNull { it.fileSize }
         tempBigFile.remove(max3)
         arrayOf(max1,max2,max3).forEachIndexed { index, allFileBean ->
             if (allFileBean==null){

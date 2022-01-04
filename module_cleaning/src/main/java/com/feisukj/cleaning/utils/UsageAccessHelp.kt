@@ -69,7 +69,7 @@ class UsageAccessHelp private constructor(){
             if (queryUsageStats.size > 0) {
                 Log.i("LPU", "queryUsageStats size: " + queryUsageStats.size)
             }
-            var recentPkg =queryUsageStats.maxBy {
+            var recentPkg =queryUsageStats.maxByOrNull {
                 it.lastTimeStamp
             }?.packageName?:""
             if (Constant.SYSTEM_SERVICE_PACKAGENAME.contains(recentPkg)){

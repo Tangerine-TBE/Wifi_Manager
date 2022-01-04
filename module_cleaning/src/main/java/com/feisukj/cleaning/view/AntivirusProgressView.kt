@@ -36,7 +36,7 @@ class AntivirusProgressView @JvmOverloads constructor(context: Context,attrs:Att
         super.onSizeChanged(w, h, oldw, oldh)
         val cx=w/2f
         val cy=h/2f
-        val mar=listOfNotNull(progressBgPaint.strokeWidth,progressEndBitmap?.width?.toFloat(), progressEndBitmap?.height?.toFloat()).max()?:0f
+        val mar=listOfNotNull(progressBgPaint.strokeWidth,progressEndBitmap?.width?.toFloat(), progressEndBitmap?.height?.toFloat()).maxOrNull()?:0f
         val lineWidth=mar/2
         progressRect.let {
             val l=if (w<h) w else h

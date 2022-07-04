@@ -10,10 +10,9 @@ import com.qq.e.ads.nativ.NativeExpressAD;
 import com.qq.e.ads.nativ.NativeExpressADView;
 import com.qq.e.ads.nativ.NativeExpressMediaListener;
 import com.qq.e.comm.constants.AdPatternType;
-import com.qq.e.comm.managers.GDTADManager;
 import com.qq.e.comm.managers.GDTAdSdk;
 import com.qq.e.comm.util.AdError;
-import com.tamsiree.rxkit.RxNetTool;
+import com.example.module_base.utils.Rx.RxNetTool;
 
 import java.util.List;
 
@@ -100,17 +99,6 @@ public class TXFeedAd extends AdWatcher {
             }
 
             @Override
-            public void onADOpenOverlay(NativeExpressADView nativeExpressADView) {
-                LogUtils.i(  "广告展开遮盖时调用----------------->" );
-            }
-
-            @Override
-            public void onADCloseOverlay(NativeExpressADView nativeExpressADView) {
-
-                LogUtils.i(   "广告关闭遮盖时调用----------------->" );
-            }
-
-            @Override
             public void onNoAD(AdError adError) {
                 LogUtils.i("无广告填充    ----------------->" );
 
@@ -134,7 +122,6 @@ public class TXFeedAd extends AdWatcher {
          *
          * 如自动播放策略为AutoPlayPolicy.WIFI，但此时用户网络为4G环境，在用户看来就是手工播放的
          */
-        nativeExpressAD.setVideoPlayPolicy(VideoOption.VideoPlayPolicy.AUTO); // 本次拉回的视频广告，从用户的角度看是自动播放的
         nativeExpressAD.loadAD(1);
     }
 

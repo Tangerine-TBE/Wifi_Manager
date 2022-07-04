@@ -11,7 +11,6 @@ import com.example.module_user.utils.Constants
 import com.example.module_user.utils.NetState
 import com.example.module_user.viewmodel.RegisterPwdViewModel
 import com.example.module_user.widget.LoginView
-import com.tamsiree.rxkit.view.RxToast.warning
 
 class RegisterPwdActivity :
         BaseVmViewActivity<ActivityRegisterAvtivityBinding, RegisterPwdViewModel>() {
@@ -101,7 +100,7 @@ class RegisterPwdActivity :
                     if (!TextUtils.isEmpty(number)) {
                         viewModel.getVerCode(number)
                     } else {
-                        warning("请输入手机号码")
+                        showToast("请输入手机号码")
                     }
                 }
 

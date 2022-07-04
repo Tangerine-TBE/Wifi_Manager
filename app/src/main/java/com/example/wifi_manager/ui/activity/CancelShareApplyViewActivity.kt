@@ -6,14 +6,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.*
+import com.example.module_base.utils.Rx.RxKeyboardTool
+import com.example.module_tool.utils.toast
 import com.example.wifi_manager.R
 import com.example.wifi_manager.ui.adapter.recycleview.CancelShareApplyAdapter
 import com.example.wifi_manager.databinding.ActivityCancelShareApplyBinding
 import com.example.wifi_manager.ui.popup.CheckMacHelpPopup
 import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.CancelShareApplyViewModel
-import com.tamsiree.rxkit.RxKeyboardTool
-import com.tamsiree.rxkit.view.RxToast
 
 class CancelShareApplyViewActivity : BaseVmViewActivity<ActivityCancelShareApplyBinding,CancelShareApplyViewModel>() {
 
@@ -109,7 +109,7 @@ class CancelShareApplyViewActivity : BaseVmViewActivity<ActivityCancelShareApply
                         viewModel.queryShareWifi(name, mac, pwd)
                     }
                 } else {
-                    RxToast.normal(TOAST_EMPTY)
+                    toast(TOAST_EMPTY)
                 }
             }
         }

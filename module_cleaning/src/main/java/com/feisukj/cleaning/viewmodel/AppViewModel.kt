@@ -9,6 +9,7 @@ import android.util.Log
 import com.example.module_base.cleanbase.BaseConstant
 
 import com.feisukj.cleaning.bean.AppBean
+import com.feisukj.cleaning.filevisit.FileR
 import java.io.File
 import java.lang.ref.SoftReference
 
@@ -32,7 +33,7 @@ class AppViewModel:ViewModel() {
             val label=installedPackage.applicationInfo.loadLabel(pm)
             val versionName=installedPackage.versionName
             val sourceApk=installedPackage.applicationInfo.sourceDir
-            val appBean=AppBean(File(sourceApk)).also {
+            val appBean=AppBean(FileR(sourceApk)).also {
                 it.packageName=packageName
                 it.label=label.toString()
                 it.versionName=versionName

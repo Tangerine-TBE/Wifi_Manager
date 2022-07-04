@@ -15,7 +15,7 @@
         android:layout_height="match_parent" />
 
 
-    <com.example.module_tool.widget.CycleRulerView
+    <com.example.module_tool.widget.CycleRulerViewNew
         android:layout_below="@id/CycleRulerView_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

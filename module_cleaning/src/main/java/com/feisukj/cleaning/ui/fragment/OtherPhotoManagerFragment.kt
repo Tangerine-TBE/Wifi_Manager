@@ -10,6 +10,7 @@ import com.example.module_base.cleanbase.BaseFragment2
 
 import com.feisukj.cleaning.R
 import com.feisukj.cleaning.file.FileManager
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.activity.PhotoActivity
 import com.feisukj.cleaning.utils.Constant
 import com.feisukj.cleaning.utils.getSizeString
@@ -33,7 +34,7 @@ class OtherPhotoManagerFragment : BaseFragment2(){
 
     private fun loadData(){
         Constant.otherPicture.toList().forEach { pair ->
-            val f=FileManager.scanDirFile(File(pair.first),{this},{Constant.PICTURE_FORMAT.any { this.absolutePath.endsWith(it) }})
+            val f=FileManager.scanDirFile(FileR(pair.first),{this},{Constant.PICTURE_FORMAT.any { this.absolutePath.endsWith(it) }})
             if (f.isNotEmpty()){
                 val sum=f.map { it.length() }.sum()
                 activity?.runOnUiThread {

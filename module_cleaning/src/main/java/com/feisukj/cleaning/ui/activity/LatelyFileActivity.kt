@@ -8,6 +8,7 @@ import com.feisukj.cleaning.bean.FileBean
 import com.feisukj.cleaning.bean.ImageBean
 import com.feisukj.cleaning.file.FileContainer
 import com.feisukj.cleaning.file.FileManager
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.fragment.LatelyFragment
 import com.feisukj.cleaning.utils.Constant
 import kotlinx.coroutines.GlobalScope
@@ -31,7 +32,7 @@ class LatelyFileActivity :AbsTabActivity(){
         val paths= listOf(Constant.DOWNLOAD,Constant.WE_PATH_DOWN,Constant.QQ_T_FILE)
 
         job= GlobalScope.launch {
-            FileManager.scanDirFile3(paths.map { File(it) },onNext = {
+            FileManager.scanDirFile3(paths.map { FileR(it) },onNext = {
                 val item=getFileBean(it)
                 runOnUiThread {
                     for (f in tabFragment?:return@runOnUiThread){
@@ -53,7 +54,7 @@ class LatelyFileActivity :AbsTabActivity(){
         job?.cancel()
     }
 
-    private fun getFileBean(file: File):Pair<FileBean,LatelyFragment.LatelyFileType>{
+    private fun getFileBean(file: FileR):Pair<FileBean,LatelyFragment.LatelyFileType>{
         val type= LatelyFragment.LatelyFileType.getFileType(file.name)
         val f=when(type){
             LatelyFragment.LatelyFileType.Pictures -> {

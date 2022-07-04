@@ -9,7 +9,7 @@ import com.example.module_base.activity.DealViewActivity
 import com.example.module_base.base.BasePopup
 import com.example.module_base.base.BaseVmFragment
 import com.example.module_base.utils.*
-import com.example.module_tool.activity.DistanceActivity
+import com.example.module_tool.activity.RangingActivity
 import com.example.module_user.domain.ValueUserInfo
 import com.example.module_user.livedata.UserInfoLiveData
 import com.example.module_user.ui.activity.LoginActivity
@@ -22,7 +22,7 @@ import com.example.wifi_manager.ui.activity.*
 import com.example.wifi_manager.ui.popup.RemindPopup
 import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.MyViewModel
-import com.tamsiree.rxkit.RxNetTool
+import com.example.module_base.utils.Rx.RxNetTool
 
 /**
  * @name Wifi_Manager
@@ -129,7 +129,7 @@ class MyFragment : BaseVmFragment<FragmentMyBinding, MyViewModel>() {
                     ) {} else showToast(ConstantsUtil.NO_CONNECT_WIFI)
                     3 ->{
                         checkAppPermission(DataProvider.askCameraPermissionLis,{
-                            toOtherActivity<DistanceActivity>(activity) {}
+                            toOtherActivity<RangingActivity>(activity) {}
                         },{
                             showToast("无法获得权限，请重试！！！")
                         },fragment = this@MyFragment)

@@ -11,11 +11,11 @@ ext {
 
             applicationId    : "com.twx.wifi",   //应用ID
             applicationName  : "WiFi万能管家",                  //应用名称
-            versionCode      : 10012,                    //版本号
-            versionName      : "2.2",              //版本名称
-            compileSdkVersion: 31,
+            versionCode      : 10013,                    //版本号
+            versionName      : "2.3",              //版本名称
+            compileSdkVersion: 32,
             minSdkVersion    : 21,
-            targetSdkVersion : 31,
+            targetSdkVersion : 32,
 
     ]
     //依赖

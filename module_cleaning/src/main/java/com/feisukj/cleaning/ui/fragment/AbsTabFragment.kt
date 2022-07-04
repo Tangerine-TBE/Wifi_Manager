@@ -20,6 +20,7 @@ import com.feisukj.cleaning.adapter.AbsTabAdapter
 import com.feisukj.cleaning.bean.FileBean
 import com.feisukj.cleaning.bean.TitleBean_Group
 import com.feisukj.cleaning.file.FileManager
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.UIConst
 import com.feisukj.cleaning.utils.toAppOpenFile
 import kotlinx.android.synthetic.main.fragment_abs_tab_clean.*
@@ -51,7 +52,7 @@ abstract class AbsTabFragment<T:FileBean>: Fragment(), BaseSectionAdapter.ItemSe
         val paths=getPath()
         if (paths!=null&&paths.isNotEmpty()){
             job=GlobalScope.launch {
-                for (file in paths.map { File(it) }) {
+                for (file in paths.map { FileR(it) }) {
                     if (!isActive){
                         return@launch
                     }
@@ -175,7 +176,7 @@ abstract class AbsTabFragment<T:FileBean>: Fragment(), BaseSectionAdapter.ItemSe
 
     protected abstract fun getPath():List<String>?
 
-    protected abstract fun onNextFile(file:File):T?
+    protected abstract fun onNextFile(file:FileR):T?
 
     protected abstract fun onComplete()
 

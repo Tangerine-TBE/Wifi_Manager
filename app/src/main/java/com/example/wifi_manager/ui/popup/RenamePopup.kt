@@ -4,9 +4,9 @@ package com.example.wifi_manager.ui.popup
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import com.example.module_base.base.BasePopup
+import com.example.module_base.utils.Rx.RxKeyboardTool
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.PopupRenameWindowBinding
-import com.tamsiree.rxkit.RxKeyboardTool
 
 
 

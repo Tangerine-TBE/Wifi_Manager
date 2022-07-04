@@ -46,8 +46,8 @@ dependencies {
     }
 
     implementation 'androidx.lifecycle:lifecycle-service:2.3.0-beta01'
-    implementation 'com.pangle.cn:ads-sdk-pro:4.0.1.9'
-    api 'com.qq.e.union:union:4.400.1270'
+    implementation 'com.pangle.cn:ads-sdk-pro:4.3.0.1'
+    api 'com.qq.e.union:union:4.462.1332'
 
 
 }

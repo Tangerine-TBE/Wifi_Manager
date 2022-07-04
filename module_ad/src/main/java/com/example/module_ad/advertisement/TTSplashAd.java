@@ -15,7 +15,7 @@ import com.example.module_ad.utils.DeviceUtils;
 import com.example.module_base.base.BaseApplication;
 
 import com.example.module_base.utils.LogUtils;
-import com.tamsiree.rxkit.RxNetTool;
+import com.example.module_base.utils.Rx.RxNetTool;
 
 public class TTSplashAd extends AdWatcher {
 

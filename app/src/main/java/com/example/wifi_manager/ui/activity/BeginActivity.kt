@@ -69,18 +69,18 @@ class BeginActivity : BaseVmViewActivity<ActivityBeginBinding, BeginViewModel>()
                 //友盟
                 UMConfigure.init(BaseApplication.application,"601a1119aa055917f8816f3a",BaseConstant.channel,UMConfigure.DEVICE_TYPE_PHONE,null)
                 MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO)
-                checkAppPermission(
-                    askAllPermissionLis, {
+//                checkAppPermission(
+//                    askAllPermissionLis, {
                         if (AdMsgUtil.getADKey() != null) {
                             mSplashHelper.showAd()
                         } else {
                             goHome()
                         }
-                    },
-                    {
-                        goHome()
-                    }, this@BeginActivity
-                )
+//                    },
+//                    {
+//                        goHome()
+//                    }, this@BeginActivity
+//                )
             }
 
             override fun cancel() {

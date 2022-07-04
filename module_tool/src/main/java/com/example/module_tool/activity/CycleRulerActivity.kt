@@ -5,12 +5,17 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.ImageFormat
+import android.graphics.Matrix
+import android.graphics.RectF
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
+import android.hardware.camera2.params.OutputConfiguration
+import android.hardware.camera2.params.SessionConfiguration
 import android.media.ImageReader
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
+import android.util.Size
 import android.util.SparseIntArray
 import android.view.Surface
 import android.view.TextureView
@@ -25,6 +30,7 @@ import com.example.module_tool.utils.ColorUtil
 import com.example.module_tool.utils.DeviceUtils
 import com.example.module_tool.utils.getCloselyPreSize
 import kotlinx.android.synthetic.main.activity_cycler_ruler_cjy.*
+import java.util.*
 
 
 /**
@@ -184,6 +190,31 @@ class CycleRulerActivity : BaseActivity(), View.OnClickListener {
 
     }
 
+    private fun configureTextureViewTransform(viewWidth: Int, viewHeight: Int,mPreviewSize: Size) {
+        if (null == textureView) {
+            return
+        }
+        val rotation = getWindowManager().getDefaultDisplay().getRotation();
+        val matrix = Matrix()
+        val viewRect = RectF(0f, 0f, viewWidth.toFloat(), viewHeight.toFloat())
+        val bufferRect = RectF(0f, 0f, mPreviewSize.height.toFloat(), mPreviewSize.width.toFloat())
+        val centerX = viewRect.centerX()
+        val centerY = viewRect.centerY()
+        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
+            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY())
+            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL)
+            val scale: Float = Math.max(
+                viewHeight.toFloat() / mPreviewSize.height,
+                viewWidth.toFloat() / mPreviewSize.width
+            )
+            matrix.postScale(scale, scale, centerX, centerY)
+            matrix.postRotate(90f * (rotation - 2f), centerX, centerY)
+        } else if (Surface.ROTATION_180 == rotation) {
+            matrix.postRotate(180f, centerX, centerY)
+        }
+        textureView.setTransform(matrix)
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun takePreview() {
         try {
@@ -192,13 +223,16 @@ class CycleRulerActivity : BaseActivity(), View.OnClickListener {
             val surfaceTexture=textureView.surfaceTexture
             if (mCameraID==null) return
             val outputSizes=mCameraManager?.getCameraCharacteristics(mCameraID!!)?.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)?.getOutputSizes(SurfaceTexture::class.java)?.toList()?:return
-            val size=getCloselyPreSize(true, DeviceUtils.getScreenWidth(this@CycleRulerActivity),DeviceUtils.getScreenHeight(this@CycleRulerActivity),outputSizes)
-            if (size!=null)
-                surfaceTexture!!.setDefaultBufferSize(size.width,size.height)
+            val size= getCloselyPreSize(true, DeviceUtils.getScreenWidth(this@CycleRulerActivity), DeviceUtils.getScreenHeight(this@CycleRulerActivity),outputSizes)
+            if (size!=null&&surfaceTexture!=null){
+                surfaceTexture.setDefaultBufferSize(size.width,size.height)
+                configureTextureViewTransform(textureView.width,textureView.height,size)
+            }
             surface= Surface(surfaceTexture)
             previewRequestBuilder?.addTarget(surface)
+
             // 创建CameraCaptureSession，该对象负责管理处理预览请求和拍照请求
-            mCameraDevice?.createCaptureSession(listOf(surface, mImageReader?.surface), object : CameraCaptureSession.StateCallback() {
+            val callback = object : CameraCaptureSession.StateCallback() {
                 override fun onConfigureFailed(session: CameraCaptureSession) {
 
                 }
@@ -221,7 +255,17 @@ class CycleRulerActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
 
-            }, childHandler)
+            }
+            if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.P){
+                mCameraDevice?.createCaptureSession(
+                    SessionConfiguration(SessionConfiguration.SESSION_REGULAR,
+                    Collections.singletonList(OutputConfiguration(surface)), mainExecutor,callback)
+                )
+            }else{
+                mCameraDevice?.createCaptureSession(listOf(surface, mImageReader?.surface), callback, childHandler)
+            }
+
+
         } catch (e: CameraAccessException) {
         }
     }
@@ -269,10 +313,10 @@ class CycleRulerActivity : BaseActivity(), View.OnClickListener {
         private var ORIENTATIONS = SparseIntArray()
 
         init {
-            ORIENTATIONS.append(Surface.ROTATION_0, 90)
-            ORIENTATIONS.append(Surface.ROTATION_90, 0)
-            ORIENTATIONS.append(Surface.ROTATION_180, 270)
-            ORIENTATIONS.append(Surface.ROTATION_270, 180)
+            ORIENTATIONS.append(Surface.ROTATION_0, 0)
+            ORIENTATIONS.append(Surface.ROTATION_90, 270)
+            ORIENTATIONS.append(Surface.ROTATION_180, 180)
+            ORIENTATIONS.append(Surface.ROTATION_270, 90)
         }
     }
 

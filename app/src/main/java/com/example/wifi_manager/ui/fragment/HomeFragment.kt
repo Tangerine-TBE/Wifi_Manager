@@ -22,7 +22,6 @@ import com.example.module_base.utils.*
 import com.example.wifi_manager.R
 import com.example.wifi_manager.domain.ValueNetWorkHint
 import com.example.wifi_manager.domain.WifiMessageBean
-import com.example.wifi_manager.livedata.LocationLiveData
 import com.example.wifi_manager.notification.NotificationFactory
 import com.example.wifi_manager.ui.activity.*
 import com.example.wifi_manager.ui.adapter.recycleview.HomeTopAdapter
@@ -34,9 +33,9 @@ import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.HomeViewModel
 import com.feisukj.cleaning.ui.activity.StrongAccelerateActivity
 import com.scwang.smart.refresh.header.MaterialHeader
-import com.tamsiree.rxkit.RxDeviceTool
-import com.tamsiree.rxkit.RxNetTool
-import com.tamsiree.rxkit.view.RxToast
+import com.example.module_base.utils.Rx.RxNetTool
+import com.example.module_tool.utils.DeviceUtils
+import com.example.module_tool.utils.toast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -139,7 +138,7 @@ class HomeFragment :
                 if (it) {
                     mScope.launch(Dispatchers.Main) {
                         delay(2000)
-                        RxToast.warning("WiFi保镖的保护已经取消")
+                        toast("WiFi保镖的保护已经取消")
                     }
                 }
             })
@@ -166,9 +165,9 @@ class HomeFragment :
                         binding.mOpenWifiLayout.mSmartRefreshLayout.finishRefresh()
                         val shareList = result.list.filter { it.shareState }
                         if (shareList.isNotEmpty()) {
-                            RxToast.normal("发现了${shareList.size}个分享WiFi")
+                            toast("发现了${shareList.size}个分享WiFi")
                         } else {
-                            RxToast.normal("发现了${result.list.size}个WiFi")
+                            toast("发现了${result.list.size}个WiFi")
                         }
                     }
                     WifiContentState.ERROR -> binding.mOpenWifiLayout.mSmartRefreshLayout.finishRefresh()
@@ -417,7 +416,7 @@ class HomeFragment :
             showPopupView(
                 mOpenView.mSmartRefreshLayout,
                 Gravity.BOTTOM,
-                y = RxDeviceTool.getScreenHeights(requireContext()) / 2 + 50
+                y = DeviceUtils.getScreenHeight(requireContext()) / 2 + 50
             )
         }
     }
@@ -449,7 +448,7 @@ class HomeFragment :
                         viewModel.setWifiState(WifiState.ENABLED)
                         viewModel.getWifiList(WifiContentState.NORMAL)
                     } else {
-                        RxToast.normal(TOAST_TITLE)
+                        toast(TOAST_TITLE)
                     }
                 }
             }

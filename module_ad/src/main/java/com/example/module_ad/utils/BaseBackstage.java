@@ -1,6 +1,5 @@
 package com.example.module_ad.utils;
 
-import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +9,7 @@ import com.example.module_ad.bean.AdBean;
 import com.example.module_ad.ui.activity.BackActivity;
 import com.example.module_base.utils.LogUtils;
 import com.example.module_base.utils.SPUtil;
-import com.tamsiree.rxkit.RxNetTool;
+import com.example.module_base.utils.Rx.RxNetTool;
 
 import java.util.List;
 public class BaseBackstage {

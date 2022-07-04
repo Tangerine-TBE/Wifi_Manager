@@ -1,15 +1,37 @@
 package com.feisukj.cleaning.bean
 
+import android.graphics.BitmapFactory
+import android.os.Build
+import com.example.module_base.cleanbase.BaseConstant
+import com.feisukj.cleaning.file.FileManager
+import com.feisukj.cleaning.filevisit.DocumentFileUtil
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.utils.getSizeString
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-open class FileBean(file:File) {
+open class FileBean constructor(val file:File) {
+    constructor(path:String):this(File(path)){
+
+    }
+    constructor(fileR: FileR):this(File(fileR.absolutePath)){
+        this.fileR=fileR
+    }
+    var fileR:FileR?=null
+    init {
+        if (fileR==null){
+            if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.R
+                    && DocumentFileUtil.isDataDirPermission(BaseConstant.application)){
+                fileR=FileR(file)
+            }
+        }
+    }
+
     var group:Int=0
-    val fileLastModified:Long = file.lastModified()
-    val fileSize:Long=file.length()
-    val fileSizeString:String= getSizeString(fileSize)
+    val fileLastModified:Long by lazy { file.lastModified() }
+    val fileSize:Long by lazy { file.length() }
+    val fileSizeString:String by lazy { getSizeString(file.length()) }
     val absolutePath:String=file.absolutePath
     val fileName:String=file.name
     val isFile:Boolean=file.isFile
@@ -24,6 +46,33 @@ open class FileBean(file:File) {
     val fileDate:String
 
     var isCheck:Boolean=false
+    var uri =fileR?.uri
+        get() {
+            field=fileR?.uri
+            return field
+        }
+    val isPicture by lazy {
+        val options= BitmapFactory.Options()
+        options.inJustDecodeBounds=true
+        if (java.io.File(absolutePath).canRead()){
+            BitmapFactory.decodeFile(absolutePath,options)
+        }else{
+            BitmapFactory.decodeStream(fileR?.openInputStream(),null,options)
+        }
+        options.outHeight!=-1&&options.outWidth!=-1
+    }
+
+    val isVideo by lazy {
+        FileManager.videoFormat.any {
+            fileName.endsWith(it,true)
+        }
+    }
+
+    val isMusic by lazy {
+        listOf(".mp3").any {
+            fileName.endsWith(it,true)
+        }
+    }
 
     init {
         val cal = Calendar.getInstance()
@@ -36,5 +85,14 @@ open class FileBean(file:File) {
         second = cal.get(Calendar.SECOND)
         val formatter=SimpleDateFormat.getDateInstance()
         fileDate=formatter.format(cal.time)
+    }
+
+    override fun hashCode(): Int {
+        return absolutePath.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is FileBean) return false
+        return other.absolutePath==absolutePath
     }
 }

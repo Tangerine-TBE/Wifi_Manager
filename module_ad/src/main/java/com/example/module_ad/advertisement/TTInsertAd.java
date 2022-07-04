@@ -10,7 +10,7 @@ import com.bytedance.sdk.openadsdk.TTAppDownloadListener;
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd;
 import com.example.module_base.base.BaseApplication;
 import com.example.module_base.utils.LogUtils;
-import com.tamsiree.rxkit.RxNetTool;
+import com.example.module_base.utils.Rx.RxNetTool;
 
 import java.util.List;
 

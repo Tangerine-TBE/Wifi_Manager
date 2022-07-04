@@ -16,11 +16,11 @@ import com.example.module_base.activity.DealViewActivity
 import com.example.module_base.base.BasePopup
 import com.example.module_base.utils.Constants
 import com.example.module_base.utils.LogUtils
+import com.example.module_base.utils.Rx.RxKeyboardTool
 import com.example.module_base.utils.toOtherActivity
 import com.example.module_tool.utils.ColorUtil
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.PopupWifiConnectWindowBinding
-import com.tamsiree.rxkit.RxKeyboardTool
 import java.lang.Exception
 
 

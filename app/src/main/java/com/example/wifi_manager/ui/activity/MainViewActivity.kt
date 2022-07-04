@@ -1,5 +1,6 @@
 package com.example.wifi_manager.ui.activity
 
+import android.Manifest
 import android.view.Gravity
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import com.example.wifi_manager.ui.popup.ExitPoPupWindow
 import com.example.wifi_manager.utils.DataProvider
 import com.feisukj.cleaning.file.FileManager
 import com.feisukj.cleaning.ui.fragment.CleanFragment
+import com.permissionx.guolindev.PermissionX
 import java.util.*
 
 @Route(path = ModuleProvider.ROUTE_MAIN_ACTIVITY)
@@ -26,11 +28,11 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
     private val mClearFragment by lazy {  CleanFragment() }
     private val mMyFragment by lazy {  MyFragment()}
     private val mExitPoPupWindow by lazy { ExitPoPupWindow(this) }
+    private var first = true
     override fun initView() {
         binding.bottomNavigationView.itemIconTintList = null;
         showFragment(mHomeFragment)
         sp. putBoolean(Constants.IS_FIRST, false)
-        FileManager.start()
     }
 
 
@@ -38,6 +40,10 @@ class MainViewActivity : BaseViewActivity<ActivityMainBinding>() {
         super.onResume()
         when (intent.getIntExtra(ModuleProvider.FRAGMENT_ID, 5)) {
             3->showFragment(mMyFragment)
+        }
+        if (PermissionX.isGranted(this, Manifest.permission.READ_EXTERNAL_STORAGE)&&first){
+            first = false
+            FileManager.start()
         }
     }
 

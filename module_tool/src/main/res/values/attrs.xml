@@ -5,6 +5,9 @@
         <attr name="bgColor" format="color" />
         <attr name="barColor" format="color" />
     </declare-styleable>
-
+    <declare-styleable name="ScrollDividingRuleView">
+        <attr name="line_height" format="dimension|reference" />
+        <attr name="dividing_text_size" format="dimension|reference" />
+    </declare-styleable>
 
 </resources>

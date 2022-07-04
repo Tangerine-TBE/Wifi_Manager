@@ -12,14 +12,15 @@ import android.os.storage.StorageManager
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.module_base.cleanbase.BaseConstant
+import com.feisukj.cleaning.filevisit.FileR
 import java.io.File
 import java.lang.ref.SoftReference
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AppBean(file:File):FileBean(file) {
+class AppBean(file: FileR):FileBean(file) {
     companion object{
-        fun getAppBean(file:File):AppBean{
+        fun getAppBean(file: FileR):AppBean{
             val appBean= AppBean(file)
             appBean.isApp=false
             try {
@@ -36,7 +37,7 @@ class AppBean(file:File):FileBean(file) {
                     appBean.icon= SoftReference(appInfo.loadIcon(pm))
                 }
                 try {
-                    appBean.packageName?.let { pm?.getPackageInfo(it, 0) }
+                    pm?.getPackageInfo(appBean.packageName?:"", 0)
                     appBean.isInstall=true
                 }catch (e: Exception){
                     appBean.isInstall=false
@@ -59,7 +60,7 @@ class AppBean(file:File):FileBean(file) {
                     val label=info.applicationInfo.loadLabel(pm)
                     val versionName=info.versionName
                     val sourceApk=info.applicationInfo.sourceDir
-                    appBean=AppBean(File(sourceApk)).also {
+                    appBean=AppBean(FileR(sourceApk)).also {
                         it.packageName=packageName
                         it.label=label.toString()
                         it.versionName=versionName
@@ -108,8 +109,10 @@ class AppBean(file:File):FileBean(file) {
                         null
                     }
                 }
-                val storageStats=storageStatsManager.queryStatsForUid(uuid?:return emptyList(), uid)
-                stats.add(storageStats)
+                if (uuid!=null){
+                    val storageStats=storageStatsManager.queryStatsForUid(uuid, uid)
+                    stats.add(storageStats)
+                }
             }
             return stats
         }

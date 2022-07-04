@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.RangingActivity"
+    android:background="@color/black">
+
+    <TextureView
+        android:id="@+id/textureView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/goBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_ruler_go_back" />
+
+    <ImageView
+        android:id="@+id/help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_ranging_help" />
+    <LinearLayout
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/goBack"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/shape_ranging_floor_bg">
+        <TextView
+            android:id="@+id/type1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="物体非落地"
+            android:textColor="#ff0a0a0a"
+            android:textSize="15sp"
+            android:background="@drawable/shape_ranging_floor_n"/>
+        <TextView
+            android:id="@+id/type2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="物体落地"
+            android:textColor="#ffffffff"
+            android:textSize="15sp"
+            android:background="@drawable/shape_ranging_floor_y"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/top_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/type"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/shape_ranging_top_tip_bg"
+        android:drawablePadding="9dp"
+        android:gravity="center"
+        android:padding="9dp"
+        android:text="拍摄时身体站直，手机平行身体放在胸前"
+        android:textColor="#ffffffff"
+        android:textSize="13sp"
+        app:drawableLeftCompat="@drawable/ic_ranging_tip"
+        app:drawableRightCompat="@drawable/ic_ranging_close" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_ranging_dot"
+        android:layout_centerInParent="true"/>
+
+    <RelativeLayout
+        android:id="@+id/bottomView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp">
+
+        <ImageView
+            android:id="@+id/take"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_ranging_take" />
+
+        <LinearLayout
+            android:id="@+id/ll_tall"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:background="@drawable/shape_ranging_floor_bg"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/take"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_ranging_tall" />
+            <TextView
+                android:id="@+id/tv_tall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="身高:0"
+                android:textColor="#ffffffff"
+                android:textSize="15sp"
+                android:layout_marginStart="11dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottomTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@id/bottomView"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/tv_bottomTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="靶心对准物体底部后按下"
+            android:textColor="#ffffffff"
+            android:textSize="13sp"
+            android:background="@drawable/shape_ranging_bottom_tip_bg" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_ranging_bottom_arrow"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

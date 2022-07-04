@@ -3,6 +3,7 @@ package com.feisukj.cleaning.ui.fragment
 import android.os.Bundle
 import android.view.View
 import com.feisukj.cleaning.bean.FileBean
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.utils.Constant
 import kotlinx.android.synthetic.main.fragment_abs_tab_clean.*
 import java.io.File
@@ -88,7 +89,7 @@ class LatelyFragment:AbsTabFragment<FileBean>() {
         return null
     }
 
-    override fun onNextFile(file: File): FileBean? {
+    override fun onNextFile(file: FileR): FileBean? {
         return null
     }
 

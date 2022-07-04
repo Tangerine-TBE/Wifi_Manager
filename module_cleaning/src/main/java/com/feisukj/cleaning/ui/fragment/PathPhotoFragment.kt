@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import com.feisukj.cleaning.bean.ImageBean
+import com.feisukj.cleaning.filevisit.FileR
 import java.io.File
 
 class PathPhotoFragment:AbsPhotoFragment<ImageBean>() {
@@ -25,7 +26,7 @@ class PathPhotoFragment:AbsPhotoFragment<ImageBean>() {
         return arguments?.getStringArray(PATH_KEY)?.toList()
     }
 
-    override fun onNextFile(file: File): ImageBean? {
+    override fun onNextFile(file: FileR): ImageBean? {
         return ImageBean(file)
     }
 

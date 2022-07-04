@@ -6,12 +6,11 @@ import android.view.View;
 import android.widget.FrameLayout;
 import com.example.module_base.base.BaseApplication;
 import com.example.module_base.utils.LogUtils;
+import com.example.module_base.utils.Rx.RxNetTool;
 import com.qq.e.ads.banner2.UnifiedBannerADListener;
 import com.qq.e.ads.banner2.UnifiedBannerView;
-import com.qq.e.comm.managers.GDTADManager;
 import com.qq.e.comm.managers.GDTAdSdk;
 import com.qq.e.comm.util.AdError;
-import com.tamsiree.rxkit.RxNetTool;
 
 
 public class TXBannerAd  extends AdWatcher{
@@ -77,16 +76,6 @@ public class TXBannerAd  extends AdWatcher{
             @Override
             public void onADLeftApplication() {
                 LogUtils.i("由于广告点击离开 APP 时调用----------------->" );
-            }
-
-            @Override
-            public void onADOpenOverlay() {
-                LogUtils.i( "onADOpenOverlay----------------->" );
-            }
-
-            @Override
-            public void onADCloseOverlay() {
-                LogUtils.i(  "onADCloseOverlay----------------->" );
             }
         });
 

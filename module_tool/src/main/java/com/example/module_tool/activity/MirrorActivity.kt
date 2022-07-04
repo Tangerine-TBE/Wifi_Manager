@@ -20,7 +20,6 @@ import com.example.module_tool.base.BaseActivity
 import com.example.module_tool.utils.DeviceUtils
 import com.example.module_tool.utils.getCloselyPreSize
 import com.example.module_tool.utils.toast
-import com.tamsiree.rxkit.view.RxToast
 import kotlinx.android.synthetic.main.activity_mirror_cjy.*
 import java.lang.Exception
 
@@ -56,7 +55,7 @@ class MirrorActivity : BaseActivity(){
             initClick()
             seekBar?.progress=50
         } catch (e: Exception) {
-            RxToast.normal("该功能暂时无法使用")
+            toast("该功能暂时无法使用")
             finish()
         }
 

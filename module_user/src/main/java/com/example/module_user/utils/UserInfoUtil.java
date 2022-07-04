@@ -1,17 +1,13 @@
 package com.example.module_user.utils;
 
 import android.text.TextUtils;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+
+import com.example.module_base.utils.Rx.RxTimeTool;
 import com.example.module_base.utils.LogUtils;
 import com.example.module_base.utils.SPUtil;
-import com.example.module_user.R;
 import com.example.module_user.domain.login.LoginBean;
 import com.google.gson.Gson;
-import com.tamsiree.rxkit.RxTimeTool;
 
 import java.util.Date;
 import java.util.HashMap;

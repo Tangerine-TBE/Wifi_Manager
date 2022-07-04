@@ -4,6 +4,7 @@ import com.feisukj.cleaning.bean.AllFileBean
 import com.feisukj.cleaning.bean.AppBean
 import com.feisukj.cleaning.bean.FileBean
 import com.feisukj.cleaning.bean.ImageBean
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.fragment.LatelyFragment
 import com.feisukj.cleaning.utils.Constant
 import java.io.File
@@ -64,15 +65,16 @@ object RepetitionFileManager {
             isStart=true
         }
 
-        val dirFiles= basePaths.map { File(it) }
+        val dirFiles= basePaths.map { FileR(it) }
         val repetitionFile=HashMap<RepetitionFileKey,HashSet<FileBean>>()
         val samplingCount=100
         FileManager.scanDirFile3(dirFiles,onNext = { file ->
             val fLength=file.length()
-            val fileHashCode=file.inputStream().use {
+            val fileHashCode=file.openInputStream().use {
                 val byteArray=ByteArray(samplingCount){
                     Byte.MIN_VALUE
                 }
+                it?:return@use byteArray
                 if (fLength<=samplingCount){
                     it.read(byteArray)
                 }else{
@@ -125,7 +127,7 @@ object RepetitionFileManager {
         this.callback=null
     }
 
-    private fun getFileBean(file: File):FileBean{
+    private fun getFileBean(file: FileR):FileBean{
         val type= LatelyFragment.LatelyFileType.getFileType(file.name)
         val f=when(type){
             LatelyFragment.LatelyFileType.Pictures -> {

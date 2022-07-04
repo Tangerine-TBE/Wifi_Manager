@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.module_base.base.BasePopup
 import com.example.module_base.base.BaseVmViewActivity
 import com.example.module_base.utils.*
+import com.example.module_tool.utils.toast
 import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.ActivityCheckDeviceBinding
 import com.example.wifi_manager.ui.adapter.recycleview.DevicesAdapter
@@ -15,7 +16,6 @@ import com.example.wifi_manager.utils.ProgressState
 import com.example.wifi_manager.utils.WifiContentState
 
 import com.example.wifi_manager.viewmodel.CheckDeviceViewModel
-import com.tamsiree.rxkit.view.RxToast
 
 class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding, CheckDeviceViewModel>() {
     private var mSweeping = true
@@ -76,14 +76,14 @@ class CheckDeviceViewActivity : BaseVmViewActivity<ActivityCheckDeviceBinding, C
         binding.apply {
             checkDeviceToolbar.toolbarEvent(this@CheckDeviceViewActivity) {}
             deviceRefresh.setOnClickListener {
-                if (mSweeping) RxToast.normal("正在扫描...") else viewModel.scanDevice()
+                if (mSweeping) toast("正在扫描...") else viewModel.scanDevice()
             }
 
             mDevicesAdapter.setOnItemChildClickListener { adapter, view, position ->
                 mSelectPosition = position
                 when (view.id) {
                     R.id.deviceTab -> {
-                        if (mSweeping) RxToast.normal("正在扫描...")
+                        if (mSweeping) toast("正在扫描...")
                         else {
                             checkAppPermission(DataProvider.askStoragePermissionLis, {
                                 mRenamePopup?.apply {

@@ -12,6 +12,7 @@ import com.feisukj.cleaning.bean.ImageBean
 import com.feisukj.cleaning.bean.TitleBean_Group
 import com.feisukj.cleaning.file.DirNextFileCallback
 import com.feisukj.cleaning.file.FileManager
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.activity.PhotoActivity
 import com.feisukj.cleaning.ui.activity.SimilarPhotoActivity
 import com.feisukj.cleaning.utils.*
@@ -20,7 +21,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
 
-class ProposalPhotoManagerFragment: BaseFragment2() {
+class ProposalPhotoManagerFragment:BaseFragment2() {
     companion object{
         val similarPhotoData=ArrayList<SectionData<TitleBean_Group, ImageBean>>()
         private var findSimilarPhotoEnd=false
@@ -128,8 +129,8 @@ class ProposalPhotoManagerFragment: BaseFragment2() {
 
     private fun initScreenshot(){
         var i=0
-        val f=FileManager.scanDirFile(File(Constant.SCREENSHOTS_PHOTO),{this},{Constant.PICTURE_FORMAT.any { this.absolutePath.endsWith(it) }},object :DirNextFileCallback<File>{
-            override fun onNextFile(item: File) {
+        val f=FileManager.scanDirFile(FileR(Constant.SCREENSHOTS_PHOTO),{this},{Constant.PICTURE_FORMAT.any { this.absolutePath.endsWith(it) }},object :DirNextFileCallback<FileR>{
+            override fun onNextFile(item: FileR) {
                 activity?.runOnUiThread {
                     when(i){
                         0->{

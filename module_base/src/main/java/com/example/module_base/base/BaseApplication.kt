@@ -7,7 +7,6 @@ import android.os.Looper
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.module_base.cleanbase.PackageUtils
 import com.example.module_base.utils.SPUtil
-import com.tamsiree.rxkit.RxTool
 import com.umeng.commonsdk.UMConfigure
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -40,7 +39,6 @@ open class BaseApplication : Application() {
         initData()
         GlobalScope.launch {
             SPUtil.init(this@BaseApplication)
-            RxTool.init(this@BaseApplication)
             LitePal.initialize(this@BaseApplication)
             LitePal.getDatabase()
             ARouter.init(this@BaseApplication)

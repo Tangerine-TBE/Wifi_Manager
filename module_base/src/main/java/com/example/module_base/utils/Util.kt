@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -23,8 +24,6 @@ import com.example.module_base.widget.LoadingDialog
 import com.example.module_base.widget.MyToolbar
 import com.google.gson.Gson
 import com.permissionx.guolindev.PermissionX
-import com.tamsiree.rxkit.RxNetTool
-import com.tamsiree.rxkit.view.RxToast
 import java.util.*
 
 /**
@@ -73,7 +72,7 @@ fun copyContent(context: Context, result: String){
     val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val mClipData = ClipData.newPlainText("text", result)
     cm.setPrimaryClip(mClipData)
-    RxToast.normal("已复制到剪切板")
+    Toast.makeText(context,"已复制到剪切板",Toast.LENGTH_SHORT).show()
 }
 //分享
 fun shareContent(context: Context, result: String){
@@ -143,13 +142,9 @@ fun startCountDown(totalTime: Long, followTime: Long, finish: () -> Unit, tickin
     }
 
 
-//网络是否连接
-fun isConnectedWifi(context: Context)=RxNetTool.isConnected(context)
-
-
 //弹出toast
 fun showToast(str: String){
-    RxToast.normal(str)
+    ToastUtil.showShortToast(str)
 }
 
 

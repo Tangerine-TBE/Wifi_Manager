@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="0.1dp"
+        android:layout_height="@dimen/dp_55"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/ll_left"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_icon_left_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_left"
+                android:layout_width="@dimen/dp_55"
+                android:layout_height="match_parent"
+                android:padding="18dp"
+                android:src="@drawable/ic_back" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="0dp"
+            android:text="left"
+            android:textColor="@color/White" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.example.module_base.utils.Rx.ticker.RxTextAutoZoom
+            android:id="@+id/tv_rx_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="标题"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:isScrollContainer="false"
+            android:maxLength="240"
+            android:text="个人资料"
+            android:textColor="@color/White"
+            android:textColorHint="@android:color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_right"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/dp_10"
+            android:text="right"
+            android:textColor="@color/White" />
+
+        <LinearLayout
+            android:id="@+id/ll_icon_right_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="@dimen/dp_55"
+                android:layout_height="match_parent"
+                android:padding="18dp"
+                android:src="@drawable/icon_menu" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

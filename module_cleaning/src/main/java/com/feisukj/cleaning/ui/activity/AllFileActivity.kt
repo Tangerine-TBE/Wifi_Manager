@@ -15,6 +15,7 @@ import com.feisukj.cleaning.R
 import com.feisukj.cleaning.adapter.FileAdapter
 import com.feisukj.cleaning.adapter.ItemOnClick
 import com.feisukj.cleaning.bean.AllFileBean
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.utils.*
 import com.feisukj.cleaning.view.spinner.MySpinner
 import kotlinx.android.synthetic.main.act_allfile_clean.*
@@ -36,7 +37,7 @@ class AllFileActivity : BaseActivity(),ItemOnClick<AllFileBean>{
     private var isCopyAct:Boolean?=null
     private val stackPath=Stack<String>()
     private val pathTip=StringBuilder()
-    private var files:File?=null
+    private var files: FileR?=null
     private val listData=ArrayList<AllFileBean>()
     private var adapter:FileAdapter?=null
     override fun getLayoutId()= R.layout.act_allfile_clean
@@ -211,7 +212,7 @@ class AllFileActivity : BaseActivity(),ItemOnClick<AllFileBean>{
         stackPath.forEach {
             path.append(it)
         }
-        files=File(path.toString())
+        files= FileR(path.toString())
         listData.clear()
         files?.listFiles()?.forEach { file ->
             if (isCopyAct != true||file.isDirectory) {

@@ -1,10 +1,11 @@
 package com.feisukj.cleaning.bean
 
 import com.feisukj.cleaning.R
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.utils.Constant
 import java.io.File
 
-class AllFileBean(file:File):FileBean(file) {
+class AllFileBean(file:FileR):FileBean(file) {
     var dirCount:Int=0
     var fileIcon:Int= R.mipmap.icon_no
         private set

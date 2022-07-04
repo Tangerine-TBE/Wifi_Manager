@@ -22,9 +22,16 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.module_base.utils.LogUtils;
+import com.example.module_base.utils.Rx.RxBarTool;
+import com.example.module_base.utils.Rx.RxConstants;
+import com.example.module_base.utils.Rx.RxDataTool;
+import com.example.module_base.utils.Rx.RxDialogSure;
+import com.example.module_base.utils.Rx.RxPhotoTool;
+import com.example.module_base.utils.ToastUtil;
 import com.example.wifi_manager.R;
 import com.example.wifi_manager.ui.fragment.MyFragment;
 import com.example.wifi_manager.utils.ConstantsUtil;
+import com.feisukj.base.widget.Rx.RxAnimationTool;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
@@ -32,21 +39,13 @@ import com.google.zxing.MultiFormatReader;
 import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
-import com.tamsiree.rxfeature.scaner.CameraManager;
-import com.tamsiree.rxfeature.scaner.OnRxScanerListener;
-import com.tamsiree.rxfeature.scaner.PlanarYUVLuminanceSource;
-import com.tamsiree.rxfeature.scaner.decoding.InactivityTimer;
-import com.tamsiree.rxfeature.tool.RxQrBarTool;
-import com.tamsiree.rxkit.RxAnimationTool;
-import com.tamsiree.rxkit.RxBarTool;
+import com.example.module_base.utils.Rx.rxfeature.scaner.CameraManager;
+import com.example.module_base.utils.Rx.rxfeature.scaner.OnRxScanerListener;
+import com.example.module_base.utils.Rx.rxfeature.scaner.PlanarYUVLuminanceSource;
+import com.example.module_base.utils.Rx.rxfeature.scaner.decoding.InactivityTimer;
+import com.example.module_base.utils.Rx.rxfeature.tool.RxQrBarTool;
 import com.tamsiree.rxkit.RxBeepTool;
-import com.tamsiree.rxkit.RxConstants;
-import com.tamsiree.rxkit.RxDataTool;
-import com.tamsiree.rxkit.RxPhotoTool;
 import com.tamsiree.rxkit.RxSPTool;
-import com.tamsiree.rxkit.RxTool;
-import com.tamsiree.rxkit.view.RxToast;
-import com.tamsiree.rxui.view.dialog.RxDialogSure;
 
 import java.io.IOException;
 import java.util.Hashtable;
@@ -133,8 +132,6 @@ public class ScanActivity extends FragmentActivity {
             RxBarTool.setNoTitle(this);
             setContentView(R.layout.activity_scaner);
             RxBarTool.setTransparentStatusBar(this);
-            //界面控件初始化
-            RxTool.init(this);
             initDecode();
             initView();
             //权限初始化
@@ -344,7 +341,7 @@ public class ScanActivity extends FragmentActivity {
                         }
                     } else {
                         if (mScanerListener == null) {
-                            RxToast.error("图片识别失败.");
+                            ToastUtil.showShortToast("图片识别失败.");
                         } else {
                             mScanerListener.onFail("From to Picture", "图片识别失败");
                         }

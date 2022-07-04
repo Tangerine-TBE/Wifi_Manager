@@ -19,6 +19,7 @@ import com.feisukj.cleaning.R
 import com.feisukj.cleaning.bean.*
 import com.feisukj.cleaning.file.*
 import com.feisukj.cleaning.file.FileType
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.utils.Constant
 import com.feisukj.cleaning.utils.formatFileSize
 import com.feisukj.cleaning.utils.getNotUsedAppSize
@@ -86,7 +87,7 @@ class PhoneLoseActivity :FragmentActivity(R.layout.activity_phone_lose), NextFil
 
             //卸载残留
             var unloadingResultSize=0L
-            val fileList=ArrayList<File>()
+            val fileList=ArrayList<FileR>()
             val data=ArrayList<SectionData<TitleBean_Group, AllFileBean>>()
             PathManager.getUnloadingResiduePath().groupBy { it.packageName }.entries.forEach { entry ->
                 val item=SectionData<TitleBean_Group, AllFileBean>()
@@ -94,7 +95,7 @@ class PhoneLoseActivity :FragmentActivity(R.layout.activity_phone_lose), NextFil
                     this.title=entry.value.firstOrNull()?.appName?:""
                 }
                 item.groupData=t
-                FileManager.scanDirFile3(entry.value.map { File(it.path) },onNext = {
+                FileManager.scanDirFile3(entry.value.map { FileR(it.path) },onNext = {
                     unloadingResultSize+=it.length()
                     t.itemSize+=it.length()
                     item.addItem(AllFileBean(it))

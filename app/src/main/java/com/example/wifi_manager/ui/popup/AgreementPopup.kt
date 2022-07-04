@@ -20,7 +20,6 @@ import com.example.wifi_manager.R
 import com.example.wifi_manager.databinding.PopupAgreementWindowBinding
 import com.example.wifi_manager.ui.adapter.recycleview.PermissionAdapter
 import com.example.wifi_manager.utils.DataProvider
-import com.tamsiree.rxkit.view.RxToast
 
 /**
  * @name Wifi_Manager
@@ -70,13 +69,17 @@ class AgreementPopup(activity: FragmentActivity):BasePopup<PopupAgreementWindowB
                 mListener?.cancel()
 
             }
+            btCancel?.setOnClickListener {
+                dismiss()
+                mListener?.cancel()
+            }
 
             btSure?.setOnClickListener {
                 if (scbAgreement.isChecked) {
                     dismiss()
                     mListener?.sure()
                 } else {
-                    RxToast.warning("请确保您已同意本应用的隐私政策和用户协议")
+                    showToast("请确保您已同意本应用的隐私政策和用户协议")
                 }
             }
 

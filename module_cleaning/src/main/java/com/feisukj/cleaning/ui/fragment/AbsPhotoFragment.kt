@@ -16,6 +16,7 @@ import com.feisukj.cleaning.adapter.AbsPhotoAdapter
 import com.feisukj.cleaning.bean.FileBean
 import com.feisukj.cleaning.bean.TitleBean_Group
 import com.feisukj.cleaning.file.FileManager
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.UIConst
 import com.feisukj.cleaning.ui.UIConst.MONTH_TIME_ID
 import com.feisukj.cleaning.ui.UIConst.SIX_MONTH_AGO
@@ -55,7 +56,7 @@ abstract class AbsPhotoFragment<T:FileBean>: Fragment(), BaseSectionAdapter.Item
         val paths=getPath()
         if (paths!=null&&paths.isNotEmpty()){
             job=GlobalScope.launch {
-                for (file in paths.map { File(it) }) {
+                for (file in paths.map { FileR(it) }) {
                     if (!isActive){
                         return@launch
                     }
@@ -204,7 +205,7 @@ abstract class AbsPhotoFragment<T:FileBean>: Fragment(), BaseSectionAdapter.Item
 
     protected abstract fun getPath():List<String>?
 
-    protected abstract fun onNextFile(file:File):T?
+    protected abstract fun onNextFile(file:FileR):T?
 
     protected abstract fun onComplete()
 

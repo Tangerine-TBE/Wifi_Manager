@@ -20,6 +20,10 @@
         tools:ignore="ProtectedPermissions" />
 
     <application>
+        <activity android:name=".ui.activity.OpenAndroidRPermissionActivity"
+            android:theme="@style/AppTheme.Translucent"
+
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.BatteryProtectActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <!-- <activity -->
         <!-- android:name=".ui.SpActivity" -->

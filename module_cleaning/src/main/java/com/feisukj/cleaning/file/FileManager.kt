@@ -8,12 +8,15 @@ import com.feisukj.cleaning.bean.AllFileBean
 import com.feisukj.cleaning.bean.AppBean
 import com.feisukj.cleaning.bean.ImageBean
 import com.feisukj.cleaning.db.SQLiteDbManager
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.UIConst
 import com.feisukj.cleaning.ui.activity.BigFileActivity
 import com.feisukj.cleaning.ui.activity.MusicActivity
 import com.feisukj.cleaning.ui.activity.PhotoCleanActivity
 import com.feisukj.cleaning.ui.fragment.DocFragment
 import com.feisukj.cleaning.utils.Constant
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.runBlocking
 
 import java.io.File
 import java.util.*
@@ -25,13 +28,16 @@ object FileManager {
     var docSize=0L
     var packageSize=0L
     /*****************************/
+    val pictureFormat=arrayOf(".jpg",".jpeg",".png",".raw",".svg")//".gif",
+
+    val videoFormat=arrayOf(".3gp", ".amv", ".flv", ".mp4",".mpeg",".mpg")
 
     private fun scanDBFile(){
         try {
             val picPath= SQLiteDbManager.getGarbagePicPathInfo().groupBy {
                 it.garbagetype
             }
-            picPath["垃圾图片"]?.map { File(it.filePath) }?.forEach { file ->
+            picPath["垃圾图片"]?.map { FileR(it.filePath) }?.forEach { file ->
                 val fs=scanDirFile2(file,{ file1 ->
 //                    ImageBean(file1).also { it.group=it.year*12+it.month }
                     ImageBean(file1).also {
@@ -74,10 +80,10 @@ object FileManager {
             return
         isStart=true
         Thread{
-            scanFile(Environment.getExternalStorageDirectory())
+            scanFile(FileR(Environment.getExternalStorageDirectory()))
             scanDBFile()
             Constant.garbagePicturePaths.forEach { str ->
-                val fs=scanDirFile(File(str),{
+                val fs=scanDirFile(FileR(str),{
 //                    ImageBean(this).also { it.group=it.year*12+it.month }
                     ImageBean(this).also {
                         val currentDate= Date(it.fileLastModified)
@@ -106,7 +112,7 @@ object FileManager {
                 Thread.sleep(10)
             }
             applicationGarbagePath.asSequence().filter { it.des.contains("安装包") }.map { it.path.toLowerCase(Locale.getDefault()) }.toSet().forEach {
-                val fs=scanDirFile(File(it),{
+                val fs=scanDirFile(FileR(it),{
                     AppBean.getAppBean(this)
                 },isWith = {
                     this.isFile&&this.length()!=0L&&this.name.endsWith("apk",true)
@@ -134,13 +140,13 @@ object FileManager {
     /**
      * 扫描文件
      */
-    private fun scanFile(rootFile:File){
+    private fun scanFile(rootFile:FileR){
         if (!rootFile.exists()){
             return
         }
         val start=System.currentTimeMillis()
 //        Log.e("时间时间 ","核心线程：${poolExecutor.corePoolSize},最大线程：${poolExecutor.maximumPoolSize}")
-        var listFile:LinkedList<File>?=null
+        var listFile:LinkedList<FileR>?=null
         if (rootFile.isDirectory&&!rootFile.listFiles().isNullOrEmpty()){
             val files=rootFile.listFiles()?.toList()
             if (files!=null) {
@@ -152,7 +158,7 @@ object FileManager {
             sendFile(rootFile)
         }
         for (i in 0 until 8){
-            val childFiles=LinkedList<File>()
+            val childFiles=LinkedList<FileR>()
             while (!listFile.isNullOrEmpty()){
                 val file=listFile.removeLast()
                 if (!file.exists()){
@@ -171,7 +177,7 @@ object FileManager {
     }
 
     @Suppress("IMPLICIT_CAST_TO_ANY")
-    private fun sendFile(file: File){
+    private fun sendFile(file: FileR){
         FileType.values().forEach { type ->
             if (type.isContain(file)){
                 val f=when(type){
@@ -299,153 +305,132 @@ object FileManager {
             typeCallback.remove(callback)
     }
 
-    fun <T> scanDirsFile(dirFiles:List<File>, toT:(File)->T, isWith:(File)->Boolean, dirNextFileCallback: DirNextFileCallback<T>?=null, fileCount:Int=-1,isStop:()->Boolean={false}):List<T>{
+    fun <T> scanDirsFile(dirFiles:List<FileR>, toT:(FileR)->T, isWith:(FileR)->Boolean, dirNextFileCallback: DirNextFileCallback<T>?=null, fileCount:Int=-1,isStop:()->Boolean={false}):List<T>{
         val listResult=ArrayList<T>()
-
-        val listFile=LinkedList(dirFiles)
-        while (!listFile.isNullOrEmpty()){
-            if (isStop()){
-                return listResult
-            }
-            val file=listFile.removeLast()
-            if (!file.exists()){
-                continue
-            }
-            if (file.isDirectory){
-                file?.listFiles()?.toList()?.let {
-                    listFile.addAll(it)
+        dirFiles.forEach { fileR ->
+            FileR.coroutineScanningFile_(fileR){ file, coroutine->
+                if (isWith(file)){
+                    toT(file).also {
+                        synchronized(listResult){
+                            listResult.add(it)
+                        }
+                        dirNextFileCallback?.onNextFile(it)
+                        if ((fileCount!=-1&&listResult.size>=fileCount)||isStop()){
+                            coroutine.cancel()
+                        }
+                    }
                 }
-            }else if (file.isFile){
-                if (!isWith(file)||file.length()==0L){
-                    continue
-                }
-                toT(file).let {
-                    listResult.add(it)
-                    dirNextFileCallback?.onNextFile(it)
+            }.also {
+                runBlocking {
+                    it.join()
                 }
                 if (fileCount==listResult.size){
-                    return listResult
+                    return@forEach
                 }
             }
         }
         return listResult
     }
 
-    fun <T> scanDirFile(dirFile:File,toT:File.()->T,isWith:File.()->Boolean,dirNextFileCallback: DirNextFileCallback<T>?=null, fileCount:Int=-1):List<T>{
+    fun <T> scanDirFile(dirFile:FileR, toT:FileR.()->T, isWith:FileR.()->Boolean, dirNextFileCallback: DirNextFileCallback<T>?=null, fileCount:Int=-1):List<T>{
         if (dirFile.exists()&&dirFile.isFile){
             return emptyList()
         }
         val listResult=ArrayList<T>()
 
-        val listFile=LinkedList(dirFile.listFiles()?.toList()?:return emptyList())
-        while (!listFile.isNullOrEmpty()){
-            val file=listFile.removeLast()
-            if (!file.exists()){
-                continue
-            }
-            if (file.isDirectory){
-                file?.listFiles()?.toList()?.let {
-                    listFile.addAll(it)
-                }
-            }else if (file.isFile){
-                if (!isWith(file)||file.length()==0L){
-                    continue
-                }
-                toT(file).let {
-                    listResult.add(it)
+        FileR.coroutineScanningFile_(dirFile){file,coroutine->
+            if (isWith(file)){
+                toT(file).also {
+                    synchronized(listResult){
+                        listResult.add(it)
+                    }
                     dirNextFileCallback?.onNextFile(it)
+                    if (fileCount!=-1&&listResult.size>=fileCount){
+                        coroutine.cancel()
+                    }
                 }
-                if (fileCount==listResult.size){
-                    return listResult
-                }
+            }
+        }.also {
+            runBlocking {
+                it.join()
+            }
+            if (fileCount==listResult.size){
+                return@also
             }
         }
         return listResult
     }
 
-    private fun <T> scanDirFile2(dirFile:File,toT:(File)->T,isWith:(File)->Boolean,dirNextFileCallback: DirNextFileCallback<T>?=null, fileCount:Int=-1):List<T>{
+    fun <T> scanDirFile2(dirFile:FileR,toT:(FileR)->T, isWith:((FileR)->Boolean)?=null, dirNextFileCallback: DirNextFileCallback<T>?=null,fileCount:Int=-1):List<T>{
         if (dirFile.exists()&&dirFile.isFile){
             return emptyList()
         }
         val listResult=ArrayList<T>()
 
-        val listFile=LinkedList(dirFile.listFiles()?.toList()?:return emptyList())
-        while (!listFile.isNullOrEmpty()){
-            val file=listFile.removeLast()
-            if (!file.exists()){
-                continue
-            }
-            if (file.isDirectory){
-                file?.listFiles()?.toList()?.let {
-                    listFile.addAll(it)
-                }
-            }else if (file.isFile){
-                if (!isWith(file)||file.length()==0L){
-                    continue
-                }
-                toT(file).let {
-                    listResult.add(it)
+        FileR.coroutineScanningFile_(dirFile){file,coroutine->
+            if (isWith?.invoke(file)!=false&&file.length()!=0L){
+                toT(file).also {
+                    synchronized(listResult){
+                        listResult.add(it)
+                    }
                     dirNextFileCallback?.onNextFile(it)
+                    if (fileCount!=-1&&listResult.size>=fileCount){
+                        coroutine.cancel()
+                    }
                 }
-                if (fileCount==listResult.size){
-                    return listResult
-                }
+            }
+        }.also {
+            runBlocking {
+                it.join()
             }
         }
         return listResult
     }
 
-    fun scanDirFile2(dirFile:File,isWith:((File)->Boolean)?=null,onNext: ((File) -> Boolean?)?=null):List<File>{
+    fun scanDirFile2(dirFile:FileR, isWith:((FileR)->Boolean)?=null, onNext: ((FileR) -> Boolean?)?=null):List<FileR>{
         if (dirFile.exists()&&dirFile.isFile){
             return emptyList()
         }
-        val listResult=ArrayList<File>()
+        val listResult=ArrayList<FileR>()
 
-        val listFile=LinkedList(dirFile.listFiles()?.toList()?:return emptyList())
-        while (!listFile.isNullOrEmpty()){
-            val file=listFile.removeLast()
-            if (!file.exists()){
-                continue
+        FileR.coroutineScanningFile_(dirFile){file,coroutine->
+            if (isWith?.invoke(file)!=false&&file.length()!=0L){
+                synchronized(listResult){
+                    listResult.add(file)
+                }
+                if (onNext?.invoke(file)==false){
+                    coroutine.cancel()
+                }
             }
-            if (file.isDirectory){
-                file?.listFiles()?.toList()?.let {
-                    listFile.addAll(it)
-                }
-            }else if (file.isFile){
-                if (isWith?.invoke(file)==false||file.length()==0L){
-                    continue
-                }
-
-                val next=onNext?.invoke(file)
-                listResult.add(file)
-                if (next==false){
-                    return listResult
-                }
+        }.also {
+            runBlocking {
+                it.join()
             }
         }
         return listResult
     }
-    fun scanDirFile3(dirFiles:List<File>,isWith:((File)->Boolean)?=null,onNext:((File)->Boolean)?=null):List<File>{
-        val listResult=ArrayList<File>()
 
-        val listFile=LinkedList(dirFiles)
-        while (!listFile.isNullOrEmpty()){
-            val file=listFile.removeLast()
-            if (!file.exists()){
-                continue
-            }
-            if (file.isDirectory){
-                file?.listFiles()?.toList()?.let {
-                    listFile.addAll(it)
+    fun scanDirFile3(dirFiles:List<FileR>, isWith:((FileR)->Boolean)?=null, onNext:((FileR)->Boolean)?=null):List<FileR>{
+        val listResult=ArrayList<FileR>()
+
+        var isCancel=false
+        dirFiles.forEach { fileR ->
+            FileR.coroutineScanningFile_(fileR){file,coroutine->
+                if (isWith?.invoke(file)!=false){
+                    synchronized(listResult){
+                        listResult.add(file)
+                    }
+                    if (onNext?.invoke(file)==false){
+                        isCancel=true
+                        coroutine.cancel()
+                    }
                 }
-            }else if (file.isFile){
-                if (isWith?.invoke(file)==false){
-                    continue
+            }.also {
+                runBlocking {
+                    it.join()
                 }
-                val next=onNext?.invoke(file)
-                listResult.add(file)
-                if (next==false){
-                    return listResult
+                if (isCancel){
+                    return@forEach
                 }
             }
         }

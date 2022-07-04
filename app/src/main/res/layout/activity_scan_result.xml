@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
-            android:paddingBottom="@dimen/dp_25"
+            android:paddingBottom="25dp"
             android:layout_marginTop="11dp"
             android:paddingLeft="25dp"
             android:background="@drawable/shape_scan_result_bg"

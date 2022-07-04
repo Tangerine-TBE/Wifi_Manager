@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--自定义加载框-->
     <declare-styleable name="LVCircularRing">
         <attr name="bgColor" format="color" />
@@ -29,6 +29,648 @@
         <attr name="color_checked" format="color"/>
         <attr name="color_unchecked" format="color"/>
         <attr name="color_unchecked_stroke" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="RxShapeLoadingView">
+        <attr name="loadingText" format="string" />
+        <attr name="loadingTextAppearance" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="RxArcProgress">
+        <attr name="roundColor" format="color" />
+        <attr name="roundProgressColor" format="color" />
+        <attr name="roundWidth" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize1" format="dimension" />
+        <attr name="max" format="integer" />
+        <attr name="textIsDisplayable" format="boolean" />
+        <attr name="style">
+            <enum name="STROKE" value="0" />
+            <enum name="FILL" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="AbstractWheelView">
+        <attr name="visibleItems" format="integer" />
+        <attr name="isAllVisible" format="boolean" />
+        <attr name="itemOffsetPercent" format="integer" />
+        <attr name="itemsPadding" format="dimension" />
+        <attr name="selectionDividerDimmedAlpha" format="integer" />
+        <attr name="selectionDividerActiveAlpha" format="integer" />
+        <attr name="selectionDivider" format="reference" />
+        <attr name="itemsDimmedAlpha" format="integer" />
+        <attr name="isCyclic" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WheelHorizontalView">
+        <attr name="selectionDividerWidth" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="WheelVerticalView">
+        <attr name="selectionDividerHeight" format="dimension" />
+    </declare-styleable>
+
+    <attr name="abstractWheelViewStyle" format="reference" />
+
+    <declare-styleable name="RxAutoImageView">
+        <attr name="ImageSrc" format="reference" />
+    </declare-styleable>
+
+        <declare-styleable name="RxTitle">
+            <attr name="title" format="string" />
+            <attr name="titleColorRx" format="color" />
+            <attr name="titleSize" format="dimension" />
+            <attr name="titleVisibility" format="boolean" />
+
+            <attr name="leftText" format="string" />
+            <attr name="leftTextColor" format="color" />
+            <attr name="leftTextSize" format="dimension" />
+            <attr name="leftTextVisibility" format="boolean" />
+
+            <attr name="rightText" format="string" />
+            <attr name="rightTextColor" format="color" />
+            <attr name="rightTextSize" format="dimension" />
+            <attr name="rightTextVisibility" format="boolean" />
+
+            <attr name="leftIcon" format="reference" />
+            <attr name="leftIconVisibility" format="boolean" />
+
+            <attr name="rightIcon" format="reference" />
+            <attr name="rightIconVisibility" format="boolean" />
+        </declare-styleable>
+
+    <declare-styleable name="RxWaveView">
+        <attr name="RxWaveColor" format="color" />
+        <attr name="RxWaveBorder" format="dimension" />
+        <attr name="RxWaveShapeType">
+            <enum name="CIRCLE" value="0" />
+            <enum name="SQUARE" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RxNetSpeedView">
+        <attr name="RxTextColor" format="color" />
+        <attr name="RxTextSize" format="dimension" />
+        <attr name="isMulti" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ticker_TickerView">
+        <attr name="ticker_animationDuration" format="reference|integer" />
+        <attr name="ticker_animateMeasurementChange" format="reference|boolean" />
+
+        <!-- Custom implementations of common android text attributes -->
+        <attr name="android:gravity" tools:ignore="ResourceName" />
+        <attr name="android:textAppearance" tools:ignore="ResourceName" />
+        <attr name="android:textColor" tools:ignore="ResourceName" />
+        <attr name="android:textSize" tools:ignore="ResourceName" />
+    </declare-styleable>
+
+    <declare-styleable name="FlikerProgressBar">
+        <attr name="textSize" format="dimension" />
+        <attr name="loadingColor" format="color" />
+        <attr name="stopColor" format="color" />
+        <attr name="finishColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="borderWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RxBaseRoundProgress">
+        <attr name="rcReverse" format="boolean" />
+        <attr name="rcProgress" format="float" />
+        <attr name="rcMax" format="float" />
+        <attr name="rcSecondaryProgress" format="float" />
+        <attr name="rcBackgroundPadding" format="dimension" />
+        <attr name="rcRadius" format="dimension" />
+        <attr name="rcProgressColor" format="color" />
+        <attr name="rcSecondaryProgressColor" format="color" />
+        <attr name="rcBackgroundColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RxIconRoundProgress">
+        <attr name="rcIconSrc" format="reference" />
+        <attr name="rcIconSize" format="dimension" />
+        <attr name="rcIconWidth" format="dimension" />
+        <attr name="rcIconHeight" format="dimension" />
+        <attr name="rcIconPadding" format="dimension" />
+        <attr name="rcIconPaddingLeft" format="dimension" />
+        <attr name="rcIconPaddingRight" format="dimension" />
+        <attr name="rcIconPaddingTop" format="dimension" />
+        <attr name="rcIconPaddingBottom" format="dimension" />
+        <attr name="rcIconBackgroundColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RxTextRoundProgress">
+        <attr name="rcTextProgressColor" format="color" />
+        <attr name="rcTextProgressSize" format="dimension" />
+        <attr name="rcTextProgressMargin" format="dimension" />
+        <attr name="rcTextProgress" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ShoppingView">
+        <attr name="sv_bg_color" format="color" />
+        <attr name="sv_text" format="string" />
+        <attr name="sv_text_size" format="dimension" />
+        <attr name="sv_duration" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="lwvWheelView">
+        <attr name="lwvHighlightColor" format="color|reference" />
+        <attr name="lwvMarkColor" format="color|reference" />
+        <attr name="lwvMarkTextColor" format="color|reference" />
+        <attr name="lwvIntervalFactor" format="float" />
+        <attr name="lwvMarkRatio" format="float" />
+        <attr name="lwvCursorSize" format="dimension" />
+        <attr name="lwvMarkTextSize" format="dimension" />
+        <attr name="lwvCenterMarkTextSize" format="dimension" />
+        <attr name="lwvAdditionalCenterMark" format="string|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="RxShineButton">
+        <attr name="btn_color" format="color" />
+        <attr name="btn_fill_color" format="color" />
+        <attr name="shine_count" format="integer" />
+        <attr name="shine_turn_angle" format="float" />
+        <attr name="small_shine_offset_angle" format="float" />
+        <attr name="enable_flashing" format="boolean" />
+        <attr name="allow_random_color" format="boolean" />
+        <attr name="small_shine_color" format="color" />
+        <attr name="big_shine_color" format="color" />
+        <attr name="shine_animation_duration" format="integer" />
+        <attr name="click_animation_duration" format="integer" />
+        <attr name="shine_distance_multiple" format="float" />
+        <attr name="shine_size" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RxPorterImageView">
+        <attr name="siShape" format="integer|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="RxSeatMovie">
+        <attr name="seat_checked" format="reference" />
+        <attr name="seat_sold" format="reference" />
+        <attr name="seat_available" format="reference" />
+        <attr name="overview_checked" format="color" />
+        <attr name="overview_sold" format="color" />
+        <attr name="txt_color" format="color" />
+    </declare-styleable>
+
+
+    <declare-styleable name="RxCardStackView">
+        <attr name="stackOverlapGaps" format="dimension" />
+        <attr name="stackOverlapGapsCollapse" format="dimension" />
+        <attr name="stackHeaderHeight" format="dimension" />
+        <attr name="stackDuration" format="integer" />
+        <attr name="stackNumBottomShow" format="integer" />
+        <attr name="stackAnimationType">
+            <flag name="allDown" value="0" />
+            <flag name="upDown" value="1" />
+            <flag name="upDownStack" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RxSwipeCaptcha">
+        <attr name="captchaWidth" format="dimension" />
+        <attr name="captchaHeight" format="dimension" />
+        <attr name="matchDeviation" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RxHeartLayout">
+        <attr name="initX" format="dimension" />
+        <attr name="initY" format="dimension" />
+        <attr name="xRand" format="dimension" />
+        <attr name="animLengthRand" format="dimension" />
+        <attr name="xPointFactor" format="dimension" />
+        <attr name="animLength" format="dimension" />
+        <attr name="heart_width" format="dimension" />
+        <attr name="heart_height" format="dimension" />
+        <attr name="bezierFactor" format="integer" />
+        <attr name="anim_duration" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="WaveSideBarView">
+        <attr name="sidebarTextColor" format="color|reference" />
+        <attr name="sidebarBackgroundColor" format="color|reference" />
+        <attr name="sidebarChooseTextColor" format="color|reference" />
+        <attr name="sidebarTextSize" format="dimension" />
+        <attr name="sidebarLargeTextSize" format="dimension" />
+        <attr name="sidebarRadius" format="dimension" />
+        <attr name="sidebarBallRadius" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RxSeekBar">
+        <attr name="maxProgress" format="float" />
+        <attr name="minProgress" format="float" />
+        <attr name="reserve" format="float" />
+        <attr name="cells" format="integer" />
+        <attr name="hideProgressHint" format="boolean" />
+        <attr name="isHintHolder" format="boolean" />
+        <attr name="lineColorSelected" format="color" />
+        <attr name="lineColorEdge" format="color" />
+        <attr name="thumbPrimaryColor" format="color" />
+        <attr name="thumbSecondaryColor" format="color" />
+        <attr name="markTextArray" format="reference" />
+        <attr name="seekBarResId" format="reference" />
+        <!-- must use 9 path ！！！-->
+        <attr name="progressHintResId" format="reference" />
+        <attr name="textPadding" format="dimension" />
+        <attr name="textSize2" format="dimension" />
+        <attr name="hintBGHeight" format="dimension" />
+        <attr name="hintBGWith" format="dimension" />
+        <attr name="hintBGPadding" format="dimension" />
+        <attr name="seekBarHeight" format="dimension" />
+        <attr name="thumbSize" format="dimension" />
+        <attr name="cellMode" format="enum">
+            <enum name="number" value="0" />
+            <enum name="other" value="1" />
+        </attr>
+        <attr name="seekBarMode" format="enum">
+            <enum name="single" value="1" />
+            <enum name="range" value="2" />
+        </attr>
+
+    </declare-styleable>
+
+    <attr name="SpinKitViewStyle" format="reference" />
+
+    <declare-styleable name="SpinKitView">
+        <attr name="SpinKit_Style">
+            <enum name="RotatingPlane" value="0" />
+            <enum name="DoubleBounce" value="1" />
+            <enum name="Wave" value="2" />
+            <enum name="WanderingCubes" value="3" />
+            <enum name="Pulse" value="4" />
+            <enum name="ChasingDots" value="5" />
+            <enum name="ThreeBounce" value="6" />
+            <enum name="Circle" value="7" />
+            <enum name="CubeGrid" value="8" />
+            <enum name="FadingCircle" value="9" />
+            <enum name="FoldingCube" value="10" />
+            <enum name="RotatingCircle" value="11" />
+            <enum name="MultiplePulse" value="12" />
+            <enum name="PulseRing" value="13" />
+            <enum name="MultiplePulseRing" value="14" />
+        </attr>
+        <attr name="SpinKit_Color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RxScaleImageView">
+        <attr name="src" format="reference" />
+        <attr name="assetName" format="string" />
+        <attr name="panEnabled" format="boolean" />
+        <attr name="zoomEnabled" format="boolean" />
+        <attr name="quickScaleEnabled" format="boolean" />
+        <attr name="tileBackgroundColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="RxCobwebView">
+
+        <attr name="spiderColor" format="color" />
+        <attr name="spiderRadiusColor" format="color" />
+        <attr name="spiderLevelColor" format="color" />
+        <attr name="spiderLevelStroke" format="boolean" />
+        <attr name="spiderRotate" format="boolean" />
+        <attr name="spiderLevelStrokeWidth" format="float" />
+        <attr name="spiderMaxLevel" format="integer" />
+        <attr name="spiderNameSize" format="dimension" />
+
+    </declare-styleable>
+
+    <declare-styleable name="ColorPickerPreference">
+        <attr name="alphaSlider" format="boolean" />
+        <attr name="lightnessSlider" format="boolean" />
+        <attr name="density" format="integer" />
+        <attr name="initialColor" format="integer" />
+        <attr name="wheelType" format="enum">
+            <enum name="FLOWER" value="0" />
+            <enum name="CIRCLE" value="1" />
+        </attr>
+        <attr name="lightnessSliderView" format="reference" />
+        <attr name="alphaSliderView" format="reference" />
+        <attr name="pickerColorEditTextColor" format="integer" />
+        <attr name="pickerTitle" format="reference|string" />
+        <attr name="pickerButtonOk" format="reference|string" />
+        <attr name="pickerButtonCancel" format="reference|string" />
+    </declare-styleable>
+
+    <declare-styleable name="RxRotateBar">
+        <attr name="ratingCenterTitle" format="string" />
+        <attr name="centerTitleSize" format="dimension" />
+        <attr name="ratingMax" format="integer" />
+        <attr name="ratingUnratedColor" format="color" />
+        <attr name="ratingRatedColor" format="color" />
+        <attr name="ratingTitleColor" format="color" />
+        <attr name="ratingOutlineColor" format="color" />
+        <attr name="ratingDefaultColor" format="color" />
+        <attr name="ratingTitleVisible" format="boolean" />
+        <attr name="ratingCenterColor" format="color" />
+    </declare-styleable>
+
+    <!-- **************************** TabLayout 自定义View 属性 **************************** -->
+
+    <!-- indicator -->
+    <!-- 设置显示器颜色 -->
+    <attr name="indicator_color" format="color" />
+    <!-- 设置显示器高度 -->
+    <attr name="indicator_height" format="dimension" />
+    <!-- 设置显示器固定宽度 -->
+    <attr name="indicator_width" format="dimension" />
+    <!-- 设置显示器margin,当indicator_width大于0,无效 -->
+    <attr name="indicator_margin_left" format="dimension" />
+    <attr name="indicator_margin_top" format="dimension" />
+    <attr name="indicator_margin_right" format="dimension" />
+    <attr name="indicator_margin_bottom" format="dimension" />
+    <!-- 设置显示器圆角弧度-->
+    <attr name="indicator_corner_radius" format="dimension" />
+    <!-- 设置显示器上方还是下方,只对圆角矩形有用-->
+    <attr name="indicator_gravity" format="enum">
+        <enum name="TOP" value="48" />
+        <enum name="BOTTOM" value="80" />
+    </attr>
+    <!-- 设置显示器为常规|三角形|背景色块|-->
+    <attr name="indicator_style" format="enum">
+        <enum name="NORMAL" value="0" />
+        <enum name="TRIANGLE" value="1" />
+        <enum name="BLOCK" value="2" />
+    </attr>
+    <!-- 设置显示器长度与title一样长,只有在STYLE_NORMAL并且indicatorWidth小于零有效-->
+    <attr name="indicator_width_equal_title" format="boolean" />
+    <!-- 设置显示器支持动画-->
+    <attr name="indicator_anim_enable" format="boolean" />
+    <!-- 设置显示器动画时间-->
+    <attr name="indicator_anim_duration" format="integer" />
+    <!-- 设置显示器支持动画回弹效果-->
+    <attr name="indicator_bounce_enable" format="boolean" />
+
+    <!-- underline -->
+    <!-- 设置下划线颜色 -->
+    <attr name="underline_color" format="color" />
+    <!-- 设置下划线高度 -->
+    <attr name="underline_height" format="dimension" />
+    <!-- 设置下划线上方还是下方-->
+    <attr name="underline_gravity" format="enum">
+        <enum name="TOP" value="48" />
+        <enum name="BOTTOM" value="80" />
+    </attr>
+
+    <!-- divider -->
+    <!-- 设置分割线颜色 -->
+    <attr name="divider_color" format="color" />
+    <!-- 设置分割线宽度 -->
+    <attr name="divider_width" format="dimension" />
+    <!-- 设置分割线的paddingTop和paddingBottom -->
+    <attr name="divider_padding" format="dimension" />
+
+    <!-- tab -->
+    <!-- 设置tab的paddingLeft和paddingRight -->
+    <attr name="tab_padding" format="dimension" />
+    <!-- 设置tab大小等分 -->
+    <attr name="tab_space_equal" format="boolean" />
+    <!-- 设置tab固定大小 -->
+    <attr name="tab_width" format="dimension" />
+
+    <!-- title -->
+    <!-- 设置字体大小 -->
+    <attr name="titlesize" format="dimension" />
+    <!-- 设置字体选中颜色 -->
+    <attr name="textSelectColor" format="color" />
+    <!-- 设置字体未选中颜色 -->
+    <attr name="textUnSelectColor" format="color" />
+    <!-- 设置字体加粗 -->
+    <attr name="textBold" format="enum">
+        <enum name="NONE" value="0" />
+        <enum name="SELECT" value="1" />
+        <enum name="BOTH" value="2" />
+    </attr>
+    <!-- 设置字体全大写 -->
+    <attr name="textAllCaps" format="boolean" />
+
+    <declare-styleable name="TGlideTabLayout">
+        <!-- indicator -->
+        <attr name="indicator_color" />
+        <attr name="indicator_height" />
+        <attr name="indicator_width" />
+        <attr name="indicator_margin_left" />
+        <attr name="indicator_margin_top" />
+        <attr name="indicator_margin_right" />
+        <attr name="indicator_margin_bottom" />
+        <attr name="indicator_corner_radius" />
+        <attr name="indicator_gravity" />
+        <attr name="indicator_style" />
+        <attr name="indicator_width_equal_title" />
+
+        <!-- underline -->
+        <attr name="underline_color" />
+        <attr name="underline_height" />
+        <attr name="underline_gravity" />
+
+        <!-- divider -->
+        <attr name="divider_color" />
+        <attr name="divider_width" />
+        <attr name="divider_padding" />
+
+        <!-- tab -->
+        <attr name="tab_padding" />
+        <attr name="tab_space_equal" />
+        <attr name="tab_width" />
+
+        <!-- title -->
+        <attr name="titlesize" />
+        <attr name="textSelectColor" />
+        <attr name="textUnSelectColor" />
+        <attr name="textBold" />
+        <attr name="textAllCaps" />
+
+    </declare-styleable>
+
+    <declare-styleable name="TTabLayout">
+        <!-- indicator -->
+        <attr name="indicator_color" />
+        <attr name="indicator_height" />
+        <attr name="indicator_width" />
+        <attr name="indicator_margin_left" />
+        <attr name="indicator_margin_top" />
+        <attr name="indicator_margin_right" />
+        <attr name="indicator_margin_bottom" />
+        <attr name="indicator_corner_radius" />
+        <attr name="indicator_gravity" />
+        <attr name="indicator_style" />
+        <attr name="indicator_anim_enable" />
+        <attr name="indicator_anim_duration" />
+        <attr name="indicator_bounce_enable" />
+
+        <!-- underline -->
+        <attr name="underline_color" />
+        <attr name="underline_height" />
+        <attr name="underline_gravity" />
+
+        <!-- divider -->
+        <attr name="divider_color" />
+        <attr name="divider_width" />
+        <attr name="divider_padding" />
+
+        <!-- tab -->
+        <attr name="tab_padding" />
+        <attr name="tab_space_equal" />
+        <attr name="tab_width" />
+
+        <!-- title -->
+        <attr name="titlesize" />
+        <attr name="textSelectColor" />
+        <attr name="textUnSelectColor" />
+        <attr name="textBold" />
+        <attr name="textAllCaps" />
+
+        <!-- icon -->
+        <!-- 设置icon宽度 -->
+        <attr name="iconWidth" format="dimension" />
+        <!-- 设置icon高度 -->
+        <attr name="iconHeight" format="dimension" />
+        <!-- 设置icon是否可见 -->
+        <attr name="iconVisible" format="boolean" />
+        <!-- 设置icon显示位置,对应Gravity中常量值 -->
+        <attr name="icon_gravity" format="enum">
+            <enum name="LEFT" value="3" />
+            <enum name="TOP" value="48" />
+            <enum name="RIGHT" value="5" />
+            <enum name="BOTTOM" value="80" />
+        </attr>
+        <!-- 设置icon与文字间距 -->
+        <attr name="iconMargin" format="dimension" />
+
+    </declare-styleable>
+
+    <declare-styleable name="TSectionTabLayout">
+        <!-- indicator -->
+        <attr name="indicator_color" />
+        <attr name="indicator_height" />
+        <attr name="indicator_margin_left" />
+        <attr name="indicator_margin_top" />
+        <attr name="indicator_margin_right" />
+        <attr name="indicator_margin_bottom" />
+        <attr name="indicator_corner_radius" />
+        <attr name="indicator_anim_enable" />
+        <attr name="indicator_anim_duration" />
+        <attr name="indicator_bounce_enable" />
+
+        <!-- divider -->
+        <attr name="divider_color" />
+        <attr name="divider_width" />
+        <attr name="divider_padding" />
+
+        <!-- tab -->
+        <attr name="tab_padding" />
+        <attr name="tab_space_equal" />
+        <attr name="tab_width" />
+
+        <!-- title -->
+        <attr name="titlesize" />
+        <attr name="textSelectColor" />
+        <attr name="textUnSelectColor" />
+        <attr name="textBold" />
+        <attr name="textAllCaps" />
+
+        <attr name="bar_color" format="color" />
+        <attr name="bar_stroke_color" format="color" />
+        <attr name="bar_stroke_width" format="dimension" />
+
+    </declare-styleable>
+
+    <declare-styleable name="MsgView">
+        <!-- 圆角矩形背景色 -->
+        <attr name="mv_backgroundColor" format="color" />
+        <!-- 圆角弧度,单位dp-->
+        <attr name="mv_cornerRadius" format="dimension" />
+        <!-- 圆角弧度,单位dp-->
+        <attr name="mv_strokeWidth" format="dimension" />
+        <!-- 圆角边框颜色-->
+        <attr name="mv_strokeColor" format="color" />
+        <!-- 圆角弧度是高度一半-->
+        <attr name="mv_isRadiusHalfHeight" format="boolean" />
+        <!-- 圆角矩形宽高相等,取较宽高中大值-->
+        <attr name="mv_isWidthHeightEqual" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TCrossView">
+        <attr name="lineColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TimeRulerView">
+        <attr name="linesColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TVideoTimeline">
+        <!--时间尺中间刻度条颜色-->
+        <attr name="middleCursorColor" format="color" />
+        <!--时间刻度文字颜色-->
+        <attr name="recordTextColor" format="color" />
+        <!--含有录像背景颜色-->
+        <attr name="recordBackgroundColor" format="color" />
+        <!--含有时间尺边框及刻度条颜色-->
+        <attr name="timebarColor" format="color" />
+
+
+    </declare-styleable>
+
+    <declare-styleable name="TIndicator">
+        <attr name="dotCount" format="integer" />
+        <attr name="fadingDotCount" format="integer" />
+        <attr name="dotRadius" format="dimension" />
+        <attr name="selectedDotRadius" format="dimension" />
+        <attr name="dotColor" format="color" />
+        <attr name="selectedDotColor" format="color" />
+        <attr name="dotSeparation" format="dimension" />
+        <attr name="supportRTL" format="boolean" />
+        <attr name="verticalSupport" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TStepperIndicator" tools:ignore="ResourceName">
+        <attr name="stpi_stepCount" format="integer" />
+        <attr name="stpi_animDuration" format="integer" />
+
+        <attr name="stpi_circleColor" format="color" />
+        <attr name="stpi_circleRadius" format="dimension" />
+        <attr name="stpi_circleStrokeWidth" format="dimension" />
+
+        <attr name="stpi_indicatorColor" format="color" />
+        <attr name="stpi_indicatorRadius" format="dimension" />
+
+        <attr name="stpi_lineColor" format="color" />
+        <attr name="stpi_lineDoneColor" format="color" />
+        <attr name="stpi_lineStrokeWidth" format="dimension" />
+        <attr name="stpi_lineMargin" format="dimension" />
+
+        <attr name="stpi_showDoneIcon" format="boolean" />
+        <attr name="stpi_showStepNumberInstead" format="boolean" />
+        <attr name="stpi_doneIconDrawable" format="reference" />
+
+        <attr name="stpi_useBottomIndicator" format="boolean" />
+        <attr name="stpi_useBottomIndicatorWithStepColors" format="boolean" />
+        <attr name="stpi_bottomIndicatorHeight" format="dimension" />
+        <attr name="stpi_bottomIndicatorWidth" format="dimension" />
+        <attr name="stpi_bottomIndicatorMarginTop" format="dimension" />
+
+        <attr name="stpi_stepsCircleColors" format="reference" />
+        <attr name="stpi_stepsIndicatorColors" format="reference" />
+
+        <attr name="stpi_labels" format="reference" />
+        <attr name="stpi_showLabels" format="boolean" />
+        <attr name="stpi_labelMarginTop" format="dimension" />
+        <attr name="stpi_labelSize" format="dimension" />
+        <attr name="stpi_labelColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TLoadingView">
+        <attr name="width_weight" format="float" />
+        <attr name="height_weight" format="float" />
+        <attr name="gradient" format="boolean" />
+        <attr name="corners" format="integer" />
+        <attr name="TLoadingColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="TBlurView">
+        <attr name="blurSrc" format="reference" />
+        <!-- 设置显示器动画时间-->
+        <attr name="blurDelayTime" format="integer" />
+        <attr name="blurRadius" format="integer" />
     </declare-styleable>
 
 </resources>

@@ -16,6 +16,7 @@ import com.feisukj.cleaning.bean.ImageBean
 import com.feisukj.cleaning.bean.TitleBean_Group
 import com.feisukj.cleaning.file.DirNextFileCallback
 import com.feisukj.cleaning.file.FileManager
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.UIConst
 import com.feisukj.cleaning.utils.*
 import kotlinx.android.synthetic.main.act_photo_clean_.*
@@ -83,9 +84,9 @@ class PhotoActivity : BaseActivity2(), BaseSectionAdapter.ItemSelectListener<Tit
             return
         }else{
             if (path!=null){
-                listOf(File(path))
+                listOf(FileR(path))
             }else if (!paths.isNullOrEmpty()){
-                paths.map { File(it) }
+                paths.map { FileR(it) }
             }else{
                 return
             }

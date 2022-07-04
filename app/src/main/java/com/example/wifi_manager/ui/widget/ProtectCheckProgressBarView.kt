@@ -17,7 +17,6 @@ import com.example.module_base.utils.SizeUtils
 import com.example.wifi_manager.R
 import com.example.wifi_manager.base.BaseView
 import com.example.wifi_manager.utils.StepState
-import com.tamsiree.rxkit.RxDeviceTool
 
 /**
  * @author: 铭少

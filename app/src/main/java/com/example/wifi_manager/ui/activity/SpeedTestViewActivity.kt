@@ -8,8 +8,8 @@ import com.example.module_base.extensions.noFinishShow
 import com.example.module_base.utils.*
 import com.example.wifi_manager.utils.*
 import com.example.wifi_manager.viewmodel.SpeedTestViewModel
-import com.tamsiree.rxkit.RxNetTool
-import com.tamsiree.rxui.view.dialog.RxDialogSureCancel
+import com.example.module_base.utils.Rx.RxNetTool
+import com.feisukj.base.widget.Rx.RxDialogSureCancel
 import java.text.DecimalFormat
 
 class SpeedTestViewActivity : BaseVmViewActivity<ActivitySpeedTestBinding,SpeedTestViewModel>() {

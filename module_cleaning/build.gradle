@@ -57,5 +57,7 @@ dependencies {
     implementation project(path: ':module_battery')
     implementation project(path: ':module_ad')
     implementation 'com.google.android.material:material:1.2.1'
+
+    implementation 'androidx.documentfile:documentfile:1.0.1'
 }
 

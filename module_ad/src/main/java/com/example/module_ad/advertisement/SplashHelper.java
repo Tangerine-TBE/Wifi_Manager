@@ -11,7 +11,7 @@ import com.example.module_ad.utils.StartActivityUtil;
 import com.example.module_base.base.BaseApplication;
 
 import com.example.module_user.utils.UserInfoUtil;
-import com.tamsiree.rxkit.RxNetTool;
+import com.example.module_base.utils.Rx.RxNetTool;
 
 
 public class SplashHelper {

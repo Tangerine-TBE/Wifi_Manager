@@ -21,6 +21,7 @@ import com.feisukj.cleaning.bean.AllFileBean
 import com.feisukj.cleaning.bean.TitleBean_Group
 import com.feisukj.cleaning.file.DirNextFileCallback
 import com.feisukj.cleaning.file.FileManager
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.UIConst
 import com.feisukj.cleaning.utils.toAppOpenFile
 import com.feisukj.cleaning.view.SmallLoading
@@ -229,7 +230,7 @@ class FileFragment : BaseFragment(), BaseSectionAdapter.ItemSelectListener<Title
     }
 
     private fun requestData(paths:List<String>){
-        val f=paths.map { File(it) }
+        val f=paths.map { FileR(it) }
 
         val format=arguments?.getStringArrayList(FILE_FORMAT_KEY)
 

@@ -14,12 +14,14 @@ import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.view.animation.ScaleAnimation
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.module_base.BuildConfig
 import com.example.module_base.cleanbase.BaseConstant
 import com.example.module_base.cleanbase.PackageUtils
 import com.example.module_base.cleanbase.SectionData
 import com.example.module_base.cleanbase.toast
+import com.example.module_base.utils.PermissionUtils
 import com.example.module_base.utils.checkAppPermission
 import com.example.module_base.utils.showToast
 
@@ -29,11 +31,16 @@ import com.feisukj.cleaning.bean.GarbageItemBean
 import com.feisukj.cleaning.bean.GarbageSectionData
 import com.feisukj.cleaning.bean.TitleBean_Group
 import com.feisukj.cleaning.file.*
+import com.feisukj.cleaning.filevisit.DocumentFileUtil
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.ui.activity.*
 import com.feisukj.cleaning.ui.activity.BatteryInfoActivity
 import com.feisukj.cleaning.utils.formatFileSize
 import com.feisukj.cleaning.utils.getInstallAppPackageName
 import com.gyf.immersionbar.ImmersionBar
+import com.hjq.permissions.Permission
+import com.hjq.permissions.XXPermissions
+import com.permissionx.guolindev.PermissionX
 import kotlinx.android.synthetic.main.fragment_home_clean.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -51,8 +58,8 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
         val adapterData= ArrayList<SectionData<TitleBean_Group, GarbageBean>>()
         const val TO_SEE_DETAILS_CODE=3
         const val CLEAN_ALREADY_CODE=200
-        private var isFirstStart=true
         private const val TO_COMPLETE_ACTIVITY=101
+        private const val REQUEST_DIR_CODE=21
         private const val RED_ICON_SP="red_ic_s"
         private const val SAVE_IDS_KEY="save_ids_k"
         private val currentDate=SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).format(Date())
@@ -153,16 +160,9 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        topCleanView.setPadding(0, ImmersionBar.getStatusBarHeight(this),0,0)
+        topCleanView.setPadding(0,ImmersionBar.getStatusBarHeight(this),0,0)
         initListener()
         updateUIState()
-        activity?.let {
-
-        }
-        if (isFirstStart){
-            startScanning()
-        }
-        isFirstStart=false
 
         sharedPreferences?.let { preferences ->
             val t=getTodayRedIconIndex(preferences).map {
@@ -194,11 +194,11 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
         title_text.text ="清理"
 
 
-        checkAppPermission(askStoragePermissionLis,{
-            FileManager.start()
-        },{
-            showToast("我们将无法为您提清理服务！！！")
-        },fragment = this)
+//        checkAppPermission(askStoragePermissionLis,{
+//            FileManager.start()
+//        },{
+//            showToast("我们将无法为您提清理服务！！！")
+//        },fragment = this)
 
 
     }
@@ -267,7 +267,15 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
         }
         //手机瘦身
         loseWeight.setOnClickListener {
-            startActivity(Intent(context,PhoneLoseActivity::class.java))
+            context?.apply {
+                PermissionUtils.askPermission(this@CleanFragment,"我们将向您申请存储权限，扫描手机文件需要用到该权限", arrayListOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE), granted = {
+                    checkPermissionR {
+                        startActivity(Intent(context,PhoneLoseActivity::class.java))
+                    }
+                }, denied = {
+
+                })
+            }
         }
         //查看详情
         seeDetails.setOnClickListener {
@@ -280,65 +288,100 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
         }
         //一键清理
         cleanButton_bg.setOnClickListener {
-            if (currentState==ScanState.noScan||currentState==ScanState.cleanComplete){
-                startScanning()
-            }else if (currentState==ScanState.runScan){
-                toast("正在扫描中...")
-                return@setOnClickListener
-            }else if (currentState==ScanState.completeScan){
-                currentState=ScanState.cleanComplete
-                val intent=Intent(context, CleanAnimatorActivity::class.java)
-                intent.putExtra(CompleteActivity.SIZE_KEY,totalGarbageSize)
-                startActivityForResult(intent,TO_COMPLETE_ACTIVITY)
-                Thread {
-                    kotlin.run {
-                        adapterData.flatMap {
-                            it.getItemData()
-                        }.flatMap {
-                            it.getItems()
-                        }.flatMap {
-                            it.getFiles()
-                        }.forEach {
-                            if (!BuildConfig.DEBUG){
-                                it.delete()
-                            }
-                        }
+            context?.apply {
+                PermissionUtils.askPermission(this@CleanFragment,"我们将向您申请存储权限，扫描手机文件需要用到该权限", arrayListOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE), granted = {
+                    checkPermissionR {
+                        if (currentState==ScanState.noScan||currentState==ScanState.cleanComplete){
+                            startScanning()
+                        }else if (currentState==ScanState.runScan){
+                            toast("正在扫描中...")
+                            return@checkPermissionR
+                        }else if (currentState==ScanState.completeScan){
+                            currentState=ScanState.cleanComplete
+                            val intent=Intent(context, CleanAnimatorActivity::class.java)
+                            intent.putExtra(CompleteActivity.SIZE_KEY,totalGarbageSize)
+                            startActivityForResult(intent,TO_COMPLETE_ACTIVITY)
+                            Thread {
+                                kotlin.run {
+                                    adapterData.flatMap {
+                                        it.getItemData()
+                                    }.flatMap {
+                                        it.getItems()
+                                    }.flatMap {
+                                        it.getFiles()
+                                    }.forEach {
+                                        if (!BuildConfig.DEBUG){
+                                            it.delete()
+                                        }
+                                    }
 
-                        activity?.runOnUiThread {
-                            totalGarbageSize=0L
-                            adapterData.clear()
+                                    activity?.runOnUiThread {
+                                        totalGarbageSize=0L
+                                        adapterData.clear()
+                                    }
+                                }
+                            }.start()
                         }
                     }
-                }.start()
+                }, denied = {
+
+                })
             }
         }
         //微信专清
         wechat.setOnClickListener {
-            redAction.invoke(it)
-            val intent= Intent(context, WeChatAndQQCleanActivity::class.java)
+            context?.apply {
+                PermissionUtils.askPermission(this@CleanFragment,"我们将向您申请存储权限，扫描手机文件需要用到该权限", arrayListOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE), granted = {
+                    checkPermissionR {
+                        redAction.invoke(it)
+                        val intent= Intent(context, WeChatAndQQCleanActivity::class.java)
+                        intent.putExtra(WeChatAndQQCleanActivity.KEY, WeChatAndQQCleanActivity.WE_CHAT)
+                        startActivity(intent)
+                    }
+                }, denied = {
 
-            intent.putExtra(WeChatAndQQCleanActivity.KEY, WeChatAndQQCleanActivity.WE_CHAT)
-            startActivity(intent)
+                })
+            }
         }
         //QQ专清
         qq.setOnClickListener {
-            redAction.invoke(it)
-            val intent=Intent(context,WeChatAndQQCleanActivity::class.java)
+            context?.apply {
+                PermissionUtils.askPermission(this@CleanFragment,"我们将向您申请存储权限，扫描手机文件需要用到该权限", arrayListOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE), granted = {
+                    checkPermissionR {
+                        redAction.invoke(it)
+                        val intent=Intent(context,WeChatAndQQCleanActivity::class.java)
+                        intent.putExtra(WeChatAndQQCleanActivity.KEY, WeChatAndQQCleanActivity.QQ)
+                        startActivity(intent)
+                    }
+                }, denied = {
 
-            intent.putExtra(WeChatAndQQCleanActivity.KEY, WeChatAndQQCleanActivity.QQ)
-            startActivity(intent)
+                })
+            }
         }
         //通知栏清理
         notification.setOnClickListener {
-            redAction.invoke(it)
-
-            startActivity(Intent(context, NotificationCleanActivity::class.java))
+            context?.apply {
+//                PermissionUtils.askPermission(this@CleanFragment,"我们将向您申请存储权限，扫描手机文件需要用到该权限", arrayListOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE), granted = {
+                    redAction.invoke(it)
+                    startActivity(Intent(context, NotificationCleanActivity::class.java))
+//                }, denied = {
+//
+//                })
+            }
         }
         //图片专清
         picture.setOnClickListener {
-            redAction.invoke(it)
+            context?.apply {
+                PermissionUtils.askPermission(this@CleanFragment,"我们将向您申请存储权限，扫描手机文件需要用到该权限", arrayListOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE), granted = {
+                    checkPermissionR {
+                        redAction.invoke(it)
+                        startActivity(Intent(context, PhotoCleanActivity::class.java))
+                    }
+                }, denied = {
 
-            startActivity(Intent(context, PhotoCleanActivity::class.java))
+                })
+            }
+
         }
 
         if (BaseConstant.channel=="_oppo"){
@@ -351,10 +394,17 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
             startActivity(Intent(context, AppActivity2::class.java))
         }
         shortVideo.setOnClickListener {
-            redAction.invoke(it)
-            //短视频
+            context?.apply {
+                PermissionUtils.askPermission(this@CleanFragment,"我们将向您申请存储权限，扫描手机文件需要用到该权限", arrayListOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE), granted = {
+                    checkPermissionR {
+                        redAction.invoke(it)
+                        //短视频
+                        startActivity(Intent(context, ShortVideoDesActivity2::class.java))
+                    }
+                }, denied = {
 
-            startActivity(Intent(context, ShortVideoDesActivity2::class.java))
+                })
+            }
         }
 
         //全盘杀毒
@@ -399,12 +449,32 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
         }
     }
 
+    private fun checkPermissionR(toDo:()->Unit){
+        if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.R&&!DocumentFileUtil.isDataDirPermission(requireContext())){
+            AlertDialog.Builder(requireContext())
+                .setMessage("由于系统升级，应用部分功能无法使用，需要授权使用手机的文件夹，是否前去授权")
+                .setTitle("申请权限")
+                .setPositiveButton("去申请") { _, _ ->
+                    DocumentFileUtil.requestDataDocument(this,REQUEST_DIR_CODE)
+                }
+                .setNegativeButton("取消"){_,_->
+                    toDo.invoke()
+                }
+                .show()
+        }else{
+            toDo.invoke()
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode==TO_SEE_DETAILS_CODE&&resultCode==CLEAN_ALREADY_CODE){
             currentState=ScanState.cleanComplete
         }
         if (requestCode==TO_COMPLETE_ACTIVITY){
 
+        }
+        if(requestCode==REQUEST_DIR_CODE){
+            DocumentFileUtil.onActivityResult(this,data?:return)
         }
     }
 
@@ -448,7 +518,6 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
                                 }
                             }
                         }
-
                     }
                 },5,5)
             }
@@ -540,8 +609,8 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
                 }
                 val cacheGarbage=GarbageBean(packageName,null)
                 garbageItems[packageName]?.map { GarbageItemBean(it.path,it.des) }?.forEach {
-                    FileManager.scanDirFile(File(it.path),{this},{true},object :DirNextFileCallback<File>{
-                        override fun onNextFile(item: File) {
+                    FileManager.scanDirFile(FileR(it.path),{this},{true},object :DirNextFileCallback<FileR>{
+                        override fun onNextFile(item: FileR) {
                             it.addFile(item)
                         }
                     })
@@ -573,8 +642,8 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
                 }
                 val unInstallGarbage=unInstall.getItemData().find { it.packageName==garbage.packageName }?:GarbageBean(garbage.packageName,garbage.appName)
                 val unInstallGarbageItem=GarbageItemBean(garbage.path,garbage.des)
-                FileManager.scanDirFile(File(garbage.path),{this},{true},object :DirNextFileCallback<File>{
-                    override fun onNextFile(item: File) {
+                FileManager.scanDirFile(FileR(garbage.path),{this},{true},object :DirNextFileCallback<FileR>{
+                    override fun onNextFile(item: FileR) {
                         unInstallGarbageItem.addFile(item)
                     }
                 })
@@ -602,8 +671,8 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
                     val adGarbageItem=GarbageBean(itemAd.first().packageName,itemAd.first().appName)
                     itemAd.forEach {
                         val garbageItem=GarbageItemBean(it.path,it.des)
-                        FileManager.scanDirFile(File(it.path),{this},{true},object :DirNextFileCallback<File>{
-                            override fun onNextFile(item: File) {
+                        FileManager.scanDirFile(FileR(it.path),{this},{true},object :DirNextFileCallback<FileR>{
+                            override fun onNextFile(item: FileR) {
                                 garbageItem.addFile(item)
                             }
                         })
@@ -623,13 +692,13 @@ class CleanFragment:Fragment(R.layout.fragment_home_clean) {
                 totalGarbageSize+=appBean.fileSize
                 if (appBean.isInstall){
                     val g=GarbageBean(appBean.packageName,appBean.label,appBean.absolutePath.hashCode())
-                    val a=GarbageItemBean(appBean.absolutePath,"").also { it.addFile(File(appBean.absolutePath)) }
+                    val a=GarbageItemBean(appBean.absolutePath,"").also { it.addFile(FileR(appBean.absolutePath)) }
                     g.addItem(a)
                     installedApk.addItem(g)
                 }else{
                     val g=GarbageBean(appBean.packageName,appBean.label,appBean.absolutePath.hashCode())
                     g.icon=appBean.icon?.get()
-                    val a=GarbageItemBean(appBean.absolutePath,"").also { it.addFile(File(appBean.absolutePath)) }
+                    val a=GarbageItemBean(appBean.absolutePath,"").also { it.addFile(FileR(appBean.absolutePath)) }
                     g.addItem(a)
                     unInstalledApk.addItem(g)
                 }

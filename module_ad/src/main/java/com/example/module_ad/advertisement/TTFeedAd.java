@@ -10,11 +10,11 @@ import com.bytedance.sdk.openadsdk.TTAdDislike;
 import com.bytedance.sdk.openadsdk.TTAdNative;
 import com.bytedance.sdk.openadsdk.TTAppDownloadListener;
 import com.bytedance.sdk.openadsdk.TTNativeExpressAd;
+import com.example.module_ad.utils.DeviceUtils;
 import com.example.module_base.base.BaseApplication;
 import com.example.module_base.utils.LogUtils;
 import com.example.module_base.utils.SizeUtils;
-import com.tamsiree.rxkit.RxDeviceTool;
-import com.tamsiree.rxkit.RxNetTool;
+import com.example.module_base.utils.Rx.RxNetTool;
 
 import java.util.List;
 
@@ -42,8 +42,8 @@ public class TTFeedAd extends AdWatcher {
             return;
         }
         mFeedAdContainer.removeAllViews();
-        mExpressViewWidth = RxDeviceTool.getScreenWidth(mActivity);
-        int screenHeight = RxDeviceTool.getScreenHeight(mActivity);
+        mExpressViewWidth = DeviceUtils.getScreenWidth(mActivity);
+        int screenHeight = DeviceUtils.getScreenHeight(mActivity);
         float expressViewHeight = SizeUtils.fitFeedHeight(screenHeight);
         LogUtils.i("高-------------->"+screenHeight);
         LogUtils.i("宽-------------->"+ mExpressViewWidth);

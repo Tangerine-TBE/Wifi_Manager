@@ -70,11 +70,11 @@ dependencies {
     //BaseRecyclerView
     api rootProject.ext.dependencies["BaseRecyclerView"]
     //RxTool
-    api rootProject.ext.dependencies["RxTool"]
+//    api rootProject.ext.dependencies["RxTool"]
     //RxFeature
-    api rootProject.ext.dependencies["RxFeature"]
+//    api rootProject.ext.dependencies["RxFeature"]
     //RxUI
-    api rootProject.ext.dependencies["RxUI"]
+//    api rootProject.ext.dependencies["RxUI"]
     //smartRefresh
     api rootProject.ext.dependencies["smartRefresh"]
     //smartRefreshHeaderMaterial
@@ -110,10 +110,12 @@ dependencies {
 //    api rootProject.ext.dependencies["umeng_asms"]
 //    api rootProject.ext.dependencies["umeng_crash"]
     //友盟统计
-    api  'com.umeng.umsdk:common:9.4.2'// 必选
+    api  'com.umeng.umsdk:common:9.4.7'// 必选
     api  'com.umeng.umsdk:asms:1.4.1'// 必选
-    api 'com.umeng.umsdk:apm:1.4.2' // 错误分析升级为独立产品U-APM可按需集成，可选
+    api 'com.umeng.umsdk:apm:1.5.2' // 错误分析升级为独立产品U-APM可按需集成，可选
     api  'com.umeng.umsdk:abtest:1.0.0'//使用U-App中ABTest能力，可选
+
+    implementation 'com.google.zxing:core:3.3.0'
 
 
 

@@ -1,5 +1,6 @@
 package com.feisukj.cleaning.file
 
+import com.feisukj.cleaning.filevisit.FileR
 import com.feisukj.cleaning.utils.Constant
 import com.feisukj.cleaning.utils.isImageFile
 import java.io.File
@@ -14,7 +15,7 @@ enum class FileType(vararg val format:String) {
     txt(".txt"),
     apk(".apk"),
     bigFile();
-    fun isContain(file: File):Boolean{
+    fun isContain(file: FileR):Boolean{
         return when(this){
             bigFile -> {
                 file.length().shr(20)>10
